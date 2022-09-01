@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\FichesController;
+use App\Http\Controllers\ConducteursController;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,3 +16,5 @@ use App\Http\Controllers\FichesController;
 */
 
 Route::get("/fiches", [FichesController::class, "index"])->name("fiches.index");
+
+Route::get("/conducteurs", [ConducteursController::class, "index"])->name("conducteurs.index");
