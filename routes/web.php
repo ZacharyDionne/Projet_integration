@@ -17,6 +17,11 @@ use App\Http\Controllers\EmployeursController;
 |
 */
 
+Route::get('/', function () {
+    // retourne la vue index.blade.php
+    return view('index');
+});
+
 Route::get("/fiches", [FichesController::class, "index"])->name("fiches.index");
 
 Route::get("/conducteurs", [ConducteursController::class, "index"])->name("conducteurs.index");
