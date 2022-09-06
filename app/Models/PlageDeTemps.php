@@ -5,20 +5,18 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Fiche extends Model
+class PlageDeTemps extends Model
 {
     use HasFactory;
 
-
     public function up()
     {
-        Schema::create('fiches', function (Blueprint $table)
+        Schema::create('plagesdetemps', function (Blueprint $table)
         {
             $table->id();
-            $table->string('observation', 255);
-            $table->string('cycle', 12);
-            $table->date('date');
-            $table->boolean('complete');
+            $table->time('heureDebut');
+            $table->time('heureFin');
+            $table->integer('type',1);
             $table->timestamps();     
         });
     }
