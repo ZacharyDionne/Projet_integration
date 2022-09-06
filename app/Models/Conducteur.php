@@ -18,8 +18,8 @@ class Conducteur extends Model
             $table->string("nom", 20);
             $table->string("matricule", 6);
             $table->string("adresseCourriel", 80);
-            $table->text("");
-
+            $table->text("motDePasse");
+            $table->timestamp();
         });  
     }
 
