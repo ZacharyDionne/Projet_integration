@@ -10,6 +10,11 @@ class Fiche extends Model
     use HasFactory;
 
 
+    public function conducteur() : BelongsTo
+    {
+        return $this->belongsTo("App/Models/Conducteur");
+    }
+
     public function up()
     {
         Schema::create('fiches', function (Blueprint $table)
