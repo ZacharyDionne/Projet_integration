@@ -18,4 +18,9 @@ class TypeTemps extends Model
             $table->timestamps();     
         });
     }
+
+    public function plageDeTemps() : HasMany
+    {
+        return $this->hasMany('App\PlageDeTemps');
+    }
 }

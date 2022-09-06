@@ -20,4 +20,9 @@ class PlageDeTemps extends Model
             $table->timestamps();     
         });
     }
+
+    public function typeTemps(): belongTo
+    {
+        return $this->belongTo('App\TypeTemps');
+    }
 }
