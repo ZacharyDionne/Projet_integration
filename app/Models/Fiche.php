@@ -10,6 +10,11 @@ class Fiche extends Model
     use HasFactory;
 
 
+    public function conducteur() : BelongsTo
+    {
+        return $this->belongsTo("App/Models/Conducteur");
+    }
+
     public function up()
     {
         Schema::create('fiches', function (Blueprint $table)
@@ -19,6 +24,7 @@ class Fiche extends Model
             $table->string('cycle', 12);
             $table->date('date');
             $table->boolean('complete');
+            $table->timestamps();     
         });
     }
 }

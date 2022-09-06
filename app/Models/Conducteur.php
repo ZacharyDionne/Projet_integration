@@ -9,6 +9,15 @@ class Conducteur extends Model
 {
     use HasFactory;
 
+
+
+    public function fiches() : HasMany
+    {
+        return $this->hasMany("App/Models/Fiche");
+    }
+
+
+
     public function up()
     {
         Schema::create("conducteurs", function (Blueprint $table) {
