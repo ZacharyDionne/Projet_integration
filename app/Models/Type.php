@@ -18,4 +18,9 @@ class Type extends Model
             $table->timestamps();
         });
     }
+
+    public function employeurs() : HasMany
+    {
+        return $this->hasMany('App\Employeur');
+    }
 }

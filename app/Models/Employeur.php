@@ -20,4 +20,9 @@ class Employeur extends Model
             $table->timestamp();
         });  
     }
+
+    public function type()
+    {
+        return $this->belongsTo('App\Models\Type');
+    }
 }
