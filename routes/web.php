@@ -17,9 +17,14 @@ use App\Http\Controllers\EmployeursController;
 |
 */
 
+// Page d'accueil
 Route::get('/', function () {
-    // retourne la vue index.blade.php
     return view('index');
+});
+
+// Page de connexion
+Route::get('/connexion', function () {
+    return view('connexion.login');
 });
 
 Route::get("/fiches", [FichesController::class, "index"])->name("fiches.index");
