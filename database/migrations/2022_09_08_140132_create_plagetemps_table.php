@@ -15,7 +15,10 @@ return new class extends Migration
     {
         Schema::create('plagetemps', function (Blueprint $table) {
             $table->id();
-            $table->timestamps();
+            $table->time('heureDebut');
+            $table->time('heureFin');
+            $table->integer('type',1);
+            $table->timestamps(); 
         });
     }
 
