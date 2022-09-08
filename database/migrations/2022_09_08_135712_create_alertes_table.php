@@ -15,6 +15,10 @@ return new class extends Migration
     {
         Schema::create('alertes', function (Blueprint $table) {
             $table->id();
+            $table->string('matricule', 6);
+            $table->string('message', 255);
+            $table->boolean('actif');
+            $table->date('date');
             $table->timestamps();
         });
     }

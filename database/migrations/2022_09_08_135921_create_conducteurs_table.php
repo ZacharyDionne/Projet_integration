@@ -15,7 +15,13 @@ return new class extends Migration
     {
         Schema::create('conducteurs', function (Blueprint $table) {
             $table->id();
-            $table->timestamps();
+            $table->boolean("actif");
+            $table->string("prenom", 20);
+            $table->string("nom", 20);
+            $table->string("matricule", 6);
+            $table->string("adresseCourriel", 80);
+            $table->text("motDePasse");
+            $table->timestamp();
         });
     }
 
