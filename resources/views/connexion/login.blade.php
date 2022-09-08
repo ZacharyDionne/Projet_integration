@@ -35,13 +35,13 @@
                     Ouvrir une session
 					</span>
 
-					<div class="wrap-input100 validate-input m-b-16" data-validate="Please enter username">
-						<input class="input100" type="text" name="username" placeholder="Username">
+					<div class="wrap-input100 validate-input m-b-16" data-validate="Veuillez saisir votre adresse courriel">
+						<input class="input100" type="email" name="email" placeholder="Adresse courriel">
 						<span class="focus-input100"></span>
 					</div>
 
-					<div class="wrap-input100 validate-input " data-validate = "Please enter password">
-						<input class="input100" type="password" name="pass" placeholder="Password">
+					<div class="wrap-input100 validate-input " data-validate = "Veuillez saisir votre mot de passe">
+						<input class="input100" type="password" name="pass" placeholder="Mot de passe">
 						<span class="focus-input100"></span>
 					</div>
 
