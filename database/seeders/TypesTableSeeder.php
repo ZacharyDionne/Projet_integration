@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use DB;
 
 class TypesTableSeeder extends Seeder
 {
@@ -14,6 +15,14 @@ class TypesTableSeeder extends Seeder
      */
     public function run()
     {
-        //
+        DB::table("type")->insert(
+            [
+                ["type" => "contre-maître"],
+                ["type" => "administrateur"]
+
+
+
+            ]
+        );
     }
 }
