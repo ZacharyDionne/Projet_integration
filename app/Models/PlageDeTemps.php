@@ -11,7 +11,7 @@ class PlageDeTemps extends Model
 
     public function up()
     {
-        Schema::create('plagesdetemps', function (Blueprint $table)
+        Schema::create('plagedetemps', function (Blueprint $table)
         {
             $table->id();
             $table->time('heureDebut');

@@ -11,10 +11,10 @@ class TypeTemps extends Model
 
     public function up()
     {
-        Schema::create('typeTemps', function (Blueprint $table)
+        Schema::create('typetemps', function (Blueprint $table)
         {
             $table->id();
-            $table->string('typeTemps', 100);
+            $table->string('type', 100);
             $table->timestamps();     
         });
     }
