@@ -18,7 +18,7 @@ class Employeur extends Model
             $table->string("adresseCourriel", 80);
             $table->text("motDePasse");
             $table->boolean("actif");
-            $table->timestamp();
+            $table->timestamps();
         });  
     }
 

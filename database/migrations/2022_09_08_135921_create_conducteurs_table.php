@@ -21,7 +21,7 @@ return new class extends Migration
             $table->string("matricule", 6);
             $table->string("adresseCourriel", 80);
             $table->text("motDePasse");
-            $table->timestamp();
+            $table->timestamps();
         });
     }
 

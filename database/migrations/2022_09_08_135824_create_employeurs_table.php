@@ -20,9 +20,10 @@ return new class extends Migration
             $table->string("adresseCourriel", 80);
             $table->text("motDePasse");
             $table->boolean("actif");
-            $table->timestamp();
+            $table->timestamps();
         });
     }
+    
 
     /**
      * Reverse the migrations.
