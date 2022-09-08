@@ -15,6 +15,10 @@ return new class extends Migration
     {
         Schema::create('fiches', function (Blueprint $table) {
             $table->id();
+            $table->string('observation', 255);
+            $table->string('cycle', 12);
+            $table->date('date');
+            $table->boolean('complete');
             $table->timestamps();
         });
     }
