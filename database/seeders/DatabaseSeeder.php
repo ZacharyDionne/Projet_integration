@@ -18,6 +18,16 @@ class DatabaseSeeder extends Seeder
         $this->call(TypeTempsTableSeeder::class);
         $this->call(PlageDeTempsTableSeeder::class);
 
+        $this->call(ConducteursTableSeeder::class);
+        //$this->call(FichesTableSeeder::class);
+
+        //$this->call(EmployeursTableSeeder::class);
+        //$this->call(TypesTableSeeder::class);
+
+        //$this->call(AlertesTableSeeder::class);
+
+       
+
         // \App\Models\User::factory(10)->create();
 
         // \App\Models\User::factory()->create([
