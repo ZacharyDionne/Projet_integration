@@ -15,10 +15,10 @@ class TypesTableSeeder extends Seeder
      */
     public function run()
     {
-        DB::table("type")->insert(
+        DB::table("types")->insert(
             [
-                ["type" => "contre-maître"],
-                ["type" => "administrateur"]
+                ["id" => 1, "type" => "contre-maître"],
+                ["id" => 2, "type" => "administrateur"]
 
 
 

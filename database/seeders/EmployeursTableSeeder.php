@@ -17,8 +17,23 @@ class EmployeursTableSeeder extends Seeder
     {
         DB::table("employeurs")->insert(
             [
-                [1, "prenom" => "Martin", "nom" => "Rivard", "adresseCourriel" => "martin.rivard.01@gmail.com", "motDePasse" => "1234", "actif" => true],
-                [1, "prenom" => "Robert", "nom" => "Lafontaine", "adresseCourriel" => "robert.lafontaine.01@outlook.com", "motDePasse" => "1234", "actif" => true]
+                [
+                    "id" => 1, 
+                "prenom" => "Martin", 
+                "nom" => "Rivard", 
+                "adresseCourriel" => "martin.rivard.01@gmail.com", 
+                "motDePasse" => "1234",
+                "actif" => true
+            ],
+
+                [
+                    "id" => 2, 
+                    "prenom" => "Robert", 
+                    "nom" => "Lafontaine", 
+                    "adresseCourriel" => "robert.lafontaine.01@outlook.com",
+                     "motDePasse" => "1234",
+                     "actif" => true
+                ],
             ]
         );
     }
