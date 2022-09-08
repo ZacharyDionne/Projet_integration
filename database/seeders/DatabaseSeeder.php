@@ -21,10 +21,10 @@ class DatabaseSeeder extends Seeder
         $this->call(ConducteursTableSeeder::class);
         $this->call(FichesTableSeeder::class);
 
-        //$this->call(EmployeursTableSeeder::class);
-        //$this->call(TypesTableSeeder::class);
+        $this->call(EmployeursTableSeeder::class);
+        $this->call(TypesTableSeeder::class);
 
-        //$this->call(AlertesTableSeeder::class);
+        $this->call(AlertesTableSeeder::class);
 
        
 
