@@ -17,7 +17,7 @@ return new class extends Migration
             $table->id();
             $table->time('heureDebut');
             $table->time('heureFin');
-            $table->integer('type');
+            $table->tinyInteger('type');
             $table->timestamps();     
         });
     }

@@ -16,7 +16,7 @@ class PlageDeTemps extends Model
             $table->id();
             $table->time('heureDebut');
             $table->time('heureFin');
-            $table->integer('type');
+            $table->tinyInteger('type');
             $table->timestamps();     
         });
     }
