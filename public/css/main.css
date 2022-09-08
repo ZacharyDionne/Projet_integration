@@ -224,6 +224,13 @@ iframe {
   background: -webkit-linear-gradient(45deg, #0079c1, #004898);
   padding-top: 50px;
   padding-bottom: 39px;
+  padding-right: 75px;
+}
+
+.login100-form-logo {
+  width: 15%; 
+  height: auto; 
+  margin-right: 20px;
 }
 
 /*------------------------------------------------------------------
@@ -323,7 +330,7 @@ iframe {
 }
 
 .login100-form-btn:hover {
-  background-color: #191538;
+  background: -webkit-linear-gradient(90deg, #191538, #004898);
 }
 
 
@@ -402,5 +409,13 @@ iframe {
   .login100-form {
     padding-left: 15px;
     padding-right: 15px;
+  }
+
+  .login100-form-title {
+    padding-right: 0px;
+  }
+
+  .login100-form-logo {
+    display: none;
   }
 }
