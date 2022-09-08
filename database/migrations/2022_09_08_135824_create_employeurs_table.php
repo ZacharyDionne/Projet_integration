@@ -15,7 +15,12 @@ return new class extends Migration
     {
         Schema::create('employeurs', function (Blueprint $table) {
             $table->id();
-            $table->timestamps();
+            $table->string("prenom", 20);
+            $table->string("nom", 20);
+            $table->string("adresseCourriel", 80);
+            $table->text("motDePasse");
+            $table->boolean("actif");
+            $table->timestamp();
         });
     }
 
