@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\View\View;
-use Illuminate\Models\Conducteur;
+use App\Models\Conducteur;
 
 class ConducteursController extends Controller
 {
