@@ -45,19 +45,25 @@
     
     Calendar.prototype.drawDays = function() {
         var startDay = new Date(year, month, 1).getDay(),
-//      下面表示这个月总共有几天
+//      The following shows the total number of days in this month
             nDays = new Date(year, month + 1, 0).getDate(),
     
             n = startDay;
-//      清除原来的样式和日期
+//     Clear old styles and dates
         for(var k = 0; k <42; k++) {
             days[k].innerHTML = '';
             days[k].id = '';
             days[k].className = '';
+            days[k].removeAttribute('data-toggle');
+            days[k].removeAttribute('data-target');
+
         }
 
         for(var i  = 1; i <= nDays ; i++) {
-            days[n].innerHTML = i; 
+            days[n].innerHTML = i;
+            days[n].className = year + '-' + (month + 1) + '-' + i; 
+            days[n].setAttribute('data-toggle', 'modal');
+            days[n].setAttribute('data-target', '#myModal');
             n++;
         }
         
