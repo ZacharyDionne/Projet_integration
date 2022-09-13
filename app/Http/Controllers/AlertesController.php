@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\View\View;
+use App\Models\Alerte;
 
 class AlertesController extends Controller
 {
@@ -14,7 +15,9 @@ class AlertesController extends Controller
      */
     public function index()
     {
-        return View("alertes.index");
+        $alertes = Alerte::all();
+
+        return View("alertes.index", compact("alertes"));
     }
 
     /**
