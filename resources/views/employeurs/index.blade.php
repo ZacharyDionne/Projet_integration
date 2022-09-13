@@ -7,7 +7,24 @@
 </head>
 <body>
     <h1>employeurs.index</h1>
-    <h3>Voici la liste des employeurs</h3>
+
+    <h3>Voici la liste des employeurs!</h3>
+
+   <!-- @if (count($employeurs))
+        @foreach($employeurs as $employeur)
+        <ul>
+            <li>{{ $employeurs->id }}</li>
+            <li>{{ $employeurs->prenom }}, {{ $employeurs->nom }}</li>
+            <li>{{ $employeurs->adresseCourriel }}</li>
+            <li>{{ $employeurs->motDePasse }}</li>
+            <li>{{ $employeurs->actif }}</li>            
+        </ul>
+        
+        @endforeach
+    @else
+        <p>Il n'y a aucun employeur.</p>
+
+    @endif-->
 
 </body>
 </html>

@@ -13,6 +13,7 @@ class Employeur extends Model
     {
         Schema::create("employeurs", function (Blueprint $table) {
             $table->id();
+            $table->foreignId('type_id')->constrained();
             $table->string("prenom", 20);
             $table->string("nom", 20);
             $table->string("adresseCourriel", 80);

@@ -14,6 +14,8 @@ class PlageDeTemps extends Model
         Schema::create('plagedetemps', function (Blueprint $table)
         {
             $table->id();
+            $table->foreignId('fiche_id')->constrained();
+            $table->foreignId('typetemps_id')->constrained();
             $table->time('heureDebut');
             $table->time('heureFin');
             $table->tinyInteger('type');
