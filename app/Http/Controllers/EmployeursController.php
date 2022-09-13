@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\View\View;
+use App\Models\Employeur;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Throwable;
 
 class EmployeursController extends Controller
 {
@@ -46,7 +49,17 @@ class EmployeursController extends Controller
      */
     public function show($id)
     {
-        //
+        try
+        {
+            $employeur = Employeur::findOrFail($id);
+        }
+        catch (ModelNotFoundException $e){
+        }
+        catch(Throwable $e){
+            \Log::error('Erreur innatendue : ' , [$e]);
+        }
+
+        return View("employeurs.show", compact("employeur"));
     }
 
     /**

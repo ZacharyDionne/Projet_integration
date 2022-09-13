@@ -33,5 +33,8 @@ Route::get("/conducteurs", [ConducteursController::class, "index"])->name("condu
 Route::get("/conducteurs/{id}", [ConducteursController::class, "show"])->name("conducteurs.show");
 
 Route::get("/alertes", [AlertesController::class, "index"])->name("alertes.index");
+//Route::get("/alertes/{id}", [AlertesController::class, "show"])->name("alertes.show");
 
 Route::get("/employeurs", [EmployeursController::class, "index"])->name("employeurs.index");
+Route::get("/employeurs/{id}", [EmployeursController::class, "show"])->name("employeurs.show");
+
