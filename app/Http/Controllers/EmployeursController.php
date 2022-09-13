@@ -19,7 +19,8 @@ class EmployeursController extends Controller
      */
     public function index()
     {
-        return View("employeurs.index");
+        $employeurs = Employeur::all();
+        return View("employeurs.index", compact("employeurs"));
     }
 
     /**
