@@ -133,6 +133,13 @@ class ConducteursController extends Controller
      */
     public function destroy($id)
     {
-        //
+    /*
+        try
+        {
+            $conducteur = Condcuteur::findOrFail($id);
+
+            //Si un conducteur a des fiches, on ne peut pas le supprimer
+        }
+    */
     }
 }
