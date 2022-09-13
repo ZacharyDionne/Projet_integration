@@ -15,18 +15,6 @@ class AlertesTableSeeder extends Seeder
      */
     public function run()
     {
-        DB::table("alertes")->insert(
-            [
-                [
-                    
-                ]
-
-
-
-
-
-
-            ]
-        );
+    
     }
 }

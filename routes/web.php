@@ -30,7 +30,7 @@ Route::get('/connexion', function () {
 Route::get("/fiches", [FichesController::class, "index"])->name("fiches.index");
 
 Route::get("/conducteurs", [ConducteursController::class, "index"])->name("conducteurs.index");
-Route::get("/conducteurs", [ConducteursController::class, "show"])->name("conducteurs.show");
+Route::get("/conducteurs/{id}", [ConducteursController::class, "show"])->name("conducteurs.show");
 
 Route::get("/alertes", [AlertesController::class, "index"])->name("alertes.index");
 
