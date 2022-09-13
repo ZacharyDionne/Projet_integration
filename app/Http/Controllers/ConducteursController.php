@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Http\View\View;
 use App\Models\Conducteur;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Throwable;
 
 class ConducteursController extends Controller
 {
@@ -70,6 +72,8 @@ class ConducteursController extends Controller
         catch(Throwable $e){
             \Log::error('Erreur innatendue : ' , [$e]);
         }
+
+        return View("conducteurs.show", compact("conducteur"));
     }
     
 
