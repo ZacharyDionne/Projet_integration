@@ -37,7 +37,20 @@ class ConducteursController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        /*
+        try
+        {
+            $conducteur = new Conducteur($resquest->all());
+            $conducteur->save();
+        }
+
+        catch(\Throwable $e)
+        {
+            //Gestion de l'erreur
+            Log::debug($e);
+        }
+        return redirect()->route('conducteur.index');
+        */
     }
 
     /**
@@ -46,10 +59,19 @@ class ConducteursController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(int $id) : View   
     {
-        //
+        try
+        {
+            $conducteur = Conducteur::findOrFail($id);
+        }
+        catch (ModelNotFoundException $e){
+        }
+        catch(Throwable $e){
+            \Log::error('Erreur innatendue : ' , [$e]);
+        }
     }
+    
 
     /**
      * Show the form for editing the specified resource.
@@ -59,7 +81,10 @@ class ConducteursController extends Controller
      */
     public function edit($id)
     {
-        //
+        /*
+        $conducteur = Conducteur::findOrFail($id);
+        return View('conducteurs.modifier', compact('conducteur'));
+        */
     }
 
     /**
@@ -71,7 +96,26 @@ class ConducteursController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+/*
+        try
+        {
+            $conducteur = Conducteur::findOrFail($id);
+
+            $conducteur->actif = $request->actif;
+            $conducteur->prenom = $request->prenom;
+            $conducteur->nom = $request->nom;
+            $conducteur->matricule = $request->matricule;
+            $conducteur->adresseCourriel = $request->adresseCourriel;
+            $conducteur->motDePasse = $request->motDePasse;
+
+            $conducteur->save();
+            //Aucun Erreur
+            return redirect()->route('conducteurs.index')->with ('message', "Modification de " . $conducteur->prenom . " " . $conducteur->nom . " réussi!");
+        }
+        catch(\Throwable $e){
+            //Avec Erreur
+        }
+        */
     }
 
     /**
