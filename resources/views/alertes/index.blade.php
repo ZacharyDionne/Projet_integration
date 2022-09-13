@@ -7,6 +7,19 @@
     <title>Document</title>
 </head>
 <body>
-    <h1>alertes.index</h1>
+    <h1>Voici les alertes!</h1>
+    @if (count($alertes))
+        <ul>
+        @foreach ($alertes as $alerte)
+            <li>id: $alerte->id</li>
+            <li>date: $alerte->date</li>
+            <li>état du compte: $alerte->active</li>
+            <li>message: $alerte->message</li>
+            <li>redirigé à: $alerte->idEmployeur</li>
+        @endforeach
+        </ul>
+    @else
+        <p>Il n'y a aucune alerte.</p>
+    @endif
 </body>
 </html>
