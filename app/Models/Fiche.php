@@ -20,6 +20,7 @@ class Fiche extends Model
         Schema::create('fiches', function (Blueprint $table)
         {
             $table->id();
+            $table->foreignId('conducteur_id')->constrained();
             $table->text('observation');
             $table->tinyInteger('cycle');
             $table->date('date');

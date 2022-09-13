@@ -14,10 +14,12 @@ class Alerte extends Model
         Schema::create('alertes', function (Blueprint $table)
         {
             $table->id();
+            $table->foreignId('conducteur_id')->constrained();
             $table->string('matricule', 6);
             $table->string('message', 255);
             $table->boolean('actif');
             $table->date('date');
+            $table->bigInteger('idEmployeur')->nullable();
             $table->timestamps();
         });
     }
