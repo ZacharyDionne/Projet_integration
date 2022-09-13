@@ -100,7 +100,7 @@ class ConducteursController extends Controller
      */
     public function update(Request $request, $id)
     {
-/*
+        /*
         try
         {
             $conducteur = Conducteur::findOrFail($id);
@@ -118,8 +118,11 @@ class ConducteursController extends Controller
         }
         catch(\Throwable $e){
             //Avec Erreur
+            Log::debug($e);
+            return redirect()->route('conducteurs.index')->withErrors(['La modification n\'a pas fonctionné']);
         }
-        */
+        return redirect()->route('conducteurs.index');
+        */   
     }
 
     /**
