@@ -15,7 +15,7 @@ class ConducteursController extends Controller
      */
     public function index()
     {
-        $conduteurs = Conducteur::all();
+        $conducteurs = Conducteur::all();
         return View("conducteurs.index", compact("conducteurs"));
     }
 
