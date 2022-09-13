@@ -8,6 +8,8 @@ use App\Models\Employeur;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Throwable;
 
+
+
 class EmployeursController extends Controller
 {
     /**
