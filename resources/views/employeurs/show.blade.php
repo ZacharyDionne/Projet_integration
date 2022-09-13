@@ -12,11 +12,11 @@
     @if ($employeur)
 
         <ul>
-            <li>{{ $employeurs->id }}</li>
-            <li>{{ $employeurs->prenom }}, {{ $employeurs->nom }}</li>
-            <li>{{ $employeurs->adresseCourriel }}</li>
-            <li>{{ $employeurs->motDePasse }}</li>
-            <li>{{ $employeurs->actif }}</li>  
+            <li>{{ $employeur->id }}</li>
+            <li>{{ $employeur->prenom }}, {{ $employeur->nom }}</li>
+            <li>{{ $employeur->adresseCourriel }}</li>
+            <li>{{ $employeur->motDePasse }}</li>
+            <li>{{ $employeur->actif }}</li>  
         </ul>
 
     @else
