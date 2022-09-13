@@ -14,7 +14,7 @@
         @foreach($employeurs as $employeur)
         <ul>
             <li>{{ $employeur->id }}</li>
-            <li>{{ $employeur->prenom }}, {{ $employeurs->nom }}</li>
+            <li>{{ $employeur->prenom }}, {{ $employeur->nom }}</li>
             <li>{{ $employeur->adresseCourriel }}</li>
             <li>{{ $employeur->motDePasse }}</li>
             <li>{{ $employeur->actif }}</li>            
