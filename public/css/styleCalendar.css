@@ -8332,8 +8332,9 @@ tbody td:active {
 
 #today {
   color: #fff; }
-  #today:after {
-    background: #e13a9d; }
+#today:after {
+    background: -webkit-linear-gradient(90deg, #004898, #0079c1);
+  }
 
 #disabled {
   cursor: default;
