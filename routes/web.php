@@ -17,24 +17,87 @@ use App\Http\Controllers\EmployeursController;
 |
 */
 
-// Page d'accueil
+// Page d'ACCUEIL
 Route::get('/', function () {
     return view('index');
 });
 
-// Page de connexion
+// Page de CONNEXION
 Route::get('/connexion', function () {
     return view('connexion.login');
 });
-
+/* ---------------------------- Pages FICHES -------------------------------------------- */
+/*  INDEX   */      
 Route::get("/fiches", [FichesController::class, "index"])->name("fiches.index");
 
+/*  AFFICHAGE   */
+//Route::get("/fiches/{id}", [FichesController::class, "show"])->name("fiches.show");
+
+/*  MODIFICATION   */
+//Route::get("/fiches/{id}/modifier/", [FichesController::class, "edit"])->name("fiches.edit");
+//Route::get("/fiches/{fiches}/", [FichesController::class, "show"])->name("fiches.show");
+//Route::Patch("/fiches/{id}/modifier", [FichesController::class, "update"])->name("fiches.update");
+
+/* AJOUTER */
+//Route::get("/fiches/creation", [FichesController::class, "create"])->name("fiches.create");
+
+/* SUPPRESSION 
+Un employé ne peut pas supprimer une fiche. Il peut seulement la modifier*/
+
+/* ---------------------------- Pages CONDUCTEUR -------------------------------------------- */
+/*  INDEX   */ 
 Route::get("/conducteurs", [ConducteursController::class, "index"])->name("conducteurs.index");
+
+/*  AFFICHAGE   */
 Route::get("/conducteurs/{id}", [ConducteursController::class, "show"])->name("conducteurs.show");
 
+/*  MODIFICATION   */
+//Route::get("/conducteurs/{id}/modifier/", [ConducteursController::class, "edit"])->name("conducteurs.edit");
+//Route::get("/conducteurs/{conducteurs}/", [ConducteursController::class, "show"])->name("conducteurs.show");
+//Route::Patch("/conducteurs/{id}/modifier", [ConducteursController::class, "update"])->name("conducteurs.update");
+
+/* AJOUTER */
+//Route::get("/conducteurs/creation", [ConducteursController::class, "create"])->name("conducteurs.create");
+
+/* SUPPRESSION */
+//Route::delete("/conducteurs/{id}", [ConducteursController::class, "destroy"])->name("conducteurs.destroy");
+
+/* ---------------------------- Pages EMPLOYEUR -------------------------------------------- */
+/*  INDEX   */ 
+Route::get("/employeurs", [EmployeursController::class, "index"])->name("employeurs.index");
+
+/*  AFFICHAGE   */
+Route::get("/employeurs/{id}", [EmployeursController::class, "show"])->name("employeurs.show");
+
+/*  MODIFICATION   */
+//Route::get("/employeurs/{id}/modifier/", [EmployeursController::class, "edit"])->name("employeurs.edit");
+//Route::get("/employeurs/{employeurs}/", [EmployeursController::class, "show"])->name("employeurs.show");
+//Route::Patch("/employeurs/{id}/modifier", [EmployeursController::class, "update"])->name("employeurs.update");
+
+/* AJOUTER */
+//Route::get("/employeurs/creation", [EmployeursController::class, "create"])->name("employeurs.create");
+
+/* SUPPRESSION */
+//Route::delete("/employeurs/{id}", [EmployeursController::class, "destroy"])->name("employeurs.destroy");
+
+/* ---------------------------- Pages ALERTES -------------------------------------------- */
+/*  INDEX   */ 
 Route::get("/alertes", [AlertesController::class, "index"])->name("alertes.index");
+
+/*  AFFICHAGE   */
 //Route::get("/alertes/{id}", [AlertesController::class, "show"])->name("alertes.show");
 
-Route::get("/employeurs", [EmployeursController::class, "index"])->name("employeurs.index");
-Route::get("/employeurs/{id}", [EmployeursController::class, "show"])->name("employeurs.show");
+/*  MODIFICATION   */
+//Route::get("/alertes/{id}/modifier/", [AlertesController::class, "edit"])->name("alertes.edit");
+//Route::get("/alertes/{alertes}/", [AlertesController::class, "show"])->name("alertes.show");
+//Route::Patch("/alertes/{id}/modifier", [AlertesController::class, "update"])->name("alertes.update");
+
+/* AJOUTER 
+Une alerte est ajouter automatiquement*/
+
+/* SUPPRESSION 
+On ne peut supprimer une alerte de la table*/
+
+
+
 

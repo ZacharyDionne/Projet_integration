@@ -14,6 +14,8 @@
 <!--===============================================================================================-->
 	<link rel="stylesheet" href="css/styleCalendar.css">
 <!--===============================================================================================-->
+	<link rel="stylesheet" href="css/styleModal.css">
+<!--===============================================================================================-->
 
 	</head>
 	<body>
@@ -57,7 +59,7 @@
 		            </thead>
 		            <tbody>
 	                <tr>
-	                  <td data-toggle="modal" data-target="#exampleModalCenter"></td>
+	                  <td></td>
 	                  <td></td>
 	                  <td></td>
 	                  <td></td>
@@ -130,28 +132,28 @@
               <div class="bg-image promo-img mr-3" style="background-image: url('images/img_1.jpg');">
               </div>
               <div class="content-text p-4">
-                <h3>Sign up to access all the resourcess</h3>
+                <h3 class="modal-title"></h3>
                 <p>All their equipment and instruments are alive. The sky was cloudless and of a deep dark blue.</p>
-				<!--  -->
 
                 <form action="#">
                   <div class="form-group">
-                    <label for="email">Email Address</label>
-                    <input type="email" class="form-control" id="email">
+                    <label for="heureDebut">Heure debut</label>
+					<input type="time" id="heureDebut" name="appt" min="09:00" max="18:00" required>
                   </div>
                   <div class="form-group">
                     <label for="name">First Name</label>
                     <input type="text" class="form-control" id="name">
+					<input type="time" id="appt" name="appt" min="09:00" max="18:00" required>
                   </div>
                   <div class="form-group">
                     <label for="name">Password</label>
-                    <input type="password" class="form-control" id="name">
+                    <input type="password" class="form-control" id="password">
                   </div>
                   <div class="form-group">
-                    <input type="submit" value="Sign up" class="btn btn-primary btn-block">
+                    <input type="submit" value="Sauvegarder" class="btn btn-primary btn-block">
                   </div>
                   <div class="form-group ">
-                    <p class="custom-note"><small>By signing up you will agree to our <a href="#">Privacy Policy</a></small></p>
+                    <p class="custom-note"><small>Assurez-vous que les informations fournies sont correctes.</small></p>
                   </div>
                 </form>
               </div>
