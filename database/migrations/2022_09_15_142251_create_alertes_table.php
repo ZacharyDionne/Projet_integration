@@ -13,17 +13,16 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('employeurs', function (Blueprint $table) {
+        Schema::create('alertes', function (Blueprint $table) {
             $table->id();
-            $table->string("prenom", 20);
-            $table->string("nom", 20);
-            $table->string("adresseCourriel", 80);
-            $table->text("motDePasse");
-            $table->boolean("actif");
+            $table->foreignId('conducteur_id')->constrained();
+            $table->string('message', 255);
+            $table->boolean('actif');
+            $table->date('date');
+            $table->bigInteger('idEmployeur')->nullable();
             $table->timestamps();
         });
     }
-    
 
     /**
      * Reverse the migrations.
@@ -32,6 +31,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('employeurs');
+        Schema::dropIfExists('alertes');
     }
 };

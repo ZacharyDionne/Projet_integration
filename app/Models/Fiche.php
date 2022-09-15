@@ -24,7 +24,6 @@ class Fiche extends Model
             $table->text('observation');
             $table->tinyInteger('cycle');
             $table->date('date');
-            $table->boolean('complete');
             $table->timestamps();     
         });
     }

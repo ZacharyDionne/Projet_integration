@@ -18,18 +18,18 @@ class FichesTableSeeder extends Seeder
         DB::table('fiches')->insert([
             [
                 'id'=> 1,
+                'conducteur_id'=> 1,
                 'observation'=> 'Retard (attente) chez le client Bellemare, Trois-Rivières',
                 'cycle'=> 1,
                 'date'=>'2022-05-10',
-                'complete'=>true
             ],
 
             [
                 'id'=> 2,
+                'conducteur_id'=> 2,
                 'observation'=> 'Rendez-vous médecin (terminer plus tôt)',
                 'cycle'=> 1,
                 'date'=>'2022-05-11',
-                'complete'=>false
             ],
         ]);
     }

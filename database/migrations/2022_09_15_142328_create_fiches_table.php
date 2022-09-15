@@ -15,10 +15,10 @@ return new class extends Migration
     {
         Schema::create('fiches', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('conducteur_id')->constrained();
             $table->text('observation');
             $table->tinyInteger('cycle');
             $table->date('date');
-            $table->boolean('complete');
             $table->timestamps();
         });
     }

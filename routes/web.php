@@ -59,8 +59,8 @@ Route::get("/conducteurs/{id}", [ConducteursController::class, "show"])->name("c
 /* AJOUTER */
 //Route::get("/conducteurs/creation", [ConducteursController::class, "create"])->name("conducteurs.create");
 
-/* SUPPRESSION */
-//Route::delete("/conducteurs/{id}", [ConducteursController::class, "destroy"])->name("conducteurs.destroy");
+/* SUPPRESSION 
+Un conducteur ne peut pas être supprimer. Il est seulement mis inactif*/
 
 /* ---------------------------- Pages EMPLOYEUR -------------------------------------------- */
 /*  INDEX   */ 
@@ -77,8 +77,8 @@ Route::get("/employeurs/{id}", [EmployeursController::class, "show"])->name("emp
 /* AJOUTER */
 //Route::get("/employeurs/creation", [EmployeursController::class, "create"])->name("employeurs.create");
 
-/* SUPPRESSION */
-//Route::delete("/employeurs/{id}", [EmployeursController::class, "destroy"])->name("employeurs.destroy");
+/* SUPPRESSION
+Un conducteur ne peut pas être supprimer. Il est seulement mis inactif*/
 
 /* ---------------------------- Pages ALERTES -------------------------------------------- */
 /*  INDEX   */ 

@@ -13,12 +13,10 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('plagedetemps', function (Blueprint $table) {
+        Schema::create('types', function (Blueprint $table) {
             $table->id();
-            $table->time('heureDebut');
-            $table->time('heureFin');
-            $table->tinyInteger('type');
-            $table->timestamps();     
+            $table->string('typeEmp', 30);
+            $table->timestamps();
         });
     }
 
@@ -29,6 +27,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('plagedetemps');
+        Schema::dropIfExists('types');
     }
 };

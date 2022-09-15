@@ -29,7 +29,7 @@ class TypeTempsTableSeeder extends Seeder
 
             [
                 'id'=> 3,
-                'typeTemps'=> 'Travail en conduite'
+                'type'=> 'Travail en conduite'
             ],
             ]);
     }

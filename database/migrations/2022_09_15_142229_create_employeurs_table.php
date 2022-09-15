@@ -13,9 +13,14 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('types', function (Blueprint $table) {
+        Schema::create('employeurs', function (Blueprint $table) {
             $table->id();
-            $table->string('type', 30);
+            $table->foreignId('type_id')->constrained();
+            $table->string("prenom", 20);
+            $table->string("nom", 20);
+            $table->string("adresseCourriel", 80);
+            $table->text("motDePasse");
+            $table->boolean("actif");
             $table->timestamps();
         });
     }
@@ -27,6 +32,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('types');
+        Schema::dropIfExists('employeurs');
     }
 };

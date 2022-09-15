@@ -13,12 +13,12 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('alertes', function (Blueprint $table) {
+        Schema::create('plagedetemps', function (Blueprint $table) {
             $table->id();
-            $table->string('matricule', 6);
-            $table->string('message', 255);
-            $table->boolean('actif');
-            $table->date('date');
+            $table->foreignId('fiche_id')->constrained();
+            $table->foreignId('typetemps_id')->constrained();
+            $table->time('heureDebut');
+            $table->time('heureFin');
             $table->timestamps();
         });
     }
@@ -30,6 +30,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('alertes');
+        Schema::dropIfExists('plagedetemps');
     }
 };

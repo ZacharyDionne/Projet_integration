@@ -18,13 +18,13 @@ class TypesTableSeeder extends Seeder
         DB::table("types")->insert([
             [
                 "id" => 1,
-                "type" => "contre-maître"
+                "typeEmp" => "contre-maître"
             ],
 
             
             [
                 "id" => 2,
-                "type" => "administrateur"
+                "typeEmp" => "administrateur"
             ],
         ]);
     }

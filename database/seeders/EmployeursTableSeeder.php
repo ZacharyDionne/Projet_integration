@@ -22,7 +22,8 @@ class EmployeursTableSeeder extends Seeder
                 "nom" => "Rivard", 
                 "adresseCourriel" => "martin.rivard.01@gmail.com", 
                 "motDePasse" => "1234",
-                "actif" => true
+                "actif" => true,
+                "type_id"=>1,
             ],
 
             [
@@ -31,7 +32,8 @@ class EmployeursTableSeeder extends Seeder
                 "nom" => "Lafontaine", 
                 "adresseCourriel" => "robert.lafontaine.01@outlook.com",
                 "motDePasse" => "1234",
-                "actif" => true
+                "actif" => true,
+                "type_id"=>1,
             ],
         ]);
     }
