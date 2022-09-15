@@ -15,7 +15,6 @@ class Alerte extends Model
         {
             $table->id();
             $table->foreignId('conducteur_id')->constrained();
-            $table->string('matricule', 6);
             $table->string('message', 255);
             $table->boolean('actif');
             $table->date('date');
