@@ -24,7 +24,7 @@ class FichesController extends Controller
      */
     public function create()
     {
-        //
+        //return View('fiches.create');
     }
 
     /**

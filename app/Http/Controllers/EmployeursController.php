@@ -30,7 +30,7 @@ class EmployeursController extends Controller
      */
     public function create()
     {
-        //
+        //return View('employeurs.create');
     }
 
     /**
@@ -41,7 +41,20 @@ class EmployeursController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        /*
+        try
+        {
+            $employeur = new Employeur($resquest->all());
+            $employeur->save();
+        }
+
+        catch(\Throwable $e)
+        {
+            //Gestion de l'erreur
+            Log::debug($e);
+        }
+        return redirect()->route('employeur.index');
+        */
     }
 
     /**
@@ -73,7 +86,10 @@ class EmployeursController extends Controller
      */
     public function edit($id)
     {
-        //
+        /*
+        $employeur = Employeur::findOrFail($id);
+        return View('employeurs.modifier', compact('employeur'));
+        */
     }
 
     /**
@@ -85,7 +101,27 @@ class EmployeursController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        
+        /*
+        try
+        {
+            $employeur = Conducteur::findOrFail($id);
+
+            $employeur->actif = $request->actif;
+            $employeur->prenom = $request->prenom;
+            ... 
+
+            $employeur->save();
+            //Aucune Erreur
+            return redirect()->route('employeurs.index')->with ('message', "Modification de " . $employeur->prenom . " " . $employeur->nom . " réussi!");
+        }
+        catch(\Throwable $e){
+            //Avec Erreur
+            Log::debug($e);
+            return redirect()->route('employeurs.index')->withErrors(['La modification n\'a pas fonctionné']);
+        }
+        return redirect()->route('employeurs.index');
+        */   
     }
 
     /**

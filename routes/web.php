@@ -40,6 +40,7 @@ Route::get("/fiches", [FichesController::class, "index"])->name("fiches.index");
 
 /* AJOUTER */
 //Route::get("/fiches/creation", [FichesController::class, "create"])->name("fiches.create");
+//Route::post("/fiches", [FichesController::class, "store"])->name("fiches.store");
 
 /* SUPPRESSION 
 Un employé ne peut pas supprimer une fiche. Il peut seulement la modifier*/
@@ -58,6 +59,7 @@ Route::get("/conducteurs/{id}", [ConducteursController::class, "show"])->name("c
 
 /* AJOUTER */
 //Route::get("/conducteurs/creation", [ConducteursController::class, "create"])->name("conducteurs.create");
+//Route::post("/conducteurs", [ConducteursController::class, "store"])->name("conducteurs.store");
 
 /* SUPPRESSION 
 Un conducteur ne peut pas être supprimer. Il est seulement mis inactif*/
@@ -76,6 +78,7 @@ Route::get("/employeurs/{id}", [EmployeursController::class, "show"])->name("emp
 
 /* AJOUTER */
 //Route::get("/employeurs/creation", [EmployeursController::class, "create"])->name("employeurs.create");
+//Route::post("/employeurs", [EmployeursController::class, "store"])->name("employeurs.store");
 
 /* SUPPRESSION
 Un conducteur ne peut pas être supprimer. Il est seulement mis inactif*/

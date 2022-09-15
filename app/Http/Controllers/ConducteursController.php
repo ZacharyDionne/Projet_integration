@@ -28,7 +28,7 @@ class ConducteursController extends Controller
      */
     public function create()
     {
-        //
+        //return View('conducteurs.create');
     }
 
     /**
@@ -113,7 +113,7 @@ class ConducteursController extends Controller
             $conducteur->motDePasse = $request->motDePasse;
 
             $conducteur->save();
-            //Aucun Erreur
+            //Aucune Erreur
             return redirect()->route('conducteurs.index')->with ('message', "Modification de " . $conducteur->prenom . " " . $conducteur->nom . " réussi!");
         }
         catch(\Throwable $e){
