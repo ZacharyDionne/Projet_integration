@@ -18,7 +18,6 @@ class PlageDeTemps extends Model
             $table->foreignId('typetemps_id')->constrained();
             $table->time('heureDebut');
             $table->time('heureFin');
-            $table->tinyInteger('type');
             $table->timestamps();     
         });
     }
