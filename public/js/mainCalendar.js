@@ -53,7 +53,7 @@
         for(var k = 0; k <42; k++) {
             days[k].innerHTML = '';
             days[k].id = '';
-            days[k].className = '';
+            days[k].removeAttribute('datejour');
             days[k].removeAttribute('data-toggle');
             days[k].removeAttribute('data-target');
 
@@ -61,7 +61,7 @@
 
         for(var i  = 1; i <= nDays ; i++) {
             days[n].innerHTML = i;
-            days[n].className = year + '-' + (month + 1) + '-' + i; 
+            days[n].setAttribute('datejour', year + '-' + (month + 1) + '-' + i); 
             days[n].setAttribute('data-toggle', 'modal');
             days[n].setAttribute('data-target', '#myModal');
             n++;
@@ -173,3 +173,33 @@
 }, false);
 
 })(jQuery);
+
+
+
+$(document).ready(function () {
+    $('#myModal').on('show.bs.modal', function (event) {
+    console.log("event is triggerd"); //<==== here
+
+    // var button = $(event.relatedTarget) // Button that triggered the modal
+    // var recipient = button.data('date') // Extract info from data-* attributes
+
+    // do the same but the button is a td
+    var td = $(event.relatedTarget) // td that triggered the modal
+    var recipient = td.attr('datejour')
+    var modal = $(this)
+
+    // recipient is a string like "2016-12-31"
+    // Transform it to a Date string like "31 décembre 2016"
+    var date = new Date(recipient)
+    var day = date.getDate()
+    var month = date.getMonth()
+    var year = date.getFullYear()
+
+    var months = ["janvier", "février", "mars", "avril", "mai", "juin", "juillet", "août", "septembre", "octobre", "novembre", "décembre"]
+    var month = months[month]
+
+    var date = day + " " + month + " " + year
+
+    modal.find('.modal-title').text(date)
+    })
+});
