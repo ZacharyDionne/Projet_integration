@@ -14,7 +14,7 @@ class TypeTemps extends Model
         Schema::create('typetemps', function (Blueprint $table)
         {
             $table->id();
-            $table->string('type', 100);
+            $table->string('type', 30);
             $table->timestamps();     
         });
     }
