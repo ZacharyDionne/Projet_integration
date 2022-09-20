@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\View\View;
+use App\Models\Fiche;
+use DB;
 
 class FichesController extends Controller
 {
@@ -14,7 +16,9 @@ class FichesController extends Controller
      */
     public function index()
     {
-        return View("fiches.index");
+        $fiches = Fiche::all();
+
+        return View("fiches.index", compact("fiches"));
     }
 
     /**
@@ -24,7 +28,7 @@ class FichesController extends Controller
      */
     public function create()
     {
-        //return View('fiches.create');
+        //
     }
 
     /**
