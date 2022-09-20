@@ -16,7 +16,7 @@ class FichesController extends Controller
      */
     public function index()
     {
-        $fiches = Fiche::all();
+        $fiches = Fiche::all()->orderBy("date", "desc")->take(150);
 
         return View("fiches.index", compact("fiches"));
     }
