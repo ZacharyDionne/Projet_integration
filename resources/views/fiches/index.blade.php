@@ -16,14 +16,27 @@
 <!--===============================================================================================-->
 	<link rel="stylesheet" href="css/styleModal.css">
 <!--===============================================================================================-->
+	<link rel="stylesheet" href="css/style.css">
+<!--===============================================================================================-->
 
 	</head>
 	<body>
+
+	<nav class="navbar navbar-dark bg-tr">
+  		<a class="navbar-brand font-tr" href="{{ route('fiches.index') }}">
+    	<img src="images\logo_BLANC.png" width="50" height="50" class="d-inline-block align-center" alt="">
+    	Fiche
+  		</a>
+	</nav>
+
+
+
+
 	<section class="ftco-section">
 		<div class="container">
 			<div class="row justify-content-center">
 				<div class="col-md-6 text-center mb-5">
-					<h2 class="heading-section">Fiche - {Nom}</h2>
+					<h2 class="heading-section">Fiche - {NomUsager}</h2>
 				</div>
 			</div>
 			<div class="row">
@@ -132,28 +145,30 @@
               <div class="bg-image promo-img mr-3" style="background-image: url('images/img_1.jpg');">
               </div>
               <div class="content-text p-4">
-                <h3 class="modal-title"></h3>
-                <p>All their equipment and instruments are alive. The sky was cloudless and of a deep dark blue.</p>
+                <h3 class="modal-title text-center"></h3>
+                <p class="text-center">Entrez les heures pour ce jour seulement. 
+				<br>Pour les heures après minuit, veuillez utiliser la fiche du lendemain.</p>
 
                 <form action="#">
-                  <div class="form-group">
-                    <label for="heureDebut">Heure debut</label>
+                  <div class="form-group text-center">
+                    <label class="modalLabel" for="heureDebut">Heure commencé</label>
+					<br/>
 					<input type="time" id="heureDebut" name="appt" min="09:00" max="18:00" required>
                   </div>
-                  <div class="form-group">
-                    <label for="name">First Name</label>
-                    <input type="text" class="form-control" id="name">
-					<input type="time" id="appt" name="appt" min="09:00" max="18:00" required>
+                  <div class="form-group text-center">
+				  	<label class="modalLabel" for="heureDebut">Heure finis</label>
+					<br/>
+					<input type="time" id="heureFin" name="appt" min="09:00" max="18:00" required>
                   </div>
-                  <div class="form-group">
-                    <label for="name">Password</label>
-                    <input type="password" class="form-control" id="password">
+                  <div class="form-group text-center">
+                    <label class="modalLabel" for="name">Raison du retard / Commentaire (facultatif)</label>
+                    <input type="text" class="form-control" id="password">
                   </div>
-                  <div class="form-group">
+                  <div class="form-group text-center">
                     <input type="submit" value="Sauvegarder" class="btn btn-primary btn-block">
                   </div>
-                  <div class="form-group ">
-                    <p class="custom-note"><small>Assurez-vous que les informations fournies sont correctes.</small></p>
+                  <div class="form-group text-center">
+                    <p class="custom-note"><small>Veuillez vous assurer que les informations fournies sont correctes..</small></p>
                   </div>
                 </form>
               </div>

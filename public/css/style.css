@@ -1,0 +1,8 @@
+.bg-tr {
+    background: -webkit-linear-gradient(180deg, #004898, #0079c1) !important;
+    /* box-shadow: 0px 19px 27px -20px rgb(0 0 0 / 16%); */
+}
+
+.font-tr {
+    font-family: Roboto-Bold !important;
+}
