@@ -21,7 +21,7 @@ class FichesTableSeeder extends Seeder
                 'conducteur_id'=> 1,
                 'observation'=> 'Retard (attente) chez le client Bellemare, Trois-Rivières',
                 'cycle'=> 1,
-                'date'=>'2022-05-10',
+                'date'=>'2022-09-10',
             ],
 
             [
@@ -29,7 +29,7 @@ class FichesTableSeeder extends Seeder
                 'conducteur_id'=> 2,
                 'observation'=> 'Rendez-vous médecin (terminer plus tôt)',
                 'cycle'=> 1,
-                'date'=>'2022-05-11',
+                'date'=>'2022-09-11',
             ],
         ]);
     }
