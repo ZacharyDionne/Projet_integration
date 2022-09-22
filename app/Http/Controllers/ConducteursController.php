@@ -89,10 +89,11 @@ class ConducteursController extends Controller
      */
     public function edit($id)
     {
-        /*
+        
         $conducteur = Conducteur::findOrFail($id);
-        return View('conducteurs.modifier', compact('conducteur'));
-        */
+
+        return View('conducteurs.edit', compact('conducteur'));
+        
     }
 
     /**
@@ -104,7 +105,11 @@ class ConducteursController extends Controller
      */
     public function update(Request $request, $id)
     {
-        /*
+        
+
+        //Il y a deux possibilités : soit le chauffeur modifie son mot de passe, soit ils modifient d'autres informations personnels.
+        //if ($request->)
+
         try
         {
             $conducteur = Conducteur::findOrFail($id);
@@ -126,7 +131,7 @@ class ConducteursController extends Controller
             return redirect()->route('conducteurs.index')->withErrors(['La modification n\'a pas fonctionné']);
         }
         return redirect()->route('conducteurs.index');
-        */   
+        
     }
 
     /**

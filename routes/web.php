@@ -53,13 +53,9 @@ Route::get("/conducteurs", [ConducteursController::class, "index"])->name("condu
 Route::get("/conducteurs/creation", [ConducteursController::class, "create"])->name("conducteurs.create");
 Route::post("/conducteurs", [ConducteursController::class, "store"])->name("conducteurs.store");
 
-/*  AFFICHAGE   */
-Route::get("/conducteurs/{id}", [ConducteursController::class, "show"])->name("conducteurs.show");
-
 /*  MODIFICATION   */
 Route::get("/conducteurs/{id}/modifier/", [ConducteursController::class, "edit"])->name("conducteurs.edit");
-Route::get("/conducteurs/{conducteurs}/", [ConducteursController::class, "show"])->name("conducteurs.show");
-Route::Patch("/conducteurs/{id}/modifier", [ConducteursController::class, "update"])->name("conducteurs.update");
+Route::patch("/conducteurs/{id}/modifier", [ConducteursController::class, "update"])->name("conducteurs.update");
 
 /* SUPPRESSION 
 Un conducteur ne peut pas être supprimer. Il est seulement mis inactif*/
