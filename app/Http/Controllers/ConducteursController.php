@@ -8,7 +8,7 @@ use Illuminate\Http\View\View;
 use App\Models\Conducteur;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Throwable;
-use Illuminate\Support\Facades\Logs;
+use Illuminate\Support\Facades\Log;
 
 
 class ConducteursController extends Controller
@@ -21,7 +21,6 @@ class ConducteursController extends Controller
     public function index()
     {
         $conducteurs = Conducteur::all();
-
         return View("conducteurs.index", compact("conducteurs"));
     }
 
@@ -41,11 +40,11 @@ class ConducteursController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(ConducteurRequest $request)
     {
         try
         {
-            $conducteur = new Conducteur($resquest->all());
+            $conducteur = new Conducteur($request->all());
             $conducteur->save();
         }
 
@@ -73,7 +72,7 @@ class ConducteursController extends Controller
         catch (ModelNotFoundException $e){
         }
         catch(Throwable $e){
-            \Log::error('Erreur innatendue : ' , [$e]);
+            Log::error('Erreur innatendue : ' , [$e]);
         }
 
         return View("conducteurs.show", compact("conducteur"));

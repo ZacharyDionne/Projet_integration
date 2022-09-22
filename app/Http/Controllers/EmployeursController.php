@@ -3,12 +3,13 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+//use App\Http\Requests\EmployeurRequest;
+
 use Illuminate\Http\View\View;
 use App\Models\Employeur;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Throwable;
-
-
+use Illuminate\Support\Facades\Log;
 
 class EmployeursController extends Controller
 {
@@ -30,7 +31,8 @@ class EmployeursController extends Controller
      */
     public function create()
     {
-        //return View('employeurs.create');
+        $type
+        return View('employeurs.create');
     }
 
     /**
@@ -39,12 +41,12 @@ class EmployeursController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(EmployeurRequest $request)
     {
-        /*
+        
         try
         {
-            $employeur = new Employeur($resquest->all());
+            $employeur = new Employeur($request->all());
             $employeur->save();
         }
 
@@ -53,8 +55,8 @@ class EmployeursController extends Controller
             //Gestion de l'erreur
             Log::debug($e);
         }
-        return redirect()->route('employeur.index');
-        */
+        return redirect()->route('employeurs.index');
+        
     }
 
     /**
