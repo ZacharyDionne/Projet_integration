@@ -62,9 +62,6 @@ class ConducteurRequest extends FormRequest
             /* Messages motDePasse */
             "motDePasse.required" => "Veuillez entrez un prénom",
             "motDePasse.min" => "Le nom doit avoir minimum 6 caractéres",
-
-à
-
         ];
     }
 }

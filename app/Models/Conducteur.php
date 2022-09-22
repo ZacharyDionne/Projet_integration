@@ -9,7 +9,7 @@ class Conducteur extends Model
 {
     use HasFactory;
 
-
+    protected $fillable = ['actif', 'prenom', 'nom', 'matricule', 'adresseCourriel', 'motDePasse'];
 
     public function fiches() : HasMany
     {
