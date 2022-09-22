@@ -49,13 +49,16 @@ Un employé ne peut pas supprimer une fiche. Il peut seulement la modifier*/
 /*  INDEX   */ 
 Route::get("/conducteurs", [ConducteursController::class, "index"])->name("conducteurs.index");
 
+
+
+
 /* AJOUTER */
 Route::get("/conducteurs/creation", [ConducteursController::class, "create"])->name("conducteurs.create");
 Route::post("/conducteurs", [ConducteursController::class, "store"])->name("conducteurs.store");
 
 /*  MODIFICATION   */
 Route::get("/conducteurs/{id}/modifier/", [ConducteursController::class, "edit"])->name("conducteurs.edit");
-Route::patch("/conducteurs/{id}/modifier", [ConducteursController::class, "update"])->name("conducteurs.update");
+Route::patch("/conducteurs/{id}/update", [ConducteursController::class, "update"])->name("conducteurs.update");
 
 /* SUPPRESSION 
 Un conducteur ne peut pas être supprimer. Il est seulement mis inactif*/
@@ -70,7 +73,7 @@ Route::get("/employeurs/{id}", [EmployeursController::class, "show"])->name("emp
 /*  MODIFICATION   */
 //Route::get("/employeurs/{id}/modifier/", [EmployeursController::class, "edit"])->name("employeurs.edit");
 //Route::get("/employeurs/{employeurs}/", [EmployeursController::class, "show"])->name("employeurs.show");
-//Route::Patch("/employeurs/{id}/modifier", [EmployeursController::class, "update"])->name("employeurs.update");
+//Route::patch("/employeurs/{id}/modifier", [EmployeursController::class, "update"])->name("employeurs.update");
 
 /* AJOUTER */
 //Route::get("/employeurs/creation", [EmployeursController::class, "create"])->name("employeurs.create");

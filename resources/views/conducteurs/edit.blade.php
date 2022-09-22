@@ -9,6 +9,7 @@
     <h1>Informations personnelles</h1>
     <form method="post" action="{{ route('conducteurs.update', [$conducteur->id]) }}">
         @csrf
+        @method("patch")
         <label for="nom">Nom</label><input type="text" id="nom" name="nom" value="{{ $conducteur->nom }}"><br>
         <label for="prenom">Prénom</label><input type="text" id="prenom" name="prenom" value="{{ $conducteur->prenom }}"><br>
         <label for="adresseCourriel">Courriel</label><input type="email" id="adresseCourriel" name="adresseCourriel" value="{{ $conducteur->adresseCourriel }}"><br>
@@ -18,6 +19,7 @@
     <h2>Modification de mot de passe</h2>
     <form method="post" action="{{ route('conducteurs.update', [$conducteur->id]) }}">
         @csrf
+        @method("patch")
         <label for="ancienMotDePasse">Ancien mot de passe</label><input type="password" id="ancienMotDePasse" name="ancienMotDePasse"><br>
         <label for="nouveauMotDePasse">Nouveau mot de passe</label><input type="password" id="nouveauMotDePasse" name="nouveauMotDePasse"><br>
         <label for="confirmerMotDePasse">Confirmer mot de passe</label><input type="password" id="confirmerMotDePasse" name="confirmerMotDePasse"><br>
