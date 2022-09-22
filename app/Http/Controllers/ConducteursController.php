@@ -3,10 +3,13 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Http\Requests\ConducteurRequest;
 use Illuminate\Http\View\View;
 use App\Models\Conducteur;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Throwable;
+use Illuminate\Support\Facades\Logs;
+
 
 class ConducteursController extends Controller
 {
@@ -18,6 +21,7 @@ class ConducteursController extends Controller
     public function index()
     {
         $conducteurs = Conducteur::all();
+
         return View("conducteurs.index", compact("conducteurs"));
     }
 
@@ -28,7 +32,7 @@ class ConducteursController extends Controller
      */
     public function create()
     {
-        //return View('conducteurs.create');
+        return View('conducteurs.create');
     }
 
     /**
@@ -37,9 +41,8 @@ class ConducteursController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(ConducteurRequest $request)
     {
-        /*
         try
         {
             $conducteur = new Conducteur($resquest->all());
@@ -49,10 +52,10 @@ class ConducteursController extends Controller
         catch(\Throwable $e)
         {
             //Gestion de l'erreur
-            Log::debug($e);
+           // Log::debug($e);
         }
-        return redirect()->route('conducteur.index');
-        */
+        return redirect()->route('conducteurs.index');
+        
     }
 
     /**
@@ -74,6 +77,7 @@ class ConducteursController extends Controller
         }
 
         return View("conducteurs.show", compact("conducteur"));
+
     }
     
 

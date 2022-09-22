@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\View\View;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
+use App\Models\Fiches;
+use Throwable;
 
 class FichesController extends Controller
 {
