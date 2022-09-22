@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Create</title>
 </head>
 <body>
     
@@ -38,10 +38,10 @@
         <input type="password" class="form-control" id="motDePasse" placeholder="motDePasse" name="motDePasse" value="{{ old('motDePasse') }}">
     </div>
 
-    <input type="radio" id="0" name="actif" value="0">
-    <label for="0">Actif</label><br>
-    <input type="radio" id="1" name="actif" value="1">
-    <label for="1">Non Actif</label>
+    <input type="radio" id="actif" name="actif" value="0">
+    <label for="actif">Actif</label><br>
+    <input type="radio" id="actif" name="actif" value="1">
+    <label for="actif">Non Actif</label>
         
     <button type="submit" class="btn btn-primary"> Enregistrer</button>
 

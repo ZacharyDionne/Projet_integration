@@ -41,7 +41,7 @@ class ConducteursController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(ConducteurRequest $request)
+    public function store(Request $request)
     {
         try
         {
@@ -52,7 +52,7 @@ class ConducteursController extends Controller
         catch(\Throwable $e)
         {
             //Gestion de l'erreur
-           // Log::debug($e);
+            Log::debug($e);
         }
         return redirect()->route('conducteurs.index');
         
