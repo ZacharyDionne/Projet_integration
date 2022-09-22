@@ -30,6 +30,8 @@
     <h1>conduteurs.index</h1>
     
     <h3>Voici la liste des conducteurs!</h3>
+    <a class="btn btn-default" href="{{ route('conducteurs.create') }}">Ajouter</a> 
+
     @if (count($conducteurs))
         @foreach($conducteurs as $conducteur)
 
