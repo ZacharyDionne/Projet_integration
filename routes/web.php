@@ -67,6 +67,10 @@ Un conducteur ne peut pas être supprimer. Il est seulement mis inactif*/
 /*  INDEX   */ 
 Route::get("/employeurs", [EmployeursController::class, "index"])->name("employeurs.index");
 
+/* AJOUTER */
+Route::get("/employeurs/creation", [EmployeursController::class, "create"])->name("employeurs.create");
+Route::post("/employeurs", [EmployeursController::class, "store"])->name("employeurs.store");
+
 /*  AFFICHAGE   */
 Route::get("/employeurs/{id}", [EmployeursController::class, "show"])->name("employeurs.show");
 
@@ -74,10 +78,6 @@ Route::get("/employeurs/{id}", [EmployeursController::class, "show"])->name("emp
 //Route::get("/employeurs/{id}/modifier/", [EmployeursController::class, "edit"])->name("employeurs.edit");
 //Route::get("/employeurs/{employeurs}/", [EmployeursController::class, "show"])->name("employeurs.show");
 //Route::patch("/employeurs/{id}/modifier", [EmployeursController::class, "update"])->name("employeurs.update");
-
-/* AJOUTER */
-//Route::get("/employeurs/creation", [EmployeursController::class, "create"])->name("employeurs.create");
-//Route::post("/employeurs", [EmployeursController::class, "store"])->name("employeurs.store");
 
 /* SUPPRESSION
 Un conducteur ne peut pas être supprimer. Il est seulement mis inactif*/

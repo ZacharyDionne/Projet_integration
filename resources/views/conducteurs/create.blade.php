@@ -19,25 +19,30 @@
 <form method="post" action="{{ route('conducteurs.store') }}">
 
 @csrf
+    <!-- Formulaire ajout Conducteur -->
     <div class="form-group">
+        <!-- Prénom conducteur -->
         <label for="prenom">prenom</label>
         <input type="text" class="form-control" id="prenom" placeholder="prenom" name="prenom" value="{{ old('prenom') }}">
-
+        <!-- Nom conducteur-->
         <label for="nom">nom</label>
         <input type="text" class="form-control" id="nom" placeholder="nom" name="nom" value="{{ old('nom') }}">
     </div>   
     <div class="form-group">
+        <!-- AdresseCourriel conducteur-->
         <label for="adresseCourriel">adresseCourriel</label>
         <input type="text" class="form-control" id="adresseCourriel" placeholder="adresseCourriel" name="adresseCourriel" value="{{ old('adresseCourriel') }}">
-        
+        <!-- Matricule conducteur-->
         <label for="matricule">matricule</label>
         <input type="text" class="form-control" id="matricule" placeholder="matricule" name="matricule" value="{{ old('matricule') }}">
     </div>
     <div class="form-group">
+        <!-- Mot de passe conducteur-->
         <label for="motDePasse">motDePasse</label>
         <input type="password" class="form-control" id="motDePasse" placeholder="motDePasse" name="motDePasse" value="{{ old('motDePasse') }}">
     </div>
 
+    <!-- Actif Ou non conducteur-->
     <input type="radio" id="actif" name="actif" value="0">
     <label for="actif">Actif</label><br>
     <input type="radio" id="actif" name="actif" value="1">

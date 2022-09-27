@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class ConducteurRequest extends FormRequest
+class EmployeurRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -27,7 +27,7 @@ class ConducteurRequest extends FormRequest
             'actif'          => 'required',
             'prenom'         => 'required|min:2|max:20',
             'nom'            => 'required|min:2|max:20',
-            'matricule'      => 'required|min:2|max:6',
+            'type_id'        => 'required',
             'adresseCourriel'=> 'required|min:5|max:80',
             'motDePasse'     => 'required|min:6',
         ];
@@ -50,9 +50,7 @@ class ConducteurRequest extends FormRequest
             "nom.max" => "Le nom doit avoir maximum 80 caractéres",
 
             /* Messages matricule */
-            "matricule.required" => "Veuillez entrez un matricule",
-            "matricule.min" => "Le matricule doit avoir minimum 2 caractéres",
-            "matricule.max" => "Le matricule doit avoir maximum 6 caractéres",
+            "type_id.required" => "Veuillez entrez un type d'employé",
 
             /* Messages adresseCourriel */
             "adresseCourriel.required" => "Veuillez entrez un courriel",
