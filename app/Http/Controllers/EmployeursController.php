@@ -44,7 +44,7 @@ class EmployeursController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(EmployeurRequest $request)
+    public function store(/*EmployeurRequest*/Request $request)
     {
         
         try
