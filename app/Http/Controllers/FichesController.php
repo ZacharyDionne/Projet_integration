@@ -19,7 +19,14 @@ class FichesController extends Controller
      */
     public function index()
     {
+<<<<<<< Updated upstream
         $fiches = Fiche::all()->sortByDesc("date")->take(150);
+=======
+        // $fiches = Fiche::all()->orderBy("date", "desc")->take(150);
+        // $fiches = Fiche::orderBy("date", "desc")->take(150)->get();
+        $fiches = Fiche::all()->sortByDesc("date")->take(150);
+
+>>>>>>> Stashed changes
 
         return View("fiches.index", compact("fiches"));
     }
