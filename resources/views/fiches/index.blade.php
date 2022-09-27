@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="fr">
   <head>
   	<title>Fiche</title>
     <meta charset="utf-8">
