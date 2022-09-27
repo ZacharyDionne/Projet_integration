@@ -102,48 +102,18 @@ class ConducteursController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(ConducteurRequest $request, $id)
     {
         try
         {
             $conducteur = Conducteur::findOrFail($id);
 
-
-
-
-            //Il y a deux possibilités : soit le chauffeur modifie son mot de passe, soit ils modifient d'autres informations personnels.
-            if (isset($request->nouveauMotDePasse))
-            {
-                //admin modifie
-                if (isset($request->nom))
-                {
-                    $conducteur->actif = $request->actif;
-                    $conducteur->prenom = $request->prenom;
-                    $conducteur->nom = $request->nom;
-                    $conducteur->matricule = $request->matricule;
-                    $conducteur->adresseCourriel = $request->adresseCourriel;
-                    $conducteur->motDePasse = $request->motDePasse;
-                }
-                //chauffeur modifie mot de passe
-                else
-                {
-                    //L'utilisateur n'a pas entrez son mot de passe pour confirmer son identité
-                    /*if ($request->ancienMotDePasse != $conducteur->motDePasse)
-                    {
-                        throw new Throwable("Veuillez confirmez votre identité en entrant votre ancien mot de passe");
-                    }*/
-                    $conducteur->motDePasse = $request->motDePasse;
-                }
-            }
-            //chauffeur modifie autres informations
-            else
-            {
-                $conducteur->prenom = $request->prenom;
-                $conducteur->nom = $request->nom;
-                $conducteur->adresseCourriel = $request->adresseCourriel;
-            }
-
-
+            $conducteur->actif = $request->actif;
+            $conducteur->prenom = $request->prenom;
+            $conducteur->nom = $request->nom;
+            $conducteur->matricule = $request->matricule;
+            $conducteur->adresseCourriel = $request->adresseCourriel;
+            $conducteur->motDePasse = $request->motDePasse;
 
 
 
