@@ -1,3 +1,33 @@
+/* [ FONT ] */
+
+@font-face {
+  font-family: Roboto-Regular;
+  src: url('../fonts/Roboto/Roboto-Regular.ttf'); 
+}
+
+@font-face {
+  font-family: Roboto-Bold;
+  src: url('../fonts/Roboto/Roboto-Bold.ttf'); 
+}
+
+@font-face {
+  font-family: JosefinSans-Bold;
+  src: url('../fonts/JosefinSans/JosefinSans-Bold.ttf'); 
+}
+
+@font-face {
+  font-family: Roboto-Bold;
+  src: url('../fonts/Roboto/Roboto-Bold.ttf');
+}
+
+@font-face {
+  font-family: Roboto-Regular;
+  src: url('../fonts/Roboto/Roboto-Regular.ttf');
+}
+
+
+/* [ CSS ] */
+
 .bg-tr {
     background: -webkit-linear-gradient(180deg, #004898, #0079c1) !important;
     /* box-shadow: 0px 19px 27px -20px rgb(0 0 0 / 16%); */
@@ -10,4 +40,9 @@
 
 .font-tr {
     font-family: Roboto-Bold !important;
+}
+
+.font-tr {
+    font-family: RobotoBold !important;
+    Font-size: 16px !important;
 }
