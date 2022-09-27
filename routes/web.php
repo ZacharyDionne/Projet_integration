@@ -61,7 +61,7 @@ Route::post("/conducteurs", [ConducteursController::class, "store"])->name("cond
 
 /*  MODIFICATION   */
 Route::get("/conducteurs/{id}/modifier/", [ConducteursController::class, "edit"])->name("conducteurs.edit");
-Route::get("/conducteurs/{id}/modifierAdmin/", [ConducteursController::class, "edit"])->name("conducteurs.editAdmin");
+Route::get("/conducteurs/{id}/modifierAdmin/", [ConducteursController::class, "editAdmin"])->name("conducteurs.editAdmin");
 Route::patch("/conducteurs/{id}/update", [ConducteursController::class, "update"])->name("conducteurs.update");
 
 /* SUPPRESSION 
