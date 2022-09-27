@@ -1,20 +1,4 @@
 /* [ FONT ] */
-
-@font-face {
-  font-family: Roboto-Regular;
-  src: url('../fonts/Roboto/Roboto-Regular.ttf'); 
-}
-
-@font-face {
-  font-family: Roboto-Bold;
-  src: url('../fonts/Roboto/Roboto-Bold.ttf'); 
-}
-
-@font-face {
-  font-family: JosefinSans-Bold;
-  src: url('../fonts/JosefinSans/JosefinSans-Bold.ttf'); 
-}
-
 @font-face {
   font-family: Roboto-Bold;
   src: url('../fonts/Roboto/Roboto-Bold.ttf');
@@ -40,9 +24,12 @@
 
 .font-tr {
     font-family: Roboto-Bold !important;
+    font-size: 16px !important;
+    color: #fff !important;
 }
 
-.font-tr {
-    font-family: RobotoBold !important;
-    Font-size: 16px !important;
+.font-rg {
+    font-family: Roboto-Regular !important;
+    font-size: 16px !important;
+    color: #333 !important;
 }

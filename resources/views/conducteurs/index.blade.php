@@ -27,26 +27,26 @@
 					<div class="table-wrap">
 						<table class="table">
 						  <thead class="bg-tr-up">
-						    <tr class="font-tr">
-						      <th>ID</th>
-						      <th>Nom</th>
-						      <th>Matricule</th>
-						      <th>Adresse Courriel</th>
-							  <th>Mot de passe</th>
-							  <th>Actif</th>
-						      <th>&nbsp;</th>
+						    <tr>
+						      <th class="font-tr">ID</th>
+						      <th class="font-tr">NOM</th>
+						      <th class="font-tr">MATRICULE</th>
+						      <th class="font-tr">ADRESSE COURRIEL</th>
+							  <th class="font-tr">MOT DE PASSE</th>
+							  <th class="font-tr">ACTIF</th>
+						      <th class="font-tr">&nbsp;</th>
 						    </tr>
 						  </thead>
 						  <tbody>
 						  @if (count($conducteurs))
         					@foreach($conducteurs as $conducteur)
 						    <tr class="alert shadow p-3 mb-5 bg-white rounded" role="alert">
-						      <th scope="row">{{ $conducteur->id }}</th>
-						      <td>{{ $conducteur->prenom }}, {{ $conducteur->nom }}</td>
-						      <td>{{ $conducteur->matricule }}</td>
-						      <td>{{ $conducteur->adresseCourriel }}</td>
-							  <td>{{ $conducteur->motDePasse }}</td>
-							  <td>{{ $conducteur->actif }}</td>
+						      <th class="font-rg" scope="row">{{ $conducteur->id }}</th>
+						      <td class="font-rg">{{ $conducteur->prenom }}, {{ $conducteur->nom }}</td>
+						      <td class="font-rg">{{ $conducteur->matricule }}</td>
+						      <td class="font-rg">{{ $conducteur->adresseCourriel }}</td>
+							  <td class="font-rg">{{ $conducteur->motDePasse }}</td>
+							  <td class="font-rg">{{ $conducteur->actif }}</td>
 						      <td>
 						      	<a href="#" class="close" data-dismiss="alert" aria-label="Close">
 				            	<span aria-hidden="true"><i class="fa fa-close"></i></span>
