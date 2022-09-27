@@ -7,6 +7,11 @@
 </head>
 <body>
     <h1>Informations personnelles</h1>
+    @if(isset($errors) && $errors->any())
+        @foreach ($errors->all() as $error)
+            <div>{{ $error }}</div>
+        @endforeach
+    @endif
     <form method="post" action="{{ route('conducteurs.update', [$conducteur->id]) }}">
         @csrf
         @method("patch")

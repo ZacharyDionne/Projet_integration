@@ -29,15 +29,15 @@ class ConducteurRequest extends FormRequest
             'nom'            => 'required|min:2|max:20',
             'matricule'      => 'required|min:2|max:6',
             'adresseCourriel'=> 'required|min:5|max:80',
-            'motDePasse'     => 'required|min:6',
+            'motDePasse'     => 'required|min:6'
         ];
     }
 
-    public function message()
+    public function messages()
     {
         return[
             /* Message actif */
-            "actif" => "Veuillez notez si l'employé est toujours actif ou non",
+            "actif.required" => "Veuillez notez si l'employé est toujours actif ou non",
 
             /* Messages prénom */
             "prenom.required" => "Veuillez entrez un prénom",
