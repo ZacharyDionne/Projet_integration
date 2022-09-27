@@ -91,47 +91,10 @@ class ConducteursController extends Controller
         
         $conducteur = Conducteur::findOrFail($id);
 
-        /*
-            Selon le droit de l'utilisateur, il recevr
-        
-        */
-        //if ()
         return View('conducteurs.edit', compact('conducteur'));
         
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function updateCommeConducteur(ConducteurRequest $request, $id)
-    {
-        try
-        {
-            $conducteur = Conducteur::findOrFail($id);
-
-            $conducteur->prenom = $request->prenom;
-            $conducteur->nom = $request->nom;
-            $conducteur->adresseCourriel = $request->adresseCourriel;
-            $conducteur->motDePasse = $request->motDePasse;
-
-
-
-            $conducteur->save();
-            //Aucune Erreur
-            return redirect()->route('conducteurs.index')->with ('message', "Modification de " . $conducteur->prenom . " " . $conducteur->nom . " réussi!");
-        }
-        catch (Throwable $e)
-        {
-            //Avec Erreur
-            Log::debug($e);
-            return redirect()->route('conducteurs.index')->withErrors(['La modification n\'a pas fonctionné']);
-        }
-
-    }
 
     /**
      * Update the specified resource in storage.
@@ -140,20 +103,24 @@ class ConducteursController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function updateCommeAdmin(ConducteurRequest $request, $id)
+    public function update(ConducteurRequest $request, $id)
     {
         try
         {
             $conducteur = Conducteur::findOrFail($id);
 
-            $conducteur->actif = $request->actif;
-            $conducteur->prenom = $request->prenom;
-            $conducteur->nom = $request->nom;
-            $conducteur->matricule = $request->matricule;
-            $conducteur->adresseCourriel = $request->adresseCourriel;
-            $conducteur->motDePasse = $request->motDePasse;
-
-
+            if (isset($request->actif))
+                $conducteur->actif = $request->actif;
+            if (isset($request->prenom))
+                $conducteur->prenom = $request->prenom;
+            if (isset($request->nom))
+                $conducteur->nom = $request->nom;
+            if (isset($request->matricule))
+                $conducteur->matricule = $request->matricule;
+            if (isset($request->adresseCourriel))
+                $conducteur->adresseCourriel = $request->adresseCourriel;
+            if (isset($request->motDePasse))
+                $conducteur->motDePasse = $request->motDePasse;
 
             $conducteur->save();
             //Aucune Erreur
