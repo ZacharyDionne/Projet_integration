@@ -95,6 +95,7 @@ class ConducteursController extends Controller
         
     }
 
+
     /**
      * Update the specified resource in storage.
      *
@@ -108,14 +109,18 @@ class ConducteursController extends Controller
         {
             $conducteur = Conducteur::findOrFail($id);
 
-            $conducteur->actif = $request->actif;
-            $conducteur->prenom = $request->prenom;
-            $conducteur->nom = $request->nom;
-            $conducteur->matricule = $request->matricule;
-            $conducteur->adresseCourriel = $request->adresseCourriel;
-            $conducteur->motDePasse = $request->motDePasse;
-
-
+            if (isset($request->actif))
+                $conducteur->actif = $request->actif;
+            if (isset($request->prenom))
+                $conducteur->prenom = $request->prenom;
+            if (isset($request->nom))
+                $conducteur->nom = $request->nom;
+            if (isset($request->matricule))
+                $conducteur->matricule = $request->matricule;
+            if (isset($request->adresseCourriel))
+                $conducteur->adresseCourriel = $request->adresseCourriel;
+            if (isset($request->motDePasse))
+                $conducteur->motDePasse = $request->motDePasse;
 
             $conducteur->save();
             //Aucune Erreur
@@ -129,6 +134,15 @@ class ConducteursController extends Controller
         }
 
     }
+
+
+
+
+
+
+
+
+
 
     /**
      * Remove the specified resource from storage.
