@@ -10,21 +10,6 @@
   src: url('../fonts/Roboto/Roboto-Bold.ttf'); 
 }
 
-@font-face {
-  font-family: JosefinSans-Bold;
-  src: url('../fonts/JosefinSans/JosefinSans-Bold.ttf'); 
-}
-
-@font-face {
-  font-family: Roboto-Bold;
-  src: url('../fonts/Roboto/Roboto-Bold.ttf');
-}
-
-@font-face {
-  font-family: Roboto-Regular;
-  src: url('../fonts/Roboto/Roboto-Regular.ttf');
-}
-
 
 /* [ CSS ] */
 

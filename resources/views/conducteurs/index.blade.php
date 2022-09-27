@@ -1,7 +1,7 @@
 <!doctype html>
-<html lang="en">
+<html lang="fr">
   <head>
-  	<title>Table 02</title>
+  	<title>Conducteurs Admin</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
@@ -27,70 +27,36 @@
 					<div class="table-wrap">
 						<table class="table">
 						  <thead class="bg-tr-up">
-						    <tr>
-						      <th>ID no.</th>
-						      <th>First Name</th>
-						      <th>Last Name</th>
-						      <th>Email</th>
+						    <tr class="font-tr">
+						      <th>ID</th>
+						      <th>Nom</th>
+						      <th>Matricule</th>
+						      <th>Adresse Courriel</th>
+							  <th>Mot de passe</th>
+							  <th>Actif</th>
 						      <th>&nbsp;</th>
 						    </tr>
 						  </thead>
 						  <tbody>
-						    <tr class="alert" role="alert">
-						      <th scope="row">001</th>
-						      <td>Mark</td>
-						      <td>Otto</td>
-						      <td>markotto@email.com</td>
+						  @if (count($conducteurs))
+        					@foreach($conducteurs as $conducteur)
+						    <tr class="alert shadow p-3 mb-5 bg-white rounded" role="alert">
+						      <th scope="row">{{ $conducteur->id }}</th>
+						      <td>{{ $conducteur->prenom }}, {{ $conducteur->nom }}</td>
+						      <td>{{ $conducteur->matricule }}</td>
+						      <td>{{ $conducteur->adresseCourriel }}</td>
+							  <td>{{ $conducteur->motDePasse }}</td>
+							  <td>{{ $conducteur->actif }}</td>
 						      <td>
 						      	<a href="#" class="close" data-dismiss="alert" aria-label="Close">
 				            	<span aria-hidden="true"><i class="fa fa-close"></i></span>
 				          	</a>
 				        	</td>
 						    </tr>
-						    <tr class="alert" role="alert">
-						      <th scope="row">002</th>
-						      <td>Jacob</td>
-						      <td>Thornton</td>
-						      <td>jacobthornton@email.com</td>
-						      <td>
-						      	<a href="#" class="close" data-dismiss="alert" aria-label="Close">
-				            	<span aria-hidden="true"><i class="fa fa-close"></i></span>
-				          	</a>
-				        	</td>
-						    </tr>
-						    <tr class="alert" role="alert">
-						      <th scope="row">003</th>
-						      <td>Larry</td>
-						      <td>the Bird</td>
-						      <td>larrybird@email.com</td>
-						      <td>
-						      	<a href="#" class="close" data-dismiss="alert" aria-label="Close">
-				            	<span aria-hidden="true"><i class="fa fa-close"></i></span>
-				          	</a>
-				        	</td>
-						    </tr>
-						    <tr class="alert" role="alert">
-						      <th scope="row">004</th>
-						      <td>John</td>
-						      <td>Doe</td>
-						      <td>johndoe@email.com</td>
-						      <td>
-						      	<a href="#" class="close" data-dismiss="alert" aria-label="Close">
-				            	<span aria-hidden="true"><i class="fa fa-close"></i></span>
-				          	</a>
-				        	</td>
-						    </tr>
-						    <tr class="alert" role="alert">
-						      <th scope="row">005</th>
-						      <td>Gary</td>
-						      <td>Bird</td>
-						      <td>garybird@email.com</td>
-						      <td>
-						      	<a href="#" class="close" data-dismiss="alert" aria-label="Close">
-				            	<span aria-hidden="true"><i class="fa fa-close"></i></span>
-				          	</a>
-				        	</td>
-						    </tr>
+							@endforeach
+    					  @else
+        					<p>Il n'y a aucun conducteur.</p>
+					      @endif
 						  </tbody>
 						</table>
 					</div>
