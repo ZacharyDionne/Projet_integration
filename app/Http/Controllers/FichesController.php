@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\View\View;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use App\Models\Fiche;
+use Throwable;
 use DB;
 
 
@@ -17,7 +19,7 @@ class FichesController extends Controller
      */
     public function index()
     {
-        $fiches = Fiche::all()->orderBy("date", "desc")->take(150);
+        $fiches = Fiche::all()->sortByDesc("date")->take(150);
 
         return View("fiches.index", compact("fiches"));
     }
