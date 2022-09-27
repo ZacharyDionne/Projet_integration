@@ -45,6 +45,9 @@ Route::get("/fiches", [FichesController::class, "index"])->name("fiches.index");
 /* SUPPRESSION 
 Un employé ne peut pas supprimer une fiche. Il peut seulement la modifier*/
 
+
+
+
 /* ---------------------------- Pages CONDUCTEUR -------------------------------------------- */
 /*  INDEX   */ 
 Route::get("/conducteurs", [ConducteursController::class, "index"])->name("conducteurs.index");
@@ -62,6 +65,9 @@ Route::patch("/conducteurs/{id}/update", [ConducteursController::class, "update"
 
 /* SUPPRESSION 
 Un conducteur ne peut pas être supprimer. Il est seulement mis inactif*/
+
+
+
 
 /* ---------------------------- Pages EMPLOYEUR -------------------------------------------- */
 /*  INDEX   */ 
@@ -81,6 +87,9 @@ Route::get("/employeurs/{id}", [EmployeursController::class, "show"])->name("emp
 
 /* SUPPRESSION
 Un conducteur ne peut pas être supprimer. Il est seulement mis inactif*/
+
+
+
 
 /* ---------------------------- Pages ALERTES -------------------------------------------- */
 /*  INDEX   */ 
