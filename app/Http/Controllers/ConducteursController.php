@@ -95,6 +95,15 @@ class ConducteursController extends Controller
         
     }
 
+    public function editAdmin($id)
+    {
+        
+        $conducteur = Conducteur::findOrFail($id);
+
+        return View('conducteurs.editAdmin', compact('conducteur'));
+        
+    }
+
 
     /**
      * Update the specified resource in storage.
@@ -124,7 +133,7 @@ class ConducteursController extends Controller
 
             $conducteur->save();
             //Aucune Erreur
-            return redirect()->route('conducteurs.index')->with ('message', "Modification de " . $conducteur->prenom . " " . $conducteur->nom . " réussi!");
+            return redirect()->route('conducteurs.index')->with('message', "Modification de " . $conducteur->prenom . " " . $conducteur->nom . " réussi!");
         }
         catch (Throwable $e)
         {
