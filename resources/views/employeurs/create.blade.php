@@ -15,7 +15,6 @@
         @endforeach
     </div>
 @endif
-$table->foreignId('type_id')->constrained();
 <form method="post" action="{{ route('employeurs.store') }}">
 
 @csrf
@@ -35,7 +34,15 @@ $table->foreignId('type_id')->constrained();
         <input type="password" class="form-control" id="motDePasse" placeholder="motDePasse" name="motDePasse" value="{{ old('motDePasse') }}">
     </div>
 
-    <input type="radio" id="actif" name="actif" value="0">
+    <label for="type_id">Choisir un type</label>
+  <select class="form-control" id="type_id" name="type_id">
+    @foreach($types as $type)
+    <option value="{{ $type->id }}">{{ $type->typeEmp }}</option>
+    @endforeach
+  </select>
+  <br><br>
+
+  <input type="radio" id="actif" name="actif" value="0">
     <label for="actif">Actif</label><br>
     <input type="radio" id="actif" name="actif" value="1">
     <label for="actif">Non Actif</label>

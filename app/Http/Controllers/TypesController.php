@@ -4,6 +4,17 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
+//use App\Http\Requests\TypeRequest;
+
+use Illuminate\Http\View\View;
+
+use App\Models\Type;
+
+use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Throwable;
+use Illuminate\Support\Facades\Log;
+
+
 class TypesController extends Controller
 {
     /**
@@ -13,7 +24,8 @@ class TypesController extends Controller
      */
     public function index()
     {
-        //
+        $types = Type::all();
+        return View("types.index", compact("types"));
     }
 
     /**

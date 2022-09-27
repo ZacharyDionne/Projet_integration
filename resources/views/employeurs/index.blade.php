@@ -9,6 +9,7 @@
     <h1>employeurs.index</h1>
 
     <h3>Voici la liste des employeurs!</h3>
+    <a class="btn btn-default" href="{{ route('employeurs.create') }}">Ajouter</a> 
 
     @if (count($employeurs))
         @foreach($employeurs as $employeur)

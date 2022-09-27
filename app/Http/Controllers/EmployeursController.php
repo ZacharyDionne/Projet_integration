@@ -6,7 +6,10 @@ use Illuminate\Http\Request;
 //use App\Http\Requests\EmployeurRequest;
 
 use Illuminate\Http\View\View;
+
 use App\Models\Employeur;
+use App\Models\Type;
+
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Throwable;
 use Illuminate\Support\Facades\Log;
@@ -31,8 +34,8 @@ class EmployeursController extends Controller
      */
     public function create()
     {
-        $type
-        return View('employeurs.create');
+        $types = Type::orderBy('typeEmp')->get();
+        return View('employeurs.create', compact('types'));
     }
 
     /**
