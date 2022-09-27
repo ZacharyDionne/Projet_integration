@@ -9,6 +9,8 @@ class Employeur extends Model
 {
     use HasFactory;
 
+    protected $fillable = ['actif', 'prenom', 'nom', 'type_id', 'adresseCourriel', 'motDePasse'];
+
     public function up()
     {
         Schema::create("employeurs", function (Blueprint $table) {

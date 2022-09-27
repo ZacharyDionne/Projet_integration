@@ -18,22 +18,26 @@
 <form method="post" action="{{ route('employeurs.store') }}">
 
 @csrf
+    <!-- Formulaire Employeur -->
     <div class="form-group">
+        <!-- Prénom Employeur -->
         <label for="prenom">prenom</label>
         <input type="text" class="form-control" id="prenom" placeholder="prenom" name="prenom" value="{{ old('prenom') }}">
-
+        <!-- Nom Employeur -->
         <label for="nom">nom</label>
         <input type="text" class="form-control" id="nom" placeholder="nom" name="nom" value="{{ old('nom') }}">
     </div>   
     <div class="form-group">
+        <!-- AdresseCourriel Employeur -->
         <label for="adresseCourriel">adresseCourriel</label>
         <input type="text" class="form-control" id="adresseCourriel" placeholder="adresseCourriel" name="adresseCourriel" value="{{ old('adresseCourriel') }}">
     </div>
     <div class="form-group">
+        <!-- MotDePasse Employeur -->
         <label for="motDePasse">motDePasse</label>
         <input type="password" class="form-control" id="motDePasse" placeholder="motDePasse" name="motDePasse" value="{{ old('motDePasse') }}">
     </div>
-
+    <!-- Type Employeur -->
     <label for="type_id">Choisir un type</label>
   <select class="form-control" id="type_id" name="type_id">
     @foreach($types as $type)
@@ -41,7 +45,7 @@
     @endforeach
   </select>
   <br><br>
-
+    <!-- Actif Ou Non Employeur -->
   <input type="radio" id="actif" name="actif" value="0">
     <label for="actif">Actif</label><br>
     <input type="radio" id="actif" name="actif" value="1">

@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-//use App\Http\Requests\EmployeurRequest;
+use App\Http\Requests\EmployeurRequest;
 
 use Illuminate\Http\View\View;
 
@@ -44,7 +44,7 @@ class EmployeursController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(/*EmployeurRequest*/Request $request)
+    public function store(EmployeurRequest $request)
     {
         
         try
