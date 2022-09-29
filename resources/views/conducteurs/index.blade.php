@@ -18,6 +18,11 @@
 	<section class="ftco-section">
 		<div class="container">
 			<div class="row justify-content-center">
+				@if (isset($errors) && $errors->any())
+					@foreach ($errors->all() as $error)
+						<div>{{ $error }}</div>
+					@endforeach
+				@endif
 				<div class="col-md-6 text-center mb-5">
 					<h2 class="heading-section">Table #02</h2>
 				</div>

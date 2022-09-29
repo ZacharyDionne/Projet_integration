@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Http\Requests\ConducteurRequest;
+use App\Http\Requests\ConducteurAdminRequest;
 use Illuminate\Http\View\View;
 use App\Models\Conducteur;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
@@ -147,8 +148,41 @@ class ConducteursController extends Controller
 
 
 
+   /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function updateAdmin(ConducteurAdminRequest $request, $id)
+    {
+        try
+        {
+            $conducteur = Conducteur::findOrFail($id);
+            $conducteur->actif = $request->actif;
+            $conducteur->prenom = $request->prenom;
+            $conducteur->nom = $request->nom;
+            $conducteur->matricule = $request->matricule;
+            $conducteur->adresseCourriel = $request->adresseCourriel;
 
+            //Cette validation est nécessaire puisque l'admin à le choix de modifier le mot de passe ou non
+            //voir la vue "conducteurs.editAdmin"
+            if (isset($request->motDePasse) && !empty($request->motDePasse))
+                $conducteur->motDePasse = $request->motDePasse;
 
+            $conducteur->save();
+            //Aucune Erreur
+            return redirect()->route('conducteurs.index')->with('message', "Modification de " . $conducteur->prenom . " " . $conducteur->nom . " réussi!");
+        }
+        catch (Throwable $e)
+        {
+            //Avec Erreur
+            Log::debug($e);
+            return redirect()->route('conducteurs.index')->withErrors(['La modification n\'a pas fonctionné']);
+        }
+
+    }
 
 
 
