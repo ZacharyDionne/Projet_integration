@@ -41,12 +41,12 @@ class ConducteurRequest extends FormRequest
 
             /* Messages prénom */
             "prenom.required" => "Veuillez entrez un prénom",
-            "prenom.min" => "Le prénom doit avoir minimum 2 caractéres",
+            "prenom.min" => "Le prénom doit avoir minimum 2 caractères",
             "prenom.max" => "Le prénom doit avoir maximum 80 caractéres",
 
             /* Messages nom */
             "nom.required" => "Veuillez entrez un nom",
-            "nom.min" => "Le nom doit avoir minimum 2 caractéres",
+            "nom.min" => "Le nom doit avoir minimum 2 caractères",
             "nom.max" => "Le nom doit avoir maximum 80 caractéres",
 
             /* Messages matricule */
@@ -56,12 +56,12 @@ class ConducteurRequest extends FormRequest
 
             /* Messages adresseCourriel */
             "adresseCourriel.required" => "Veuillez entrez un courriel",
-            "adresseCourriel.min" => "Le courriel doit avoir minimum 5 caractéres",
+            "adresseCourriel.min" => "Le courriel doit avoir minimum 5 caractères",
             "adresseCourriel.max" => "Le nom doit avoir maximum 80 caractéres",
 
             /* Messages motDePasse */
             "motDePasse.required" => "Veuillez entrez un mot de passe",
-            "motDePasse.min" => "Le nom doit avoir minimum 6 caractéres",
+            "motDePasse.min" => "Le mot de passe doit avoir minimum 6 caractères",
         ];
     }
 }
