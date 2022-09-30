@@ -3,12 +3,16 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+//use App\Http\Requests\FicheRequest;
+
 use Illuminate\View\View;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
-use App\Models\Fiche;
-use Throwable;
-use DB;
 
+use App\Models\Fiche;
+use App\Models\Conducteur;
+
+use Throwable;
+use Illuminate\Support\Facades\Log;
 
 class FichesController extends Controller
 {
@@ -34,7 +38,8 @@ class FichesController extends Controller
      */
     public function create()
     {
-        //
+        $conducteurs = Conducteur::orderBy('id')->get();
+        return View('fiches.create', compact('conducteurs'));   
     }
 
     /**
@@ -45,7 +50,18 @@ class FichesController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        try
+        {
+            $fiche = new Fiche($request->all());
+            $fiche->save();
+        }
+
+        catch(\Throwable $e)
+        {
+            //Gestion de l'erreur
+            Log::debug($e);
+        }
+        return redirect()->route('fiches.index');
     }
 
     /**

@@ -43,7 +43,7 @@
     </div>
 
     <!-- Actif Ou non conducteur-->
-    <input type="radio" id="actif" name="actif" value="0">
+    <input type="radio" id="actif" name="actif" value="0" checked="Yes">
     <label for="actif">Actif</label><br>
     <input type="radio" id="actif" name="actif" value="1">
     <label for="actif">Non Actif</label>

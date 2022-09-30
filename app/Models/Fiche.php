@@ -9,6 +9,8 @@ class Fiche extends Model
 {
     use HasFactory;
 
+    protected $fillable = ['conducteur_id', 'cycle', 'observation', 'date'];
+
 
     public function conducteur() : BelongsTo
     {

@@ -30,6 +30,10 @@ Route::get('/connexion', function () {
 /*  INDEX   */      
 Route::get("/fiches", [FichesController::class, "index"])->name("fiches.index");
 
+/* AJOUTER */
+Route::get("/fiches/creation", [FichesController::class, "create"])->name("fiches.create");
+Route::post("/fiches", [FichesController::class, "store"])->name("fiches.store");
+
 /*  AFFICHAGE   */
 //Route::get("/fiches/{id}", [FichesController::class, "show"])->name("fiches.show");
 
@@ -37,10 +41,6 @@ Route::get("/fiches", [FichesController::class, "index"])->name("fiches.index");
 //Route::get("/fiches/{id}/modifier/", [FichesController::class, "edit"])->name("fiches.edit");
 //Route::get("/fiches/{fiches}/", [FichesController::class, "show"])->name("fiches.show");
 //Route::Patch("/fiches/{id}/modifier", [FichesController::class, "update"])->name("fiches.update");
-
-/* AJOUTER */
-//Route::get("/fiches/creation", [FichesController::class, "create"])->name("fiches.create");
-//Route::post("/fiches", [FichesController::class, "store"])->name("fiches.store");
 
 /* SUPPRESSION 
 Un employé ne peut pas supprimer une fiche. Il peut seulement la modifier*/
