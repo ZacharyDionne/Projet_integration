@@ -24,6 +24,7 @@
 
 .font-tr {
     font-family: Roboto-Bold !important;
+    text-transform: uppercase !important;
     font-size: 16px !important;
     color: #fff !important;
 }
@@ -32,4 +33,43 @@
     font-family: Roboto-Regular !important;
     font-size: 16px !important;
     color: #333 !important;
+}
+
+.btn-edit {
+  font-family: Roboto-Bold;
+  font-size: 16px;
+  color: #fff;
+  background: -webkit-linear-gradient(90deg, #004898, #0079c1);
+}
+
+.btn-edit:hover {
+  background: -webkit-linear-gradient(90deg, #191538, #004898);
+  color: #fff;
+}
+
+.fa-pencil:hover{
+  color: #fff;
+}
+
+.list-title{
+  font-family: Roboto-Bold;
+  font-size: 22px;
+  color: #707070;
+  margin: auto;
+}
+
+.top-small-title{
+  font-family: Roboto-Regular;
+  font-size: 16px;
+  margin: auto;
+}
+
+.title-placement{
+  color: #707070;
+  background: #ECECEC;
+  text-transform: uppercase;
+  border-color: #707070;
+  border-radius: 10px;
+  border-width: 2px;
+  border-style: solid;
 }

@@ -18,51 +18,47 @@
 	<section class="ftco-section">
 		<div class="container">
 			<div class="row justify-content-center">
-				@if (isset($errors) && $errors->any())
-					@foreach ($errors->all() as $error)
-						<div>{{ $error }}</div>
-					@endforeach
-				@endif
-				<div class="col-md-6 text-center mb-5">
-					<h2 class="heading-section">Table #02</h2>
+				<div class="col-md-3 text-center mb-1 title-placement">
+					<p class="top-small-title">LISTE DES USAGERS</p>
+					<h2 class="heading-section list-title">CONDUCTEURS</h2>
 				</div>
 			</div>
 			<div class="row">
 				<div class="col-md-12">
 					<div class="table-wrap">
 						<table class="table">
-						  <thead class="bg-tr-up">
-						    <tr>
-						      <th class="font-tr">ID</th>
-						      <th class="font-tr">NOM</th>
-						      <th class="font-tr">MATRICULE</th>
-						      <th class="font-tr">ADRESSE COURRIEL</th>
-							  <th class="font-tr">MOT DE PASSE</th>
-							  <th class="font-tr">ACTIF</th>
-						      <th class="font-tr">&nbsp;</th>
-						    </tr>
-						  </thead>
-						  <tbody>
-						  @if (count($conducteurs))
-        					@foreach($conducteurs as $conducteur)
-						    <tr class="alert shadow p-3 mb-5 bg-white rounded" role="alert">
-						      <th class="font-rg" scope="row">{{ $conducteur->id }}</th>
-						      <td class="font-rg">{{ $conducteur->prenom }}, {{ $conducteur->nom }}</td>
-						      <td class="font-rg">{{ $conducteur->matricule }}</td>
-						      <td class="font-rg">{{ $conducteur->adresseCourriel }}</td>
-							  <td class="font-rg">{{ $conducteur->motDePasse }}</td>
-							  <td class="font-rg">{{ $conducteur->actif }}</td>
-						      <td>
-						      	<a href="#" class="close" data-dismiss="alert" aria-label="Close">
-				            	<span aria-hidden="true"><i class="fa fa-close"></i></span>
-				          	</a>
-				        	</td>
-						    </tr>
-							@endforeach
-    					  @else
+						  	<thead class="bg-tr-up">
+						    	<tr class="shadow p-3 mb-5">
+									<th class="font-tr">ID</th>
+									<th class="font-tr">NOM</th>
+									<th class="font-tr">MATRICULE</th>
+									<th class="font-tr">ADRESSE COURRIEL</th>
+									<th class="font-tr">MOT DE PASSE</th>
+									<th class="font-tr">ACTIF</th>
+									<th class="font-tr">&nbsp;</th>
+						    	</tr>
+						  	</thead>
+						  	<tbody>
+						  	@if (count($conducteurs))
+								@foreach($conducteurs as $conducteur)
+								<tr class="alert shadow p-3 mb-5 bg-white rounded" role="alert">
+									<th class="font-rg" scope="row">{{ $conducteur->id }}</th>
+									<td class="font-rg">{{ $conducteur->prenom }}, {{ $conducteur->nom }}</td>
+									<td class="font-rg">{{ $conducteur->matricule }}</td>
+									<td class="font-rg">{{ $conducteur->adresseCourriel }}</td>
+									<td class="font-rg">{{ $conducteur->motDePasse }}</td>
+									<td class="font-rg">{{ $conducteur->actif }}</td>
+									<td>
+										<a type="button" title="Modifier" class="btn btn-edit" href="http://127.0.0.1:8000/conducteurs/{{ $conducteur->id }}/modifier/">
+											<i class="fa fa-pencil" aria-hidden="true"></i>
+										</a>
+									</td>
+								</tr>
+								@endforeach
+    					  	@else
         					<p>Il n'y a aucun conducteur.</p>
-					      @endif
-						  </tbody>
+					      	@endif
+						  	</tbody>
 						</table>
 					</div>
 				</div>
@@ -88,24 +84,3 @@
 
 	</body>
 </html>
-
-
-    
-    <!-- <h3>Voici la liste des conducteurs!</h3>
-    @if (count($conducteurs))
-        @foreach($conducteurs as $conducteur)
-
-        <ul>
-            <li>{{ $conducteur->id }}</li>
-            <li>{{ $conducteur->prenom }}, {{ $conducteur->nom }}</li>
-            <li>{{ $conducteur->matricule }}</li>
-            <li>{{ $conducteur->adresseCourriel }}</li>
-            <li>{{ $conducteur->motDePasse }}</li>
-            <li>{{ $conducteur->actif }}</li>
-        </ul>
-
-        @endforeach
-    @else
-        <p>Il n'y a aucun conducteur.</p>
-
-    @endif -->
