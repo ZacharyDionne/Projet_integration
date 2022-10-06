@@ -62,8 +62,10 @@
         for(var i  = 1; i <= nDays ; i++) {
             days[n].innerHTML = i;
             days[n].setAttribute('datejour', year + '-' + (month + 1) + '-' + i); 
-            days[n].setAttribute('data-toggle', 'modal');
-            days[n].setAttribute('data-target', '#myModal');
+            // days[n].setAttribute('data-toggle', 'modal');
+            // days[n].setAttribute('data-target', '#myModal');
+            // put a link that when clicked, it will go to /fiches/{datejour}
+            days[n].setAttribute('onclick', 'window.location.href = "/fiches/" + this.getAttribute("datejour")');
             n++;
         }
         

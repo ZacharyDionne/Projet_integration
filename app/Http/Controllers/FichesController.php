@@ -70,9 +70,41 @@ class FichesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($date)
     {
-        //
+        //check if the date correspond to a date from an existing fiche
+        $fiche = Fiche::where('date', $date)->first();
+        if($fiche == null)
+        {
+            
+            // create a new fiche with the date
+            $fiche = new Fiche();
+            $fiche->conducteur_id = 1;
+            $fiche->observation = "yo";
+            $fiche->cycle = 1;
+            $fiche->date = $date;
+            $fiche->save();
+            
+            // redirect to the fiche and compact the new fiche 
+            return View('fiches.show', compact('fiche'));
+        }
+        else 
+        {
+            try
+            {
+            // if the date correspond to a date from an existing fiche, we get the fiche
+            $fiche = Fiche::where('date', $date)->first();
+            return View('fiches.show', compact('fiche'));
+            }
+            catch(\Throwable $e)
+            {
+                //Gestion de l'erreur
+                Log::debug($e);
+
+                // redirect to the index
+                return redirect()->route('fiches.index');
+            }
+        }
     }
 
     /**

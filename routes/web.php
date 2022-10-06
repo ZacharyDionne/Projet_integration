@@ -35,7 +35,7 @@ Route::get("/fiches/creation", [FichesController::class, "create"])->name("fiche
 Route::post("/fiches", [FichesController::class, "store"])->name("fiches.store");
 
 /*  AFFICHAGE   */
-//Route::get("/fiches/{id}", [FichesController::class, "show"])->name("fiches.show");
+Route::get("/fiches/{id}", [FichesController::class, "show"])->name("fiches.show");
 
 /*  MODIFICATION   */
 //Route::get("/fiches/{id}/modifier/", [FichesController::class, "edit"])->name("fiches.edit");
