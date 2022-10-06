@@ -47,13 +47,6 @@
   color: #fff;
 }
 
-.fa-plus {
-  font-family: Roboto-Bold !important;
-  text-transform: uppercase !important;
-  font-size: 16px !important;
-  color: #fff !important;
-}
-
 .btn-edit {
   font-family: Roboto-Bold;
   font-size: 16px;
@@ -66,10 +59,6 @@
   color: #fff;
 }
 
-.fa-pencil:hover{
-  color: #fff;
-}
-
 .btn-list {
   font-family: Roboto-Bold;
   font-size: 16px;
@@ -79,10 +68,6 @@
 
 .btn-list:hover {
   background: #117584;
-  color: #fff;
-}
-
-.fa-list:hover{
   color: #fff;
 }
 

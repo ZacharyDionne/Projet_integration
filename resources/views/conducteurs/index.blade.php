@@ -36,8 +36,9 @@
 									<th class="font-tr">MOT DE PASSE</th>
 									<th class="font-tr">ACTIF</th>
 									<th class="font-tr">
-										<a type="button" title="Ajouter" class="btn btn-ajouter">
-											<i class="fa fa-plus" aria-hidden="true"> AJOUTER</i>
+										<a type="button" title="Ajouter" class="btn btn-ajouter" href="http://127.0.0.1:8000/conducteurs/creation/">
+											<i class="fa fa-plus" aria-hidden="true"></i>
+											AJOUTER
 										</a>
 									</th>
 						    	</tr>
