@@ -35,19 +35,54 @@
     color: #333 !important;
 }
 
+.btn-ajouter {
+  font-family: Roboto-Bold;
+  font-size: 16px;
+  color: #fff;
+  background: #47a760;
+}
+
+.btn-ajouter:hover {
+  background: #367f49;
+  color: #fff;
+}
+
+.fa-plus {
+  font-family: Roboto-Bold !important;
+  text-transform: uppercase !important;
+  font-size: 16px !important;
+  color: #fff !important;
+}
+
 .btn-edit {
   font-family: Roboto-Bold;
   font-size: 16px;
   color: #fff;
-  background: -webkit-linear-gradient(90deg, #004898, #0079c1);
+  background: #ffc107;
 }
 
 .btn-edit:hover {
-  background: -webkit-linear-gradient(90deg, #191538, #004898);
+  background: #ba8d06;
   color: #fff;
 }
 
 .fa-pencil:hover{
+  color: #fff;
+}
+
+.btn-list {
+  font-family: Roboto-Bold;
+  font-size: 16px;
+  color: #fff;
+  background: #17a2b8;
+}
+
+.btn-list:hover {
+  background: #117584;
+  color: #fff;
+}
+
+.fa-list:hover{
   color: #fff;
 }
 

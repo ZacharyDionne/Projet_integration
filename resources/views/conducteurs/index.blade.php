@@ -35,7 +35,11 @@
 									<th class="font-tr">ADRESSE COURRIEL</th>
 									<th class="font-tr">MOT DE PASSE</th>
 									<th class="font-tr">ACTIF</th>
-									<th class="font-tr">&nbsp;</th>
+									<th class="font-tr">
+										<a type="button" title="Ajouter" class="btn btn-ajouter">
+											<i class="fa fa-plus" aria-hidden="true"> AJOUTER</i>
+										</a>
+									</th>
 						    	</tr>
 						  	</thead>
 						  	<tbody>
@@ -49,7 +53,10 @@
 									<td class="font-rg">{{ $conducteur->motDePasse }}</td>
 									<td class="font-rg">{{ $conducteur->actif }}</td>
 									<td>
-										<a type="button" title="Modifier" class="btn btn-edit" href="http://127.0.0.1:8000/conducteurs/{{ $conducteur->id }}/modifier/">
+										<a type="button" title="Fiches" class="btn btn-list" href="http://127.0.0.1:8000/conducteurs/{{ $conducteur->id }}/fiches/">
+											<i class="fa fa-list" aria-hidden="true"></i>
+										</a>
+										<a type="button" title="Modifier" class="btn btn-edit" href="http://127.0.0.1:8000/conducteurs/{{ $conducteur->id }}/modifierAdmin/">
 											<i class="fa fa-pencil" aria-hidden="true"></i>
 										</a>
 									</td>
