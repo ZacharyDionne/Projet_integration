@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('fiches', function (Blueprint $table) {
             $table->id();
             $table->foreignId('conducteur_id')->constrained();
-            $table->text('observation');
+            $table->text('observation')->nullable();
             $table->tinyInteger('cycle');
             $table->date('date');
             $table->timestamps();

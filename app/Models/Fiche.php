@@ -23,7 +23,7 @@ class Fiche extends Model
         {
             $table->id();
             $table->foreignId('conducteur_id')->constrained();
-            $table->text('observation');
+            $table->text('observation')->nullable();
             $table->tinyInteger('cycle');
             $table->date('date');
             $table->timestamps();     
