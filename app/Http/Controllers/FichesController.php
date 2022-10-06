@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-//use App\Http\Requests\FicheRequest;
+use App\Http\Requests\FicheRequest;
 
 use Illuminate\View\View;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
@@ -48,7 +48,7 @@ class FichesController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(FicheRequest $request)
     {
         try
         {
