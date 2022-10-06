@@ -38,7 +38,7 @@
     <label for="conducteur_id">Choisir un conducteur</label>
   <select class="form-control" id="conducteur_id" name="conducteur_id">
     @foreach($conducteurs as $conducteur)
-    <option value="{{ $conducteur->id }}">{{ $conducteur->prénom }}</option>
+    <option value="{{ $conducteur->id }}">{{ $conducteur-> prenom }}</option>
     @endforeach
   </select>
   <br><br>

@@ -35,7 +35,7 @@ class FicheRequest extends FormRequest
     {
         return[
             /* Message conducteur_id */
-            "conducteur_id" => "Veuillez notez le conducteur ou vous identifier si ce n'est pas déjà fait",
+            "conducteur_id.required" => "Veuillez notez le conducteur ou vous identifier si ce n'est pas déjà fait",
 
             /* Messages observation */
             "observation.required" => "Veuillez entrez une observation",
