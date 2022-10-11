@@ -19,14 +19,15 @@ use App\Http\Controllers\LoginController;
 */
 
 // Page d'ACCUEIL
-Route::get('/', function () {
+Route::get('/', function() {
     return view('index');
 });
 
 // Page de CONNEXION
 Route::get('/connexion', [LoginController::class, "index"])->name("connexion.index");
 Route::post('/connexion/tentative', [LoginController::class, "authenticate"])->name("connexion.login");
-Route::get('/connexion/deconnexion', [LoginController::class, "authenticate"])->name("connexion.logout");
+Route::get('/connexion/deconnexion', [LoginController::class, "logout"])->name("connexion.logout");
+Route::get("connexionDone", function() { return View("connexion.logged"); })->name("connexion.loggedin");
 /* ---------------------------- Pages FICHES -------------------------------------------- */
 /*  INDEX   */      
 Route::get("/fiches", [FichesController::class, "index"])->name("fiches.index");

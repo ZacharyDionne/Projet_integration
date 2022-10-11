@@ -9,6 +9,8 @@ use App\Models\Employeur;
 use Illuminate\Http\View\View;
 use Illuminate\Support\Facades\Auth;
 
+use Illuminate\Support\Facades\Hash;
+
 class LoginController extends Controller
 {
     public function index()
@@ -23,7 +25,7 @@ class LoginController extends Controller
         {
             $request->session()->regenerate();
 
-            return redirect()->intended("connexion.logged");
+            return redirect()->intended("connexionDone");
         }
         return back()->withErrors(["Erreur de Niless"])->onlyInput("adresseCourriel");
 
@@ -39,7 +41,7 @@ class LoginController extends Controller
 
         $request->session()->regenerateToken();
 
-        return redirect("connexion.index");
+        return redirect("/connexion");
     }
 
 }
