@@ -23,9 +23,7 @@ Route::get('/', function () {
 });
 
 // Page de CONNEXION
-Route::get('/connexion', function () {
-    return view('connexion.login');
-})->name("login");
+Route::get('/connexion', [LoginController::class, "index"])->name("login");
 /* ---------------------------- Pages FICHES -------------------------------------------- */
 /*  INDEX   */      
 Route::get("/fiches", [FichesController::class, "index"])->name("fiches.index");
