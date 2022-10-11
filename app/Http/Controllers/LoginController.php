@@ -27,6 +27,12 @@ class LoginController extends Controller
 
             return redirect()->intended("connexionDone");
         }
+        else if (Auth::guard("employeur")->attempt(["adresseCourriel" => $request->adresseCourriel, "password" => $request->motDePasse]))
+        {
+            $request->session()->regenerate();
+
+            return redirect()->intended("connexionDone");
+        }
         return back()->withErrors(["Erreur de Niless"])->onlyInput("adresseCourriel");
 
     }

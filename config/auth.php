@@ -43,6 +43,10 @@ return [
         "conducteur" => [
             "driver" => "session",
             "provider" => "conducteurs"
+        ],
+        "employeur" => [
+            "driver" => "session",
+            "provider" => "employeurs"
         ]
     ],
 
@@ -71,6 +75,10 @@ return [
         "conducteurs" => [
             "driver" => "eloquent",
             "model" => App\Models\Conducteur::class
+        ],
+        "employeurs" => [
+            "driver" => "eloquent",
+            "model" => App\Models\Employeur::class
         ]
 
         // 'users' => [

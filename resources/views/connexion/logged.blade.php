@@ -6,8 +6,16 @@
     <title>Connexion réussi</title>
 </head>
 <body>
-    <h1>
-        Connexion réussi à <span>{{ auth()->guard("conducteur")->user()->adresseCourriel }}</span>
+    <h1>Connexion réussi à
+        <span>
+            @if (auth()->guard("conducteur")->user())
+                {{ auth()->guard("conducteur")->user()->adresseCourriel; }}
+            @elseif (auth()->guard("employeur")->user())
+                {{ auth()->guard("employeur")->user()->adresseCourriel; }}
+            @else
+                {{ "personne"; }}
+            @endif
+        </span>
     </h1>
     <a href="{{ route('connexion.logout') }}">Déconnexion</a>
 </body>

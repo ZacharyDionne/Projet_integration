@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string("prenom", 20);
             $table->string("nom", 20);
             $table->string("matricule", 6);
-            $table->string("adresseCourriel", 80);
+            $table->string("adresseCourriel", 80)->unique();
             $table->text("motDePasse");
             $table->timestamps();
         });

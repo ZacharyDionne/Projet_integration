@@ -31,5 +31,10 @@ class AuthServiceProvider extends ServiceProvider
         {
             return new JwtGuard(Auth::createUserProvider($config["conducteurs"]));
         });
+
+        Auth::extend("employeur", function($app, $name, array $config)
+        {
+            return new JwtGuard(Auth::createUserProvider($config["employeurs"]));
+        });
     }
 }

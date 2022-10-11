@@ -62,7 +62,7 @@ class Conducteur extends Model implements Authenticatable
      */
     public function getAuthIdentifier()
     {
-        return $this->attributes["id"];
+        return $this->id;
     }
 
     /**
