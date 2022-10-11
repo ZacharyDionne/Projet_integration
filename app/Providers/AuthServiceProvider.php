@@ -27,11 +27,13 @@ class AuthServiceProvider extends ServiceProvider
     {
         $this->registerPolicies();
 
+        //Enregistrement du guard 'conducteur' avec le provider 'conducteurs'. Voir config/auth.php
         Auth::extend("conducteur", function($app, $name, array $config)
         {
             return new JwtGuard(Auth::createUserProvider($config["conducteurs"]));
         });
 
+        //Enregistrement du guard 'conducteur' avec le provider 'employeurs'. Voir config/auth.php
         Auth::extend("employeur", function($app, $name, array $config)
         {
             return new JwtGuard(Auth::createUserProvider($config["employeurs"]));

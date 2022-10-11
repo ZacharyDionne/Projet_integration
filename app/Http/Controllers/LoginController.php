@@ -33,7 +33,7 @@ class LoginController extends Controller
 
             return redirect()->intended("connexionDone");
         }
-        return back()->withErrors(["Erreur de Niless"])->onlyInput("adresseCourriel");
+        return back()->withErrors(["Erreur de connexion"])->onlyInput("adresseCourriel");
 
     }
 
