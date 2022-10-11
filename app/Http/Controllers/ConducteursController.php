@@ -11,6 +11,7 @@ use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Throwable;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Gate;
 
 
 class ConducteursController extends Controller
@@ -22,6 +23,16 @@ class ConducteursController extends Controller
      */
     public function index()
     {
+        
+        /*
+            cette vérification ne fonctionne pas encore.
+
+        if (!Gate::allows("gate-conducteurs.index"))
+        {
+            abort(403);
+        }
+        */
+
         $conducteurs = Conducteur::all();
         return View("conducteurs.index", compact("conducteurs"));
     }
