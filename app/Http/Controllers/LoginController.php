@@ -22,7 +22,6 @@ class LoginController extends Controller
             return redirect()->intended();
         }
 
-        return back()->onlyInput("email");
     }
 
 
