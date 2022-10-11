@@ -23,7 +23,7 @@ class ConducteursTableSeeder extends Seeder
                 'nom'=> 'Buteau',
                 'matricule'=> '165293',
                 'adresseCourriel'=> 'j.buteau@v3r.net',
-                'motDePasse'=> '1234',
+                'motDePasse'=> '123456',
             ],
 
             [
@@ -33,7 +33,7 @@ class ConducteursTableSeeder extends Seeder
                 'nom'=> 'Gendron',
                 'matricule'=> '201943',
                 'adresseCourriel'=> 'b.gendron@v3r.net',
-                'motDePasse'=> '5678',
+                'motDePasse'=> '567892',
             ],
         ]);
     }

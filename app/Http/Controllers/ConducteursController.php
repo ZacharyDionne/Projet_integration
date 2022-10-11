@@ -10,6 +10,7 @@ use App\Models\Conducteur;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Throwable;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Hash;
 
 
 class ConducteursController extends Controller
@@ -45,16 +46,22 @@ class ConducteursController extends Controller
     {
         try
         {
+            //$request->motDePasse = Hash::make($request->motDePasse);
             $conducteur = new Conducteur($request->all());
+            $conducteur->motDePasse = Hash::make($request->motDePasse);
             $conducteur->save();
+
+            return redirect()->route('conducteurs.index');
         }
 
         catch(\Throwable $e)
         {
             //Gestion de l'erreur
             Log::debug($e);
+
+            return redirect()->route('conducteurs.index')->withErrors([$e]);
         }
-        return redirect()->route('conducteurs.index');
+        
         
     }
 

@@ -28,25 +28,42 @@
 
 </head>
 <body>
-	
+	@if (isset($errors) && $errors->any())
+        @foreach ($errors->all() as $error)
+            <h1>{{ $error }}</h1>
+        @endforeach
+    @endif
 	<div class="limiter">
 		<div class="container-login100">
 			<div class="wrap-login100">
-				<form class="login100-form validate-form p-l-55 p-r-55 p-t-178">
-
+				<form class="login100-form validate-form p-l-55 p-r-55 p-t-178" method="post" action="{{ route('conducteurs.store') }}">
+                    @csrf
 					<span class="login100-form-title">
                     <img src="images/logo_BLANC.png" alt="logo" class="login100-form-logo">
                     Ouvrir une session
 					</span>
 
 
+    <input type="radio" id="actif" name="actif" value="0" checked="Yes">
+    <label for="actif">Actif</label><br>
+    <input type="radio" id="actif" name="actif" value="1">
+    <label for="actif">Non Actif</label>
+    <!-- Prénom conducteur -->
+        <label for="prenom">prenom</label>
+        <input type="text" class="form-control" id="prenom" placeholder="prenom" name="prenom" value="{{ old('prenom') }}">
+        <!-- Nom conducteur-->
+        <label for="nom">nom</label>
+        <input type="text" class="form-control" id="nom" placeholder="nom" name="nom" value="{{ old('nom') }}">
+        <label for="matricule">matricule</label>
+        <input type="text" class="form-control" id="matricule" placeholder="matricule" name="matricule" value="{{ old('matricule') }}">
+
 					<div class="wrap-input100 validate-input m-b-16" data-validate="Veuillez saisir votre adresse courriel">
-						<input class="input100" type="email" name="email" placeholder="Adresse courriel">
+						<input class="input100" type="email" name="adresseCourriel" placeholder="Adresse courriel">
 						<span class="focus-input100"></span>
 					</div>
 
 					<div class="wrap-input100 validate-input " data-validate = "Veuillez saisir votre mot de passe">
-						<input class="input100" type="password" name="pass" placeholder="Mot de passe">
+						<input class="input100" type="password" name="motDePasse" placeholder="Mot de passe">
 						<span class="focus-input100"></span>
 					</div>
 

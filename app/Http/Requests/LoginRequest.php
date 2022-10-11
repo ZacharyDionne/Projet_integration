@@ -24,8 +24,8 @@ class LoginRequest extends FormRequest
     public function rules()
     {
         return [
-            "email" => "required|min:5|max:80",
-            "password" => "required|min:6"
+            "adresseCourriel" => "required|min:5|max:80",
+            "motDePasse" => "required|min:6"
         ];
     }
 
@@ -33,11 +33,11 @@ class LoginRequest extends FormRequest
     public function messages()
     {
         return [
-            "email.required" => "L'adresse courriel est obligatoire.",
-            "email.min" => "Adresse courriel invalide.",
-            "email.max" => "Adresse courriel invalide.",
-            "password.required" => "Le mot de passe est obligatoire.",
-            "password.min" => "Mot de passe invalide"
+            "adresseCourriel.required" => "L'adresse courriel est obligatoire.",
+            "adresseCourriel.min" => "Adresse courriel invalide.",
+            "adresseCourriel.max" => "Adresse courriel invalide.",
+            "motDePasse.required" => "Le mot de passe est obligatoire.",
+            "motDePasse.min" => "Mot de passe invalide"
         ];
     }
 

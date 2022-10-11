@@ -5,6 +5,7 @@ use App\Http\Controllers\FichesController;
 use App\Http\Controllers\ConducteursController;
 use App\Http\Controllers\AlertesController;
 use App\Http\Controllers\EmployeursController;
+use App\Http\Controllers\LoginController;
 
 /*
 |--------------------------------------------------------------------------
@@ -23,7 +24,9 @@ Route::get('/', function () {
 });
 
 // Page de CONNEXION
-Route::get('/connexion', [LoginController::class, "index"])->name("login");
+Route::get('/connexion', [LoginController::class, "index"])->name("connexion.index");
+Route::post('/connexion/tentative', [LoginController::class, "authenticate"])->name("connexion.login");
+Route::get('/connexion/deconnexion', [LoginController::class, "authenticate"])->name("connexion.logout");
 /* ---------------------------- Pages FICHES -------------------------------------------- */
 /*  INDEX   */      
 Route::get("/fiches", [FichesController::class, "index"])->name("fiches.index");
