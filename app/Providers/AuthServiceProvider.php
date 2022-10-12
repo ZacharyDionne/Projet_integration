@@ -8,6 +8,9 @@ use App\Services\Auth\JwtGuard;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 
+use Illuminate\Foundation\Auth\User;
+use Illuminate\Support\Facades\Log;
+
 use App\Models\Employeur;
 
 class AuthServiceProvider extends ServiceProvider
@@ -51,9 +54,12 @@ class AuthServiceProvider extends ServiceProvider
             Enregistrement des Gate. Voir https://laravel.com/docs/9.x/authorization
         */
 
-        Gate::define("gate-conducteurs.index", function(Employeur $employeur)
+        Gate::define("gate-conducteurs.index", function(User $utilisateur)
     {
-        return $employeur->type_id == 2;
+        if ($utilisateur->type_id === 1)
+            return false;
+
+        return true;
     });
 
 

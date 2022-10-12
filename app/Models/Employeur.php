@@ -4,9 +4,9 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Contracts\Auth\Authenticatable;
+use Illuminate\Foundation\Auth\User;
 
-class Employeur extends Model implements Authenticatable
+class Employeur extends User
 {
     use HasFactory;
 

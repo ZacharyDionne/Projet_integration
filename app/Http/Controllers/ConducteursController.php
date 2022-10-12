@@ -23,16 +23,15 @@ class ConducteursController extends Controller
      */
     public function index()
     {
-        
-        /*
-            cette vérification ne fonctionne pas encore.
+        //contrôle d'accès
+        $utilisateur = auth()->guard("employeur")->user();
 
-        if (!Gate::allows("gate-conducteurs.index"))
-        {
+        if (!Gate::forUser($utilisateur)->allows("gate-conducteurs.index"))
             abort(403);
-        }
-        */
+        
 
+
+            
         $conducteurs = Conducteur::all();
         return View("conducteurs.index", compact("conducteurs"));
     }
