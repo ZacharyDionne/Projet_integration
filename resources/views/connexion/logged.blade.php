@@ -12,8 +12,6 @@
                 {{ auth()->guard("conducteur")->user()->adresseCourriel; }}
             @elseif (auth()->guard("employeur")->user())
                 {{ auth()->guard("employeur")->user()->adresseCourriel; }}
-            @else
-                {{ "personne"; }}
             @endif
         </span>
     </h1>

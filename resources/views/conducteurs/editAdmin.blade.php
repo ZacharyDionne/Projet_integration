@@ -13,7 +13,7 @@
             <div>{{ $error }}</div>
         @endforeach
     @endif
-    <form method="post" action="{{ route('conducteurs.updateAdmin', [$conducteur->id]) }}">
+    <form method="post" action="{{ route('conducteurs.update', [$conducteur->id]) }}">
         @csrf
         @method("patch")
             <label for="nom">Nom</label><input type="text" id="nom" name="nom" value="{{ $conducteur->nom }}"><br>

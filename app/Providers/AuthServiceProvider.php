@@ -54,12 +54,12 @@ class AuthServiceProvider extends ServiceProvider
             Enregistrement des Gate. Voir https://laravel.com/docs/9.x/authorization
         */
 
-        Gate::define("gate-conducteurs.index", function(User $utilisateur)
+        Gate::define("admin", function(User $utilisateur)
     {
-        if ($utilisateur->type_id === 1)
-            return false;
+        if ($utilisateur->type_id === 2)
+            return true;
 
-        return true;
+        return false;
     });
 
 

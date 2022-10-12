@@ -24,10 +24,7 @@ class ConducteursController extends Controller
     public function index()
     {
         /*Contrôle d'accès*/
-        
-        $utilisateur = auth()->guard("employeur")->user();
-
-        if (!Gate::forUser($utilisateur)->allows("gate-conducteurs.index"))
+        if (!estAdmin())
             abort(403);
         
 
@@ -44,6 +41,10 @@ class ConducteursController extends Controller
      */
     public function create()
     {
+        /*Contrôle d'accès*/
+        if (!estAdmin())
+            abort(403);
+
         return View('conducteurs.create');
     }
 
@@ -55,6 +56,12 @@ class ConducteursController extends Controller
      */
     public function store(ConducteurRequest $request)
     {
+        /*Contrôle d'accès*/
+        if (!estAdmin())
+            abort(403);
+
+
+
         try
         {
             //$request->motDePasse = Hash::make($request->motDePasse);
@@ -84,6 +91,9 @@ class ConducteursController extends Controller
      */
     public function show(int $id)
     {
+        /*
+            IL SE PEUT QUE CETTE PARTIE SOIT ENLEVER À L'AVENIR PUISQUE INUTIL.
+
         try
         {
             $conducteur = Conducteur::findOrFail($id);
@@ -95,6 +105,7 @@ class ConducteursController extends Controller
         }
 
         return View("conducteurs.show", compact("conducteur"));
+        */
 
     }
     
@@ -107,19 +118,23 @@ class ConducteursController extends Controller
      */
     public function edit($id)
     {
-        
-        $conducteur = Conducteur::findOrFail($id);
+        /*Contrôle d'accès*/
+        if (ConducteursController::estAdmin())
+        {
+            $conducteur = Conducteur::findOrFail($id);
 
-        return View('conducteurs.edit', compact('conducteur'));
-        
-    }
+            return View('conducteurs.editAdmin', compact('conducteur'));
+        }
+            
+        else if (ConducteursController::estLeChauffeur($id))
+        {
+            $conducteur = Conducteur::findOrFail($id);
 
-    public function editAdmin($id)
-    {
-        
-        $conducteur = Conducteur::findOrFail($id);
+            return View('conducteurs.edit', compact('conducteur'));
+        } 
+        else
+            abort(403);
 
-        return View('conducteurs.editAdmin', compact('conducteur'));
         
     }
 
@@ -133,72 +148,69 @@ class ConducteursController extends Controller
      */
     public function update(ConducteurRequest $request, $id)
     {
-        try
+        /*Contrôle d'accès*/
+        if (estAdmin())
         {
-            $conducteur = Conducteur::findOrFail($id);
-
-            if (isset($request->actif))
+            try
+            {
+                $conducteur = Conducteur::findOrFail($id);
                 $conducteur->actif = $request->actif;
-            if (isset($request->prenom))
                 $conducteur->prenom = $request->prenom;
-            if (isset($request->nom))
                 $conducteur->nom = $request->nom;
-            if (isset($request->matricule))
                 $conducteur->matricule = $request->matricule;
-            if (isset($request->adresseCourriel))
                 $conducteur->adresseCourriel = $request->adresseCourriel;
-            if (isset($request->motDePasse))
-                $conducteur->motDePasse = $request->motDePasse;
 
-            $conducteur->save();
-            //Aucune Erreur
-            return redirect()->route('conducteurs.index')->with('message', "Modification de " . $conducteur->prenom . " " . $conducteur->nom . " réussi!");
+                //Cette validation est nécessaire puisque l'admin à le choix de modifier le mot de passe ou non
+                //voir la vue "conducteurs.editAdmin"
+                if (isset($request->motDePasse) && !empty($request->motDePasse))
+                    $conducteur->motDePasse = $request->motDePasse;
+
+                $conducteur->save();
+                //Aucune Erreur
+                return redirect()->route('conducteurs.index')->with('message', "Modification de " . $conducteur->prenom . " " . $conducteur->nom . " réussi!");
+            }
+            catch (Throwable $e)
+            {
+                //Avec Erreur
+                Log::debug($e);
+                return redirect()->route('conducteurs.index')->withErrors(['La modification n\'a pas fonctionné']);
+            }
         }
-        catch (Throwable $e)
+        else if (ConducteursController::estLeChauffeur($id))
         {
-            //Avec Erreur
-            Log::debug($e);
-            return redirect()->route('conducteurs.index')->withErrors(['La modification n\'a pas fonctionné']);
+            try
+            {
+                $conducteur = Conducteur::findOrFail($id);
+    
+                if (isset($request->actif))
+                    $conducteur->actif = $request->actif;
+                if (isset($request->prenom))
+                    $conducteur->prenom = $request->prenom;
+                if (isset($request->nom))
+                    $conducteur->nom = $request->nom;
+                if (isset($request->matricule))
+                    $conducteur->matricule = $request->matricule;
+                if (isset($request->adresseCourriel))
+                    $conducteur->adresseCourriel = $request->adresseCourriel;
+                if (isset($request->motDePasse))
+                    $conducteur->motDePasse = $request->motDePasse;
+    
+                $conducteur->save();
+                //Aucune Erreur
+                return redirect()->route('conducteurs.index')->with('message', "Modification de " . $conducteur->prenom . " " . $conducteur->nom . " réussi!");
+            }
+            catch (Throwable $e)
+            {
+                //Avec Erreur
+                Log::debug($e);
+                return redirect()->route('conducteurs.index')->withErrors(['La modification n\'a pas fonctionné']);
+            }
         }
-
-    }
-
-
+        else
+            abort(403);
 
 
-   /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function updateAdmin(ConducteurAdminRequest $request, $id)
-    {
-        try
-        {
-            $conducteur = Conducteur::findOrFail($id);
-            $conducteur->actif = $request->actif;
-            $conducteur->prenom = $request->prenom;
-            $conducteur->nom = $request->nom;
-            $conducteur->matricule = $request->matricule;
-            $conducteur->adresseCourriel = $request->adresseCourriel;
-
-            //Cette validation est nécessaire puisque l'admin à le choix de modifier le mot de passe ou non
-            //voir la vue "conducteurs.editAdmin"
-            if (isset($request->motDePasse) && !empty($request->motDePasse))
-                $conducteur->motDePasse = $request->motDePasse;
-
-            $conducteur->save();
-            //Aucune Erreur
-            return redirect()->route('conducteurs.index')->with('message', "Modification de " . $conducteur->prenom . " " . $conducteur->nom . " réussi!");
-        }
-        catch (Throwable $e)
-        {
-            //Avec Erreur
-            Log::debug($e);
-            return redirect()->route('conducteurs.index')->withErrors(['La modification n\'a pas fonctionné']);
-        }
+        
 
     }
 
@@ -222,4 +234,25 @@ class ConducteursController extends Controller
         }
     */
     }
+
+
+
+
+
+    private static function estAdmin() : bool
+    {
+        $utilisateur = auth()->guard("employeur")->user();
+
+        return Gate::forUser($utilisateur)->allows("admin");
+    }
+
+    private static function estLeChauffeur($id) : bool
+    {
+        $utilisateur = auth()->guard("conducteur")->user();
+        if (!$utilisateur)
+            return false;
+
+        return $utilisateur->id == $id;
+    }
+
 }

@@ -55,6 +55,8 @@ Route::get("/fiches/{id}", [FichesController::class, "show"])->name("fiches.show
 
 
 
+
+
 /*  MODIFICATION   */
 //Route::get("/fiches/{id}/modifier/", [FichesController::class, "edit"])->name("fiches.edit");
 //Route::get("/fiches/{fiches}/", [FichesController::class, "show"])->name("fiches.show");
@@ -83,8 +85,6 @@ Route::post("/conducteurs", [ConducteursController::class, "store"])->name("cond
 /*  MODIFICATION   */
 Route::get("/conducteurs/{id}/modifier/", [ConducteursController::class, "edit"])->name("conducteurs.edit");
 Route::patch("/conducteurs/{id}/update", [ConducteursController::class, "update"])->name("conducteurs.update");
-Route::get("/conducteurs/{id}/modifierAdmin/", [ConducteursController::class, "editAdmin"])->name("conducteurs.editAdmin");
-Route::patch("/conducteurs/{id}/updateAdmin", [ConducteursController::class, "updateAdmin"])->name("conducteurs.updateAdmin");
 
 
 
