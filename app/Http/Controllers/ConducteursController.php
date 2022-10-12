@@ -23,7 +23,8 @@ class ConducteursController extends Controller
      */
     public function index()
     {
-        //contrôle d'accès
+        /*Contrôle d'accès*/
+        
         $utilisateur = auth()->guard("employeur")->user();
 
         if (!Gate::forUser($utilisateur)->allows("gate-conducteurs.index"))
@@ -31,7 +32,7 @@ class ConducteursController extends Controller
         
 
 
-            
+
         $conducteurs = Conducteur::all();
         return View("conducteurs.index", compact("conducteurs"));
     }

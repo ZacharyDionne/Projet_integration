@@ -65,6 +65,8 @@ Route::get("/fiches/{id}", [FichesController::class, "show"])->name("fiches.show
 
 
 /* ---------------------------- Pages CONDUCTEUR -------------------------------------------- */
+
+
 /*  INDEX   */ 
 Route::get("/conducteurs", [ConducteursController::class, "index"])->name("conducteurs.index");
 
@@ -75,58 +77,64 @@ Route::get("/conducteurs", [ConducteursController::class, "index"])->name("condu
 Route::get("/conducteurs/creation", [ConducteursController::class, "create"])->name("conducteurs.create");
 Route::post("/conducteurs", [ConducteursController::class, "store"])->name("conducteurs.store");
 
+
+
+
 /*  MODIFICATION   */
 Route::get("/conducteurs/{id}/modifier/", [ConducteursController::class, "edit"])->name("conducteurs.edit");
 Route::patch("/conducteurs/{id}/update", [ConducteursController::class, "update"])->name("conducteurs.update");
 Route::get("/conducteurs/{id}/modifierAdmin/", [ConducteursController::class, "editAdmin"])->name("conducteurs.editAdmin");
 Route::patch("/conducteurs/{id}/updateAdmin", [ConducteursController::class, "updateAdmin"])->name("conducteurs.updateAdmin");
 
-/* SUPPRESSION 
-Un conducteur ne peut pas être supprimer. Il est seulement mis inactif*/
 
 
 
 
 /* ---------------------------- Pages EMPLOYEUR -------------------------------------------- */
+
+
 /*  INDEX   */ 
 Route::get("/employeurs", [EmployeursController::class, "index"])->name("employeurs.index");
+
+
 
 /* AJOUTER */
 Route::get("/employeurs/creation", [EmployeursController::class, "create"])->name("employeurs.create");
 Route::post("/employeurs", [EmployeursController::class, "store"])->name("employeurs.store");
 
+
+
 /*  AFFICHAGE   */
 Route::get("/employeurs/{id}", [EmployeursController::class, "show"])->name("employeurs.show");
+
+
 
 /*  MODIFICATION   */
 //Route::get("/employeurs/{id}/modifier/", [EmployeursController::class, "edit"])->name("employeurs.edit");
 //Route::get("/employeurs/{employeurs}/", [EmployeursController::class, "show"])->name("employeurs.show");
 //Route::patch("/employeurs/{id}/modifier", [EmployeursController::class, "update"])->name("employeurs.update");
 
-/* SUPPRESSION
-Un conducteur ne peut pas être supprimer. Il est seulement mis inactif*/
+
 
 
 
 
 /* ---------------------------- Pages ALERTES -------------------------------------------- */
+
+
 /*  INDEX   */ 
 Route::get("/alertes", [AlertesController::class, "index"])->name("alertes.index");
 
+
+
 /*  AFFICHAGE   */
 //Route::get("/alertes/{id}", [AlertesController::class, "show"])->name("alertes.show");
+
+
 
 /*  MODIFICATION   */
 //Route::get("/alertes/{id}/modifier/", [AlertesController::class, "edit"])->name("alertes.edit");
 //Route::get("/alertes/{alertes}/", [AlertesController::class, "show"])->name("alertes.show");
 //Route::Patch("/alertes/{id}/modifier", [AlertesController::class, "update"])->name("alertes.update");
-
-/* AJOUTER 
-Une alerte est ajouter automatiquement*/
-
-/* SUPPRESSION 
-On ne peut supprimer une alerte de la table*/
-
-
 
 
