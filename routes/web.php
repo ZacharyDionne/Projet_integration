@@ -77,7 +77,7 @@ Route::get("/conducteurs", [ConducteursController::class, "index"])->name("condu
 
 /* AJOUTER */
 Route::get("/conducteurs/creation", [ConducteursController::class, "create"])->name("conducteurs.create");
-Route::post("/conducteurs", [ConducteursController::class, "store"])->name("conducteurs.store");
+Route::post("/conducteurs/store", [ConducteursController::class, "store"])->name("conducteurs.store");
 
 
 
@@ -85,7 +85,8 @@ Route::post("/conducteurs", [ConducteursController::class, "store"])->name("cond
 /*  MODIFICATION   */
 Route::get("/conducteurs/{id}/modifier/", [ConducteursController::class, "edit"])->name("conducteurs.edit");
 Route::patch("/conducteurs/{id}/update", [ConducteursController::class, "update"])->name("conducteurs.update");
-
+Route::patch("/conducteurs/{id}/updateAdmin", [ConducteursController::class, "updateAdmin"])->name("conducteurs.updateAdmin");
+Route::patch('/conducteurs/{id}/updatePassword', [ConducteursController::class, "updatePassword"])->name('conducteurs.updatePassword');
 
 
 

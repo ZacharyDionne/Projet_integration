@@ -15,12 +15,6 @@
             @endif
         </span>
     </h1>
-    <h2>
-        {{ 'allo' . Auth::user(); }}<br>
-        {{ 'allo' . auth()->guard('web')->user(); }}<br>
-        {{ 'allo' . auth()->guard('conducteur')->user(); }}<br>
-        {{ 'allo' . auth()->guard('employeur')->user(); }}
-    </h2>
     <a href="{{ route('connexion.logout') }}">Déconnexion</a>
 </body>
 </html>

@@ -3,8 +3,11 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Http\Requests\ConducteurRequest;
-use App\Http\Requests\ConducteurAdminRequest;
+
+use App\Http\Requests\Conducteur\ConducteurRequest;
+use App\Http\Requests\Conducteur\ConducteurAdminRequest;
+use App\Http\Requests\Conducteur\ConducteurPasswordRequest;
+
 use Illuminate\Http\View\View;
 use App\Models\Conducteur;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
@@ -27,9 +30,9 @@ class ConducteursController extends Controller
         /*
         Contrôle d'accès
         
-        Refuse tous ceux qui ne sont pas administrateurs.
+        Autorise que les administrateurs.
         */
-        if (!Gate::forUser(auth()->guard('employeur')->user())->allows('admin'))
+        if (Gate::forUser(auth()->guard('employeur')->user())->denies('admin'))
             abort(403);
         
 
@@ -38,6 +41,8 @@ class ConducteursController extends Controller
         $conducteurs = Conducteur::all();
         return View("conducteurs.index", compact("conducteurs"));
     }
+
+
 
     /**
      * Show the form for creating a new resource.
@@ -51,7 +56,7 @@ class ConducteursController extends Controller
         
         Refuse tous ceux qui ne sont pas administrateurs.
         */
-        if (!Gate::forUser(auth()->guard('employeur')->user())->allows('admin'))
+        if (Gate::forUser(auth()->guard('employeur')->user())->denies('admin'))
             abort(403);
 
         return View('conducteurs.create');
@@ -63,7 +68,7 @@ class ConducteursController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(ConducteurRequest $request)
+    public function store(ConducteurAdminRequest $request)
     {
         /*
         Contrôle d'accès
@@ -77,19 +82,16 @@ class ConducteursController extends Controller
 
         try
         {
-            //$request->motDePasse = Hash::make($request->motDePasse);
             $conducteur = new Conducteur($request->all());
             $conducteur->motDePasse = Hash::make($request->motDePasse);
+            $conducteur->actif = $request->actif == "1";
             $conducteur->save();
 
             return redirect()->route('conducteurs.index');
         }
 
-        catch(\Throwable $e)
+        catch(Throwable $e)
         {
-            //Gestion de l'erreur
-            Log::debug($e);
-
             return redirect()->route('conducteurs.index')->withErrors([$e]);
         }
         
@@ -169,38 +171,13 @@ class ConducteursController extends Controller
         /*
             Contrôle d'accès
             
-            Autorise uniquement le chauffeur concerné et l'administrateur
-            à apporter des modifications, selon leurs droits.
+            Autorise uniquement le chauffeur concerné
+            à apporter des modifications.
         */
-        if (Gate::forUser(auth()->guard('employeur')->user())->allows('admin'))
-        {
-            try
-            {
-                $conducteur = Conducteur::findOrFail($id);
-                $conducteur->actif = $request->actif;
-                $conducteur->prenom = $request->prenom;
-                $conducteur->nom = $request->nom;
-                $conducteur->matricule = $request->matricule;
-                $conducteur->adresseCourriel = $request->adresseCourriel;
+        if (Gate::denies('leConducteur', $id))
+            abort(403);
 
-                //Cette validation est nécessaire puisque l'admin à le choix de modifier le mot de passe ou non
-                //voir la vue "conducteurs.editAdmin"
-                if (isset($request->motDePasse) && !empty($request->motDePasse))
-                    $conducteur->motDePasse = $request->motDePasse;
 
-                $conducteur->save();
-                //Aucune Erreur
-                return redirect()->route('conducteurs.index')->with('message', "Modification de " . $conducteur->prenom . " " . $conducteur->nom . " réussi!");
-            }
-            catch (Throwable $e)
-            {
-                //Avec Erreur
-                Log::debug($e);
-                return redirect()->route('conducteurs.index')->withErrors(['La modification n\'a pas fonctionné']);
-            }
-        }
-        else if (Gate::allows('leConducteur', $id))
-        {
             try
             {
                 $conducteur = Conducteur::findOrFail($id);
@@ -219,23 +196,90 @@ class ConducteursController extends Controller
                     $conducteur->motDePasse = $request->motDePasse;
     
                 $conducteur->save();
-                //Aucune Erreur
+
                 return redirect()->route('conducteurs.index')->with('message', "Modification de " . $conducteur->prenom . " " . $conducteur->nom . " réussi!");
             }
             catch (Throwable $e)
             {
-                //Avec Erreur
-                Log::debug($e);
                 return redirect()->route('conducteurs.index')->withErrors(['La modification n\'a pas fonctionné']);
             }
-        }
-        else
+
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function updateAdmin(ConducteurAdminRequest $request, $id)
+    {
+        /*
+            Contrôle d'accès
+            
+            Autorise uniquement l'administrateur
+            à apporter des modifications.
+        */
+        if (Gate::forUser(auth()->guard('employeur')->user())->denies('admin'))
             abort(403);
 
 
-        
+            try
+            {
+                $conducteur = Conducteur::findOrFail($id);
+                $conducteur->actif = $request->actif;
+                $conducteur->prenom = $request->prenom;
+                $conducteur->nom = $request->nom;
+                $conducteur->matricule = $request->matricule;
+                $conducteur->adresseCourriel = $request->adresseCourriel;
+
+                //Cette validation est nécessaire puisque l'admin à le choix de modifier le mot de passe ou non
+                //voir la vue "conducteurs.editAdmin"
+                if (isset($request->motDePasse) && !empty($request->motDePasse))
+                    $conducteur->motDePasse = htmlSpecialChars($request->motDePasse);
+
+                $conducteur->save();
+
+                return redirect()->route('conducteurs.index')->with('message', "Modification de " . $conducteur->prenom . " " . $conducteur->nom . " réussi!");
+            }
+            catch (Throwable $e)
+            {
+                return redirect()->route('conducteurs.index')->withErrors(['La modification n\'a pas fonctionné']);
+            }
+    }
+
+
+    public function updatePassword(ConducteurPasswordRequest $request, int $id)
+    {
+        /*
+            Contrôle d'accès
+            
+            Autorise uniquement l'administrateur et le
+            conducteur à apporter des modifications.
+        */
+        if (Gate::forUser(auth()->guard('employeur')->user())->denies('admin') && Gate::denies('leConducteur', $id))
+            abort(403);
+
+        try
+        {
+            $conducteur = Conducteur::findOrFail($id);
+            $conducteur->motDePasse = Hash::make($request->motDePasse);
+
+            $conducteur->save();
+
+            return redirect()->route('conducteurs.index')->with('message', "Modification de " . $conducteur->prenom . " " . $conducteur->nom . " réussi!");
+        }
+        catch (Throwable $e)
+        {
+            return redirect()->route('conducteurs.index')->withErrors(['La modification n\'a pas fonctionné']);
+        }
 
     }
+
+
+
+
 
 
 
@@ -257,5 +301,6 @@ class ConducteursController extends Controller
         }
     */
     }
+
 
 }
