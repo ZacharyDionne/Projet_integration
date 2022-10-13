@@ -21,6 +21,7 @@ return new class extends Migration
             $table->string("matricule", 6);
             $table->string("adresseCourriel", 80)->unique();
             $table->text("motDePasse");
+            $table->rememberToken();
             $table->timestamps();
         });
     }

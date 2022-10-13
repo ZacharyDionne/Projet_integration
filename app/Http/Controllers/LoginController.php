@@ -15,13 +15,20 @@ class LoginController extends Controller
 {
     public function index()
     {
+        //Si il est déjà connecté, le rediriger vers la bonne page.
+        if (auth()->guard("conducteur")->user())
+            return View("connexion.logged");
+        
+        if (auth()->guard("employeur")->user())
+            return View("connexion.logged");
+        
         return View("connexion.login");
     }
 
     public function authenticate(LoginRequest $request)
     {
 
-        if (Auth::guard("conducteur")->attempt(["adresseCourriel" => $request->input("adresseCourriel"), "password" => $request->input("motDePasse")]))
+        if (Auth::attempt(["adresseCourriel" => $request->adresseCourriel, "password" => $request->motDePasse]))
         {
             $request->session()->regenerate();
 
@@ -33,8 +40,8 @@ class LoginController extends Controller
 
             return redirect()->intended("connexionDone");
         }
-        return back()->withErrors(["Erreur de connexion"])->onlyInput("adresseCourriel");
 
+        return back()->withErrors(["Erreur de connexion"])->onlyInput("adresseCourriel");
     }
 
 

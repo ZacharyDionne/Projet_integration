@@ -12,6 +12,7 @@ use Throwable;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\Auth;
 
 
 class ConducteursController extends Controller
@@ -23,8 +24,12 @@ class ConducteursController extends Controller
      */
     public function index()
     {
-        /*Contrôle d'accès*/
-        if (!estAdmin())
+        /*
+        Contrôle d'accès
+        
+        Refuse tous ceux qui ne sont pas administrateurs.
+        */
+        if (!Gate::forUser(auth()->guard('employeur')->user())->allows('admin'))
             abort(403);
         
 
@@ -41,8 +46,12 @@ class ConducteursController extends Controller
      */
     public function create()
     {
-        /*Contrôle d'accès*/
-        if (!estAdmin())
+        /*
+        Contrôle d'accès
+        
+        Refuse tous ceux qui ne sont pas administrateurs.
+        */
+        if (!Gate::forUser(auth()->guard('employeur')->user())->allows('admin'))
             abort(403);
 
         return View('conducteurs.create');
@@ -56,8 +65,12 @@ class ConducteursController extends Controller
      */
     public function store(ConducteurRequest $request)
     {
-        /*Contrôle d'accès*/
-        if (!estAdmin())
+        /*
+        Contrôle d'accès
+        
+        Refuse tous ceux qui ne sont pas administrateurs.
+        */
+        if (Gate::forUser(auth()->guard('employeur')->user())->denies('admin'))
             abort(403);
 
 
@@ -118,19 +131,24 @@ class ConducteursController extends Controller
      */
     public function edit($id)
     {
-        /*Contrôle d'accès*/
-        if (ConducteursController::estAdmin())
-        {
-            $conducteur = Conducteur::findOrFail($id);
-
-            return View('conducteurs.editAdmin', compact('conducteur'));
-        }
+        /*
+            Contrôle d'accès
             
-        else if (ConducteursController::estLeChauffeur($id))
+            Autorise uniquement le chauffeur concerné et l'administrateur
+            à apporter des modifications, selon leurs droits.
+        */
+        if (Gate::allows('leConducteur', $id))
         {
             $conducteur = Conducteur::findOrFail($id);
 
             return View('conducteurs.edit', compact('conducteur'));
+        }
+            
+        else if (Gate::forUser(auth()->guard('employeur')->user())->allows('admin'))
+        {
+            $conducteur = Conducteur::findOrFail($id);
+
+            return View('conducteurs.editAdmin', compact('conducteur'));
         } 
         else
             abort(403);
@@ -148,8 +166,13 @@ class ConducteursController extends Controller
      */
     public function update(ConducteurRequest $request, $id)
     {
-        /*Contrôle d'accès*/
-        if (estAdmin())
+        /*
+            Contrôle d'accès
+            
+            Autorise uniquement le chauffeur concerné et l'administrateur
+            à apporter des modifications, selon leurs droits.
+        */
+        if (Gate::forUser(auth()->guard('employeur')->user())->allows('admin'))
         {
             try
             {
@@ -176,7 +199,7 @@ class ConducteursController extends Controller
                 return redirect()->route('conducteurs.index')->withErrors(['La modification n\'a pas fonctionné']);
             }
         }
-        else if (ConducteursController::estLeChauffeur($id))
+        else if (Gate::allows('leConducteur', $id))
         {
             try
             {
@@ -233,26 +256,6 @@ class ConducteursController extends Controller
             //Si un conducteur a des fiches, on ne peut pas le supprimer
         }
     */
-    }
-
-
-
-
-
-    private static function estAdmin() : bool
-    {
-        $utilisateur = auth()->guard("employeur")->user();
-
-        return Gate::forUser($utilisateur)->allows("admin");
-    }
-
-    private static function estLeChauffeur($id) : bool
-    {
-        $utilisateur = auth()->guard("conducteur")->user();
-        if (!$utilisateur)
-            return false;
-
-        return $utilisateur->id == $id;
     }
 
 }

@@ -12,6 +12,7 @@ use Illuminate\Foundation\Auth\User;
 use Illuminate\Support\Facades\Log;
 
 use App\Models\Employeur;
+use App\Models\Conducteur;
 
 class AuthServiceProvider extends ServiceProvider
 {
@@ -54,14 +55,40 @@ class AuthServiceProvider extends ServiceProvider
             Enregistrement des Gate. Voir https://laravel.com/docs/9.x/authorization
         */
 
-        Gate::define("admin", function(User $utilisateur)
+        Gate::define("admin", function()
     {
-        if ($utilisateur->type_id === 2)
-            return true;
+        
+        $utilisateur = auth()->guard('employeur')->user();
 
-        return false;
+        if (!$utilisateur)
+            return false;
+
+
+        if ($utilisateur->type_id != 2)
+            return false;
+        
+        return true;
     });
 
+
+    Gate::define('contreMaitre', function()
+    {
+        $utilisateur = auth()->guard('employeur')->user();
+
+        if (!$utilisateur)
+            return false;
+
+
+        if ($utilisateur->type_id != 1)
+            return false;
+        
+        return true;
+    });
+
+    Gate::define('leConducteur', function(Conducteur $conducteur, int $id)
+    {
+        return $conducteur->id == $id;
+    });
 
 
 
