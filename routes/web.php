@@ -28,6 +28,10 @@ Route::get('/connexion', [LoginController::class, "index"])->name("connexion.ind
 Route::post('/connexion/tentative', [LoginController::class, "authenticate"])->name("connexion.login");
 
 Route::get('/connexion/deconnexion', [LoginController::class, "logout"])->name("connexion.logout");
+
+/*
+    Route temporaire, le temps que la bannière UI soit terminée.
+*/
 Route::get("connexionDone", function() { return View("connexion.logged"); })->name("connexion.loggedin");
 
 
