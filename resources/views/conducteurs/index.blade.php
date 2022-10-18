@@ -33,7 +33,6 @@
 									<th class="font-tr">NOM</th>
 									<th class="font-tr">MATRICULE</th>
 									<th class="font-tr">ADRESSE COURRIEL</th>
-									<th class="font-tr">MOT DE PASSE</th>
 									<th class="font-tr">ACTIF</th>
 									<th class="font-tr">
 										<a type="button" title="Ajouter" class="btn btn-ajouter" href="http://127.0.0.1:8000/conducteurs/creation/">
@@ -51,7 +50,6 @@
 									<td class="font-rg">{{ $conducteur->prenom }}, {{ $conducteur->nom }}</td>
 									<td class="font-rg">{{ $conducteur->matricule }}</td>
 									<td class="font-rg">{{ $conducteur->adresseCourriel }}</td>
-									<td class="font-rg">{{ $conducteur->motDePasse }}</td>
 									<td class="font-rg">{{ $conducteur->actif }}</td>
 									<td>
 										<a type="button" title="Fiches" class="btn btn-list" href="http://127.0.0.1:8000/conducteurs/{{ $conducteur->id }}/fiches/">
