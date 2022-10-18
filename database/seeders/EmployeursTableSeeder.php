@@ -20,8 +20,9 @@ class EmployeursTableSeeder extends Seeder
                 "id" => 1, 
                 "prenom" => "Martin", 
                 "nom" => "Rivard", 
-                "adresseCourriel" => "martin.rivard.01@gmail.com", 
-                "motDePasse" => "1234",
+                "adresseCourriel" => "martin.rivard.01@gmail.com",
+                //mot de passe: 123456
+                "motDePasse" => '$2y$10$kLyHxYK6k549.E9zK2GfFePbOSDV78mTUU8mOdl2rK7wVcxqbdNoq',
                 "actif" => true,
                 "type_id"=>1,
             ],
@@ -31,9 +32,10 @@ class EmployeursTableSeeder extends Seeder
                 "prenom" => "Robert", 
                 "nom" => "Lafontaine", 
                 "adresseCourriel" => "robert.lafontaine.01@outlook.com",
-                "motDePasse" => "1234",
+                //mot de passe: 123456
+                "motDePasse" => '$2y$10$kLyHxYK6k549.E9zK2GfFePbOSDV78mTUU8mOdl2rK7wVcxqbdNoq',
                 "actif" => true,
-                "type_id"=>1,
+                "type_id"=>2,
             ],
         ]);
     }

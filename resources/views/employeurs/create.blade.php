@@ -46,9 +46,9 @@
   </select>
   <br><br>
     <!-- Actif Ou Non Employeur -->
-  <input type="radio" id="actif" name="actif" value="0" checked="Yes">
+  <input type="radio" id="actif" name="actif" value="1" checked>
     <label for="actif">Actif</label><br>
-    <input type="radio" id="actif" name="actif" value="1">
+    <input type="radio" id="actif" name="actif" value="0">
     <label for="actif">Non Actif</label>
         
     <button type="submit" class="btn btn-primary"> Enregistrer</button>

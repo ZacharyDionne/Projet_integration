@@ -23,7 +23,8 @@ class ConducteursTableSeeder extends Seeder
                 'nom'=> 'Buteau',
                 'matricule'=> '165293',
                 'adresseCourriel'=> 'j.buteau@v3r.net',
-                'motDePasse'=> '1234',
+                //mot de passe: 123456
+                'motDePasse'=> '$2y$10$TqnxnA4a.1hl/zv0TGcLEu.CJGb5TAUh/h9AZ1IdL9lOYKGH2AASq',
             ],
 
             [
@@ -33,7 +34,8 @@ class ConducteursTableSeeder extends Seeder
                 'nom'=> 'Gendron',
                 'matricule'=> '201943',
                 'adresseCourriel'=> 'b.gendron@v3r.net',
-                'motDePasse'=> '5678',
+                //mot de passe: 567892
+                'motDePasse'=> '$2y$10$ASQtnsy0hcUfHfNf8JyR5OCbLw/6kFmV3f93lBH1T8DEtC8Wz8Mfq',
             ],
         ]);
     }

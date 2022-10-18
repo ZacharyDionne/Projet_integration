@@ -22,12 +22,10 @@
     </form>
     <hr>
     <h2>Modification de mot de passe</h2>
-    <form method="post" action="{{ route('conducteurs.update', [$conducteur->id]) }}">
+    <form method="post" action="{{ route('conducteurs.updatePassword', [$conducteur->id]) }}">
         @csrf
         @method("patch")
-        <label for="ancienMotDePasse">Ancien mot de passe</label><input type="password" id="ancienMotDePasse" name="ancienMotDePasse"><br>
-        <label for="nouveauMotDePasse">Nouveau mot de passe</label><input type="password" id="nouveauMotDePasse" name="nouveauMotDePasse"><br>
-        <label for="confirmerMotDePasse">Confirmer mot de passe</label><input type="password" id="confirmerMotDePasse" name="confirmerMotDePasse"><br>
+        <label for="motDePasse">Confirmer mot de passe</label><input type="password" id="motDePasse" name="motDePasse"><br>
         <button>Modifier</button>
     </form>
 </body>

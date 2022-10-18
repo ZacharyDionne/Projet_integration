@@ -14,7 +14,7 @@ return [
     */
 
     'defaults' => [
-        'guard' => 'web',
+        'guard' => 'conducteur',
         'passwords' => 'users',
     ],
 
@@ -40,6 +40,14 @@ return [
             'driver' => 'session',
             'provider' => 'users',
         ],
+        "conducteur" => [
+            "driver" => "session",
+            "provider" => "conducteurs"
+        ],
+        "employeur" => [
+            "driver" => "session",
+            "provider" => "employeurs"
+        ]
     ],
 
     /*
@@ -64,6 +72,14 @@ return [
             'driver' => 'eloquent',
             'model' => App\Models\User::class,
         ],
+        "conducteurs" => [
+            "driver" => "eloquent",
+            "model" => App\Models\Conducteur::class
+        ],
+        "employeurs" => [
+            "driver" => "eloquent",
+            "model" => App\Models\Employeur::class
+        ]
 
         // 'users' => [
         //     'driver' => 'database',

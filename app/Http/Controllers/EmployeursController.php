@@ -3,16 +3,22 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Http\View\View;
+
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Gate;
+
+use Illuminate\Database\Eloquent\ModelNotFoundException;
+
 use App\Http\Requests\EmployeurRequest;
 
-use Illuminate\Http\View\View;
+use Throwable;
 
 use App\Models\Employeur;
 use App\Models\Type;
 
-use Illuminate\Database\Eloquent\ModelNotFoundException;
-use Throwable;
-use Illuminate\Support\Facades\Log;
+
+
 
 class EmployeursController extends Controller
 {
@@ -23,6 +29,14 @@ class EmployeursController extends Controller
      */
     public function index()
     {
+        /*
+            Gestion de l'accès utilisateur
+            
+            Autorise seulement les administrateurs
+        */
+        if (Gate::forUser(auth()->guard('employeur')->user())->denies('admin'))
+            abort(403);
+
         $employeurs = Employeur::all();
         return View("employeurs.index", compact("employeurs"));
     }
@@ -34,6 +48,14 @@ class EmployeursController extends Controller
      */
     public function create()
     {
+        /*
+            Gestion de l'accès utilisateur
+            
+            Autorise seulement les administrateurs
+        */
+        if (Gate::forUser(auth()->guard('employeur')->user())->denies('admin'))
+            abort(403);
+
         $types = Type::orderBy('typeEmp')->get();
         return View('employeurs.create', compact('types'));
     }
@@ -46,17 +68,24 @@ class EmployeursController extends Controller
      */
     public function store(EmployeurRequest $request)
     {
-        
+        /*
+            Gestion de l'accès utilisateur
+            
+            Autorise seulement les administrateurs
+        */
+        if (Gate::forUser(auth()->guard('employeur')->user())->denies('admin'))
+            abort(403);
+
+
         try
         {
             $employeur = new Employeur($request->all());
             $employeur->save();
         }
 
-        catch(\Throwable $e)
+        catch(Throwable $e)
         {
-            //Gestion de l'erreur
-            Log::debug($e);
+
         }
         return redirect()->route('employeurs.index');
         
@@ -70,14 +99,21 @@ class EmployeursController extends Controller
      */
     public function show($id)
     {
+        /*
+            Gestion de l'accès utilisateur
+            
+            Autorise seulement les administrateurs
+        */
+        if (Gate::forUser(auth()->guard('employeur')->user())->denies('admin'))
+            abort(403);
+
         try
         {
             $employeur = Employeur::findOrFail($id);
         }
-        catch (ModelNotFoundException $e){
-        }
-        catch(Throwable $e){
-            \Log::error('Erreur innatendue : ' , [$e]);
+        catch(Throwable $e)
+        {
+
         }
 
         return View("employeurs.show", compact("employeur"));
@@ -91,6 +127,14 @@ class EmployeursController extends Controller
      */
     public function edit($id)
     {
+        /*
+            Gestion de l'accès utilisateur
+            
+            Autorise seulement les administrateurs
+        */
+        if (Gate::forUser(auth()->guard('employeur')->user())->denies('admin'))
+            abort(403);
+
         /*
         $employeur = Employeur::findOrFail($id);
         return View('employeurs.modifier', compact('employeur'));
@@ -106,6 +150,14 @@ class EmployeursController extends Controller
      */
     public function update(Request $request, $id)
     {
+        /*
+            Gestion de l'accès utilisateur
+            
+            Autorise seulement les administrateurs
+        */
+        if (Gate::forUser(auth()->guard('employeur')->user())->denies('admin'))
+            abort(403);
+
         
         /*
         try
