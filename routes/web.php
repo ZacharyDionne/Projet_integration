@@ -39,10 +39,8 @@ Route::get("connexionDone", function() { return View("connexion.logged"); })->na
 
 /* ---------------------------- Pages FICHES -------------------------------------------- */
 
-/*  
-    ***CELUI LÀ DEVRA ÊTRE RETIRER À L'AVENIR***
-*/      
-Route::get("/fiches", [FichesController::class, "index"])->name("fiches.index");
+ 
+Route::get("/fiches/{conducteur_id}", [FichesController::class, "index"])->name("fiches.index");
 
 
 
@@ -54,7 +52,7 @@ Route::post("/fiches", [FichesController::class, "store"])->name("fiches.store")
 
 
 /*  AFFICHAGE   */
-Route::get("/fiches/{id}", [FichesController::class, "show"])->name("fiches.show");
+Route::get("/fiches/{conducteur_id}/{date}", [FichesController::class, "show"])->name("fiches.show");
 
 
 
