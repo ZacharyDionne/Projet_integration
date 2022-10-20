@@ -35,38 +35,39 @@
     color: #333 !important;
 }
 
-.btn-ajouter {
+.button-ajouter {
   font-family: Roboto-Bold;
   font-size: 16px;
   color: #fff;
   background: #47a760;
+  padding: 10px;
 }
 
-.btn-ajouter:hover {
+.button-ajouter:hover {
   background: #367f49;
   color: #fff;
 }
 
-.btn-edit {
+.button-edit {
   font-family: Roboto-Bold;
   font-size: 16px;
   color: #fff;
   background: #ffc107;
 }
 
-.btn-edit:hover {
+.button-edit:hover {
   background: #ba8d06;
   color: #fff;
 }
 
-.btn-list {
+.button-list {
   font-family: Roboto-Bold;
   font-size: 16px;
   color: #fff;
   background: #17a2b8;
 }
 
-.btn-list:hover {
+.button-list:hover {
   background: #117584;
   color: #fff;
 }
