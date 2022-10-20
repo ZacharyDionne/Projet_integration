@@ -108,7 +108,7 @@ Route::get("/employeurs/{id}", [EmployeursController::class, "show"])->name("emp
 
 
 /*  MODIFICATION   */
-//Route::get("/employeurs/{id}/modifier/", [EmployeursController::class, "edit"])->name("employeurs.edit");
+Route::get("/employeurs/{id}/modifier/", [EmployeursController::class, "edit"])->name("employeurs.edit");
 //Route::get("/employeurs/{employeurs}/", [EmployeursController::class, "show"])->name("employeurs.show");
 //Route::patch("/employeurs/{id}/modifier", [EmployeursController::class, "update"])->name("employeurs.update");
 
