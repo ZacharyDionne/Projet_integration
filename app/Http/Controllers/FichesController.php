@@ -38,8 +38,11 @@ class FichesController extends Controller
      */
     public function create()
     {
-        $conducteurs = Conducteur::orderBy('id')->get();
-        return View('fiches.create', compact('conducteurs'));   
+        $conducteurs  = Conducteur::orderBy('id')->get();
+        //$plageDeTemps = PlageDeTemps::orderBy('fiche_id')->get();
+        //$typeTemps    = TypeTemps::orderBy ('')
+
+        return View('fiches.create', compact('conducteurs'), compact('plageDeTemps'));   
     }
 
     /**
@@ -50,18 +53,7 @@ class FichesController extends Controller
      */
     public function store(FicheRequest $request)
     {
-        try
-        {
-            $fiche = new Fiche($request->all());
-            $fiche->save();
-        }
-
-        catch(\Throwable $e)
-        {
-            //Gestion de l'erreur
-            Log::debug($e);
-        }
-        return redirect()->route('fiches.index');
+        //Utilise le Edit et le show;
     }
 
     /**
@@ -113,10 +105,11 @@ class FichesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit($date)
     {
-        //
+        
     }
+
 
     /**
      * Update the specified resource in storage.

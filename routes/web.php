@@ -48,7 +48,7 @@ Route::get("/fiches", [FichesController::class, "index"])->name("fiches.index");
 
 /* AJOUTER */
 Route::get("/fiches/creation", [FichesController::class, "create"])->name("fiches.create");
-Route::post("/fiches", [FichesController::class, "store"])->name("fiches.store");
+//Route::post("/fiches", [FichesController::class, "store"])->name("fiches.store");
 
 
 
@@ -58,15 +58,10 @@ Route::get("/fiches/{id}", [FichesController::class, "show"])->name("fiches.show
 
 
 
-
-
-
 /*  MODIFICATION   */
 //Route::get("/fiches/{id}/modifier/", [FichesController::class, "edit"])->name("fiches.edit");
 //Route::get("/fiches/{fiches}/", [FichesController::class, "show"])->name("fiches.show");
 //Route::Patch("/fiches/{id}/modifier", [FichesController::class, "update"])->name("fiches.update");
-
-
 
 
 
