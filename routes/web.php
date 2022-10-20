@@ -39,25 +39,20 @@ Route::get("connexionDone", function() { return View("connexion.logged"); })->na
 
 /* ---------------------------- Pages FICHES -------------------------------------------- */
 
-/*  
-    ***CELUI LÀ DEVRA ÊTRE RETIRER À L'AVENIR***
-*/      
+ 
 Route::get("/fiches", [FichesController::class, "index"])->name("fiches.index");
 
 
 
 /* AJOUTER */
 Route::get("/fiches/creation", [FichesController::class, "create"])->name("fiches.create");
-Route::post("/fiches", [FichesController::class, "store"])->name("fiches.store");
+//Route::post("/fiches", [FichesController::class, "store"])->name("fiches.store");
 
 
 
 
 /*  AFFICHAGE   */
-Route::get("/fiches/{id}", [FichesController::class, "show"])->name("fiches.show");
-
-
-
+//Route::get("/fiches/{conducteur_id}/{date}", [FichesController::class, "show"])->name("fiches.show");
 
 
 
@@ -65,8 +60,6 @@ Route::get("/fiches/{id}", [FichesController::class, "show"])->name("fiches.show
 //Route::get("/fiches/{id}/modifier/", [FichesController::class, "edit"])->name("fiches.edit");
 //Route::get("/fiches/{fiches}/", [FichesController::class, "show"])->name("fiches.show");
 //Route::Patch("/fiches/{id}/modifier", [FichesController::class, "update"])->name("fiches.update");
-
-
 
 
 
@@ -115,7 +108,7 @@ Route::get("/employeurs/{id}", [EmployeursController::class, "show"])->name("emp
 
 
 /*  MODIFICATION   */
-//Route::get("/employeurs/{id}/modifier/", [EmployeursController::class, "edit"])->name("employeurs.edit");
+Route::get("/employeurs/{id}/modifier/", [EmployeursController::class, "edit"])->name("employeurs.edit");
 //Route::get("/employeurs/{employeurs}/", [EmployeursController::class, "show"])->name("employeurs.show");
 //Route::patch("/employeurs/{id}/modifier", [EmployeursController::class, "update"])->name("employeurs.update");
 

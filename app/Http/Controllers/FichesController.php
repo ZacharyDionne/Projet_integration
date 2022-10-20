@@ -23,10 +23,7 @@ class FichesController extends Controller
      */
     public function index()
     {
-        // $fiches = Fiche::all()->orderBy("date", "desc")->take(150);
-        // $fiches = Fiche::orderBy("date", "desc")->take(150)->get();
-        $fiches = Fiche::all()->sortByDesc("date")->take(150);
-
+        $fiches = Fiche::take(150);
 
         return View("fiches.index", compact("fiches"));
     }
@@ -38,8 +35,11 @@ class FichesController extends Controller
      */
     public function create()
     {
-        $conducteurs = Conducteur::orderBy('id')->get();
-        return View('fiches.create', compact('conducteurs'));   
+        $conducteurs  = Conducteur::orderBy('id')->get();
+        //$plageDeTemps = PlageDeTemps::orderBy('fiche_id')->get();
+        //$typeTemps    = TypeTemps::orderBy ('')
+
+        return View('fiches.create', compact('conducteurs'), compact('plageDeTemps'));   
     }
 
     /**
@@ -50,18 +50,7 @@ class FichesController extends Controller
      */
     public function store(FicheRequest $request)
     {
-        try
-        {
-            $fiche = new Fiche($request->all());
-            $fiche->save();
-        }
-
-        catch(\Throwable $e)
-        {
-            //Gestion de l'erreur
-            Log::debug($e);
-        }
-        return redirect()->route('fiches.index');
+        //Utilise le Edit et le show;
     }
 
     /**
@@ -70,10 +59,10 @@ class FichesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($date)
+    public function show($conducteur_id, $date)
     {
         //check if the date correspond to a date from an existing fiche
-        $fiche = Fiche::where('date', $date)->first();
+        $fiche = Fiche::where('date', $date)->where('id', $conducteur_id)->first();
         if($fiche == null)
         {
             
@@ -113,10 +102,11 @@ class FichesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit($date)
     {
-        //
+        
     }
+
 
     /**
      * Update the specified resource in storage.

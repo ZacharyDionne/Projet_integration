@@ -29,7 +29,6 @@
 						<table class="table">
 						  	<thead class="bg-tr-up">
 						    	<tr class="shadow p-3 mb-5">
-									<th class="font-tr">ID</th>
 									<th class="font-tr">NOM</th>
 									<th class="font-tr">MATRICULE</th>
 									<th class="font-tr">ADRESSE COURRIEL</th>
@@ -46,13 +45,12 @@
 						  	@if (count($conducteurs))
 								@foreach($conducteurs as $conducteur)
 								<tr class="alert shadow p-3 mb-5 bg-white rounded" role="alert">
-									<th class="font-rg" scope="row">{{ $conducteur->id }}</th>
 									<td class="font-rg">{{ $conducteur->prenom }}, {{ $conducteur->nom }}</td>
 									<td class="font-rg">{{ $conducteur->matricule }}</td>
 									<td class="font-rg">{{ $conducteur->adresseCourriel }}</td>
-									<td class="font-rg">{{ $conducteur->actif }}</td>
+									<td class="font-rg">{{ $conducteur->actif ? 'Actif': 'Inactif' }}</td>
 									<td>
-										<a type="button" title="Fiches" class="btn btn-list" href="{{ route('fiches.show', [$conducteur->id]) }}">
+										<a type="button" title="Fiches" class="btn btn-list" href="{{ route('fiches.index') }}">
 											<i class="fa fa-list" aria-hidden="true"></i>
 										</a>
 										<a type="button" title="Modifier" class="btn btn-edit" href="{{ route('conducteurs.edit', [$conducteur->id]) }}">
