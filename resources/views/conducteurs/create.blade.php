@@ -34,7 +34,7 @@
     @endif
 	<div class="limiter">
 		<div class="container-login100">
-			<div class="wrap-login100">
+			<div class="wrap-create100">
 				<form class="login100-form validate-form p-l-55 p-r-55 p-t-142" method="post" action="{{ route('conducteurs.store') }}">
                     @csrf
 					<span class="login100-form-title">
@@ -42,64 +42,78 @@
                     Créer un conducteur
 					</span>
 
-                    <!-- Matricule -->
-                    <div class="font-rg m-l-20">
-                        <label for="matricule">Matricule</label>
+                    <div class="container-row-create">
+                        <!-- Matricule -->
+                        <div>
+                            <div class="font-rg m-l-20">
+                                <label for="matricule">Matricule</label>
+                            </div>
+                            <div class="wrap-input100 validate-input m-b-16" data-validate="Veuillez saisir votre matricule">
+                                <input class="input100" id="matricule" type="text" name="matriculeConducteur" placeholder="Matricule" value="{{ old('matricule') }}">
+                                <span class="focus-input100"></span>
+                            </div>
+                        </div>
+                        <!-- Prénom conducteur -->
+                        <div>
+                            <div class="font-rg m-l-20">
+                                <label for="prenom">Prénom</label>
+                            </div>
+                            <div class="wrap-input100 validate-input m-b-16" data-validate="Saisissez un prénom">
+                                <input class="input100" id="prenom" type="text" name="prenomConducteur" placeholder="Prénom" value="{{ old('prenom') }}">
+                                <span class="focus-input100"></span>
+                            </div>
+                        </div>
+                        <!-- Nom conducteur-->
+                        <div>
+                            <div class="font-rg m-l-20">
+                                <label for="nom">Nom</label>
+                            </div>
+                            <div class="wrap-input100 validate-input m-b-16" data-validate="Saisissez un nom">
+                                <input class="input100" id="nom" type="text" name="nomConducteur" placeholder="Nom" value="{{ old('nom') }}">
+                                <span class="focus-input100"></span>
+                            </div>
+                        </div>
+                        <!-- Email -->
+                        <div>
+                            <div class="font-rg m-l-20">
+                                <label for="email">Email</label>
+                            </div>
+                            <div class="wrap-input100 validate-input m-b-16" data-validate="Saisissez une adresse courriel">
+                                <input class="input100" id="email" type="email" name="adresseCourriel" placeholder="Adresse courriel" value="{{ old('adresseCourriel') }}">
+                                <span class="focus-input100"></span>
+                            </div>
+                        </div>
+                        <!-- Mot de passe -->
+                        <div>
+                            <div class="font-rg m-l-20">
+                                <label for="motdepasse">Mot de passe</label>
+                            </div>
+                            <div class="wrap-input100 validate-input m-b-16" data-validate="Veuillez saisir votre mot de passe" value="{{ old('motDePasse') }}">
+                                <input class="input100" id="motdepasse" type="password" name="motDePasse" placeholder="Mot de passe">
+                                <span class="focus-input100"></span>
+                            </div>
+                        </div>
+                        <!-- Mot de passe vérification -->
+                        <div>
+                            <div class="font-rg m-l-20">
+                                <label for="vefMotdepasse">Vérification du mot de passe</label>
+                            </div>
+                            <div class="wrap-input100 validate-input m-b-16" data-validate="Veuillez vérifier votre mot de passe">
+                                <input class="input100" id="vefMotdepasse" type="password" name="motDePasseVef" placeholder="Vérification" value="{{ old('motDePasse') }}">
+                                <span class="focus-input100"></span>
+                            </div>
+                        </div>
+                        <!-- Actif -->
+                        <div class="wrap-input100 validate-input">
+                            <input type="radio" id="actif" name="actifConducteur" value="1" checked="Yes">
+                            <label for="actif">Actif</label>
+                        </div>
+                        <!-- Inactif -->
+                        <div class="wrap-input100 validate-input">
+                            <input type="radio" id="inactif" name="actifConducteur" value="0">
+                            <label for="inactif">Inactif</label>
+                        </div>
                     </div>
-                    <div class="wrap-input100 validate-input m-b-16" data-validate="Veuillez saisir votre matricule">
-						<input class="input100" id="matricule" type="text" name="matriculeConducteur" placeholder="Matricule" value="{{ old('matricule') }}">
-						<span class="focus-input100"></span>
-					</div>
-                    <!-- Prénom conducteur -->
-                    <div class="font-rg m-l-20">
-                        <label for="prenom">Prénom</label>
-                    </div>
-                    <div class="wrap-input100 validate-input m-b-16" data-validate="Saisissez un prénom">
-                        <input class="input100" id="prenom" type="text" name="prenomConducteur" placeholder="Prénom" value="{{ old('prenom') }}">
-                        <span class="focus-input100"></span>
-                    </div>
-                    <!-- Nom conducteur-->
-                    <div class="font-rg m-l-20">
-                        <label for="nom">Nom</label>
-                    </div>
-                    <div class="wrap-input100 validate-input m-b-16" data-validate="Saisissez un nom">
-                        <input class="input100" id="nom" type="text" name="nomConducteur" placeholder="Nom" value="{{ old('nom') }}">
-						<span class="focus-input100"></span>
-                    </div>
-                    <!-- Email -->
-                    <div class="font-rg m-l-20">
-                        <label for="email">Email</label>
-                    </div>
-                    <div class="wrap-input100 validate-input m-b-16" data-validate="Saisissez une adresse courriel">
-                        <input class="input100" id="email" type="email" name="adresseCourriel" placeholder="Adresse courriel" value="{{ old('adresseCourriel') }}">
-						<span class="focus-input100"></span>
-                    </div>
-                    <!-- Mot de passe -->
-                    <div class="font-rg m-l-20">
-                        <label for="motdepasse">Mot de passe</label>
-                    </div>
-					<div class="wrap-input100 validate-input m-b-16" data-validate="Veuillez saisir votre mot de passe" value="{{ old('motDePasse') }}">
-						<input class="input100" id="motdepasse" type="password" name="motDePasse" placeholder="Mot de passe">
-						<span class="focus-input100"></span>
-					</div>
-                    <!-- Mot de passe vérification -->
-                    <div class="font-rg m-l-20">
-                        <label for="vefMotdepasse">Vérfication du mot de passe</label>
-                    </div>
-                    <div class="wrap-input100 validate-input m-b-16" data-validate="Veuillez vérifier votre mot de passe">
-						<input class="input100" id="vefMotdepasse" type="password" name="motDePasseVef" placeholder="Vérification" value="{{ old('motDePasse') }}">
-						<span class="focus-input100"></span>
-					</div>
-                    <!-- Actif -->
-                    <div class="wrap-input100 validate-input m-b-16">
-						<input type="radio" id="actif" name="actifConducteur" value="1" checked="Yes">
-                        <label for="actif">Actif</label>
-					</div>
-                    <!-- Inactif -->
-                    <div class="wrap-input100 validate-input">
-						<input type="radio" id="inactif" name="actifConducteur" value="0">
-                        <label for="inactif">Inactif</label>
-					</div>
 
 					<div class="container-login100-form-btn p-t-16 p-b-23">
 						<button class="login100-form-btn">
