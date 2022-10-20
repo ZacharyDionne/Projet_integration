@@ -31,6 +31,8 @@ class LoginController extends Controller
         if (Auth::attempt(["adresseCourriel" => $request->adresseCourriel, "password" => $request->motDePasse]))
         {
             $request->session()->regenerate();
+            $request->session()->put('user_id', Auth::id());
+            $request->session()->put('user_name', Auth::user()->prenom . " " . Auth::user()->nom);
 
             return redirect()->intended("connexionDone");
         }

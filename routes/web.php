@@ -52,7 +52,7 @@ Route::get("/fiches/creation", [FichesController::class, "create"])->name("fiche
 
 
 /*  AFFICHAGE   */
-//Route::get("/fiches/{conducteur_id}/{date}", [FichesController::class, "show"])->name("fiches.show");
+Route::get("/fiches/{date}", [FichesController::class, "show"])->name("fiches.show");
 
 
 
