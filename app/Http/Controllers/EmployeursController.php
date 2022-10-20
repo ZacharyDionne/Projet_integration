@@ -135,50 +135,80 @@ class EmployeursController extends Controller
         if (Gate::forUser(auth()->guard('employeur')->user())->denies('admin'))
             abort(403);
 
-        /*
         $employeur = Employeur::findOrFail($id);
-        return View('employeurs.modifier', compact('employeur'));
-        */
+        return View('employeurs.edit', compact('employeur'));       
     }
 
-    /**
+      /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(EmployeurRequest $request, $id)
     {
         /*
-            Gestion de l'accès utilisateur
+            Contrôle d'accès
             
-            Autorise seulement les administrateurs
+            Autorise uniquement l'administrateur
+            à apporter des modifications.
         */
         if (Gate::forUser(auth()->guard('employeur')->user())->denies('admin'))
             abort(403);
 
-        
+
+            try
+            {
+                $employeur = Employeur::findOrFail($id);
+                $employeur->actif = $request->actif;
+                $employeur->prenom = $request->prenom;
+                $employeur->nom = $request->nom;
+                $employeur->adresseCourriel = $request->adresseCourriel;
+                $employeur->actif = $request->actif;
+                $employeur->type_id = $request->type_id;
+
+                //Cette validation est nécessaire puisque l'admin à le choix de modifier le mot de passe ou non
+                //voir la vue "employeur.editAdmin"
+                if (isset($request->motDePasse) && !empty($request->motDePasse))
+                    $employeur->motDePasse = htmlSpecialChars($request->motDePasse);
+
+                $employeur->save();
+
+                return redirect()->route('employeurs.index')->with('message', "Modification de " . $employeur->prenom . " " . $employeur->nom . " réussi!");
+            }
+            catch (Throwable $e)
+            {
+                return redirect()->route('employeurs.index')->withErrors(['La modification n\'a pas fonctionné']);
+            }
+    }
+
+
+    public function updatePassword(ConducteurPasswordRequest $request, int $id)
+    {
         /*
+            Contrôle d'accès
+            
+            Autorise uniquement l'administrateur et le
+            conducteur à apporter des modifications.
+        */
+        if (Gate::forUser(auth()->guard('employeur')->user())->denies('admin') && Gate::denies('admin', $id))
+            abort(403);
+
         try
         {
-            $employeur = Conducteur::findOrFail($id);
-
-            $employeur->actif = $request->actif;
-            $employeur->prenom = $request->prenom;
-            ... 
+            $employeur = Employeur::findOrFail($id);
+            $employeur->motDePasse = Hash::make($request->motDePasse);
 
             $employeur->save();
-            //Aucune Erreur
-            return redirect()->route('employeurs.index')->with ('message', "Modification de " . $employeur->prenom . " " . $employeur->nom . " réussi!");
+
+            return redirect()->route('employeurs.index')->with('message', "Modification de " . $employeur->prenom . " " . $employeur->nom . " réussi!");
         }
-        catch(\Throwable $e){
-            //Avec Erreur
-            Log::debug($e);
+        catch (Throwable $e)
+        {
             return redirect()->route('employeurs.index')->withErrors(['La modification n\'a pas fonctionné']);
         }
-        return redirect()->route('employeurs.index');
-        */   
+
     }
 
     /**

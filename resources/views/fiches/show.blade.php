@@ -43,6 +43,10 @@
     @endfor
 </table>
 
+<h1>Journée précédente</h1>
+<h1>Journée suivante</h1>
+
+
 
     </body>
 </html>

@@ -13,7 +13,7 @@
 			<div class="container">
 				<div class="row justify-content-center">
 					<div class="col-md-6 text-center mb-5">
-						<h2 class="heading-section">Fiche - {NomUsager}</h2>
+						<h2 class="heading-section">Fiche - {{ session('user_name') }}</h2>
 					</div>
 				</div>
 				<div class="row">
