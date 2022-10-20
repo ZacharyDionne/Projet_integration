@@ -61,12 +61,23 @@ class FichesController extends Controller
      */
     public function show($date)
     {
+        Log::debug("test");
+        $user = session('user_id');
+        Log::debug($user);
+
+        try 
+        {
         //check if the date correspond to a date from an existing fiche and if the conducteur_id correspond to the user id of the connected user stored in the session
-        $fiche = Fiche::where('date', $date)->firstOrFail();
-        // show in log the fiche
-        Log::debug("yo");
+        $fiche = Fiche::where('date', $date)->where('conducteur_id', $user)->firstOrFail();
+        }
+        catch (ModelNotFoundException $e2)
+        {
+            Log::debug($e2);
+        }
+
+
         Log::debug("la fiche est: " . $fiche);
-        if($fiche == null)
+        if ($fiche == null)
         {
             Log::debug("Fiche not found");
             // create a new fiche
