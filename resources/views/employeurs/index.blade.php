@@ -60,6 +60,11 @@
 									<td>
 										<!-- Bouton + Route pour aller dans la modification de l'employeur -->
 									</td>
+                                    <td>
+										<a type="button" title="Modifier" class="btn btn-edit" href="{{ route('employeurs.edit', [$employeur->id]) }}">
+											<i class="fa fa-pencil" aria-hidden="true"></i>
+										</a>
+									</td>
 								</tr>
 								@endforeach
     					  	@else
