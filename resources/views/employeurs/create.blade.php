@@ -49,7 +49,7 @@
                         <input class="input100" type="text" name="prenomEmployeur" placeholder="Prénom">
 						<span class="focus-input100"></span>
                     </div>
-                    <!-- Nom conductemployeur -->
+                    <!-- Nom employeur -->
                     <div class="wrap-input100 validate-input m-b-16" data-validate="Saisissez un nom">
                         <input class="input100" type="text" name="nomEmployeur" placeholder="Nom">
 						<span class="focus-input100"></span>
