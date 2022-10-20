@@ -2,6 +2,12 @@
 
 	@section('titre', 'Fiches')
 
+	@section('cssSupplementaire')
+		<link rel="stylesheet" href="css/styleCalendar.css">
+		<link rel="stylesheet" href="css/styleModal.css">
+		<link rel="icon" type="image/png" href="images/icons/favicon.ico"/>
+	@endsection
+
 	@section('contenu')
 		<section class="ftco-section">
 			<div class="container">
