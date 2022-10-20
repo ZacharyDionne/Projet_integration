@@ -23,10 +23,7 @@ class FichesController extends Controller
      */
     public function index()
     {
-        // $fiches = Fiche::all()->orderBy("date", "desc")->take(150);
-        // $fiches = Fiche::orderBy("date", "desc")->take(150)->get();
-        $fiches = Fiche::all()->sortByDesc("date")->take(150);
-
+        $fiches = Fiche::take(150);
 
         return View("fiches.index", compact("fiches"));
     }
@@ -62,10 +59,10 @@ class FichesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($date)
+    public function show($conducteur_id, $date)
     {
         //check if the date correspond to a date from an existing fiche
-        $fiche = Fiche::where('date', $date)->first();
+        $fiche = Fiche::where('date', $date)->where('id', $conducteur_id)->first();
         if($fiche == null)
         {
             

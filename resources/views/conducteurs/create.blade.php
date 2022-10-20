@@ -1,10 +1,9 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
+    <title>Création Conducteur</title>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Create Conducteur</title>
 <!--===============================================================================================-->	
     <link rel="icon" type="image/png" href="images/icons/favicon.ico"/>
 <!--===============================================================================================-->
@@ -40,27 +39,24 @@
                     @csrf
 					<span class="login100-form-title">
                     <img src="images/logo_BLANC.png" alt="logo" class="login100-form-logo">
-                    Ouvrir une session
+                    Créer un conducteur
 					</span>
 
-
-    <input type="radio" id="actif" name="actif" value="1" checked>
-    <label for="actif">Actif</label><br>
-    <input type="radio" id="actif" name="actif" value="0">
-    <label for="actif">Non Actif</label>
-    <!-- Prénom conducteur -->
-        <label for="prenom">prenom</label>
-        <input type="text" class="form-control" id="prenom" placeholder="prenom" name="prenom" value="{{ old('prenom') }}">
-        <!-- Nom conducteur-->
-        <label for="nom">nom</label>
-        <input type="text" class="form-control" id="nom" placeholder="nom" name="nom" value="{{ old('nom') }}">
-        <label for="matricule">matricule</label>
-        <input type="text" class="form-control" id="matricule" placeholder="matricule" name="matricule" value="{{ old('matricule') }}">
-
-					<div class="wrap-input100 validate-input m-b-16" data-validate="Veuillez saisir votre adresse courriel">
-						<input class="input100" type="email" name="adresseCourriel" placeholder="Adresse courriel">
+                    <!-- Prénom conducteur -->
+                    <div class="wrap-input100 validate-input m-b-16" data-validate="Saisissez un prénom">
+                        <input class="input100" type="text" name="prenomConducteur" placeholder="Prénom">
 						<span class="focus-input100"></span>
-					</div>
+                    </div>
+                    <!-- Nom conducteur-->
+                    <div class="wrap-input100 validate-input m-b-16" data-validate="Saisissez un nom">
+                        <input class="input100" type="text" name="nomConducteur" placeholder="Nom">
+						<span class="focus-input100"></span>
+                    </div>
+                    <!-- Nom conducteur-->
+                    <div class="wrap-input100 validate-input m-b-16" data-validate="Saisissez une adresse courriel">
+                        <input class="input100" type="email" name="adresseCourriel" placeholder="Adresse courriel">
+						<span class="focus-input100"></span>
+                    </div>
 
 					<div class="wrap-input100 validate-input " data-validate = "Veuillez saisir votre mot de passe">
 						<input class="input100" type="password" name="motDePasse" placeholder="Mot de passe">
@@ -69,14 +65,8 @@
 
 					<div class="container-login100-form-btn p-t-16 p-b-23">
 						<button class="login100-form-btn">
-							Se connecter
+							Créer
 						</button>
-					</div>
-
-                    <div class="text-center p-t-13 p-b-100">
-						<a href="#" class="txt2">
-							Mot de passe oublié ?
-						</a>
 					</div>
 				</form>
 			</div>
