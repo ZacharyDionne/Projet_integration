@@ -37,6 +37,17 @@ class ConducteursTableSeeder extends Seeder
                 //mot de passe: 567892
                 'motDePasse'=> '$2y$10$ASQtnsy0hcUfHfNf8JyR5OCbLw/6kFmV3f93lBH1T8DEtC8Wz8Mfq',
             ],
+
+            [
+                'id'=> 3,
+                'actif'=> true,
+                'prenom'=> 'Raphael',
+                'nom'=> 'Bacon',
+                'matricule'=> '201943',
+                'adresseCourriel'=> 'raphbacon@gmail.com',
+                //mot de passe: 1234
+                'motDePasse'=> '$2y$10$xlBaqO4ia6jsOzRhgFBfO.Z4zfKhy.ViTNy0Ictr0XvQNXg5qwYxy',
+            ],
         ]);
     }
 }

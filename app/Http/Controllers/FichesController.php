@@ -59,17 +59,20 @@ class FichesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($conducteur_id, $date)
+    public function show($date)
     {
-        //check if the date correspond to a date from an existing fiche
-        $fiche = Fiche::where('date', $date)->where('id', $conducteur_id)->first();
+        //check if the date correspond to a date from an existing fiche and if the conducteur_id correspond to the user id of the connected user stored in the session
+        $fiche = Fiche::where('date', $date)->firstOrFail();
+        // show in log the fiche
+        Log::debug("yo");
+        Log::debug("la fiche est: " . $fiche);
         if($fiche == null)
         {
-            
-            // create a new fiche with the date
+            Log::debug("Fiche not found");
+            // create a new fiche
             $fiche = new Fiche();
-            $fiche->conducteur_id = 1;
-            $fiche->observation = "yo";
+            $fiche->conducteur_id = session('user_id');
+            $fiche->observation = null;
             $fiche->cycle = 1;
             $fiche->date = $date;
             $fiche->save();
@@ -81,18 +84,17 @@ class FichesController extends Controller
         {
             try
             {
+            Log::debug("Fiche found");
             // if the date correspond to a date from an existing fiche, we get the fiche
-            $fiche = Fiche::where('date', $date)->first();
-            return View('fiches.show', compact('fiche'));
+            $fiche = Fiche::where('date', $date)->where('conducteur_id', session('user_id'))->firstOrFail();
             }
-            catch(\Throwable $e)
+            catch(ModelNotFoundException $e)
             {
                 //Gestion de l'erreur
                 Log::debug($e);
-
-                // redirect to the index
-                return redirect()->route('fiches.index');
             }
+            return View('fiches.show', compact('fiche'));
+            
         }
     }
 

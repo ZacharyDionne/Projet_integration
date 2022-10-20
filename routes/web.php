@@ -52,7 +52,7 @@ Route::get("/fiches/creation", [FichesController::class, "create"])->name("fiche
 
 
 /*  AFFICHAGE   */
-//Route::get("/fiches/{conducteur_id}/{date}", [FichesController::class, "show"])->name("fiches.show");
+Route::get("/fiches/{date}", [FichesController::class, "show"])->name("fiches.show");
 
 
 
@@ -110,10 +110,8 @@ Route::get("/employeurs/{id}", [EmployeursController::class, "show"])->name("emp
 /*  MODIFICATION   */
 Route::get("/employeurs/{id}/modifier/", [EmployeursController::class, "edit"])->name("employeurs.edit");
 //Route::get("/employeurs/{employeurs}/", [EmployeursController::class, "show"])->name("employeurs.show");
-//Route::patch("/employeurs/{id}/modifier", [EmployeursController::class, "update"])->name("employeurs.update");
-
-
-
+Route::patch("/employeurs/{id}/modifier", [EmployeursController::class, "update"])->name("employeurs.update");
+Route::patch('/employeurs/{id}/updatePassword', [EmployeursController::class, "updatePassword"])->name('employeurs.updatePassword');
 
 
 
