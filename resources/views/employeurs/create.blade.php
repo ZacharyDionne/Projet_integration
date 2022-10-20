@@ -46,21 +46,21 @@
 
                     <!-- Prénom employeur  -->
                     <div class="wrap-input100 validate-input m-b-16" data-validate="Saisissez un prénom">
-                        <input class="input100" type="text" name="prenomEmployeur" placeholder="Prénom">
+                        <input class="input100" type="text" name="prenom" placeholder="Prénom">
 						<span class="focus-input100"></span>
                     </div>
-                    <!-- Nom employeur -->
+                    <!-- Nom Employeur -->
                     <div class="wrap-input100 validate-input m-b-16" data-validate="Saisissez un nom">
-                        <input class="input100" type="text" name="nomEmployeur" placeholder="Nom">
+                        <input class="input100" type="text" name="nom" placeholder="Nom">
 						<span class="focus-input100"></span>
                     </div>
-                    <!-- Adresse courriel employeur -->
+                    <!-- Adresse courriel Employeur -->
                     <div class="wrap-input100 validate-input m-b-16" data-validate="Saisissez une adresse courriel">
                         <input class="input100" type="email" name="adresseCourriel" placeholder="Adresse courriel">
 						<span class="focus-input100"></span>
                     </div>
 
-                    <!-- Mot de passe employeur -->
+                    <!-- Mot de passe Employeur -->
 					<div class="wrap-input100 validate-input " data-validate = "Veuillez saisir votre mot de passe">
 						<input class="input100" type="password" name="motDePasse" placeholder="Mot de passe">
 						<span class="focus-input100"></span>
@@ -73,6 +73,12 @@
                             <option value="{{ $type->id }}">{{ $type->typeEmp }}</option>
                             @endforeach
                         </select>
+
+                    <!-- Actif Ou Non Employeur -->
+                    <input type="radio" id="actif" name="actif" value="1" checked>
+                        <label for="actif">Actif</label><br>
+                    <input type="radio" id="actif" name="actif" value="0">
+                        <label for="actif">Non Actif</label>
 
 					<div class="container-login100-form-btn p-t-16 p-b-23">
 						<button class="login100-form-btn">
