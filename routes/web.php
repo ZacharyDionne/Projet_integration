@@ -52,7 +52,7 @@ Route::post("/fiches", [FichesController::class, "store"])->name("fiches.store")
 
 
 /*  AFFICHAGE   */
-Route::get("/fiches/{conducteur_id}/{date}", [FichesController::class, "show"])->name("fiches.show");
+//Route::get("/fiches/{conducteur_id}/{date}", [FichesController::class, "show"])->name("fiches.show");
 
 
 
