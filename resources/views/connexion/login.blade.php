@@ -21,8 +21,8 @@
 <!--===============================================================================================-->	
 	<link rel="stylesheet" type="text/css" href="vendor/daterangepicker/daterangepicker.css">
 <!--===============================================================================================-->
-	<link rel="stylesheet" type="text/css" href="css/util.css">
-	<link rel="stylesheet" type="text/css" href="css/main.css">
+	<link rel="stylesheet" type="text/css" href="{{ asset('css/util.css') }}">
+	<link rel="stylesheet" type="text/css" href="{{ asset('css/main.css') }}">
 <!--===============================================================================================-->
 </head>
 <body>
@@ -53,7 +53,7 @@
 						<span class="focus-input100"></span>
 					</div>
 
-					<div class="wrap-input100 validate-input " data-validate = "Veuillez saisir votre mot de passe">
+					<div class="wrap-input100 validate-input" data-validate = "Veuillez saisir votre mot de passe">
 						<input class="input100" type="password" name="motDePasse" placeholder="Mot de passe">
 						<span class="focus-input100"></span>
 					</div>

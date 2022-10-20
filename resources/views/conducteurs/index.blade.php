@@ -8,9 +8,9 @@
 <!--===============================================================================================-->
     <link rel="stylesheet" type="text/css" href="fonts/font-awesome-4.7.0/css/font-awesome.min.css">
 <!--===============================================================================================-->	
-	<link rel="stylesheet" href="css/styleTable.css">
+	<link rel="stylesheet" type="text/css" href="{{ asset('css/styleTable.css') }}">
 <!--===============================================================================================-->	
-	<link rel="stylesheet" href="css/style.css">
+	<link rel="stylesheet" type="text/css" href="{{ asset('css/style.css') }}">
 <!--===============================================================================================-->
 
 	</head>
