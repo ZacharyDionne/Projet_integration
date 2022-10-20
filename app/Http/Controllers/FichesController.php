@@ -21,9 +21,9 @@ class FichesController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index($id)
+    public function index()
     {
-        $fiches = Fiche::where('conducteur_id')->sortByDesc("date")->take(150);
+        $fiches = Fiche::take(150);
 
         return View("fiches.index", compact("fiches"));
     }

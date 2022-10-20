@@ -40,7 +40,7 @@ Route::get("connexionDone", function() { return View("connexion.logged"); })->na
 /* ---------------------------- Pages FICHES -------------------------------------------- */
 
  
-Route::get("/fiches/{conducteur_id}", [FichesController::class, "index"])->name("fiches.index");
+Route::get("/fiches", [FichesController::class, "index"])->name("fiches.index");
 
 
 
