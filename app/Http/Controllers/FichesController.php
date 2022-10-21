@@ -14,6 +14,9 @@ use App\Models\Conducteur;
 use Throwable;
 use Illuminate\Support\Facades\Log;
 
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
+
 class FichesController extends Controller
 {
     /**
@@ -61,26 +64,10 @@ class FichesController extends Controller
      */
     public function show($date)
     {
-        Log::debug("test");
-        $user = session('user_id');
-        Log::debug($user);
+        $fiche = Fiche::where('date', $date)->where('conducteur_id', session('user_id'))->first();
 
-        try 
+        if (!$fiche)
         {
-        //check if the date correspond to a date from an existing fiche and if the conducteur_id correspond to the user id of the connected user stored in the session
-        $fiche = Fiche::where('date', $date)->where('conducteur_id', $user)->firstOrFail();
-        }
-        catch (ModelNotFoundException $e2)
-        {
-            Log::debug($e2);
-        }
-
-
-        Log::debug("la fiche est: " . $fiche);
-        if ($fiche == null)
-        {
-            Log::debug("Fiche not found");
-            // create a new fiche
             $fiche = new Fiche();
             $fiche->conducteur_id = session('user_id');
             $fiche->observation = null;
@@ -88,15 +75,12 @@ class FichesController extends Controller
             $fiche->date = $date;
             $fiche->save();
             
-            // redirect to the fiche and compact the new fiche 
             return View('fiches.show', compact('fiche'));
         }
         else 
         {
             try
             {
-            Log::debug("Fiche found");
-            // if the date correspond to a date from an existing fiche, we get the fiche
             $fiche = Fiche::where('date', $date)->where('conducteur_id', session('user_id'))->firstOrFail();
             }
             catch(ModelNotFoundException $e)
