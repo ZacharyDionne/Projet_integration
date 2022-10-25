@@ -11,11 +11,13 @@
             {{ route('employeurs.edit', [auth()->guard('employeur')->user()->id]) }}
         @endif
     ">
-        <img src="images\logo_BLANC.png" width="50" height="50" class="d-inline-block align-center" alt="">
+        <!-- <img src="images\logo_BLANC.png" width="50" height="50" class="d-inline-block align-center" alt=""> -->
+        <i class="fa fa-cog" width="50" height="50" class="d-inline-block align-center" aria-hidden="true"></i>
         paramètres
     </a>
     <a class="font-tr" href="{{ route('connexion.logout') }}">
-        <img src="images\logo_BLANC.png" width="50" height="50" class="d-inline-block align-center" alt="">
+        <!-- <img src="images\logo_BLANC.png" width="50" height="50" class="d-inline-block align-center" alt=""> -->
+        <i class="fa fa-sign-out" width="50" height="50" class="d-inline-block align-center" aria-hidden="true"></i>
         Déconnexion
     </a>
 
