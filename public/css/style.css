@@ -39,12 +39,13 @@
   font-family: Roboto-Bold;
   font-size: 16px;
   color: #fff;
-  background: #47a760;
   padding: 10px;
+  border-radius: 10px;
+  background: -webkit-linear-gradient(90deg, #367f49, #5e986d);
 }
 
 .button-ajouter:hover {
-  background: #367f49;
+  background: -webkit-linear-gradient(90deg, #2b653a, #4b7957);
   color: #fff;
 }
 
@@ -52,11 +53,13 @@
   font-family: Roboto-Bold;
   font-size: 16px;
   color: #fff;
-  background: #ffc107;
+  padding: 10px;
+  border-radius: 10px;
+  background: -webkit-linear-gradient(90deg, #ffc107, #ffd96a);
 }
 
 .button-edit:hover {
-  background: #ba8d06;
+  background: -webkit-linear-gradient(90deg, #cc9a05, #ccad54);
   color: #fff;
 }
 
@@ -64,11 +67,13 @@
   font-family: Roboto-Bold;
   font-size: 16px;
   color: #fff;
-  background: #17a2b8;
+  padding: 10px;
+  border-radius: 10px;
+  background: -webkit-linear-gradient(90deg, #17a2b8, #7ccad7);
 }
 
 .button-list:hover {
-  background: #117584;
+  background: -webkit-linear-gradient(90deg, #128193, #549ca7);
   color: #fff;
 }
 

@@ -44,9 +44,11 @@
 											<td>
 												<a type="button" title="Fiches" class="button button-list" href="{{ route('fiches.index') }}">
 													<i class="fa fa-list" aria-hidden="true"></i>
+													FICHES
 												</a>
 												<a type="button" title="Modifier" class="button button-edit" href="{{ route('conducteurs.edit', [$conducteur->id]) }}">
 													<i class="fa fa-pencil" aria-hidden="true"></i>
+													MODIFIER
 												</a>
 											</td>
 										</tr>
