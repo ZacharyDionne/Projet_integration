@@ -253,7 +253,7 @@ iframe {
 }
 
 .login100-form-logo {
-  width: 15%; 
+  width: 10%; 
   height: auto; 
   margin-right: 20px;
 }
@@ -271,7 +271,7 @@ iframe {
 
 .input100 {
   font-size: 15px;
-  color: #A7A7A7;
+  color: #333;
   line-height: 1.2;
   position: relative;
   display: block;
@@ -282,6 +282,9 @@ iframe {
   padding: 0 35px 0 35px;
 }
 
+.input100::placeholder {
+  color: #A7A7A7
+}
 
 /*------------------------------------------------------------------
 [ Focus Input ]*/

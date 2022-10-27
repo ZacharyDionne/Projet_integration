@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-    <title>Création Conducteur</title>
+    <title>Création conducteur</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <!--===============================================================================================-->	
@@ -37,11 +37,11 @@
 				<form class="login100-form validate-form p-l-55 p-r-55 p-t-142" method="post" action="{{ route('conducteurs.store') }}">
                     @csrf
 					<span class="login100-form-title">
-                    <img src="../images/logo_BLANC.png" alt="logo" class="login100-form-logo">
+                    <img src="{{ asset('images/logo_BLANC.png') }}" alt="logo" class="login100-form-logo">
                     Créer un conducteur
 					</span>
 
-                    <div class="container-row-create-c3 p-t-100">
+                    <div class="container-row-create-c3 p-t-50">
                         <!-- Matricule -->
                         <div>
                             <div class="header-font font-rg m-l-20">
@@ -125,7 +125,7 @@
                     </div>
 
                         <div class="container-login100-form-btn p-t-16 p-b-23">
-                            <button class="login100-form-btn">
+                            <button type="submit" class="login100-form-btn">
                                 Créer
                             </button>
                         </div>
