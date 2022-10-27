@@ -221,11 +221,17 @@ iframe {
   position: relative;
 }
 
-.container-row-create {
-  display : grid;
-  grid-template-columns: auto auto;
-  grid-gap: 20px;
-  padding: 20px;
+.container-row-create-c3 {
+  column-count: 3;
+  column-gap: 30px;
+}
+.container-row-create-c2 {
+  column-count: 2;
+  column-gap: 30px;
+}
+
+.header-font {
+  font-weight: bold;
 }
 
 .login100-form-title {
@@ -264,11 +270,9 @@ iframe {
 }
 
 .input100 {
-  font-family: Roboto-Bold;
   font-size: 15px;
-  color: #191538;
+  color: #A7A7A7;
   line-height: 1.2;
-
   position: relative;
   display: block;
   width: 100%;
@@ -431,7 +435,7 @@ iframe {
   }
 
   .login100-form-title {
-    padding-right: 0px;
+    padding-right: 0px;input
   }
 
   .login100-form-logo {
