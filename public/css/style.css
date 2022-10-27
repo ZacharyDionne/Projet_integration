@@ -99,3 +99,15 @@
   border-width: 2px;
   border-style: solid;
 }
+
+.btnDeco {
+  /* make a button for deconnexion */
+  font-family: Roboto-Bold;
+  font-size: 16px;
+  background: -webkit-linear-gradient(90deg, #c50a0a, #fb1c1c);
+  padding: 8px;
+  border-color: #000;
+  border-width: 1px;
+  border-radius: 10px;
+  box-shadow: 0px 19px 27px -20px rgb(0 0 0 / 16%);
+}

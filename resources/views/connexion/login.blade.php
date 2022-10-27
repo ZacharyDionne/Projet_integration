@@ -70,6 +70,10 @@
 						</a>
 					</div>
 				</form>
+
+				<!-- choose an image randomly in the folder "Background" from 1 to 5" -->
+				<!-- <img src="images/Background/{{ rand(1,3) }}.jpg" alt="background" class="login100-more"> -->
+			
 			</div>
 		</div>
 	</div>
