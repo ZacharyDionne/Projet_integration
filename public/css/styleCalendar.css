@@ -8172,7 +8172,7 @@ h1, h2, h3, h4, h5,
   background: #e13a9d !important; }
 
 .ftco-section {
-  padding: 7em 0; }
+  padding: 1em 0; }
 
 .ftco-no-pt {
   padding-top: 0; }
@@ -8381,3 +8381,13 @@ tbody td:active {
   -webkit-transform: scale(0.8);
   -ms-transform: scale(0.8);
   transform: scale(0.8); }
+
+  /* Raph */
+
+.heading-section{
+  /* underline the title */
+  position: relative;
+  border-bottom: #000 1px solid;
+  margin-top: 35px;
+  font-size: larger;
+}
