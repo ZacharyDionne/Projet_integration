@@ -6,6 +6,8 @@
 		<link rel="stylesheet" href="css/styleCalendar.css">
 		<link rel="stylesheet" href="css/styleModal.css">
 		<link rel="icon" type="image/png" href="images/icons/favicon.ico"/>
+
+		<script defer src="js/mainCalendar.js"></script>
 	@endsection
 
 	@section('contenu')
@@ -13,7 +15,7 @@
 			<div class="container">
 				<div class="row justify-content-center">
 					<div class="col-md-6 text-center mb-5">
-						<h2 class="heading-section">Fiche - {{ session('user_name') }}</h2>
+						<h2 class="heading-section">{{ session('user_name') }}</h2>
 					</div>
 				</div>
 				<div class="row">
@@ -108,6 +110,61 @@
 					</div>
 					</div>
 				</div>
+				<div class="row">
+					<div class="col-md-6 offset-md-3">
+
+					
+							<div class="baniere-body-1">
+								<h3 class="heading-section">Lundi</h3>
+								<div class="baniere-body-left text-center">
+									<p>Aucune fiche existante</p>
+								</div>
+							</div>
+
+							<div class="baniere-body-2">
+								<h3 class="heading-section">Mardi</h3>
+								<div class="baniere-body-left text-center">
+									<p>Aucune fiche existante</p>
+								</div>
+							</div>
+
+							<div class="baniere-body-3">
+								<h3 class="heading-section">Mercredi</h3>
+								<div class="baniere-body-left text-center">
+									<p>Aucune fiche existante</p>
+								</div>
+							</div>
+
+							<div class="baniere-body-4">
+								<h3 class="heading-section">Jeudi</h3>
+								<div class="baniere-body-left text-center">
+									<p>Aucune fiche existante</p>
+								</div>
+							</div>
+
+							<div class="baniere-body-5">
+								<h3 class="heading-section">Vendredi</h3>
+								<div class="baniere-body-left text-center">
+									<p>Aucune fiche existante</p>
+								</div>
+							</div>
+
+							<div class="baniere-body-6">
+								<h3 class="heading-section">Samedi</h3>
+								<div class="baniere-body-left text-center">
+									<p>Aucune fiche existante</p>
+								</div>
+							</div>
+
+							<div class="baniere-body-7">
+								<h3 class="heading-section">Dimanche</h3>
+								<div class="baniere-body-left text-center">
+									<p>Aucune fiche existante</p>
+								</div>
+							</div>
+						
+					</div>
+				</div>
 			</div>
 		</section>
 
@@ -155,7 +212,5 @@
 			</div>
 		</div>
 		</div>
-
-		<script src="js/mainCalendar.js"></script>
 
 	@endsection
