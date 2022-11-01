@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Http\Request;
 use App\Http\Requests\LoginRequest;
 use App\Models\Conducteur;
@@ -18,10 +19,15 @@ class LoginController extends Controller
     {
         //Si il est déjà connecté, le rediriger vers la bonne page.
         if (auth()->guard("conducteur")->user())
-            return View("connexion.logged");
+            return redirect('/fiches');
+
+        if (auth()->guard('employeur')->user())
+        {
+            if (Gate::forUser(auth()->guard("employeur")->user())->allows('contreMaitre'))
+                return redirect("/conducteurs");
         
-        if (auth()->guard("employeur")->user())
-            return View("connexion.logged");
+            return redirect('/employeurs');
+        }
         
         return View("connexion.login");
     }
