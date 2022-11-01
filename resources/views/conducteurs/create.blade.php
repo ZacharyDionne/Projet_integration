@@ -50,7 +50,7 @@
                                 <label for="matricule">Matricule</label>
                             </div>
                             <div class="wrap-input100 validate-input" data-validate="Saisissez une matricule">
-                                <input class="input100" id="matricule" type="text" name="matriculeConducteur" placeholder="Insérer votre matricule" value="{{ old('matricule') }}">
+                                <input class="input100" id="matricule" type="text" name="matricule" placeholder="Insérer votre matricule" value="{{ old('matricule') }}">
                                 <span class="focus-input100"></span>
                             </div>
                         </div>
@@ -60,7 +60,7 @@
                                 <label for="prenom">Prénom</label>
                             </div>
                             <div class="wrap-input100 validate-input" data-validate="Saisissez un prénom">
-                                <input class="input100" id="prenom" type="text" name="prenomConducteur" placeholder="Insérer votre prénom" value="{{ old('prenom') }}">
+                                <input class="input100" id="prenom" type="text" name="prenom" placeholder="Insérer votre prénom" value="{{ old('prenom') }}">
                                 <span class="focus-input100"></span>
                             </div>
                         </div>
@@ -70,7 +70,7 @@
                                 <label for="nom">Nom</label>
                             </div>
                             <div class="wrap-input100 validate-input" data-validate="Saisissez un nom">
-                                <input class="input100" id="nom" type="text" name="nomConducteur" placeholder="Insérer votre nom" value="{{ old('nom') }}">
+                                <input class="input100" id="nom" type="text" name="nom" placeholder="Insérer votre nom" value="{{ old('nom') }}">
                                 <span class="focus-input100"></span>
                             </div>
                         </div>
@@ -82,7 +82,7 @@
                                 <label for="email">Adresse électronique</label>
                             </div>
                             <div class="w-100 wrap-input100 validate-input" data-validate="Saisissez une adresse électronique">
-                                <input class="input100" id="email" type="email" name="adresseCourriel" placeholder="Insérer votre adresse électronique" value="{{ old('adresseCourriel') }}">
+                                <input class="input100" id="adresseCourriel" type="email" name="adresseCourriel" placeholder="Insérer votre adresse électronique" value="{{ old('adresseCourriel') }}">
                                 <span class="focus-input100"></span>
                             </div>
                         </div>
@@ -93,12 +93,12 @@
                             </div>
                             <!-- Actif -->              
                             <div class="wrap-input100 validate-input">
-                                <input type="radio" id="actif" name="actifConducteur" value="1" checked="Yes">
+                                <input type="radio" id="active" name="actif" value="1" checked="Yes">
                                 <label for="actif">Actif</label>
                             </div>
                             <!-- Inactif -->
                             <div class="wrap-input100 validate-input">
-                                <input type="radio" id="inactif" name="actifConducteur" value="0">
+                                <input type="radio" id="desactive" name="actif" value="0">
                                 <label for="inactif">Inactif</label>
                             </div>
                         </div>
@@ -110,7 +110,7 @@
                                 <label for="motdepasse">Mot de passe</label>
                             </div>
                             <div class="w-100 wrap-input100 validate-input" data-validate="Saisissez un mot de passe" value="{{ old('motDePasse') }}">
-                                <input class="input100" id="motdepasse" type="password" name="motDePasse" placeholder="Insérer votre mot de passe">
+                                <input class="input100" id="motDePasse" type="password" name="motDePasse" placeholder="Insérer votre mot de passe">
                                 <span class="focus-input100"></span>
                             </div>
                         </div>

@@ -52,7 +52,7 @@
                                 <label for="matricule">Matricule</label>
                             </div>
                             <div class="wrap-input100 validate-input" data-validate="Saisissez votre matricule">
-                                <input class="input100" id="matricule" type="text" name="matriculeConducteur" placeholder="Insérer votre matricule" value="{{ $conducteur->matricule }}">
+                                <input class="input100" id="matricule" type="text" name="matricule" placeholder="Insérer votre matricule" value="{{ $conducteur->matricule }}">
                                 <span class="focus-input100"></span>
                             </div>
                         </div>
@@ -62,7 +62,7 @@
                                 <label for="prenom">Prénom</label>
                             </div>
                             <div class="wrap-input100 validate-input" data-validate="Saisissez votre prénom">
-                                <input class="input100" id="prenom" type="text" name="prenomConducteur" placeholder="Insérer votre prénom" value="{{ $conducteur->prenom }}">
+                                <input class="input100" id="prenom" type="text" name="prenom" placeholder="Insérer votre prénom" value="{{ $conducteur->prenom }}">
                                 <span class="focus-input100"></span>
                             </div>
                         </div>
@@ -72,7 +72,7 @@
                                 <label for="nom">Nom</label>
                             </div>
                             <div class="wrap-input100 validate-input" data-validate="Saisissez votre nom">
-                                <input class="input100" id="nom" type="text" name="nomConducteur" placeholder="Insérer votre nom" value="{{ $conducteur->nom }}">
+                                <input class="input100" id="nom" type="text" name="nom" placeholder="Insérer votre nom" value="{{ $conducteur->nom }}">
                                 <span class="focus-input100"></span>
                             </div>
                         </div>
@@ -84,7 +84,7 @@
                                 <label for="email">Adresse électronique</label>
                             </div>
                             <div class="w-100 wrap-input100 validate-input" data-validate="Saisissez votre adresse électronique">
-                                <input class="input100" id="email" type="email" name="adresseCourriel" placeholder="Insérer votre adresse électronique" value="{{ $conducteur->adresseCourriel }}">
+                                <input class="input100" id="adresseCourriel" type="email" name="adresseCourriel" placeholder="Insérer votre adresse électronique" value="{{ $conducteur->adresseCourriel }}">
                                 <span class="focus-input100"></span>
                             </div>
                         </div>
@@ -95,12 +95,12 @@
                             </div>
                             <!-- Actif -->              
                             <div class="wrap-input100 validate-input">
-                                <input type="radio" id="actif" name="actifConducteur" value="1" checked="Yes">
+                                <input type="radio" id="active" name="actif" value="1" checked="Yes">
                                 <label for="actif">Actif</label>
                             </div>
                             <!-- Inactif -->
                             <div class="wrap-input100 validate-input">
-                                <input type="radio" id="inactif" name="actifConducteur" value="0">
+                                <input type="radio" id="desactive" name="actif" value="0">
                                 <label for="inactif">Inactif</label>
                             </div>
                         </div>
