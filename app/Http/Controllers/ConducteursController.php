@@ -39,9 +39,9 @@ class ConducteursController extends Controller
 
         try
         {
-            if (
-                Gate::forUser(auth()->guard('employeur')->user())->denies('admin') &&
-                Gate::forUser(auth()->guard('employeur')->user())->denies('contreMaitre')
+            if (false
+                //Gate::forUser(auth()->guard('employeur')->user())->denies('admin') &&
+                //Gate::forUser(auth()->guard('employeur')->user())->denies('contreMaitre')
                 )
                 abort(403);
 

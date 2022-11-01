@@ -30,7 +30,7 @@
 													$estAdmin;
 													try
 													{
-														$estAdmin = Gate::forUser(auth()->guard('employeur')->user())->allows('admin');
+														$estAdmin = false; //Gate::forUser(auth()->guard('employeur')->user())->allows('admin');
 													}
 													catch (Throwable $e)
 													{
@@ -48,7 +48,7 @@
 										</tr>
 									</thead>
 									<tbody>
-									@if (count($conducteurs))
+									@if (isset($conducteurs) && count($conducteurs))
 										@foreach($conducteurs as $conducteur)
 										<tr class="alert shadow p-3 mb-5 bg-white rounded" role="alert">
 											<td class="font-rg">{{ $conducteur->prenom }}, {{ $conducteur->nom }}</td>
