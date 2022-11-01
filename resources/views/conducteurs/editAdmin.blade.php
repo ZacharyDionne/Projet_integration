@@ -28,8 +28,11 @@
 <body>
 	@if(isset($errors) && $errors->any())
         @foreach ($errors->all() as $error)
-            <div>{{ $error }}</div>
+            @$error
         @endforeach
+        <script>
+            alert("{{ $error }}");
+        </script>
     @endif
 	<div class="limiter">
 		<div class="container-login100">
@@ -39,16 +42,16 @@
                     @method("patch")
 					<span class="login100-form-title">
                     <img src="{{ asset('images/logo_BLANC.png') }}" alt="logo" class="login100-form-logo">
-                    Créer un conducteur
+                    Modifier un conducteur
 					</span>
 
-                    <div class="container-row-create-c3 p-t-50">
+                    <div class="container-row-create-c3 p-t-78">
                         <!-- Matricule -->
                         <div>
                             <div class="header-font font-rg m-l-20">
                                 <label for="matricule">Matricule</label>
                             </div>
-                            <div class="wrap-input100 validate-input" data-validate="Veuillez saisir votre matricule">
+                            <div class="wrap-input100 validate-input" data-validate="Saisissez votre matricule">
                                 <input class="input100" id="matricule" type="text" name="matriculeConducteur" placeholder="Insérer votre matricule" value="{{ $conducteur->matricule }}">
                                 <span class="focus-input100"></span>
                             </div>
@@ -58,7 +61,7 @@
                             <div class="header-font font-rg m-l-20">
                                 <label for="prenom">Prénom</label>
                             </div>
-                            <div class="wrap-input100 validate-input" data-validate="Saisissez un prénom">
+                            <div class="wrap-input100 validate-input" data-validate="Saisissez votre prénom">
                                 <input class="input100" id="prenom" type="text" name="prenomConducteur" placeholder="Insérer votre prénom" value="{{ $conducteur->prenom }}">
                                 <span class="focus-input100"></span>
                             </div>
@@ -68,19 +71,19 @@
                             <div class="header-font font-rg m-l-20">
                                 <label for="nom">Nom</label>
                             </div>
-                            <div class="wrap-input100 validate-input" data-validate="Saisissez un nom">
+                            <div class="wrap-input100 validate-input" data-validate="Saisissez votre nom">
                                 <input class="input100" id="nom" type="text" name="nomConducteur" placeholder="Insérer votre nom" value="{{ $conducteur->nom }}">
                                 <span class="focus-input100"></span>
                             </div>
                         </div>
                     </div>
-                    <div class="container-row-create-c2 p-t-10">
+                    <div class="container-row-create-c2 p-t-38">
                         <!-- Email -->
                         <div>
                             <div class="header-font font-rg m-l-20">
                                 <label for="email">Adresse électronique</label>
                             </div>
-                            <div class="w-100 wrap-input100 validate-input" data-validate="Saisissez une adresse électronique">
+                            <div class="w-100 wrap-input100 validate-input" data-validate="Saisissez votre adresse électronique">
                                 <input class="input100" id="email" type="email" name="adresseCourriel" placeholder="Insérer votre adresse électronique" value="{{ $conducteur->adresseCourriel }}">
                                 <span class="focus-input100"></span>
                             </div>
@@ -102,44 +105,19 @@
                             </div>
                         </div>
                     </div>
-                    <div class="container-login100-form-btn p-t-10 p-b-10">
-                        <button class="login100-form-btn">
-                            Sauvegarder
-                        </button>
-                    </div>
-                </form>
-                <form class="login100-form validate-form p-l-55 p-r-55" method="post" action="{{ route('conducteurs.updatePassword', [$conducteur->id]) }}">
-                    @csrf
-                    @method("patch")
-                    <div class="container-row-create-c2">
-                        <!-- Mot de passe -->
-                        <div>
-                            <div class="header-font font-rg m-l-20">
-                                <label for="motdepasse">Mot de passe</label>
-                            </div>
-                            <div class="w-100 wrap-input100 validate-input" data-validate="Veuillez saisir votre mot de passe">
-                                <input class="input100" id="motdepasse" type="password" name="motDePasse" placeholder="Insérer votre mot de passe">
-                                <span class="focus-input100"></span>
-                            </div>
+                    <div class="container-row-create-c2 p-t-18 p-b-18">
+                        <div class="container-login100-form-btn p-t-20 p-b-20">
+                            <a type="button" class="cancel100-form-btn" href="{{ route('conducteurs.index') }}">
+                                Annuler
+                            </a>
                         </div>
-                        <!-- Mot de passe vérification -->
-                        <div>
-                            <div class="header-font font-rg m-l-20">
-                                <label for="vefMotdepasse">Vérification du mot de passe</label>
-                            </div>
-                            <div class="w-100 wrap-input100 validate-input" data-validate="Veuillez vérifier votre mot de passe">
-                                <input class="input100" id="vefMotdepasse" type="password" name="motDePasseVef" placeholder="Vérifier votre mot de passe">
-                                <span class="focus-input100"></span>
-                            </div>
-                        </div>
-                    </div>
-                        <div class="container-login100-form-btn p-t-16 p-b-23">
-                            <button class="login100-form-btn">
-                                Modifier
+                        <div class="container-login100-form-btn p-t-20 p-b-20">
+                            <button type="submit" class="login100-form-btn">
+                                Sauvegarder
                             </button>
                         </div>
                     </div>
-				</form>
+                </form>
 			</div>
 		</div>
 	</div>

@@ -26,9 +26,11 @@
 <!--===============================================================================================-->
 </head>
 <body>
-	@if (isset($errors) && $errors->any())
+    @if(isset($errors) && $errors->any())
         @foreach ($errors->all() as $error)
-            <h1>{{ $error }}</h1>
+            <script>
+                alert("{{ $error }}");
+            </script>
         @endforeach
     @endif
 	<div class="limiter">
@@ -38,16 +40,16 @@
                     @csrf
 					<span class="login100-form-title">
                     <img src="{{ asset('images/logo_BLANC.png') }}" alt="logo" class="login100-form-logo">
-                    Créer un conducteur
+                    Ajouter un conducteur
 					</span>
 
-                    <div class="container-row-create-c3 p-t-50">
+                    <div class="container-row-create-c3 p-t-78">
                         <!-- Matricule -->
                         <div>
                             <div class="header-font font-rg m-l-20">
                                 <label for="matricule">Matricule</label>
                             </div>
-                            <div class="wrap-input100 validate-input" data-validate="Veuillez saisir votre matricule">
+                            <div class="wrap-input100 validate-input" data-validate="Saisissez une matricule">
                                 <input class="input100" id="matricule" type="text" name="matriculeConducteur" placeholder="Insérer votre matricule" value="{{ old('matricule') }}">
                                 <span class="focus-input100"></span>
                             </div>
@@ -73,7 +75,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="container-row-create-c2 p-t-10">
+                    <div class="container-row-create-c2 p-t-38">
                         <!-- Email -->
                         <div>
                             <div class="header-font font-rg m-l-20">
@@ -101,13 +103,13 @@
                             </div>
                         </div>
                     </div>
-                    <div class="container-row-create-c2">
+                    <div class="container-row-create-c2 p-t-28">
                         <!-- Mot de passe -->
                         <div>
                             <div class="header-font font-rg m-l-20">
                                 <label for="motdepasse">Mot de passe</label>
                             </div>
-                            <div class="w-100 wrap-input100 validate-input" data-validate="Veuillez saisir votre mot de passe" value="{{ old('motDePasse') }}">
+                            <div class="w-100 wrap-input100 validate-input" data-validate="Saisissez un mot de passe" value="{{ old('motDePasse') }}">
                                 <input class="input100" id="motdepasse" type="password" name="motDePasse" placeholder="Insérer votre mot de passe">
                                 <span class="focus-input100"></span>
                             </div>
@@ -117,14 +119,19 @@
                             <div class="header-font font-rg m-l-20">
                                 <label for="vefMotdepasse">Vérification du mot de passe</label>
                             </div>
-                            <div class="w-100 wrap-input100 validate-input" data-validate="Veuillez vérifier votre mot de passe">
+                            <div class="w-100 wrap-input100 validate-input" data-validate="Vérifier votre mot de passe">
                                 <input class="input100" id="vefMotdepasse" type="password" name="motDePasseVef" placeholder="Vérifier votre mot de passe" value="{{ old('motDePasse') }}">
                                 <span class="focus-input100"></span>
                             </div>
                         </div>
                     </div>
-
-                        <div class="container-login100-form-btn p-t-16 p-b-23">
+                    <div class="container-row-create-c2 p-t-28 p-b-28">
+                        <div class="container-login100-form-btn p-t-20 p-b-20">
+                            <a type="button" class="cancel100-form-btn" href="{{ route('conducteurs.index') }}">
+                                Annuler
+                            </a>
+                        </div>
+                        <div class="container-login100-form-btn p-t-20 p-b-20">
                             <button type="submit" class="login100-form-btn">
                                 Créer
                             </button>
