@@ -26,10 +26,12 @@
 											<th class="font-tr">ADRESSE COURRIEL</th>
 											<th class="font-tr">ACTIF</th>
 											<th class="font-tr">
-												<a type="button" title="Ajouter" class="button button-ajouter" href="{{ route('conducteurs.create') }}">
-													<i class="fa fa-plus" aria-hidden="true"></i>
-													AJOUTER
-												</a>
+												@if (Gate::forUser(auth()->guard('employeur')->user())->allows('admin'))
+													<a type="button" title="Ajouter" class="button button-ajouter" href="{{ route('conducteurs.create') }}">
+														<i class="fa fa-plus" aria-hidden="true"></i>
+														AJOUTER
+													</a>
+												@endif
 											</th>
 										</tr>
 									</thead>
@@ -46,10 +48,12 @@
 													<i class="fa fa-list" aria-hidden="true"></i>
 													FICHES
 												</a>
-												<a type="button" title="Modifier" class="button button-edit" href="{{ route('conducteurs.edit', [$conducteur->id]) }}">
-													<i class="fa fa-pencil" aria-hidden="true"></i>
-													MODIFIER
-												</a>
+												@if (Gate::forUser(auth()->guard('employeur')->user())->allows('admin'))
+													<a type="button" title="Modifier" class="button button-edit" href="{{ route('conducteurs.edit', [$conducteur->id]) }}">
+														<i class="fa fa-pencil" aria-hidden="true"></i>
+														MODIFIER
+													</a>
+												@endif
 											</td>
 										</tr>
 										@endforeach
