@@ -8391,3 +8391,7 @@ tbody td:active {
   margin-top: 35px;
   font-size: larger;
 }
+
+.ttlFiche {
+  padding-top: 35px;
+}
