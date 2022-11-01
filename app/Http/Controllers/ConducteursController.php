@@ -30,9 +30,12 @@ class ConducteursController extends Controller
         /*
         Contrôle d'accès
         
-        Autorise que les administrateurs.
+        Autorise les administrateurs et.
         */
-        if (Gate::forUser(auth()->guard('employeur')->user())->denies('admin'))
+        if (
+            Gate::forUser(auth()->guard('employeur')->user())->denies('admin') &&
+            Gate::forUser(auth()->guard('employeur')->user())->denies('contreMaitre')
+            )
             abort(403);
         
 

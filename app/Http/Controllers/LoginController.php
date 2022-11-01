@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-use Illuminate\Facades\Debug;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Http\Request;
 use App\Http\Requests\LoginRequest;
 use App\Models\Conducteur;
@@ -40,13 +40,10 @@ class LoginController extends Controller
             }
             else if (Auth::guard("employeur")->attempt(["adresseCourriel" => $request->adresseCourriel, "password" => $request->motDePasse]))
             {
-                $request->session()->regenerate();
-                
-
-                Debug::Log('yes');
+                $request->session()->regenerate();                
 
                 /*Redirection vers la bonne page*/
-                if (Gate::forUser(auth()->guard('employeur')->user())->allows('admin'))
+                if (auth()->guard('employeur')->user()->type_id == 2)
                 {
                     return redirect("employeurs");
                 }
