@@ -26,7 +26,18 @@
 											<th class="font-tr">ADRESSE COURRIEL</th>
 											<th class="font-tr">ACTIF</th>
 											<th class="font-tr">
-												@php($estAdmin = Gate::forUser(auth()->guard('employeur')->user())->allows('admin'))
+												@php
+													$estAdmin;
+													try
+													{
+														$estAdmin = Gate::forUser(auth()->guard('employeur')->user())->allows('admin');
+													}
+													catch (Throwable $e)
+													{
+														$estAdmin = false;
+													}
+													
+												@endphp
 												@if ($estAdmin)
 													<a type="button" title="Ajouter" class="button button-ajouter" href="{{ route('conducteurs.create') }}">
 														<i class="fa fa-plus" aria-hidden="true"></i>
@@ -59,7 +70,7 @@
 										</tr>
 										@endforeach
 									@else
-									<p>Il n'y a aucun conducteur.</p>
+										<tr><td colspan="5" id="messageErreur" class="list-title ">Il n'y a aucun conducteur.</td></tr>
 									@endif
 									</tbody>
 								</table>

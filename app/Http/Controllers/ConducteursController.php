@@ -27,22 +27,33 @@ class ConducteursController extends Controller
      */
     public function index()
     {
+        
         /*
-        Contrôle d'accès
+            Contrôle d'accès
         
-        Autorise les administrateurs et.
+            Autorise les administrateurs et.
         */
-        if (
-            Gate::forUser(auth()->guard('employeur')->user())->denies('admin') &&
-            Gate::forUser(auth()->guard('employeur')->user())->denies('contreMaitre')
-            )
-            abort(403);
         
+            
+            $conducteurs = null;
 
+        try
+        {
+            if (
+                Gate::forUser(auth()->guard('employeur')->user())->denies('admin') &&
+                Gate::forUser(auth()->guard('employeur')->user())->denies('contreMaitre')
+                )
+                abort(403);
 
-
-        $conducteurs = Conducteur::all();
-        return View("conducteurs.index", compact("conducteurs"));
+            $conducteurs = Conducteur::all();
+            return View("conducteurs.index", compact("conducteurs"));
+        }
+        catch (Throwable $e)
+        {
+            return View("conducteurs.index")->withErrors("Une erreur interne est survenue. Si l'erreur persiste, veuillez contacter votre responsable.");
+        }
+        
+        
     }
 
 
