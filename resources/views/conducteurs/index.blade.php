@@ -26,7 +26,8 @@
 											<th class="font-tr">ADRESSE COURRIEL</th>
 											<th class="font-tr">ACTIF</th>
 											<th class="font-tr">
-												@if (Gate::forUser(auth()->guard('employeur')->user())->allows('admin'))
+												@php($estAdmin = Gate::forUser(auth()->guard('employeur')->user())->allows('admin'))
+												@if ($estAdmin)
 													<a type="button" title="Ajouter" class="button button-ajouter" href="{{ route('conducteurs.create') }}">
 														<i class="fa fa-plus" aria-hidden="true"></i>
 														AJOUTER
@@ -48,7 +49,7 @@
 													<i class="fa fa-list" aria-hidden="true"></i>
 													FICHES
 												</a>
-												@if (Gate::forUser(auth()->guard('employeur')->user())->allows('admin'))
+												@if ($estAdmin)
 													<a type="button" title="Modifier" class="button button-edit" href="{{ route('conducteurs.edit', [$conducteur->id]) }}">
 														<i class="fa fa-pencil" aria-hidden="true"></i>
 														MODIFIER
