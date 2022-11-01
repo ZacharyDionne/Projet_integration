@@ -361,7 +361,23 @@ iframe {
 
 
 /*------------------------------------------------------------------
-[ Alert validate ]*/
+[Alerte]*/
+.messageErreur {
+  margin-bottom: 5px;
+
+  border: 1px solid #c80000;
+  border-radius: 10px;
+
+  padding: 2px;
+
+  text-align: center;
+  color:#c80000;
+  font-family: Roboto-Bold;
+  font-size: 12px;
+  
+}
+
+/*[ Alert validate ]*/
 
 .validate-input {
   position: relative;
@@ -438,7 +454,7 @@ iframe {
   }
 
   .login100-form-title {
-    padding-right: 0px;input
+    padding-right: 0px;/*input*/
   }
 
   .login100-form-logo {

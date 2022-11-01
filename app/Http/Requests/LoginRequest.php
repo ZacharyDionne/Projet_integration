@@ -34,10 +34,10 @@ class LoginRequest extends FormRequest
     {
         return [
             "adresseCourriel.required" => "L'adresse courriel est obligatoire.",
-            "adresseCourriel.min" => "Adresse courriel invalide.",
-            "adresseCourriel.max" => "Adresse courriel invalide.",
+            "adresseCourriel.min" => "L'adresse courriel ou le mot de passe est invalide.",
+            "adresseCourriel.max" => "L'adresse courriel ou le mot de passe est invalide.",
             "motDePasse.required" => "Le mot de passe est obligatoire.",
-            "motDePasse.min" => "Mot de passe invalide"
+            "motDePasse.min" => "L'adresse courriel ou le mot de passe est invalide."
         ];
     }
 

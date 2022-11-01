@@ -27,15 +27,7 @@
 </head>
 <body>
 	
-	@if (isset($errors) && $errors->any())
-
-		@foreach ($errors->all() as $error)
-
-			<h1>{{ $error }}</h1>
-
-		@endforeach
-
-	@endif
+	
 
 	<div class="limiter">
 		<div class="container-login100">
@@ -43,10 +35,19 @@
 				<form class="login100-form validate-form p-l-55 p-r-55 p-t-178" method="post" action="{{ route('connexion.login') }}">
 					@csrf
 					<span class="login100-form-title">
-                    <img src="images/logo_BLANC.png" alt="logo" class="login100-form-logo">
-                    Ouvrir une session
+                    	<img src="images/logo_BLANC.png" alt="logo" class="login100-form-logo">
+                    	Ouvrir une session
 					</span>
 
+					@if (isset($errors) && $errors->any())
+
+						@foreach ($errors->all() as $error)
+
+							<div class="messageErreur">{{ $error }}</div>
+
+						@endforeach
+
+						@endif
 
 					<div class="wrap-input100 validate-input m-b-16" data-validate="Veuillez saisir votre adresse courriel">
 						<input class="input100" type="email" name="adresseCourriel" placeholder="Adresse courriel" value="{{ old('adresseCourriel') }}">
@@ -62,12 +63,6 @@
 						<button class="login100-form-btn">
 							Se connecter
 						</button>
-					</div>
-
-                    <div class="text-center p-t-13 p-b-100">
-						<a href="#" class="txt2">
-							Mot de passe oublié ?
-						</a>
 					</div>
 				</form>
 

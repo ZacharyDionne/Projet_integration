@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests\LoginRequest;
 use App\Models\Conducteur;
 use App\Models\Employeur;
+use Throwable;
 use Illuminate\Http\View\View;
 use Illuminate\Support\Facades\Auth;
 
@@ -27,23 +28,30 @@ class LoginController extends Controller
 
     public function authenticate(LoginRequest $request)
     {
-
-        if (Auth::attempt(["adresseCourriel" => $request->adresseCourriel, "password" => $request->motDePasse]))
+        try
         {
-            $request->session()->regenerate();
-            $request->session()->put('user_id', Auth::id());
-            $request->session()->put('user_name', Auth::user()->prenom . " " . Auth::user()->nom);
-
-            return redirect()->intended("fiches");
+            if (Auth::attempt(["adresseCourriel" => $request->adresseCourriel, "password" => $request->motDePasse]))
+            {
+                $request->session()->regenerate();
+                $request->session()->put('user_id', Auth::id());
+                $request->session()->put('user_name', Auth::user()->prenom . " " . Auth::user()->nom);
+    
+                return redirect()->intended("fiches");
+            }
+            else if (Auth::guard("employeur")->attempt(["adresseCourriel" => $request->adresseCourriel, "password" => $request->motDePasse]))
+            {
+                $request->session()->regenerate();
+    
+                return redirect()->intended("connexionDone");
+            }
         }
-        else if (Auth::guard("employeur")->attempt(["adresseCourriel" => $request->adresseCourriel, "password" => $request->motDePasse]))
+        catch (Throwable $e)
         {
-            $request->session()->regenerate();
-
-            return redirect()->intended("connexionDone");
+            return back()->withErrors("Une erreur interne est survenue. Si l'erreur persiste, veuillez contacter votre responsable.")->onlyInput("adresseCourriel");
         }
+        
 
-        return back()->withErrors(["Erreur de connexion"])->onlyInput("adresseCourriel");
+        return back()->withErrors("Une erreur interne est survenue. Si l'erreur persiste, veuillez contacter votre responsable.")->onlyInput("adresseCourriel");
     }
 
 
