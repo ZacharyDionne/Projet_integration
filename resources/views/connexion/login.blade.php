@@ -43,7 +43,7 @@
 
 						@foreach ($errors->all() as $error)
 
-							<div class="messageErreur">{{ $error }}</div>
+							<div class="messageErreur">{{ $error }}&nbsp;<span style="background-color:#c80000;border-radius:50px;color:white;padding:0px 5px;">!</span></div>
 
 						@endforeach
 
