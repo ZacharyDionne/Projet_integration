@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use Illuminate\Facades\Debug;
 use Illuminate\Http\Request;
 use App\Http\Requests\LoginRequest;
 use App\Models\Conducteur;
@@ -36,13 +36,25 @@ class LoginController extends Controller
                 $request->session()->put('user_id', Auth::id());
                 $request->session()->put('user_name', Auth::user()->prenom . " " . Auth::user()->nom);
     
-                return redirect()->intended("fiches");
+                return redirect("fiches");
             }
             else if (Auth::guard("employeur")->attempt(["adresseCourriel" => $request->adresseCourriel, "password" => $request->motDePasse]))
             {
                 $request->session()->regenerate();
-    
-                return redirect()->intended("connexionDone");
+                
+
+                Debug::Log('yes');
+
+                /*Redirection vers la bonne page*/
+                if (Gate::forUser(auth()->guard('employeur')->user())->allows('admin'))
+                {
+                    return redirect("employeurs");
+                }
+                //C'est alors forcément un contre-maître
+                else
+                {
+                    return redirect("conducteurs");
+                }
             }
         }
         catch (Throwable $e)
