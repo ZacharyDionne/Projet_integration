@@ -30,7 +30,7 @@
 													$estAdmin;
 													try
 													{
-														 Gate::forUser(auth()->guard('employeur')->user())->allows('admin');
+														 $estAdmin = Gate::forUser(auth()->guard('employeur')->user())->allows('admin');
 													}
 													catch (Throwable $e)
 													{
