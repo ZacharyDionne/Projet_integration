@@ -128,11 +128,13 @@
                     <div class="container-row-create-c2 p-t-28 p-b-28">
                         <div class="container-login100-form-btn p-t-20 p-b-20">
                             <a type="button" class="cancel100-form-btn" href="{{ route('conducteurs.index') }}">
+                                <i class="fa fa-ban p-r-5" aria-hidden="true"></i>
                                 Annuler
                             </a>
                         </div>
                         <div class="container-login100-form-btn p-t-20 p-b-20">
                             <button type="submit" class="login100-form-btn">
+                                <i class="fa fa-plus p-r-5" aria-hidden="true"></i>
                                 Ajouter
                             </button>
                         </div>

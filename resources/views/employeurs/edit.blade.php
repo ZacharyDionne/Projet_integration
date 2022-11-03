@@ -26,10 +26,13 @@
 <!--===============================================================================================-->
 </head>
 <body>
-	@if(isset($errors) && $errors->any())
+    @if(isset($errors) && $errors->any())
         @foreach ($errors->all() as $error)
-            <div>{{ $error }}</div>
+            @$error
         @endforeach
+        <script>
+            alert("{{ $error }}");
+        </script>
     @endif
 	<div class="limiter">
 		<div class="container-login100">
@@ -39,10 +42,10 @@
                     @method("patch")
 					<span class="login100-form-title">
                     <img src="{{ asset('images/logo_BLANC.png') }}" alt="logo" class="login100-form-logo">
-                    Créer un employeur
+                    Modifier un employeur
 					</span>
 
-                    <div class="container-row-create-c3 p-t-50">
+                    <div class="container-row-create-c2 p-t-78">
                         <!-- Prénom employeur -->
                         <div>
                             <div class="header-font font-rg m-l-20">
@@ -65,7 +68,7 @@
                         </div>
                     </div>
 
-                    <div class="container-row-create-c2 p-t-10">
+                    <div class="container-row-create-c2 p-t-38">
                         <!-- Email -->
                         <div>
                             <div class="header-font font-rg m-l-20">
@@ -94,15 +97,19 @@
                             </div>
                         </div>
                     </div>
-                    <div class="container-row-create-c2">
-                    </form>
-                   
-
-                        <div class="container-login100-form-btn p-t-16 p-b-23">
-                            <button type="submit" class="login100-form-btn">
-                                Créer
-                            </button>
+                    <div class="container-row-create-c2 p-t-20 p-b-20">
+                        <div class="container-login100-form-btn p-t-20 p-b-20">
+                            <a type="button" class="cancel100-form-btn" href="{{ route('employeurs.index') }}">
+                                <i class="fa fa-ban p-r-5" aria-hidden="true"></i>
+                                Annuler
+                            </a>
                         </div>
+                        <div class="container-login100-form-btn p-t-20 p-b-20">
+                            <button type="submit" class="login100-form-btn">
+                                <i class="fa fa-floppy-o p-r-5" aria-hidden="true"></i>
+                                Sauvegarder
+                            </button>
+                        </div>   
                     </div>
 				</form>
 			</div>
