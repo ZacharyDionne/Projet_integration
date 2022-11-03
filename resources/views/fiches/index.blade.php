@@ -1,3 +1,6 @@
+@php
+	setlocale(LC_TIME, 'fr', 'fr_FR', 'fr_FR@euro', 'fr_FR.utf8', 'fr-FR', 'fra');
+@endphp
 @extends('layouts.app')
 
 	@section('titre', 'Fiches')
@@ -112,54 +115,87 @@
 				</div>
 				<div class="row">
 					<div class="col-md-6 offset-md-3">
+						<h3 class="text-center onlyFontTr ttlFiche">Fiches des 7 derniers jours :</h3>
+							<p>Heures cumulées : 72<span id="totalHours"></span></p>
 
-					
+							<!-- if $lastFiches[0] exist -->
 							<div class="baniere-body-1">
-								<h3 class="heading-section">Lundi</h3>
+								<!-- show date from ($lastFiches[0]->date) which is a 'yyyy-mm-dd' format, using the local language 
+								ex in french: lundi, 1 novembre
+								using strftime -->
+								<h3 class="heading-section">Fiche du {{ strftime('%A %d %B', strtotime($lastFiches[0]->date)) }}</h3>
 								<div class="baniere-body-left text-center">
-									<p>Aucune fiche existante</p>
+									<p>Aucune donnée existante</p>
+
+									@if($lastFiches[0]->observation != null)
+										<p>Observation : {{ $lastFiches[0]->observation }}</p>
+									@endif
 								</div>
 							</div>
 
 							<div class="baniere-body-2">
-								<h3 class="heading-section">Mardi</h3>
+								<h3 class="heading-section">Fiche du {{ strftime('%A %d %B', strtotime($lastFiches[1]->date)) }}</h3>
 								<div class="baniere-body-left text-center">
-									<p>Aucune fiche existante</p>
+									<p>Aucune donnée existante</p>
+
+									@if($lastFiches[1]->observation != null)
+										<p>Observation : {{ $lastFiches[1]->observation }}</p>
+									@endif
 								</div>
 							</div>
 
 							<div class="baniere-body-3">
-								<h3 class="heading-section">Mercredi</h3>
+								<h3 class="heading-section">Fiche du {{ strftime('%A %d %B', strtotime($lastFiches[2]->date)) }}</h3>
 								<div class="baniere-body-left text-center">
-									<p>Aucune fiche existante</p>
+									<p>Aucune donnée existante</p>
+
+									@if($lastFiches[2]->observation != null)
+										<p>Observation : {{ $lastFiches[2]->observation }}</p>
+									@endif
 								</div>
 							</div>
 
 							<div class="baniere-body-4">
-								<h3 class="heading-section">Jeudi</h3>
+								<h3 class="heading-section">Fiche du {{ strftime('%A %d %B', strtotime($lastFiches[3]->date)) }}</h3>
 								<div class="baniere-body-left text-center">
-									<p>Aucune fiche existante</p>
+									<p>Aucune donnée existante</p>
+
+									@if($lastFiches[3]->observation != null)
+										<p>Observation : {{ $lastFiches[3]->observation }}</p>
+									@endif
 								</div>
 							</div>
 
 							<div class="baniere-body-5">
-								<h3 class="heading-section">Vendredi</h3>
+								<h3 class="heading-section">Fiche du {{ strftime('%A %d %B', strtotime($lastFiches[4]->date)) }}</h3>
 								<div class="baniere-body-left text-center">
-									<p>Aucune fiche existante</p>
+									<p>Aucune donnée existante</p>
+
+									@if($lastFiches[4]->observation != null)
+										<p>Observation : {{ $lastFiches[4]->observation }}</p>
+									@endif
 								</div>
 							</div>
 
 							<div class="baniere-body-6">
-								<h3 class="heading-section">Samedi</h3>
+								<h3 class="heading-section">Fiche du {{ strftime('%A %d %B', strtotime($lastFiches[5]->date)) }}</h3>
 								<div class="baniere-body-left text-center">
-									<p>Aucune fiche existante</p>
+									<p>Aucune donnée existante</p>
+
+									@if($lastFiches[5]->observation != null)
+										<p>Observation : {{ $lastFiches[5]->observation }}</p>
+									@endif
 								</div>
 							</div>
 
 							<div class="baniere-body-7">
-								<h3 class="heading-section">Dimanche</h3>
+								<h3 class="heading-section">Fiche du {{ strftime('%A %d %B', strtotime($lastFiches[6]->date)) }}</h3>
 								<div class="baniere-body-left text-center">
-									<p>Aucune fiche existante</p>
+									<p>Aucune donnée existante</p>
+
+									@if($lastFiches[6]->observation != null)
+										<p>Observation : {{ $lastFiches[6]->observation }}</p>
+									@endif 
 								</div>
 							</div>
 						

@@ -28,7 +28,22 @@ class FichesController extends Controller
     {
         $fiches = Fiche::take(150);
 
-        return View("fiches.index", compact("fiches"));
+        for ($i = 0; $i < 7; $i++) {
+            $date = date('Y-m-d', strtotime("-$i days"));
+            $fiche = Fiche::where('date', $date)->first();
+            if (!$fiche) {
+                $fiche = new Fiche();
+                $fiche->date = $date;
+                $fiche->conducteur_id = Auth::user()->id;
+                $fiche->cycle = 1;
+                $fiche->save();
+            }
+
+            $lastFiches[$i] = $fiche;
+        }
+
+        return View("fiches.index", compact("fiches", "lastFiches"));
+        // return View("fiches.index", compact("fiches"));
     }
 
     /**
