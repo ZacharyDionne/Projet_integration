@@ -46,6 +46,14 @@ body, html {
 	font-family: Roboto-Regular, sans-serif;
 }
 
+bg-image {
+  background-image: url("images/TRPont.png");
+  height: 100%;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
 /*---------------------------------------------*/
 a {
 	font-family: Roboto-Regular;

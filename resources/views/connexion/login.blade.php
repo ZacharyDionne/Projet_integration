@@ -25,7 +25,7 @@
 	<link rel="stylesheet" type="text/css" href="{{ asset('css/main.css') }}">
 <!--===============================================================================================-->
 </head>
-<body>
+<body class="bg-image">
 	
 	
 
