@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Gate;
 
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 
-use App\Http\Requests\EmployeRequest;
+use App\Http\Requests\EmployeurRequest;
 
 use Throwable;
 
@@ -66,7 +66,7 @@ class EmployesController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(EmployeRequest $request)
+    public function store(EmployeurRequest $request)
     {
         /*
             Gestion de l'accès utilisateur
@@ -146,7 +146,7 @@ class EmployesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(EmployeRequest $request, $id)
+    public function update(EmployeurRequest $request, $id)
     {
         /*
             Contrôle d'accès
@@ -161,17 +161,14 @@ class EmployesController extends Controller
             try
             {
                 $employe = Employe::findOrFail($id);
-                $employe->actif = $request->actif;
                 $employe->prenom = $request->prenom;
                 $employe->nom = $request->nom;
-                $employe->adresseCourriel = $request->adresseCourriel;
                 $employe->actif = $request->actif;
-                $employe->type_id = $request->type_id;
 
-                //Cette validation est nécessaire puisque l'admin à le choix de modifier le mot de passe ou non
-                //voir la vue "employe.editAdmin"
-                if (isset($request->motDePasse) && !empty($request->motDePasse))
-                    $employe->motDePasse = htmlSpecialChars($request->motDePasse);
+            //Cette validation est nécessaire puisque l'admin à le choix de modifier le mot de passe ou non
+            //voir la vue "employe.editAdmin"
+            // if (isset($request->motDePasse) && !empty($request->motDePasse))
+            //    $employe->motDePasse = htmlSpecialChars($request->motDePasse);
 
                 $employe->save();
 
