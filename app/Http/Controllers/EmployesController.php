@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Gate;
 
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 
-use App\Http\Requests\EmployeRequest;
+use App\Http\Requests\EmployeurRequest;
 
 use Throwable;
 
@@ -66,7 +66,7 @@ class EmployesController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(EmployeRequest $request)
+    public function store(EmployeurRequest $request)
     {
         /*
             Gestion de l'accès utilisateur
