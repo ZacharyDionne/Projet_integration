@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Foundation\Auth\User;
 
-class Employeur extends User
+class Employe extends User
 {
     use HasFactory;
 
@@ -14,8 +14,9 @@ class Employeur extends User
 
     public function up()
     {
-        Schema::create("employeurs", function (Blueprint $table) {
+        Schema::create("employes", function (Blueprint $table) {
             $table->id();
+            $table->string("matricule", 6);
             $table->foreignId('type_id')->constrained();
             $table->string("prenom", 20);
             $table->string("nom", 20);

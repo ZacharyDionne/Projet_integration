@@ -8,7 +8,7 @@
         @if (auth()->user())
             {{ route('conducteurs.edit', [auth()->user()->id]) }}
         @else
-            {{ route('employeurs.edit', [auth()->guard('employeur')->user()->id]) }}
+            {{ route('employes.edit', [auth()->guard('employe')->user()->id]) }}
         @endif
     ">
         <!-- <img src="images\logo_BLANC.png" width="50" height="50" class="d-inline-block align-center" alt=""> -->

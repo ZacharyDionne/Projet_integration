@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\FichesController;
 use App\Http\Controllers\ConducteursController;
 use App\Http\Controllers\AlertesController;
-use App\Http\Controllers\EmployeursController;
+use App\Http\Controllers\EmployesController;
 use App\Http\Controllers\LoginController;
 
 /*
@@ -88,30 +88,30 @@ Route::patch('/conducteurs/{id}/updatePassword', [ConducteursController::class, 
 
 
 
-/* ---------------------------- Pages EMPLOYEUR -------------------------------------------- */
+/* ---------------------------- Pages EMPLOYE -------------------------------------------- */
 
 
 /*  INDEX   */ 
-Route::get("/employeurs", [EmployeursController::class, "index"])->name("employeurs.index");
+Route::get("/employes", [EmployesController::class, "index"])->name("employes.index");
 
 
 
 /* AJOUTER */
-Route::get("/employeurs/creation", [EmployeursController::class, "create"])->name("employeurs.create");
-Route::post("/employeurs", [EmployeursController::class, "store"])->name("employeurs.store");
+Route::get("/employes/creation", [EmployesController::class, "create"])->name("employes.create");
+Route::post("/employes", [EmployesController::class, "store"])->name("employes.store");
 
 
 
 /*  AFFICHAGE   */
-Route::get("/employeurs/{id}", [EmployeursController::class, "show"])->name("employeurs.show");
+Route::get("/employes/{id}", [EmployesController::class, "show"])->name("employes.show");
 
 
 
 /*  MODIFICATION   */
-Route::get("/employeurs/{id}/modifier/", [EmployeursController::class, "edit"])->name("employeurs.edit");
-//Route::get("/employeurs/{employeurs}/", [EmployeursController::class, "show"])->name("employeurs.show");
-Route::patch("/employeurs/{id}/modifier", [EmployeursController::class, "update"])->name("employeurs.update");
-Route::patch('/employeurs/{id}/updatePassword', [EmployeursController::class, "updatePassword"])->name('employeurs.updatePassword');
+Route::get("/employes/{id}/modifier/", [EmployesController::class, "edit"])->name("employes.edit");
+//Route::get("/employeurs/{employeurs}/", [EmployesController::class, "show"])->name("employes.show");
+Route::patch("/employeurs/{id}/modifier", [EmployesController::class, "update"])->name("employes.update");
+Route::patch('/employeurs/{id}/updatePassword', [EmployesController::class, "updatePassword"])->name('employes.updatePassword');
 
 
 

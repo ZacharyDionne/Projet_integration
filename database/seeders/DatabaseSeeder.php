@@ -16,7 +16,7 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         $this->call(TypesTableSeeder::class);
-        $this->call(EmployeursTableSeeder::class);
+        $this->call(EmployesTableSeeder::class);
 
         $this->call(ConducteursTableSeeder::class);
         $this->call(AlertesTableSeeder::class);        
@@ -25,14 +25,6 @@ class DatabaseSeeder extends Seeder
         $this->call(FichesTableSeeder::class);
         $this->call(PlageDeTempsTableSeeder::class);
 
-       
-        
-
-        
-
-        
-
-       
 
         // \App\Models\User::factory(10)->create();
 

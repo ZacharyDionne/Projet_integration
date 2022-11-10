@@ -14,13 +14,13 @@ class Type extends Model
         Schema::create('types', function (Blueprint $table)
         {
             $table->id();
-            $table->string('typeEmp', 30);
+            $table->string('nomType', 30);
             $table->timestamps();
         });
     }
 
     public function employeurs() : HasMany
     {
-        return $this->hasMany('App\Employeur');
+        return $this->hasMany('App\Employe');
     }
 }

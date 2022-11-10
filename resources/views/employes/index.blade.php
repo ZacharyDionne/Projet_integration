@@ -2,7 +2,7 @@
 
 @extends('layouts.app')
 
-@section('titre', 'Employeurs')
+@section('titre', 'Employes')
 
 @section('cssSupplementaire')
 <link rel="stylesheet" href="{{ asset('css/styleTable.css') }}">
@@ -13,8 +13,8 @@
 			<div class="container">
 				<div class="row justify-content-center">
 					<div class="col-md-3 text-center mb-1 title-placement">
-						<p class="top-small-title">LISTE DES EMPLOYEURS</p>
-						<h2 class="heading-section list-title">EMPLOYEURS</h2>
+						<p class="top-small-title">LISTE DES EMPLOYÉS</p>
+						<h2 class="heading-section list-title">EMPLOYÉS</h2>
 					</div>
 				</div>
 				<div class="row">
@@ -27,9 +27,9 @@
 										<th class="font-tr">ADRESSE COURRIEL</th>
 										<th class="font-tr">ACTIF</th>
 
-										<!-- Ajout d'un employeur (BOUTON) -->
+										<!-- Ajout d'un employe (BOUTON) -->
 										<th class="font-tr">
-											<a type="button" title="Ajouter" class="button button-ajouter" href="{{ route('employeurs.create') }}">
+											<a type="button" title="Ajouter" class="button button-ajouter" href="{{ route('employes.create') }}">
 												<i class="fa fa-plus" aria-hidden="true"></i>
 												AJOUTER
 											</a>
@@ -38,17 +38,17 @@
 								</thead>
 								<tbody>
 								
-								<!-- Affichage des employeurs s'il y en a -->
-								@if (count($employeurs))
-										@foreach($employeurs as $employeur)
+								<!-- Affichage des employes s'il y en a -->
+								@if (count($employes))
+										@foreach($employes as $employe)
 										<tr class="alert shadow p-3 mb-5 bg-white rounded" role="alert">
-											<td class="font-rg">{{ $employeur->prenom }}, {{ $employeur->nom }}</td>
-											<td class="font-rg">{{ $employeur->adresseCourriel }}</td>
-											<td class="font-rg">{{ $employeur->actif ? 'Actif': 'Inactif' }}</td>
+											<td class="font-rg">{{ $employe->prenom }}, {{ $employe->nom }}</td>
+											<td class="font-rg">{{ $employe->adresseCourriel }}</td>
+											<td class="font-rg">{{ $employe->actif ? 'Actif': 'Inactif' }}</td>
 
-											<!-- Modifier un employeur précis (BOUTON) -->
+											<!-- Modifier un employe précis (BOUTON) -->
 											<td>
-												<a type="button" title="Modifier" class="button button-edit" href="{{ route('employeurs.edit', [$employeur->id]) }}">
+												<a type="button" title="Modifier" class="button button-edit" href="{{ route('employes.edit', [$employe->id]) }}">
 													<i class="fa fa-pencil" aria-hidden="true"></i>
 													MODIFIER
 												</a>
@@ -56,7 +56,7 @@
 										</tr>
 										@endforeach
 									@else
-									<p style="color: red;">Il n'y a aucun employeur.</p>
+									<p style="color: red;">Il n'y a aucun employe.</p>
 									@endif
 									</tbody>
 								</table>

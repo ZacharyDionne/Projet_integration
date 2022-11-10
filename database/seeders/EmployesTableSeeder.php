@@ -6,7 +6,7 @@ use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use DB;
 
-class EmployeursTableSeeder extends Seeder
+class EmployesTableSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -15,9 +15,10 @@ class EmployeursTableSeeder extends Seeder
      */
     public function run()
     {
-        DB::table("employeurs")->insert([
+        DB::table("employes")->insert([
             [
-                "id" => 1, 
+                "id" => 1,
+                "matricule" => "123478",
                 "prenom" => "Martin", 
                 "nom" => "Rivard", 
                 "adresseCourriel" => "martin.rivard.01@gmail.com",
@@ -28,7 +29,8 @@ class EmployeursTableSeeder extends Seeder
             ],
 
             [
-                "id" => 2, 
+                "id" => 2,
+                "matricule" => "123121",
                 "prenom" => "Robert", 
                 "nom" => "Lafontaine", 
                 "adresseCourriel" => "robert.lafontaine.01@outlook.com",

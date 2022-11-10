@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-    <title>Modification employeur</title>
+    <title>Modification employe</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <!--===============================================================================================-->	
@@ -37,32 +37,32 @@
 	<div class="limiter">
 		<div class="container-login100">
 			<div class="wrap-create100">
-				<form class="login100-form validate-form p-l-55 p-r-55 p-t-142" method="post" action="{{ route('employeurs.update', [$employeur->id]) }}">
+				<form class="login100-form validate-form p-l-55 p-r-55 p-t-142" method="post" action="{{ route('employes.update', [$employe->id]) }}">
                     @csrf
                     @method("patch")
 					<span class="login100-form-title">
                     <img src="{{ asset('images/logo_BLANC.png') }}" alt="logo" class="login100-form-logo">
-                    Modifier un employeur
+                    Modifier un employe
 					</span>
 
                     <div class="container-row-create-c2 p-t-78">
-                        <!-- Prénom employeur -->
+                        <!-- Prénom employe -->
                         <div>
                             <div class="header-font font-rg m-l-20">
                                 <label for="prenom">Prénom</label>
                             </div>
                             <div class="wrap-input100 validate-input" data-validate="Saisissez un prénom">
-                                <input class="input100" id="prenom" type="text" name="prenomEmployeur" placeholder="Insérer votre prénom" value="{{ $employeur->prenom }}">
+                                <input class="input100" id="prenom" type="text" name="prenomEmploye" placeholder="Insérer votre prénom" value="{{ $employe->prenom }}">
                                 <span class="focus-input100"></span>
                             </div>
                         </div>
-                        <!-- Nom employeur-->
+                        <!-- Nom employe-->
                         <div>
                             <div class="header-font font-rg m-l-20">
                                 <label for="nom">Nom</label>
                             </div>
                             <div class="wrap-input100 validate-input" data-validate="Saisissez un nom">
-                                <input class="input100" id="nom" type="text" name="nomEmployeur" placeholder="Insérer votre nom" value="{{ $employeur->nom }}">
+                                <input class="input100" id="nom" type="text" name="nomEmploye" placeholder="Insérer votre nom" value="{{ $employe->nom }}">
                                 <span class="focus-input100"></span>
                             </div>
                         </div>
@@ -75,7 +75,7 @@
                                 <label for="email">Adresse électronique</label>
                             </div>
                             <div class="w-100 wrap-input100 validate-input" data-validate="Saisissez une adresse électronique">
-                                <input class="input100" id="email" type="email" name="adresseCourriel" placeholder="Insérer votre adresse électronique" value="{{ $employeur->adresseCourriel }}">
+                                <input class="input100" id="email" type="email" name="adresseCourriel" placeholder="Insérer votre adresse électronique" value="{{ $employe->adresseCourriel }}">
                                 <span class="focus-input100"></span>
                             </div>
                         </div>
@@ -87,19 +87,19 @@
                             </div>
                             <!-- Actif -->              
                             <div class="wrap-input100 validate-input">
-                                <input type="radio" id="actif" name="actifEmployeur" value="1" checked="Yes">
+                                <input type="radio" id="actif" name="actifEmploye" value="1" checked="Yes">
                                 <label for="actif">Actif</label>
                             </div>
                             <!-- Inactif -->
                             <div class="wrap-input100 validate-input">
-                                <input type="radio" id="inactif" name="actifEmployeur" value="0">
+                                <input type="radio" id="inactif" name="actifEmploye" value="0">
                                 <label for="inactif">Inactif</label>
                             </div>
                         </div>
                     </div>
                     <div class="container-row-create-c2 p-t-20 p-b-20">
                         <div class="container-login100-form-btn p-t-20 p-b-20">
-                            <a type="button" class="cancel100-form-btn" href="{{ route('employeurs.index') }}">
+                            <a type="button" class="cancel100-form-btn" href="{{ route('employes.index') }}">
                                 <i class="fa fa-ban p-r-5" aria-hidden="true"></i>
                                 Annuler
                             </a>
@@ -145,7 +145,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Modification Employeur</title>
+    <title>Modification Employe</title>
 </head>
 <body>
     <h1>Informations personnelles</h1>
@@ -154,35 +154,35 @@
             <div>{{ $error }}</div>
         @endforeach
     @endif
-    <form method="post" action="{{ route('employeurs.update', [$employeur->id]) }}">
+    <form method="post" action="{{ route('employes.update', [$employe->id]) }}">
         @csrf
         @method("patch")-->
-        <!-- Nom Employeur --><!--
+        <!-- Nom Employe --><!--
         <label for="nom">Nom</label>
-        <input type="text" id="nom" name="nom" value="{{ $employeur->nom }}">
+        <input type="text" id="nom" name="nom" value="{{ $employe->nom }}">
         <br>-->
-        <!-- Prénom Employeur --><!--
+        <!-- Prénom Employe --><!--
         <label for="prenom">Prénom</label>
-        <input type="text" id="prenom" name="prenom" value="{{ $employeur->prenom }}">
+        <input type="text" id="prenom" name="prenom" value="{{ $employe->prenom }}">
         <br>-->
-        <!-- Adresse Courriel Employeur --><!--
+        <!-- Adresse Courriel Employe --><!--
         <label for="adresseCourriel">Courriel</label>
-        <input type="email" id="adresseCourriel" name="adresseCourriel" value="{{ $employeur->adresseCourriel }}">
+        <input type="email" id="adresseCourriel" name="adresseCourriel" value="{{ $employe->adresseCourriel }}">
         <br>-->
-        <!-- Actif Employeur --><!--
+        <!-- Actif Employe --><!--
         <label for="actif">Actif</label><br>
         <input type="radio" id="actif" name="actif" value="1" checked>
         <br>
         <label for="actif">Non Actif</label>
         <input type="radio" id="actif" name="actif" value="0">
 -->
-        <!-- Type Employeur -->
+        <!-- Type Employe -->
      <!--   
       <button>Sauvegarder</button>
     </form>
     <hr>
     <h2>Modification de mot de passe</h2>
-    <form method="post" action="{{ route('employeurs.updatePassword', [$employeur->id]) }}">
+    <form method="post" action="{{ route('employes.updatePassword', [$employe->id]) }}">
         @csrf
         @method("patch")
         <label for="motDePasse">Confirmer mot de passe</label>

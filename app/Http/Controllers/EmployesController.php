@@ -10,17 +10,17 @@ use Illuminate\Support\Facades\Gate;
 
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 
-use App\Http\Requests\EmployeurRequest;
+use App\Http\Requests\EmployeRequest;
 
 use Throwable;
 
-use App\Models\Employeur;
+use App\Models\Employe;
 use App\Models\Type;
 
 
 
 
-class EmployeursController extends Controller
+class EmployesController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -34,11 +34,11 @@ class EmployeursController extends Controller
             
             Autorise seulement les administrateurs
         */
-        if (Gate::forUser(auth()->guard('employeur')->user())->denies('admin'))
+        if (Gate::forUser(auth()->guard('employe')->user())->denies('admin'))
             abort(403);
 
-        $employeurs = Employeur::all();
-        return View("employeurs.index", compact("employeurs"));
+        $employes = Employe::all();
+        return View("employes.index", compact("employes"));
     }
 
     /**
@@ -53,11 +53,11 @@ class EmployeursController extends Controller
             
             Autorise seulement les administrateurs
         */
-        if (Gate::forUser(auth()->guard('employeur')->user())->denies('admin'))
+        if (Gate::forUser(auth()->guard('employe')->user())->denies('admin'))
             abort(403);
 
         $types = Type::orderBy('typeEmp')->get();
-        return View('employeurs.create', compact('types'));
+        return View('employes.create', compact('types'));
     }
 
     /**
@@ -66,28 +66,28 @@ class EmployeursController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(EmployeurRequest $request)
+    public function store(EmployeRequest $request)
     {
         /*
             Gestion de l'accès utilisateur
             
             Autorise seulement les administrateurs
         */
-        if (Gate::forUser(auth()->guard('employeur')->user())->denies('admin'))
+        if (Gate::forUser(auth()->guard('employe')->user())->denies('admin'))
             abort(403);
 
 
         try
         {
-            $employeur = new Employeur($request->all());
-            $employeur->save();
+            $employe = new Employe($request->all());
+            $employe->save();
         }
 
         catch(Throwable $e)
         {
 
         }
-        return redirect()->route('employeurs.index');
+        return redirect()->route('employes.index');
         
     }
 
@@ -104,19 +104,19 @@ class EmployeursController extends Controller
             
             Autorise seulement les administrateurs
         */
-        if (Gate::forUser(auth()->guard('employeur')->user())->denies('admin'))
+        if (Gate::forUser(auth()->guard('employe')->user())->denies('admin'))
             abort(403);
 
         try
         {
-            $employeur = Employeur::findOrFail($id);
+            $employe = Employe::findOrFail($id);
         }
         catch(Throwable $e)
         {
 
         }
 
-        return View("employeurs.show", compact("employeur"));
+        return View("employes.show", compact("employe"));
     }
 
     /**
@@ -132,11 +132,11 @@ class EmployeursController extends Controller
             
             Autorise seulement les administrateurs
         */
-        if (Gate::forUser(auth()->guard('employeur')->user())->denies('admin'))
+        if (Gate::forUser(auth()->guard('employe')->user())->denies('admin'))
             abort(403);
 
-        $employeur = Employeur::findOrFail($id);
-        return View('employeurs.edit', compact('employeur'));       
+        $employe = Employe::findOrFail($id);
+        return View('employes.edit', compact('employe'));       
     }
 
       /**
@@ -146,7 +146,7 @@ class EmployeursController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(EmployeurRequest $request, $id)
+    public function update(EmployeRequest $request, $id)
     {
         /*
             Contrôle d'accès
@@ -154,32 +154,32 @@ class EmployeursController extends Controller
             Autorise uniquement l'administrateur
             à apporter des modifications.
         */
-        if (Gate::forUser(auth()->guard('employeur')->user())->denies('admin'))
+        if (Gate::forUser(auth()->guard('employe')->user())->denies('admin'))
             abort(403);
 
 
             try
             {
-                $employeur = Employeur::findOrFail($id);
-                $employeur->actif = $request->actif;
-                $employeur->prenom = $request->prenom;
-                $employeur->nom = $request->nom;
-                $employeur->adresseCourriel = $request->adresseCourriel;
-                $employeur->actif = $request->actif;
-                $employeur->type_id = $request->type_id;
+                $employe = Employe::findOrFail($id);
+                $employe->actif = $request->actif;
+                $employe->prenom = $request->prenom;
+                $employe->nom = $request->nom;
+                $employe->adresseCourriel = $request->adresseCourriel;
+                $employe->actif = $request->actif;
+                $employe->type_id = $request->type_id;
 
                 //Cette validation est nécessaire puisque l'admin à le choix de modifier le mot de passe ou non
-                //voir la vue "employeur.editAdmin"
+                //voir la vue "employe.editAdmin"
                 if (isset($request->motDePasse) && !empty($request->motDePasse))
-                    $employeur->motDePasse = htmlSpecialChars($request->motDePasse);
+                    $employe->motDePasse = htmlSpecialChars($request->motDePasse);
 
-                $employeur->save();
+                $employe->save();
 
-                return redirect()->route('employeurs.index')->with('message', "Modification de " . $employeur->prenom . " " . $employeur->nom . " réussi!");
+                return redirect()->route('employes.index')->with('message', "Modification de " . $employe->prenom . " " . $employe->nom . " réussi!");
             }
             catch (Throwable $e)
             {
-                return redirect()->route('employeurs.index')->withErrors(['La modification n\'a pas fonctionné']);
+                return redirect()->route('employes.index')->withErrors(['La modification n\'a pas fonctionné']);
             }
     }
 
@@ -192,21 +192,21 @@ class EmployeursController extends Controller
             Autorise uniquement l'administrateur et le
             conducteur à apporter des modifications.
         */
-        if (Gate::forUser(auth()->guard('employeur')->user())->denies('admin') && Gate::denies('admin', $id))
+        if (Gate::forUser(auth()->guard('employe')->user())->denies('admin') && Gate::denies('admin', $id))
             abort(403);
 
         try
         {
-            $employeur = Employeur::findOrFail($id);
-            $employeur->motDePasse = Hash::make($request->motDePasse);
+            $employe = Employe::findOrFail($id);
+            $employe->motDePasse = Hash::make($request->motDePasse);
 
-            $employeur->save();
+            $employe->save();
 
-            return redirect()->route('employeurs.index')->with('message', "Modification de " . $employeur->prenom . " " . $employeur->nom . " réussi!");
+            return redirect()->route('employes.index')->with('message', "Modification de " . $employe->prenom . " " . $employe->nom . " réussi!");
         }
         catch (Throwable $e)
         {
-            return redirect()->route('employeurs.index')->withErrors(['La modification n\'a pas fonctionné']);
+            return redirect()->route('employes.index')->withErrors(['La modification n\'a pas fonctionné']);
         }
 
     }

@@ -18,7 +18,7 @@ class Alerte extends Model
             $table->string('message', 255);
             $table->boolean('actif');
             $table->date('date');
-            $table->bigInteger('idEmployeur')->nullable();
+            $table->bigInteger('idEmploye')->nullable();
             $table->timestamps();
         });
     }

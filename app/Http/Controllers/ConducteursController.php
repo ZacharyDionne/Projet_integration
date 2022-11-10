@@ -40,8 +40,8 @@ class ConducteursController extends Controller
         try
         {
             if (false
-                //Gate::forUser(auth()->guard('employeur')->user())->denies('admin') &&
-                //Gate::forUser(auth()->guard('employeur')->user())->denies('contreMaitre')
+                //Gate::forUser(auth()->guard('employe')->user())->denies('admin') &&
+                //Gate::forUser(auth()->guard('employe')->user())->denies('contreMaitre')
                 )
                 abort(403);
 
@@ -70,7 +70,7 @@ class ConducteursController extends Controller
         
         Refuse tous ceux qui ne sont pas administrateurs.
         */
-        if (Gate::forUser(auth()->guard('employeur')->user())->denies('admin'))
+        if (Gate::forUser(auth()->guard('employe')->user())->denies('admin'))
             abort(403);
 
         return View('conducteurs.create');
@@ -89,7 +89,7 @@ class ConducteursController extends Controller
         
         Refuse tous ceux qui ne sont pas administrateurs.
         */
-        if (Gate::forUser(auth()->guard('employeur')->user())->denies('admin'))
+        if (Gate::forUser(auth()->guard('employe')->user())->denies('admin'))
             abort(403);
 
 
@@ -160,7 +160,7 @@ class ConducteursController extends Controller
             return View('conducteurs.edit', compact('conducteur'));
         }
             
-        else if (Gate::forUser(auth()->guard('employeur')->user())->allows('admin'))
+        else if (Gate::forUser(auth()->guard('employe')->user())->allows('admin'))
         {
             $conducteur = Conducteur::findOrFail($id);
 
@@ -235,7 +235,7 @@ class ConducteursController extends Controller
             Autorise uniquement l'administrateur
             à apporter des modifications.
         */
-        if (Gate::forUser(auth()->guard('employeur')->user())->denies('admin'))
+        if (Gate::forUser(auth()->guard('employe')->user())->denies('admin'))
             abort(403);
 
 
@@ -272,7 +272,7 @@ class ConducteursController extends Controller
             Autorise uniquement l'administrateur et le
             conducteur à apporter des modifications.
         */
-        if (Gate::forUser(auth()->guard('employeur')->user())->denies('admin') && Gate::denies('leConducteur', $id))
+        if (Gate::forUser(auth()->guard('employe')->user())->denies('admin') && Gate::denies('leConducteur', $id))
             abort(403);
 
         try

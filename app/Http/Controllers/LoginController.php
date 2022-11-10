@@ -5,13 +5,10 @@ use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Http\Request;
 use App\Http\Requests\LoginRequest;
-use App\Models\Conducteur;
-use App\Models\Employeur;
+use App\Models\Employe;
 use Throwable;
 use Illuminate\Http\View\View;
 use Illuminate\Support\Facades\Auth;
-
-use Illuminate\Support\Facades\Hash;
 
 class LoginController extends Controller
 {
@@ -21,12 +18,12 @@ class LoginController extends Controller
         if (auth()->guard("conducteur")->user())
             return redirect('/fiches');
 
-        if (auth()->guard('employeur')->user())
+        if (auth()->guard('employe')->user())
         {
-            if (Gate::forUser(auth()->guard("employeur")->user())->allows('contreMaitre'))
+            if (Gate::forUser(auth()->guard("employe")->user())->allows('contreMaitre'))
                 return redirect("/conducteurs");
         
-            return redirect('/employeurs');
+            return redirect('/employes');
         }
         
         return View("connexion.login");
@@ -44,14 +41,14 @@ class LoginController extends Controller
     
                 return redirect("fiches");
             }
-            else if (Auth::guard("employeur")->attempt(["adresseCourriel" => $request->adresseCourriel, "password" => $request->motDePasse]))
+            else if (Auth::guard("employe")->attempt(["adresseCourriel" => $request->adresseCourriel, "password" => $request->motDePasse]))
             {
                 $request->session()->regenerate();                
 
                 /*Redirection vers la bonne page*/
-                if (auth()->guard('employeur')->user()->type_id == 2)
+                if (auth()->guard('employe')->user()->type_id == 2)
                 {
-                    return redirect("employeurs");
+                    return redirect("employes");
                 }
                 //C'est alors forcément un contre-maître
                 else
@@ -62,6 +59,7 @@ class LoginController extends Controller
         }
         catch (Throwable $e)
         {
+            Log::debug($e);
             return back()->withErrors("Une erreur interne est survenue. Si l'erreur persiste, veuillez contacter votre responsable.")->onlyInput("adresseCourriel");
         }
         

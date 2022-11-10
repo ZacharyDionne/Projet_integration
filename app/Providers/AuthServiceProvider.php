@@ -11,7 +11,7 @@ use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvid
 use Illuminate\Foundation\Auth\User;
 use Illuminate\Support\Facades\Log;
 
-use App\Models\Employeur;
+use App\Models\Employe;
 use App\Models\Conducteur;
 
 class AuthServiceProvider extends ServiceProvider
@@ -45,9 +45,9 @@ class AuthServiceProvider extends ServiceProvider
             return new JwtGuard(Auth::createUserProvider($config["conducteurs"]));
         });
 
-        Auth::extend("employeur", function($app, $name, array $config)
+        Auth::extend("employe", function($app, $name, array $config)
         {
-            return new JwtGuard(Auth::createUserProvider($config["employeurs"]));
+            return new JwtGuard(Auth::createUserProvider($config["employes"]));
         });
 
 
@@ -58,7 +58,7 @@ class AuthServiceProvider extends ServiceProvider
         Gate::define("admin", function()
     {
         
-        $utilisateur = auth()->guard('employeur')->user();
+        $utilisateur = auth()->guard('employe')->user();
 
         if (!$utilisateur)
             return false;
@@ -73,7 +73,7 @@ class AuthServiceProvider extends ServiceProvider
 
     Gate::define('contreMaitre', function()
     {
-        $utilisateur = auth()->guard('employeur')->user();
+        $utilisateur = auth()->guard('employe')->user();
 
         if (!$utilisateur)
             return false;
