@@ -48,8 +48,8 @@
 											<form employe="{{ $employe->id }}">
 												@csrf
 												@method("patch")
-												<input type="radio" class="xmlRadio" id="actif" name="actifEmploye" value="1" @checked($employe->actif)>
-												<input type="radio" class="xmlRadio" id="inactif" name="actifEmploye" value="0" @checked(!$employe->actif)>
+												<input type="radio" class="xmlRadio" id="actif" name="actif" value="1" @checked($employe->actif)>
+												<input type="radio" class="xmlRadio" id="inactif" name="actif" value="0" @checked(!$employe->actif)>
 											</form>
 
 

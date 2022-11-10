@@ -161,7 +161,7 @@ class EmployesController extends Controller
         {
             $employe = Employe::findOrFail($id);
 
-            $employe->actif = $request->actif ? true: false;
+            $employe->actif = $request->actif;
 
             $employe->save();
 
