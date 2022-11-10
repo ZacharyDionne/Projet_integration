@@ -79,6 +79,16 @@
                                 <span class="focus-input100"></span>
                             </div>
                         </div>
+                        <!-- Information nécessaire, mais non modifiable -->
+
+    
+                        <!-- Mot de passe -->
+                        <div>
+                            <div class="w-100 wrap-input100 validate-input" data-validate="Veuillez saisir votre mot de passe" value="{{ $employe->motDePasse }}">
+                                <input  id="motdepasse" type="password" name="motDePasse" placeholder="Insérer votre mot de passe">
+                            </div>
+                        </div>
+
 
                         <!-- Statut -->
                         <div>
