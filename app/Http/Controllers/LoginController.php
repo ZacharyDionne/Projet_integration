@@ -14,9 +14,6 @@ class LoginController extends Controller
 {
     public function index()
     {
-        //Si il est déjà connecté, le rediriger vers la bonne page.
-        if (auth()->guard("conducteur")->user())
-            return redirect('/fiches');
 
         if (auth()->guard('employe')->user())
         {
@@ -31,6 +28,9 @@ class LoginController extends Controller
 
     public function authenticate(LoginRequest $request)
     {
+        if (auth()->user())
+            return View('index');
+
         try
         {
             if (Auth::attempt(["adresseCourriel" => $request->adresseCourriel, "password" => $request->motDePasse]))
