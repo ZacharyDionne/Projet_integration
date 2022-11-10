@@ -46,6 +46,14 @@ body, html {
 	font-family: Roboto-Regular, sans-serif;
 }
 
+.background-img {
+  background-image: url("../images/TRPont.png");
+  height: 100%;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
 /*---------------------------------------------*/
 a {
 	font-family: Roboto-Regular;
@@ -254,7 +262,7 @@ iframe {
 }
 
 .login100-form-logo {
-  width: 10%; 
+  width: 20%; 
   height: auto; 
   margin-right: 20px;
 }

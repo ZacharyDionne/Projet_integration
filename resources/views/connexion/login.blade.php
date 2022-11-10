@@ -25,14 +25,11 @@
 	<link rel="stylesheet" type="text/css" href="{{ asset('css/main.css') }}">
 <!--===============================================================================================-->
 </head>
-<body>
-	
-	
-
+<body class="background-img">
 	<div class="limiter">
-		<div class="container-login100">
+		<div class="container-login100 bg-transparent">
 			<div class="wrap-login100">
-				<form class="login100-form validate-form p-l-55 p-r-55 p-t-178" method="post" action="{{ route('connexion.login') }}">
+				<form class="login100-form validate-form p-l-55 p-r-55 p-t-150" method="post" action="{{ route('connexion.login') }}">
 					@csrf
 					<span class="login100-form-title">
                     	<img src="images/logo_BLANC.png" alt="logo" class="login100-form-logo">
@@ -40,7 +37,6 @@
 					</span>
 
 					@if (isset($errors) && $errors->any())
-
 						@foreach ($errors->all() as $error)
 
 							<div class="messageErreur">{{ $error }}&nbsp;<span style="background-color:#c80000;border-radius:50px;color:white;padding:0px 5px;">!</span></div>
@@ -54,12 +50,12 @@
 						<span class="focus-input100"></span>
 					</div>
 
-					<div class="wrap-input100 validate-input" data-validate = "Veuillez saisir votre mot de passe">
+					<div class="wrap-input100 validate-input m-t-25" data-validate = "Veuillez saisir votre mot de passe">
 						<input class="input100" type="password" name="motDePasse" placeholder="Mot de passe">
 						<span class="focus-input100"></span>
 					</div>
 
-					<div class="container-login100-form-btn p-t-16 p-b-23">
+					<div class="container-login100-form-btn p-t-25 p-b-25">
 						<button class="login100-form-btn">
 							Se connecter
 						</button>
