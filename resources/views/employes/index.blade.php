@@ -9,7 +9,7 @@
 @endsection
 
 @section('contenu')
-		<section class="ftco-section">
+		<section class="ftco-section p-3">
 			<div class="container">
 				<div class="row justify-content-center">
 					<div class="col-md-3 text-center mb-1 title-placement">
@@ -22,18 +22,11 @@
 						<div class="table-wrap">
 							<table class="table">
 								<thead class="bg-tr-up">
-									<tr class="shadow p-3 mb-5">
+									<tr class="shadow">
 										<th class="font-tr">NOM</th>
 										<th class="font-tr">ADRESSE COURRIEL</th>
 										<th class="font-tr">ACTIF</th>
-
-										<!-- Ajout d'un employe (BOUTON) -->
-										<th class="font-tr">
-											<a type="button" title="Ajouter" class="button button-ajouter" href="{{ route('employes.create') }}">
-												<i class="fa fa-plus" aria-hidden="true"></i>
-												AJOUTER
-											</a>
-										</th>
+										<th class="font-tr"></th>
 									</tr>
 								</thead>
 								<tbody>
