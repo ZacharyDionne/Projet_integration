@@ -6,6 +6,7 @@
 
 @section('cssSupplementaire')
 <link rel="stylesheet" href="{{ asset('css/styleTable.css') }}">
+<script defer src="{{ asset('js/employes/index.js') }}"></script>
 @endsection
 
 @section('contenu')
@@ -20,7 +21,7 @@
 				<div class="row">
 					<div class="col-md-12">
 						<div class="table-wrap">
-							<table class="table">
+							<tableA class="table">
 								<thead class="bg-tr-up">
 									<tr class="shadow p-3 mb-5">
 										<th class="font-tr">NOM</th>
@@ -46,6 +47,26 @@
 											<td class="font-rg">{{ $employe->adresseCourriel }}</td>
 											<td class="font-rg">{{ $employe->actif ? 'Actif': 'Inactif' }}</td>
 
+
+
+
+
+
+											<form employe="{{ $employe->id }}">
+												@csrf
+												@method("patch")
+												<input type="radio" class="xmlRadio" id="actif" name="actifEmploye" value="1" @checked($employe->actif)>
+												<input type="radio" class="xmlRadio" id="inactif" name="actifEmploye" value="0" @checked(!$employe->actif)>
+											</form>
+
+
+
+
+
+
+
+
+
 											<!-- Modifier un employe précis (BOUTON) -->
 											<td>
 												<a type="button" title="Modifier" class="button button-edit" href="{{ route('employes.edit', [$employe->id]) }}">
@@ -58,6 +79,14 @@
 									@else
 									<p style="color: red;">Il n'y a aucun employe.</p>
 									@endif
+
+
+
+					<script>
+						
+
+					</script>
+
 									</tbody>
 								</table>
 							</div>

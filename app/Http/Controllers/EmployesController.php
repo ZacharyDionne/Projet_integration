@@ -73,6 +73,9 @@ class EmployesController extends Controller
             
             Autorise seulement les administrateurs
         */
+
+        
+
         if (Gate::forUser(auth()->guard('employe')->user())->denies('admin'))
             abort(403);
 
@@ -139,14 +142,9 @@ class EmployesController extends Controller
         return View('employes.edit', compact('employe'));       
     }
 
-      /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(EmployeRequest $request, $id)
+
+
+    public function update(Request $request, $id)
     {
         /*
             Contrôle d'accès
@@ -154,34 +152,29 @@ class EmployesController extends Controller
             Autorise uniquement l'administrateur
             à apporter des modifications.
         */
+
         if (Gate::forUser(auth()->guard('employe')->user())->denies('admin'))
             abort(403);
 
 
-            try
-            {
-                $employe = Employe::findOrFail($id);
-                $employe->actif = $request->actif;
-                $employe->prenom = $request->prenom;
-                $employe->nom = $request->nom;
-                $employe->adresseCourriel = $request->adresseCourriel;
-                $employe->actif = $request->actif;
-                $employe->type_id = $request->type_id;
+        try
+        {
+            $employe = Employe::findOrFail($id);
 
-                //Cette validation est nécessaire puisque l'admin à le choix de modifier le mot de passe ou non
-                //voir la vue "employe.editAdmin"
-                if (isset($request->motDePasse) && !empty($request->motDePasse))
-                    $employe->motDePasse = htmlSpecialChars($request->motDePasse);
+            $employe->actif = $request->actif ? true: false;
 
-                $employe->save();
+            $employe->save();
 
-                return redirect()->route('employes.index')->with('message', "Modification de " . $employe->prenom . " " . $employe->nom . " réussi!");
-            }
-            catch (Throwable $e)
-            {
-                return redirect()->route('employes.index')->withErrors(['La modification n\'a pas fonctionné']);
-            }
+            return true;
+        }
+        catch (Throwable $e)
+        {
+            return $e;
+        }
     }
+
+
+
 
 
     public function updatePassword(ConducteurPasswordRequest $request, int $id)

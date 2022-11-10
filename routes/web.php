@@ -108,9 +108,9 @@ Route::get("/employes/{id}", [EmployesController::class, "show"])->name("employe
 
 
 /*  MODIFICATION   */
+Route::patch("employes/{id}/update", [EmployesController::class, "update"])->name('employes.update');
 Route::get("/employes/{id}/modifier/", [EmployesController::class, "edit"])->name("employes.edit");
 //Route::get("/employeurs/{employeurs}/", [EmployesController::class, "show"])->name("employes.show");
-Route::patch("/employes/{id}/update", [EmployesController::class, "update"])->name("employes.update");
 //Route::patch('/employeurs/{id}/updatePassword', [EmployesController::class, "updatePassword"])->name('employes.updatePassword');
 
 
