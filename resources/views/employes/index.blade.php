@@ -12,7 +12,7 @@
 		<section class="ftco-section p-3">
 			<div class="container">
 				<div class="row justify-content-center">
-					<div class="col-md-3 text-center mb-1 title-placement">
+					<div class="col-md-3 text-center title-placement">
 						<p class="top-small-title">LISTE DES EMPLOYÉS</p>
 						<h2 class="heading-section list-title">EMPLOYÉS</h2>
 					</div>
