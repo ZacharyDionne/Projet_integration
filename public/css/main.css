@@ -256,8 +256,8 @@ iframe {
   top: 0;
   left: 0;
   background: -webkit-linear-gradient(45deg, #0079c1, #004898);
-  padding-top: 50px;
-  padding-bottom: 39px;
+  padding-top: 20px;
+  padding-bottom: 19px;
   padding-right: 75px;
 }
 
@@ -521,14 +521,18 @@ iframe {
   .login100-form {
     padding-left: 15px;
     padding-right: 15px;
+    padding-top: 100px;
   }
 
   .login100-form-title {
     padding-right: 0px;
-    padding-right: 0px;/*input*/
   }
 
   .login100-form-logo {
     display: none;
+  }
+
+  .input100 {
+    
   }
 }
