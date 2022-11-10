@@ -15,6 +15,11 @@ class LoginController extends Controller
     public function index()
     {
 
+        if (auth()->user())
+        {
+            return redirect('/fiches');
+        }
+
         if (auth()->guard('employe')->user())
         {
             if (Gate::forUser(auth()->guard("employe")->user())->allows('contreMaitre'))
@@ -22,6 +27,7 @@ class LoginController extends Controller
         
             return redirect('/employes');
         }
+
         
         return View("connexion.login");
     }

@@ -79,17 +79,6 @@
                                 <span class="focus-input100"></span>
                             </div>
                         </div>
-                        <!-- Information nécessaire, mais non modifiable -->
-
-    
-                        <!-- Mot de passe -->
-                        <div>
-                            <div class="w-100 wrap-input100 validate-input" data-validate="Veuillez saisir votre mot de passe" value="{{ $employe->motDePasse }}">
-                                <input  id="motdepasse" type="password" name="motDePasse" placeholder="Insérer votre mot de passe">
-                            </div>
-                        </div>
-
-
                         <!-- Statut -->
                         <div>
                             <div class="header-font font-rg m-l-16">
@@ -146,60 +135,3 @@
 
 </body>
 </html>
-
-
-
-<!--
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Modification Employe</title>
-</head>
-<body>
-    <h1>Informations personnelles</h1>
-    @if(isset($errors) && $errors->any())
-        @foreach ($errors->all() as $error)
-            <div>{{ $error }}</div>
-        @endforeach
-    @endif
-    <form method="post" action="{{ route('employes.update', [$employe->id]) }}">
-        @csrf
-        @method("patch")-->
-        <!-- Nom Employe --><!--
-        <label for="nom">Nom</label>
-        <input type="text" id="nom" name="nom" value="{{ $employe->nom }}">
-        <br>-->
-        <!-- Prénom Employe --><!--
-        <label for="prenom">Prénom</label>
-        <input type="text" id="prenom" name="prenom" value="{{ $employe->prenom }}">
-        <br>-->
-        <!-- Adresse Courriel Employe --><!--
-        <label for="adresseCourriel">Courriel</label>
-        <input type="email" id="adresseCourriel" name="adresseCourriel" value="{{ $employe->adresseCourriel }}">
-        <br>-->
-        <!-- Actif Employe --><!--
-        <label for="actif">Actif</label><br>
-        <input type="radio" id="actif" name="actif" value="1" checked>
-        <br>
-        <label for="actif">Non Actif</label>
-        <input type="radio" id="actif" name="actif" value="0">
--->
-        <!-- Type Employe -->
-     <!--   
-      <button>Sauvegarder</button>
-    </form>
-    <hr>
-    <h2>Modification de mot de passe</h2>
-    <form method="post" action="{{ route('employes.updatePassword', [$employe->id]) }}">
-        @csrf
-        @method("patch")
-        <label for="motDePasse">Confirmer mot de passe</label>
-        <input type="password" id="motDePasse" name="motDePasse">
-        <br>
-        <button>Modifier</button>
-    </form>
-</body>
-</html>
--->
