@@ -25,6 +25,7 @@
 								<thead class="bg-tr-up">
 									<tr class="shadow">
 										<th class="font-tr">NOM</th>
+										<th class="font-tr">MATRICULE</th>
 										<th class="font-tr">ADRESSE COURRIEL</th>
 										<th class="font-tr">ACTIF</th>
 										<th class="font-tr"></th>
@@ -37,6 +38,7 @@
 										@foreach($employes as $employe)
 										<tr class="alert shadow p-3 mb-5 bg-white rounded" role="alert">
 											<td class="font-rg">{{ $employe->prenom }}, {{ $employe->nom }}</td>
+											<td class="font-rg">{{ $employe->matricule }}</td>
 											<td class="font-rg">{{ $employe->adresseCourriel }}</td>
 
 
