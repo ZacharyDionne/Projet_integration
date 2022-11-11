@@ -4,6 +4,7 @@
 
 	@section('cssSupplementaire')
 	<link rel="stylesheet" href="{{ asset('css/styleTable.css') }}">
+	<script defer src="{{ asset('js/conducteurs/index.js') }}"></script>
 	@endsection
 
 	@section('contenu')
@@ -25,6 +26,7 @@
 											<th class="font-tr">MATRICULE</th>
 											<th class="font-tr">ADRESSE COURRIEL</th>
 											<th class="font-tr">ACTIF</th>
+											<th></th>
 										</tr>
 									</thead>
 									<tbody>
@@ -35,19 +37,20 @@
 											<td class="font-rg">{{ $conducteur->matricule }}</td>
 											<td class="font-rg">{{ $conducteur->adresseCourriel }}</td>
 											<td class="font-rg">
-												
+												<form conducteur="{{ $conducteur->id }}">
+													@csrf
+													@method("patch")
+													<label for="actif">Actif</label>
+													<input type="radio" class="xmlRadio" id="actif" name="actif" value="1" @checked($conducteur->actif)><br>
+													<label for="inactif">Inactif</label>
+													<input type="radio" class="xmlRadio" id="inactif" name="actif" value="0" @checked(!$conducteur->actif)>
+												</form>
 											</td>
 											<td>
 												<a type="button" title="Fiches" class="button button-list" href="{{ route('fiches.index') }}">
 													<i class="fa fa-list" aria-hidden="true"></i>
 													FICHES
 												</a>
-												@if ($estAdmin)
-													<a type="button" title="Modifier" class="button button-edit" href="{{ route('conducteurs.edit', [$conducteur->id]) }}">
-														<i class="fa fa-pencil" aria-hidden="true"></i>
-														MODIFIER
-													</a>
-												@endif
 											</td>
 										</tr>
 										@endforeach
