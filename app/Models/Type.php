@@ -9,15 +9,7 @@ class Type extends Model
 {
     use HasFactory;
 
-    public function up()
-    {
-        Schema::create('types', function (Blueprint $table)
-        {
-            $table->id();
-            $table->string('nomType', 30);
-            $table->timestamps();
-        });
-    }
+
 
     public function employeurs() : HasMany
     {

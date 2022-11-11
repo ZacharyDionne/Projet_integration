@@ -9,18 +9,7 @@ class PlageDeTemps extends Model
 {
     use HasFactory;
 
-    public function up()
-    {
-        Schema::create('plagedetemps', function (Blueprint $table)
-        {
-            $table->id();
-            $table->foreignId('fiche_id')->constrained();
-            $table->foreignId('typetemps_id')->constrained();
-            $table->time('heureDebut');
-            $table->time('heureFin');
-            $table->timestamps();     
-        });
-    }
+
 
     public function typeTemps(): belongTo
     {

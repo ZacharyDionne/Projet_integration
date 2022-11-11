@@ -12,20 +12,7 @@ class Employe extends User
 
     protected $fillable = ['actif', 'prenom', 'nom', 'type_id', 'adresseCourriel', 'motDePasse'];
 
-    public function up()
-    {
-        Schema::create("employes", function (Blueprint $table) {
-            $table->id();
-            $table->string("matricule", 6);
-            $table->foreignId('type_id')->constrained();
-            $table->string("prenom", 20);
-            $table->string("nom", 20);
-            $table->string("adresseCourriel", 80);
-            $table->text("motDePasse");
-            $table->boolean("actif");
-            $table->timestamps();
-        });  
-    }
+
 
     public function type()
     {

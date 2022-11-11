@@ -9,15 +9,7 @@ class TypeTemps extends Model
 {
     use HasFactory;
 
-    public function up()
-    {
-        Schema::create('typetemps', function (Blueprint $table)
-        {
-            $table->id();
-            $table->string('type', 30);
-            $table->timestamps();     
-        });
-    }
+
 
     public function plageDeTemps() : HasMany
     {

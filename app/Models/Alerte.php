@@ -9,17 +9,5 @@ class Alerte extends Model
 {
     use HasFactory;
 
-    public function up()
-    {
-        Schema::create('alertes', function (Blueprint $table)
-        {
-            $table->id();
-            $table->foreignId('conducteur_id')->constrained();
-            $table->string('message', 255);
-            $table->boolean('actif');
-            $table->date('date');
-            $table->bigInteger('idEmploye')->nullable();
-            $table->timestamps();
-        });
-    }
+
 }
