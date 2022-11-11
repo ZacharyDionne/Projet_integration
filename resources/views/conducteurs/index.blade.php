@@ -25,26 +25,6 @@
 											<th class="font-tr">MATRICULE</th>
 											<th class="font-tr">ADRESSE COURRIEL</th>
 											<th class="font-tr">ACTIF</th>
-											<th class="font-tr">
-												@php
-													$estAdmin;
-													try
-													{
-														 $estAdmin = Gate::forUser(auth()->guard('employeur')->user())->allows('admin');
-													}
-													catch (Throwable $e)
-													{
-														$estAdmin = false;
-													}
-													
-												@endphp
-												@if ($estAdmin)
-													<a type="button" title="Ajouter" class="button button-ajouter" href="{{ route('conducteurs.create') }}">
-														<i class="fa fa-plus" aria-hidden="true"></i>
-														AJOUTER
-													</a>
-												@endif
-											</th>
 										</tr>
 									</thead>
 									<tbody>
@@ -54,7 +34,9 @@
 											<td class="font-rg">{{ $conducteur->prenom }}, {{ $conducteur->nom }}</td>
 											<td class="font-rg">{{ $conducteur->matricule }}</td>
 											<td class="font-rg">{{ $conducteur->adresseCourriel }}</td>
-											<td class="font-rg">{{ $conducteur->actif ? 'Actif': 'Inactif' }}</td>
+											<td class="font-rg">
+												
+											</td>
 											<td>
 												<a type="button" title="Fiches" class="button button-list" href="{{ route('fiches.index') }}">
 													<i class="fa fa-list" aria-hidden="true"></i>
