@@ -21,7 +21,7 @@
 				<div class="row">
 					<div class="col-md-12">
 						<div class="table-wrap">
-							<tableA class="table">
+							<table class="table">
 								<thead class="bg-tr-up">
 									<tr class="shadow">
 										<th class="font-tr">NOM</th>
@@ -38,20 +38,22 @@
 										<tr class="alert shadow p-3 mb-5 bg-white rounded" role="alert">
 											<td class="font-rg">{{ $employe->prenom }}, {{ $employe->nom }}</td>
 											<td class="font-rg">{{ $employe->adresseCourriel }}</td>
-											<td class="font-rg">{{ $employe->actif ? 'Actif': 'Inactif' }}</td>
 
 
 
 
 
 
-											<form employe="{{ $employe->id }}">
-												@csrf
-												@method("patch")
-												<input type="radio" class="xmlRadio" id="actif" name="actif" value="1" @checked($employe->actif)>
-												<input type="radio" class="xmlRadio" id="inactif" name="actif" value="0" @checked(!$employe->actif)>
-											</form>
-
+											<td class="font-rg">
+												<form employe="{{ $employe->id }}">
+													@csrf
+													@method("patch")
+													<label for="actif">Actif</label>
+													<input type="radio" class="xmlRadio" id="actif" name="actif" value="1" @checked($employe->actif)><br>
+													<label for="inactif">Inactif</label>
+													<input type="radio" class="xmlRadio" id="inactif" name="actif" value="0" @checked(!$employe->actif)>
+												</form>
+											</td>
 
 
 
