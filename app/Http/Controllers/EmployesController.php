@@ -41,106 +41,87 @@ class EmployesController extends Controller
         return View("employes.index", compact("employes"));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        /*
-            Gestion de l'accès utilisateur
-            
-            Autorise seulement les administrateurs
-        */
-        if (Gate::forUser(auth()->guard('employe')->user())->denies('admin'))
-            abort(403);
 
-        $types = Type::orderBy('typeEmp')->get();
-        return View('employes.create', compact('types'));
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(EmployeurRequest $request)
-    {
-        /*
-            Gestion de l'accès utilisateur
+    // public function create()
+    // {
+    //     /*
+    //         Gestion de l'accès utilisateur
             
-            Autorise seulement les administrateurs
-        */
+    //         Autorise seulement les administrateurs
+    //     */
+    //     if (Gate::forUser(auth()->guard('employe')->user())->denies('admin'))
+    //         abort(403);
+
+    //     $types = Type::orderBy('typeEmp')->get();
+    //     return View('employes.create', compact('types'));
+    // }
+
+
+    // public function store(EmployeurRequest $request)
+    // {
+    //     /*
+    //         Gestion de l'accès utilisateur
+            
+    //         Autorise seulement les administrateurs
+    //     */
 
         
 
-        if (Gate::forUser(auth()->guard('employe')->user())->denies('admin'))
-            abort(403);
+    //     if (Gate::forUser(auth()->guard('employe')->user())->denies('admin'))
+    //         abort(403);
 
 
-        try
-        {
-            $employe = new Employe($request->all());
-            $employe->save();
-        }
+    //     try
+    //     {
+    //         $employe = new Employe($request->all());
+    //         $employe->save();
+    //     }
 
-        catch(Throwable $e)
-        {
+    //     catch(Throwable $e)
+    //     {
 
-        }
-        return redirect()->route('employes.index');
+    //     }
+    //     return redirect()->route('employes.index');
         
-    }
+    // }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        /*
-            Gestion de l'accès utilisateur
+
+    // public function show($id)
+    // {
+    //     /*
+    //         Gestion de l'accès utilisateur
             
-            Autorise seulement les administrateurs
-        */
-        if (Gate::forUser(auth()->guard('employe')->user())->denies('admin'))
-            abort(403);
+    //         Autorise seulement les administrateurs
+    //     */
+    //     if (Gate::forUser(auth()->guard('employe')->user())->denies('admin'))
+    //         abort(403);
 
-        try
-        {
-            $employe = Employe::findOrFail($id);
-        }
-        catch(Throwable $e)
-        {
+    //     try
+    //     {
+    //         $employe = Employe::findOrFail($id);
+    //     }
+    //     catch(Throwable $e)
+    //     {
 
-        }
+    //     }
 
-        return View("employes.show", compact("employe"));
-    }
+    //     return View("employes.show", compact("employe"));
+    // }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        /*
-            Gestion de l'accès utilisateur
+
+    // public function edit($id)
+    // {
+    //     /*
+    //         Gestion de l'accès utilisateur
             
-            Autorise seulement les administrateurs
-        */
-        if (Gate::forUser(auth()->guard('employe')->user())->denies('admin'))
-            abort(403);
+    //         Autorise seulement les administrateurs
+    //     */
+    //     if (Gate::forUser(auth()->guard('employe')->user())->denies('admin'))
+    //         abort(403);
 
-        $employe = Employe::findOrFail($id);
-        return View('employes.edit', compact('employe'));       
-    }
+    //     $employe = Employe::findOrFail($id);
+    //     return View('employes.edit', compact('employe'));       
+    // }
 
 
 
@@ -161,7 +142,7 @@ class EmployesController extends Controller
         {
             $employe = Employe::findOrFail($id);
 
-            $employe->actif = $request->actif;
+            $employe->actif = $request->actif ? true: false;
 
             $employe->save();
 
@@ -177,32 +158,7 @@ class EmployesController extends Controller
 
 
 
-    public function updatePassword(ConducteurPasswordRequest $request, int $id)
-    {
-        /*
-            Contrôle d'accès
-            
-            Autorise uniquement l'administrateur et le
-            conducteur à apporter des modifications.
-        */
-        if (Gate::forUser(auth()->guard('employe')->user())->denies('admin') && Gate::denies('admin', $id))
-            abort(403);
-
-        try
-        {
-            $employe = Employe::findOrFail($id);
-            $employe->motDePasse = Hash::make($request->motDePasse);
-
-            $employe->save();
-
-            return redirect()->route('employes.index')->with('message', "Modification de " . $employe->prenom . " " . $employe->nom . " réussi!");
-        }
-        catch (Throwable $e)
-        {
-            return redirect()->route('employes.index')->withErrors(['La modification n\'a pas fonctionné']);
-        }
-
-    }
+   
 
     /**
      * Remove the specified resource from storage.
