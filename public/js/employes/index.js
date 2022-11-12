@@ -1,4 +1,4 @@
-let radios = document.getElementsByClassName("xmlRadio");
+let radios = document.getElementsByClassName("xmlCheckbox");
 for (let i = 0; i < radios.length; i++)
 {
 	radios[i].addEventListener("change", change);
