@@ -10,14 +10,14 @@
 	<link rel="stylesheet" href=" {{ asset('css/style.css') }}">
 <!--===============================================================================================-->
 
-    
-
     <!-- Bootstrap -->
     <link rel="stylesheet" href="{{ asset('vendor/bootstrap/css/bootstrap.min.css') }}">
     <script defer src="{{ asset('vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
 
     <!-- JQuery -->
     <script defer src="{{ asset('vendor/jquery/jquery-3.6.1.min.js') }}"></script>
+
+    
     
 
 

@@ -49,11 +49,14 @@
 
 
 											<td class="font-rg">
-												<form employe="{{ $employe->id }}">
+												<form class="d-flex align-items-center" employe="{{ $employe->id }}">
 													@csrf
 													@method("patch")
-														
+													<div class="spinner-border d-none" role="status">
+														<span class="visually-hidden">Chargement...</span>
+													</div>
 													<div class="form-check form-switch">
+														
 														<input type="checkbox" class="form-check-input xmlCheckbox" role="switch" id="actif" name="actif" @checked($employe->actif)>
 														<label class="form-check-label" for="actif">Actif</label>
 													</div>
