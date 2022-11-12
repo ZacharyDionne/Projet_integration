@@ -10,16 +10,26 @@
 	<link rel="stylesheet" href=" {{ asset('css/style.css') }}">
 <!--===============================================================================================-->
 
+    
+
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="{{ asset('vendor/bootstrap/css/bootstrap.min.css') }}">
+    <script defer src="{{ asset('vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+
+    <!-- JQuery -->
+    <script defer src="{{ asset('vendor/jquery/jquery-3.6.1.min.js') }}"></script>
+    
+
+
         @yield('cssSupplementaire')
 	</head>
+
     <body>
         @include('includes.banniere')
 
         @yield('contenu')
 
 
-        <script src="vendor/jquery/jquery-3.2.1.min.js"></script>
-		<script src="vendor/bootstrap/js/popper.js"></script>
-		<script src="vendor/bootstrap/js/bootstrap.min.js"></script>
     </body>
+
 </html>
