@@ -29,8 +29,9 @@ function change(e)
 
 	//Affiche le spin
 	let spin = form.getElementsByClassName("spinner-border")[0];
-	spin.classList.remove("d-none");
-	spin.classList.add("d-flex");
+	spin.style.borderLeftColor = "black";
+	spin.style.borderTopColor = "black";
+	spin.style.borderBottomColor = "black";
 
 	//stockage des informations
 	requests.push(request);
@@ -57,11 +58,12 @@ function endXML(e)
 {
 	let index = requests.findIndex(element => element == e.target);
 	let spin = spins[index];
-	let checkbox = spin.parentNode.parentNode.getElementsByClassName("form-check-input")[0].querySelector("input");
+	let checkbox = spin.parentNode.parentNode.getElementsByClassName("form-check")[0].querySelector("input");
 
 	//Cacher le spin
-	spin.classList.remove("d-flex");
-	spin.classList.add("d-none");
+	spin.style.borderLeftColor = "transparent";
+	spin.style.borderTopColor = "transparent";
+	spin.style.borderBottomColor = "transparent";
 
 	//Réactiver le checkbox
 	checkbox.removeAttribute("disabled");

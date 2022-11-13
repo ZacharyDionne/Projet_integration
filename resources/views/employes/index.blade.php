@@ -6,6 +6,7 @@
 
 @section('cssSupplementaire')
 	<link rel="stylesheet" href="{{ asset('css/styleTable.css') }}">
+	<link rel="stylesheet" href="{{ asset('css/employes/index.css') }}">
 	<script defer src="{{ asset('js/employes/index.js') }}"></script>
 
 
@@ -52,13 +53,12 @@
 												<form class="d-flex align-items-center" employe="{{ $employe->id }}">
 													@csrf
 													@method("patch")
-													<div class="spinner-border d-none" role="status">
-														<span class="visually-hidden">Chargement...</span>
-													</div>
 													<div class="form-check form-switch">
-														
 														<input type="checkbox" class="form-check-input xmlCheckbox" role="switch" id="actif" name="actif" @checked($employe->actif)>
 														<label class="form-check-label" for="actif">Actif</label>
+													</div>
+													<div class="spinner-border ml-3 xmlSpinner" role="status">
+														<span class="visually-hidden">Chargement...</span>
 													</div>
 												</form>
 											</td>
