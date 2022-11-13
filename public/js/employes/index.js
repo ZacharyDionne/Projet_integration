@@ -47,7 +47,7 @@ function load(e)
 function error(e)
 {
 	endXML(e);
-	console.error(e);
+	console.log(e);
 }
 
 

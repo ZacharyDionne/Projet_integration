@@ -60,6 +60,10 @@
 													<div class="spinner-border ml-3 xmlSpinner" role="status">
 														<span class="visually-hidden">Chargement...</span>
 													</div>
+													<div class="alert alert-danger alert-dismissible fade show position-absolute" role="alert">
+  														Une erreur interne est survenue. Si l'erreur persiste, veuillez contacter votre responsable.
+  														<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+													</div>
 												</form>
 											</td>
 
