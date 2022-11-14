@@ -1,4 +1,4 @@
-import { createSpinner, createAlerte } from "../modules/ui.js";
+import { createSpinner, createAlerte } from "./ui.js";
 
 //Ajout de l'événement
 let radios = document.getElementsByClassName("xmlCheckbox");

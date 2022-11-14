@@ -7,7 +7,7 @@
 @section('cssSupplementaire')
 	<link rel="stylesheet" href="{{ asset('css/styleTable.css') }}">
 
-	<script type="module" defer src="{{ asset('js/employes/index.js') }}"></script>
+	<script type="module" defer src="{{ asset('js/modules/xmlRequest.js') }}"></script>
 
 
 	<script defer src="{{ asset('vendor/select2/select2.min.js') }}"></script>
