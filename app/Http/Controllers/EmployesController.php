@@ -2,20 +2,29 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use Illuminate\Http\View\View;
-
-use Illuminate\Support\Facades\Log;
-use Illuminate\Support\Facades\Gate;
-
-use Illuminate\Database\Eloquent\ModelNotFoundException;
-
-use App\Http\Requests\EmployeurRequest;
-
 use Throwable;
 
 use App\Models\Employe;
 use App\Models\Type;
+use App\Models\User;
+
+use App\Http\Requests\EmployeurRequest;
+use App\Http\Modules\Gate;
+
+use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Illuminate\Http\Request;
+use Illuminate\Http\View\View;
+use Illuminate\Support\Facades\Log;
+//use Illuminate\Support\Facades\Gate;
+
+
+
+
+
+
+
+
+
 
 
 
@@ -34,10 +43,21 @@ class EmployesController extends Controller
             
             Autorise seulement les administrateurs
         */
-        if (Gate::forUser(auth()->guard('employe')->user())->denies('admin'))
+        if (!Gate::estAdmin())
             abort(403);
 
-        $employes = Employe::all();
+        $employe = null;
+
+
+        try
+        {
+            $employes = Employe::all();
+        }
+        catch (Throwable $e)
+        {
+            return View('test');//View("employes.index", compact("employes"))->withErrors(["Une Erreur interne est survenue. Si l'erreur persiste, veuillez contacter votre responsable."]);
+        }
+        
         return View("employes.index", compact("employes"));
     }
 
@@ -134,7 +154,7 @@ class EmployesController extends Controller
             à apporter des modifications.
         */
 
-        if (Gate::forUser(auth()->guard('employe')->user())->denies('admin'))
+        if (!Gate::estAdmin())
             abort(403);
 
 
@@ -155,7 +175,19 @@ class EmployesController extends Controller
     }
 
 
+    public function estAdmin($user)
+    {
+        $utilisateur = auth()->guard('employe')->user();
 
+        if (!$utilisateur)
+            return false;
+
+
+        if ($utilisateur->type_id != 2)
+            return false;
+        
+        return true;
+    }
 
 
    

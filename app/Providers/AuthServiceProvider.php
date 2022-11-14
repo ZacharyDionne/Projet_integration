@@ -2,7 +2,6 @@
 
 namespace App\Providers;
 
-// use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Auth;
 use App\Services\Auth\JwtGuard;
 use Illuminate\Support\Facades\Gate;
@@ -13,6 +12,7 @@ use Illuminate\Support\Facades\Log;
 
 use App\Models\Employe;
 use App\Models\Conducteur;
+use App\Http\Controllers\EmployesController;
 
 class AuthServiceProvider extends ServiceProvider
 {
@@ -55,10 +55,10 @@ class AuthServiceProvider extends ServiceProvider
             Enregistrement des Gate. Voir https://laravel.com/docs/9.x/authorization
         */
 
-        Gate::define("admin", function()
+        Gate::define("admin", [EmployesController::class, 'estAdmin']);/*function()
     {
         
-        $utilisateur = auth()->guard('employe')->user();
+        $utilisateur = $auth->guard('employe')->user();
 
         if (!$utilisateur)
             return false;
@@ -68,7 +68,7 @@ class AuthServiceProvider extends ServiceProvider
             return false;
         
         return true;
-    });
+    });*/
 
 
     Gate::define('contreMaitre', function()
