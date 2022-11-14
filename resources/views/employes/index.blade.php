@@ -6,8 +6,8 @@
 
 @section('cssSupplementaire')
 	<link rel="stylesheet" href="{{ asset('css/styleTable.css') }}">
-	<link rel="stylesheet" href="{{ asset('css/employes/index.css') }}">
-	<script defer src="{{ asset('js/employes/index.js') }}"></script>
+
+	<script type="module" defer src="{{ asset('js/employes/index.js') }}"></script>
 
 
 	<script defer src="{{ asset('vendor/select2/select2.min.js') }}"></script>
@@ -57,13 +57,9 @@
 														<input type="checkbox" class="form-check-input xmlCheckbox" role="switch" id="actif" name="actif" @checked($employe->actif)>
 														<label class="form-check-label" for="actif">Actif</label>
 													</div>
-													<div class="spinner-border ml-3 xmlSpinner" role="status">
+													<!-- <div class="ml-3 xmlSpinner" role="status">
 														<span class="visually-hidden">Chargement...</span>
-													</div>
-													<div class="alert alert-danger alert-dismissible fade show position-absolute" role="alert">
-  														Une erreur interne est survenue. Si l'erreur persiste, veuillez contacter votre responsable.
-  														<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-													</div>
+													</div> -->
 												</form>
 											</td>
 
