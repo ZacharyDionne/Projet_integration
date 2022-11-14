@@ -1,4 +1,4 @@
-import { createSpinner } from "../modules/ui.js";
+import { createSpinner, createAlerte } from "../modules/ui.js";
 
 //Ajout de l'événement
 let radios = document.getElementsByClassName("xmlCheckbox");
@@ -54,21 +54,7 @@ function error(e)
 {
 	let index = requests.findIndex(element => element == e.target);
 	let spin = spins[index];
-	let alert = document.createElement("div");
-	let button = document.createElement("button");
-
-	//Consruction de l'alerte
-	alert.setAttribute("class", "alert alert-danger alert-dismissible fade show position-absolute");
-	alert.setAttribute("role", "alert");
-	alert.innerText = "Une erreur interne est survenue. Si l'erreur persiste, veuillez contacter votre responsable.";
-
-	//Construction du bouton
-	button.setAttribute("type", "button");
-	button.setAttribute("class", "btn-close");
-	button.setAttribute("data-bs-dismiss", "alert");
-	button.setAttribute("aria-label", "Close");
-
-	alert.appendChild(button);
+	let alert = createAlerte();
 
 	spin.parentNode.appendChild(alert);
 }
