@@ -190,8 +190,7 @@ class ConducteursController extends Controller
             {
                 $conducteur = Conducteur::findOrFail($id);
     
-                if (isset($request->actif))
-                    $conducteur->actif = $request->actif;
+                $conducteur->actif = $request->actif ? true: false;
     
                 $conducteur->save();
 
@@ -199,7 +198,7 @@ class ConducteursController extends Controller
             }
             catch (Throwable $e)
             {
-                return false;
+                return $e;
             }
 
     }

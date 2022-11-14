@@ -51,6 +51,7 @@ export class XmlRequest {
 		//stockage des informations
 		XmlRequest.#requests.push(request);
 		XmlRequest.#spins.push(spin);
+
 	}
 
 
@@ -66,13 +67,8 @@ export class XmlRequest {
 		let index = XmlRequest.#requests.findIndex(element => element == e.target);
 		let spin = XmlRequest.#spins[index];
 		let alert = UI.createAlerte();
-		let checkBox = spin.parentNode.getElementsByClassName("form-check")[0];
 
 		spin.parentNode.appendChild(alert);
-
-		//Remettre le checkbox à son état original
-		//checkBox.setAttribute("checked", !(checkBox.getAttribute("checked") === ""));
-		console.log("a" + checkBox.getAttribute(checked));
 	}
 
 	static #endXML(e)

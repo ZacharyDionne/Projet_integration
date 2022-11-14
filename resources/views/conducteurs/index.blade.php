@@ -42,7 +42,7 @@
 											<td class="font-rg">{{ $conducteur->matricule }}</td>
 											<td class="font-rg">{{ $conducteur->adresseCourriel }}</td>
 											<td class="font-rg">
-												<form class="d-flex align-items-center" employe="{{ $conducteur->id }}">
+												<form class="d-flex align-items-center" conducteur="{{ $conducteur->id }}">
 													@csrf
 													@method("patch")
 													<div class="form-check form-switch">
