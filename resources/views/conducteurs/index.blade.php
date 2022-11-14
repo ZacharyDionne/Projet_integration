@@ -4,7 +4,12 @@
 
 	@section('cssSupplementaire')
 	<link rel="stylesheet" href="{{ asset('css/styleTable.css') }}">
-	<script defer src="{{ asset('js/conducteurs/index.js') }}"></script>
+	<script defer type="module" src="{{ asset('js/conducteurs/index.js') }}"></script>
+
+	<script defer src="{{ asset('vendor/select2/select2.min.js') }}"></script>
+	<script defer src="{{ asset('vendor/daterangepicker/moment.min.js') }}"></script>
+	<script defer src="{{ asset('vendor/daterangepicker/daterangepicker.js') }}"></script>
+	<script defer src="{{ asset('vendor/countdowntime/countdowntime.js') }}"></script>
 	@endsection
 
 	@section('contenu')
@@ -37,13 +42,13 @@
 											<td class="font-rg">{{ $conducteur->matricule }}</td>
 											<td class="font-rg">{{ $conducteur->adresseCourriel }}</td>
 											<td class="font-rg">
-												<form conducteur="{{ $conducteur->id }}">
+												<form class="d-flex align-items-center" employe="{{ $conducteur->id }}">
 													@csrf
 													@method("patch")
-													<label for="actif">Actif</label>
-													<input type="radio" class="xmlRadio" id="actif" name="actif" value="1" @checked($conducteur->actif)><br>
-													<label for="inactif">Inactif</label>
-													<input type="radio" class="xmlRadio" id="inactif" name="actif" value="0" @checked(!$conducteur->actif)>
+													<div class="form-check form-switch">
+														<input type="checkbox" class="form-check-input xmlCheckbox" role="switch" id="actif" name="actif" @checked($conducteur->actif)>
+														<label class="form-check-label" for="actif">Actif</label>
+													</div>
 												</form>
 											</td>
 											<td>
@@ -64,20 +69,4 @@
 					</div>
 				</div>
 			</section>
-
-		<!--===============================================================================================-->
-			<script src="vendor/jquery/jquery-3.2.1.min.js"></script>
-		<!--===============================================================================================-->
-			<script src="vendor/bootstrap/js/popper.js"></script>
-			<script src="vendor/bootstrap/js/bootstrap.min.js"></script>
-		<!--===============================================================================================-->
-			<script src="vendor/select2/select2.min.js"></script>
-		<!--===============================================================================================-->
-			<script src="vendor/daterangepicker/moment.min.js"></script>
-			<script src="vendor/daterangepicker/daterangepicker.js"></script>
-		<!--===============================================================================================-->
-			<script src="vendor/countdowntime/countdowntime.js"></script>
-		<!--===============================================================================================-->
-			<script src="js/mainTable.js"></script>
-		<!--===============================================================================================-->
 	@endsection

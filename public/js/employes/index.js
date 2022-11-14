@@ -1,3 +1,3 @@
 import { XmlRequest } from "../modules/XmlRequest.js";
 
-XmlRequest.init("conducteur");
+XmlRequest.init("employe");
