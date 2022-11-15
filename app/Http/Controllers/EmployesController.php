@@ -41,11 +41,14 @@ class EmployesController extends Controller
         /*
             Gestion de l'accès utilisateur
             
-            Autorise seulement les administrateurs
+            Autorise seulement les administrateurs. Si c'est null, c,est qu'il y a une erreur interne.
         */
-        if (!Gate::estAdmin())
+        $authorization = Gate::estAdmin();
+        
+        if ($authorization == null)
+            return View("employes.index", []);//->withErrors(["Une erreur interne est survenue. Si l'erreur persiste, veuillez contacter votre responsable."]);
+        else if (!$authorization)
             abort(403);
-
         $employe = null;
 
 
@@ -55,7 +58,7 @@ class EmployesController extends Controller
         }
         catch (Throwable $e)
         {
-            return View('test');//View("employes.index", compact("employes"))->withErrors(["Une Erreur interne est survenue. Si l'erreur persiste, veuillez contacter votre responsable."]);
+            return View('test');
         }
         
         return View("employes.index", compact("employes"));

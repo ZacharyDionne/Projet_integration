@@ -41,7 +41,7 @@
 							</thead>
 							<tbody>
 								<!-- Affichage des employes s'il y en a -->
-								@if (count($employes))
+								@if (isset($employes) && count($employes))
 									@foreach($employes as $employe)
 										<tr class="alert shadow p-3 mb-5 bg-white rounded" role="alert">
 											<td class="font-rg">{{ $employe->prenom }}, {{ $employe->nom }}</td>

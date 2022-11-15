@@ -1,13 +1,28 @@
 <?php
     namespace App\Http\Modules;
 
+    use Throwable;
+
     class Gate {
+
+        /*
+            null    -> une erreur interne
+            false   -> accès refusé
+            true    -> accès accepté
+        */
         public static function estAdmin()
         {
-            //if (!auth()->check())
-                //return false;
-
-            $utilisateur = auth()->guard('employe')->user();
+            $utilisateur = null;
+            
+            try
+            {
+                $utilisateur = auth()->guard('employe')->user();
+            }
+            catch (Throwable $e)
+            {
+                return null;
+            }
+            
 
             if (!$utilisateur)
                 return false;
