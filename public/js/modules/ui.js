@@ -1,4 +1,3 @@
-
 export class UI {
 
     //Créer une roue de chargement Bootstrap

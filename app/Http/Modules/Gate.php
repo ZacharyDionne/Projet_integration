@@ -12,16 +12,8 @@
         */
         public static function estAdmin()
         {
-            $utilisateur = null;
-            
-            try
-            {
-                $utilisateur = auth()->guard('employe')->user();
-            }
-            catch (Throwable $e)
-            {
-                return null;
-            }
+
+            $utilisateur = auth()->guard('employe')->user();
             
 
             if (!$utilisateur)

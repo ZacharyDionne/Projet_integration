@@ -58,7 +58,7 @@ export class XmlRequest {
 
 	static #load(e)
 	{
-		if (e.target.status === 500)
+		if (e.target.response == 0)
 			XmlRequest.#error(e);
 	}
 

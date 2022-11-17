@@ -43,25 +43,22 @@ class EmployesController extends Controller
             
             Autorise seulement les administrateurs. Si c'est null, c,est qu'il y a une erreur interne.
         */
-        $authorization = Gate::estAdmin();
-        
-        if ($authorization == null)
-            return View("employes.index", []);//->withErrors(["Une erreur interne est survenue. Si l'erreur persiste, veuillez contacter votre responsable."]);
-        else if (!$authorization)
-            abort(403);
-        $employe = null;
-
+        $employes = null;
 
         try
         {
+            if (!Gate::estAdmin())
+                abort(403);
+
             $employes = Employe::all();
+
+            return View("employes.index", compact("employes"));
         }
         catch (Throwable $e)
         {
-            return View('test');
+            return View("employes.index", compact("employes"));
         }
-        
-        return View("employes.index", compact("employes"));
+       
     }
 
 
@@ -150,49 +147,35 @@ class EmployesController extends Controller
 
     public function update(Request $request, $id)
     {
-        /*
-            Contrôle d'accès
-            
-            Autorise uniquement l'administrateur
-            à apporter des modifications.
-        */
+        
 
-        if (!Gate::estAdmin())
-            abort(403);
+        
 
 
         try
         {
+            /*
+            Contrôle d'accès
+            
+            Autorise uniquement l'administrateur
+            à apporter des modifications.
+            */
+            if (!Gate::estAdmin())
+                abort(403);
+
             $employe = Employe::findOrFail($id);
 
             $employe->actif = $request->actif ? true: false;
 
             $employe->save();
 
-            return true;
+            return 1;
         }
         catch (Throwable $e)
         {
-            return $e;
+            return 0;
         }
     }
-
-
-    public function estAdmin($user)
-    {
-        $utilisateur = auth()->guard('employe')->user();
-
-        if (!$utilisateur)
-            return false;
-
-
-        if ($utilisateur->type_id != 2)
-            return false;
-        
-        return true;
-    }
-
-
    
 
     /**
@@ -201,8 +184,10 @@ class EmployesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
+    /*
     public function destroy($id)
     {
         //
     }
+    */
 }

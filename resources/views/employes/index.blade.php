@@ -19,7 +19,7 @@
 
 @section('contenu')
 	<section class="ftco-section p-3">
-		<div class="container">
+		<div class="flex-container">
 			<div class="row justify-content-center">
 				<div class="col-md-3 text-center title-placement">
 					<p class="top-small-title">LISTE DES EMPLOYÉS</p>
@@ -36,7 +36,6 @@
 									<th class="font-tr">MATRICULE</th>
 									<th class="font-tr">ADRESSE COURRIEL</th>
 									<th class="font-tr">ACTIF</th>
-									<th class="font-tr"></th>
 								</tr>
 							</thead>
 							<tbody>
@@ -59,25 +58,14 @@
 													</div>
 												</form>
 											</td>
-
-
-
-
-
-
-
-
-											<!-- Modifier un employe précis (BOUTON) -->
-											<td>
-												<a type="button" title="Modifier" class="button button-edit" href="{{ route('employes.edit', [$employe->id]) }}">
-													<i class="fa fa-pencil" aria-hidden="true"></i>
-													MODIFIER
-												</a>
-											</td>
 										</tr>
 									@endforeach
 								@else
-									<p style="color: red;">Il n'y a aucun employe.</p>
+									<tr>
+										<td colspan="4" class="text-center">
+											Il n'y a aucun employé.
+										</td>
+									</tr>
 								@endif
 							</tbody>
 						</table>
