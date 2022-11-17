@@ -86,8 +86,6 @@ export class XmlRequest {
 		//Libérer les informations stockées
 		XmlRequest.#spins.splice(index);
 		XmlRequest.#requests.splice(index);
-
-		console.log(e.target.response);
 	}
 
 }

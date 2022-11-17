@@ -29,7 +29,7 @@
 			<div class="row">
 				<div class="col-md-12">
 					<div class="table-wrap">
-						<table class="table">
+						<table class="table table-striped table-hover">
 							<thead class="bg-tr-up">
 								<tr class="shadow">
 									<th class="font-tr">NOM</th>
@@ -42,14 +42,14 @@
 								<!-- Affichage des employes s'il y en a -->
 								@if (isset($employes) && count($employes))
 									@foreach($employes as $employe)
-										<tr class="alert shadow p-3 mb-5 bg-white rounded" role="alert">
+										<tr class="p-3 mb-5 bg-white rounded" role="alert">
 											<td class="font-rg">{{ $employe->prenom }}, {{ $employe->nom }}</td>
 											<td class="font-rg">{{ $employe->matricule }}</td>
 											<td class="font-rg">{{ $employe->adresseCourriel }}</td>
 
 
 											<td class="font-rg">
-												<form class="d-flex align-items-center" employe="{{ $employe->id }}">
+												<form class="container d-flex align-items-center" employe="{{ $employe->id }}">
 													@csrf
 													@method("patch")
 													<div class="form-check form-switch">
