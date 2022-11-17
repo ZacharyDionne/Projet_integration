@@ -1343,7 +1343,6 @@ pre {
   color: #212529; }
   .table th,
   .table td {
-    padding: 0.75rem;
     vertical-align: top;
     border-top: 1px solid #dee2e6; }
   .table thead th {
@@ -1353,8 +1352,7 @@ pre {
     border-top: 2px solid #dee2e6; }
 
 .table-sm th,
-.table-sm td {
-  padding: 0.3rem; }
+.table-sm td,
 
 .table-bordered {
   border: 1px solid #dee2e6; }
@@ -8194,8 +8192,8 @@ h1, h2, h3, h4, h5,
   border-collapse: separate;
   border-spacing: 0 10px; }
   .table thead th {
+    padding-right: 0%;
     border: none;
-    padding: 30px;
     font-size: 14px;
     color: #fff; }
   .table tbody tr {
@@ -8204,8 +8202,8 @@ h1, h2, h3, h4, h5,
     -moz-box-shadow: 0px 5px 12px -12px rgba(0, 0, 0, 0.29);
     box-shadow: 0px 5px 12px -12px rgba(0, 0, 0, 0.29); }
   .table tbody th, .table tbody td {
+    padding-right: 0%;
     border: none;
-    padding: 30px;
     font-size: 14px;
     background: #fff; }
   .table tbody td .close span {
