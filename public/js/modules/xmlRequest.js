@@ -58,7 +58,7 @@ export class XmlRequest {
 
 	static #load(e)
 	{
-		if (e.target.response == 0)
+		if (e.target.response != 1)
 			XmlRequest.#error(e);
 	}
 
@@ -86,6 +86,8 @@ export class XmlRequest {
 		//Libérer les informations stockées
 		XmlRequest.#spins.splice(index);
 		XmlRequest.#requests.splice(index);
+
+		console.log(e.target.response);
 	}
 
 }

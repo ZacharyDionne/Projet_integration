@@ -166,6 +166,14 @@ class ConducteursController extends Controller
     */
 
 
+
+    /*
+        Il n'y a pas de view retourné puisqu'elle est accéder par XMLHttpRequest.
+
+            -1  -> Erreur interne
+             0  -> Accès refusé
+             1  -> Accès authorisé
+    */
     public function update(Request $request, $id)
     {
         /*
@@ -177,9 +185,9 @@ class ConducteursController extends Controller
         $authorization = Filtre::estAdmin();
 
         if ($authorization === false)
-            abort(403);
+            return 0;
         else if ($authorization === null)
-            return View('erreur');
+            return -1;
 
 
             try
@@ -190,11 +198,11 @@ class ConducteursController extends Controller
     
                 $conducteur->save();
 
-                return true;
+                return 1;
             }
             catch (Throwable $e)
             {
-                return $e;
+                return -1;
             }
 
     }

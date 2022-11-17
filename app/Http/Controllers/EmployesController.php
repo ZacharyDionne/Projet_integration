@@ -155,6 +155,10 @@ class EmployesController extends Controller
 
     /*
         Il n'y a pas de view retourné puisqu'elle est accéder par XMLHttpRequest.
+
+            -1  -> Erreur interne
+             0  -> Accès refusé
+             1  -> Accès authorisé
     */
     public function update(Request $request, $id)
     {
@@ -167,9 +171,9 @@ class EmployesController extends Controller
         */
         $authorization = Filtre::estAdmin();
         if ($authorization === false)
-            abort(403);
+            0;
         else if ($authorization === null)
-            return View('erreur');
+            -1;
 
 
         try
@@ -184,7 +188,7 @@ class EmployesController extends Controller
         }
         catch (Throwable $e)
         {
-            return 0;
+            return -1;
         }
     }
    
