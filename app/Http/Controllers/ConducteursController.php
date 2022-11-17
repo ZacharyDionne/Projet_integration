@@ -5,8 +5,6 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\Http\Requests\Conducteur\ConducteurRequest;
-use App\Http\Requests\Conducteur\ConducteurAdminRequest;
-use App\Http\Requests\Conducteur\ConducteurPasswordRequest;
 
 use Illuminate\Http\View\View;
 use App\Models\Conducteur;
@@ -14,8 +12,10 @@ use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Throwable;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Gate;
+//use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Auth;
+
+use App\Http\Modules\Filtre;
 
 
 class ConducteursController extends Controller
@@ -31,26 +31,27 @@ class ConducteursController extends Controller
         /*
             Contrôle d'accès
         
-            Autorise les administrateurs et.
+            Autorise les administrateurs et les contres-maîtres.
         */
+        $authorization = Filtre::estAdminOuContreMaitre();
+
+        if ($authorization === false)
+            abort(403);
+        else if ($authorization === null)
+            return View('erreur');
         
-            
-            $conducteurs = null;
+        
+        $conducteurs = null;
 
         try
         {
-            if (false
-                //Gate::forUser(auth()->guard('employe')->user())->denies('admin') &&
-                //Gate::forUser(auth()->guard('employe')->user())->denies('contreMaitre')
-                )
-                abort(403);
-
             $conducteurs = Conducteur::all();
+
             return View("conducteurs.index", compact("conducteurs"));
         }
         catch (Throwable $e)
         {
-            return View("conducteurs.index")->withErrors("Une erreur interne est survenue. Si l'erreur persiste, veuillez contacter votre responsable.");
+            return View("conducteurs.index");
         }
         
         
@@ -63,18 +64,15 @@ class ConducteursController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    /*
+     public function create()
     {
-        /*
-        Contrôle d'accès
-        
-        Refuse tous ceux qui ne sont pas administrateurs.
-        */
         if (Gate::forUser(auth()->guard('employe')->user())->denies('admin'))
             abort(403);
 
         return View('conducteurs.create');
     }
+    */
 
     /**
      * Store a newly created resource in storage.
@@ -82,13 +80,9 @@ class ConducteursController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
+    /*
     public function store(ConducteurAdminRequest $request)
     {
-        /*
-        Contrôle d'accès
-        
-        Refuse tous ceux qui ne sont pas administrateurs.
-        */
         if (Gate::forUser(auth()->guard('employe')->user())->denies('admin'))
             abort(403);
 
@@ -111,6 +105,7 @@ class ConducteursController extends Controller
         
         
     }
+    */
 
     /**
      * Display the specified resource.
@@ -118,9 +113,10 @@ class ConducteursController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
+    /*
     public function show(int $id)
     {
-        /*
+        
             IL SE PEUT QUE CETTE PARTIE SOIT ENLEVER À L'AVENIR PUISQUE INUTIL.
 
         try
@@ -134,10 +130,10 @@ class ConducteursController extends Controller
         }
 
         return View("conducteurs.show", compact("conducteur"));
-        */
+        
 
     }
-    
+    */
 
     /**
      * Show the form for editing the specified resource.
@@ -145,14 +141,10 @@ class ConducteursController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
+    /*
     public function edit($id)
     {
-        /*
-            Contrôle d'accès
-            
-            Autorise uniquement le chauffeur concerné et l'administrateur
-            à apporter des modifications, selon leurs droits.
-        */
+
         if (Gate::allows('leConducteur', $id))
         {
             $conducteur = Conducteur::findOrFail($id);
@@ -171,7 +163,7 @@ class ConducteursController extends Controller
 
         
     }
-
+    */
 
 
     public function update(Request $request, $id)
@@ -182,8 +174,12 @@ class ConducteursController extends Controller
             Autorise uniquement un administrateur
             à apporter des modifications.
         */
-        if (Gate::forUser(auth()->guard('employe')->user())->denies('admin'))
+        $authorization = Filtre::estAdmin();
+
+        if ($authorization === false)
             abort(403);
+        else if ($authorization === null)
+            return View('erreur');
 
 
             try

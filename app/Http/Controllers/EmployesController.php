@@ -9,7 +9,7 @@ use App\Models\Type;
 use App\Models\User;
 
 use App\Http\Requests\EmployeurRequest;
-use App\Http\Modules\Gate;
+use App\Http\Modules\Filtre;
 
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
@@ -38,17 +38,26 @@ class EmployesController extends Controller
      */
     public function index()
     {
+        
+        
         /*
             Gestion de l'accès utilisateur
             
-            Autorise seulement les administrateurs. Si c'est null, c,est qu'il y a une erreur interne.
+            Autorise seulement les administrateurs.
         */
+        $authorization = Filtre::estAdmin();
+        if ($authorization === false)
+            abort(403);
+        else if ($authorization === null)
+            return View('erreur');
+
+
         $employes = null;
 
         try
         {
-            if (!Gate::estAdmin())
-                abort(403);
+
+
 
             $employes = Employe::all();
 
@@ -144,25 +153,27 @@ class EmployesController extends Controller
     // }
 
 
-
+    /*
+        Il n'y a pas de view retourné puisqu'elle est accéder par XMLHttpRequest.
+    */
     public function update(Request $request, $id)
     {
         
+        /*
+            Contrôle d'accès
 
-        
+            Autorise uniquement l'administrateur
+            à apporter des modifications.
+        */
+        $authorization = Filtre::estAdmin();
+        if ($authorization === false)
+            abort(403);
+        else if ($authorization === null)
+            return View('erreur');
 
 
         try
         {
-            /*
-            Contrôle d'accès
-            
-            Autorise uniquement l'administrateur
-            à apporter des modifications.
-            */
-            if (!Gate::estAdmin())
-                abort(403);
-
             $employe = Employe::findOrFail($id);
 
             $employe->actif = $request->actif ? true: false;
