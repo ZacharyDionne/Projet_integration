@@ -42,14 +42,28 @@
 											<td class="font-rg">{{ $conducteur->matricule }}</td>
 											<td class="font-rg">{{ $conducteur->adresseCourriel }}</td>
 											<td class="font-rg">
-												<form class="d-flex align-items-center" conducteur="{{ $conducteur->id }}">
-													@csrf
-													@method("patch")
-													<div class="form-check form-switch">
-														<input type="checkbox" class="form-check-input xmlCheckbox" role="switch" id="actif" name="actif" @checked($conducteur->actif)>
-														<label class="form-check-label" for="actif">Actif</label>
-													</div>
-												</form>
+												@php
+													try
+													{
+														$employe = auth()->guard('employe')->user();
+													}
+													catch (Throwable $e)
+													{
+														$employe = null;
+													}
+												@endphp
+												@if ($employe->type_id == 1)
+													{{ $conducteur->actif ? 'Actif': 'Inactif' }}
+												@elseif ($employe->type_id == 2)
+													<form class="d-flex align-items-center" conducteur="{{ $conducteur->id }}">
+														@csrf
+														@method("patch")
+														<div class="form-check form-switch">
+															<input type="checkbox" class="form-check-input xmlCheckbox" role="switch" id="actif" name="actif" @checked($conducteur->actif)>
+															<label class="form-check-label" for="actif">Actif</label>
+														</div>
+													</form>
+												@endif
 											</td>
 											<td>
 												<a type="button" title="Fiches" class="button button-list" href="{{ route('fiches.index') }}">
@@ -60,7 +74,9 @@
 										</tr>
 										@endforeach
 									@else
-										<tr><td colspan="5" id="messageErreur" class="list-title ">Il n'y a aucun conducteur.</td></tr>
+										<tr>
+											<td colspan="5" class="font-tr text-center">Il n'y a aucun conducteur.</td>
+										</tr>
 									@endif
 									</tbody>
 								</table>

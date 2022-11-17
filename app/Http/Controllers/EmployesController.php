@@ -9,7 +9,7 @@ use App\Models\Type;
 use App\Models\User;
 
 use App\Http\Requests\EmployeurRequest;
-use App\Http\Modules\Gate;
+use App\Http\Modules\Filtre;
 
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
@@ -38,30 +38,36 @@ class EmployesController extends Controller
      */
     public function index()
     {
+        
+        
         /*
             Gestion de l'accès utilisateur
             
-            Autorise seulement les administrateurs. Si c'est null, c,est qu'il y a une erreur interne.
+            Autorise seulement les administrateurs.
         */
-        $authorization = Gate::estAdmin();
-        
-        if ($authorization == null)
-            return View("employes.index", []);//->withErrors(["Une erreur interne est survenue. Si l'erreur persiste, veuillez contacter votre responsable."]);
-        else if (!$authorization)
+        $authorization = Filtre::estAdmin();
+        if ($authorization === false)
             abort(403);
-        $employe = null;
+        else if ($authorization === null)
+            return View('erreur');
 
+
+        $employes = null;
 
         try
         {
+
+
+
             $employes = Employe::all();
+
+            return View("employes.index", compact("employes"));
         }
         catch (Throwable $e)
         {
-            return View('test');
+            return View("employes.index", compact("employes"));
         }
-        
-        return View("employes.index", compact("employes"));
+       
     }
 
 
@@ -147,18 +153,27 @@ class EmployesController extends Controller
     // }
 
 
+    /*
+        Il n'y a pas de view retourné puisqu'elle est accéder par XMLHttpRequest.
 
+            -1  -> Erreur interne
+             0  -> Accès refusé
+             1  -> Accès authorisé
+    */
     public function update(Request $request, $id)
     {
+        
         /*
             Contrôle d'accès
-            
+
             Autorise uniquement l'administrateur
             à apporter des modifications.
         */
-
-        if (!Gate::estAdmin())
-            abort(403);
+        $authorization = Filtre::estAdmin();
+        if ($authorization === false)
+            0;
+        else if ($authorization === null)
+            -1;
 
 
         try
@@ -169,30 +184,13 @@ class EmployesController extends Controller
 
             $employe->save();
 
-            return true;
+            return 1;
         }
         catch (Throwable $e)
         {
-            return $e;
+            return -1;
         }
     }
-
-
-    public function estAdmin($user)
-    {
-        $utilisateur = auth()->guard('employe')->user();
-
-        if (!$utilisateur)
-            return false;
-
-
-        if ($utilisateur->type_id != 2)
-            return false;
-        
-        return true;
-    }
-
-
    
 
     /**
@@ -201,8 +199,10 @@ class EmployesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
+    /*
     public function destroy($id)
     {
         //
     }
+    */
 }
