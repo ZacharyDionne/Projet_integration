@@ -48,7 +48,7 @@
 									<!-- Affichage des employes s'il y en a -->
 									@if (isset($employes) && count($employes))
 										@foreach($employes as $employe)
-											<tr class="alert shadow p-3 mb-5 bg-white rounded" role="alert">
+											<tr class="p-3 mb-5 bg-white rounded">
 												<td class="font-rg">{{ $employe->prenom }}, {{ $employe->nom }}</td>
 												<td class="font-rg">{{ $employe->matricule }}</td>
 												<td class="font-rg">{{ $employe->adresseCourriel }}</td>
