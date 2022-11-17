@@ -136,8 +136,8 @@
 }
 
 .topnav a:hover { 
-  background-color: rgb(6, 16, 206);
-  color: black;
+  background-color: #004898;
+  border-radius: 20px;
 }
 
 .topnav a.active {
