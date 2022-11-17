@@ -74,7 +74,9 @@
 										</tr>
 										@endforeach
 									@else
-										<tr><td colspan="5" id="messageErreur" class="list-title ">Il n'y a aucun conducteur.</td></tr>
+										<tr>
+											<td colspan="5" class="font-tr text-center">Il n'y a aucun conducteur.</td>
+										</tr>
 									@endif
 									</tbody>
 								</table>
