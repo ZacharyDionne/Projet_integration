@@ -53,11 +53,11 @@ class FichesController extends Controller
                 $date = date('Y-m-d', strtotime("-$i days"));
                 
                 $fiche = null;
-                for ($i = 0; $i < count($fiches); $i++)
+                foreach ($fiches as $tmpFiche)
                 {
-                    if ($fiches[$i]->date == $date)
+                    if ( $tmpFiche->date == $date)
                     {
-                        $fiche = $fiches[$i];
+                        $fiche =  $tmpFiche;
                         break;
                     }
                 }
@@ -65,7 +65,7 @@ class FichesController extends Controller
                 if (!$fiche) {
                     $fiche = new Fiche();
                     $fiche->date = $date;
-                    $fiche->conducteur_id = $utilisateur->id;
+                    $fiche->conducteur_id = $id;
                     $fiche->cycle = 1;
                     $fiche->save();
                 }
@@ -75,6 +75,7 @@ class FichesController extends Controller
         }
         catch (Throwable $e)
         {
+            Log::debug($e);
             return View('erreur');
         }
 
