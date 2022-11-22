@@ -26,6 +26,7 @@ export class UI {
         //Consruction de l'alerte
         alert.setAttribute("class", "alert alert-danger alert-dismissible fade show position-absolute");
         alert.setAttribute("role", "alert");
+        alert.setAttribute('style', 'z-index: 10000;');
         alert.innerText = "Une erreur interne est survenue. Si l'erreur persiste, veuillez contacter votre responsable.";
 
         //Construction du bouton
