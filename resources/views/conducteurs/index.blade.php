@@ -57,7 +57,7 @@
 																</form>
 															</td>
 															<td>
-																<a type="button" title="Fiches" class="button button-list" href="{{ route('fiches.index') }}">
+																<a type="button" title="Fiches" class="button button-list" href="{{ route('fiches.index', $conducteur->id) }}">
 																	<i class="fa fa-list" aria-hidden="true"></i>
 																	FICHES
 																</a>
