@@ -65,14 +65,27 @@
   color: #fff;
 }
 
-.list-title{
+.list-title {
   font-family: Roboto-Bold;
   font-size: 22px;
   color: #707070;
   margin: auto;
 }
 
-.top-small-title{
+.employe-search {
+  margin-bottom: 10px;
+  border-radius: 5px;
+  width: 100%;
+  border-color: #707070;
+  font-family: Roboto-Bold;
+  color: #333;
+}
+
+.employe-search::placeholder {
+  color: #A7A7A7
+}
+
+.top-small-title {
   font-family: Roboto-Regular;
   font-size: 16px;
   margin: auto;

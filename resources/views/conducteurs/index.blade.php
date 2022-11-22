@@ -16,7 +16,7 @@
 			<div class="flex-container">
 				<div class="card card-employes">
 					<div class="card-header cardheader-employes">
-						Conducteurs
+						<h2 class="heading-section text-left list-title">CONDUCTEURS</h2>
 					</div>
 					<div class="card-body">
 						<div class="row justify-content-center">
