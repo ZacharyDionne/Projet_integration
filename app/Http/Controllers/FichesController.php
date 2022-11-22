@@ -47,8 +47,7 @@ class FichesController extends Controller
 
         try
         {
-            $utilisateur = auth()->user();
-            $fiches = Fiche::where('conducteur_id', $utilisateur->id)->orderByDesc('date')->take(150);
+            $fiches = Fiche::where('conducteur_id', $id)->orderByDesc('date')->take(150);
 
             for ($i = 0; $i < 7; $i++) {
                 $date = date('Y-m-d', strtotime("-$i days"));
