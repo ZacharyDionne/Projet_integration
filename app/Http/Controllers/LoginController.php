@@ -46,7 +46,7 @@ class LoginController extends Controller
                 $request->session()->put('user_id', Auth::id());
                 $request->session()->put('user_name', Auth::user()->prenom . " " . Auth::user()->nom);
     
-                return redirect("fiches");
+                return redirect("fiches/" . Auth::id());
             }
             else if (Auth::guard("employe")->attempt(["adresseCourriel" => $request->adresseCourriel, "password" => $request->motDePasse]))
             {
