@@ -6,11 +6,11 @@
 	@section('titre', 'Fiches')
 
 	@section('cssSupplementaire')
-		<link rel="stylesheet" href="css/styleCalendar.css">
-		<link rel="stylesheet" href="css/styleModal.css">
-		<link rel="icon" type="image/png" href="images/icons/favicon.ico"/>
+		<link rel="stylesheet" href="{{ asset('css/styleCalendar.css') }}">
+		<link rel="stylesheet" href="{{ asset('css/styleModal.css') }}">
+		<link rel="icon" type="image/png" href="{{ asset('images/icons/favicon.ico') }}"/>
 
-		<script defer src="js/mainCalendar.js"></script>
+		<script defer src="{{ asset('js/mainCalendar.js') }}"></script>
 	@endsection
 
 	@section('contenu')
@@ -24,7 +24,7 @@
 				<div class="row">
 					<div class="col-md-12">
 						<div class="elegant-calencar d-md-flex">
-							<div class="wrap-header d-flex align-items-center img" style="background-image: url(images/bgCalendar.png);">
+							<div class="wrap-header d-flex align-items-center img" style="background-image: url({{ asset('images/bgCalendar.png') }});">
 						<p id="reset">Aujourd'hui</p>
 						<div id="header" class="p-0">
 									<!-- <div class="pre-button d-flex align-items-center justify-content-center"><i class="fa fa-chevron-left"></i></div> -->
