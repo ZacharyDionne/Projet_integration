@@ -13,19 +13,19 @@
     @endphp
     @if ($conducteur)
     <a class="noMargin navbar-brand font-tr" href="{{ route('fiches.index', $conducteur->id) }}">
-        <img src="images\logo_BLANC.png" width="50" height="50" class="displayBig align-center">
+        <img src="{{ asset('images/logo_BLANC.png') }}" width="50" height="50" class="displayBig align-center">
         <i class="fa fa-calendar displaySmall"></i>
         <span>Voir vos fiches</span>
     </a>
     @elseif ($employe)
     @if ($employe->type_id === 1)
     <a class="noMargin navbar-brand font-tr" href="{{ route('conducteurs.index') }}">
-        <img src="images\logo_BLANC.png" width="50" height="50" class="d-inline-block align-center">
+        <img src="{{ asset('images\logo_BLANC.png') }}" width="50" height="50" class="d-inline-block align-center">
         Conducteurs
     </a>
     @elseif ($employe->type_id === 2)
     <a class="noMargin navbar-brand font-tr" href="{{ route('employes.index') }}">
-        <img src="images\logo_BLANC.png" width="50" height="50" class="d-inline-block align-center">
+        <img src="{{ asset('images\logo_BLANC.png') }}" width="50" height="50" class="d-inline-block align-center">
         Employés
     </a>
     @endif
