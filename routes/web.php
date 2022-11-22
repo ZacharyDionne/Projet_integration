@@ -50,7 +50,7 @@ Route::get("/fiches/{id}/{date}", [FichesController::class, "edit"])->name("fich
 
 /*  MODIFICATION   */
 //Route::get("/fiches/{id}/modifier/", [FichesController::class, "edit"])->name("fiches.edit");
-//Route::get("/fiches/{fiches}/", [FichesController::class, "show"])->name("fiches.show");
+Route::get("/fiches/{fiches}/", [FichesController::class, "show"])->name("fiches.show");
 //Route::Patch("/fiches/{id}/modifier", [FichesController::class, "update"])->name("fiches.update");
 
 
