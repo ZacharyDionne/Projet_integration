@@ -78,8 +78,10 @@ class FichesController extends Controller
             Log::debug($e);
             return View('erreur');
         }
+        $totalHeures = 420;
+        $totalHeuresRepos = 69;
 
-        return View("fiches.index", compact("fiches", "lastFiches"));
+        return View("fiches.index", compact("fiches", "lastFiches", "totalHeures", "totalHeuresRepos"));
     }
 
     /**

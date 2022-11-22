@@ -19,13 +19,13 @@
 		<div class="flex-container">
 			<div class="card card-employes">
 				<div class="card-header cardheader-employes">
-					Employés
+					<h4 class="heading-section text-left list-title">EMPLOYÉS</h4>
 				</div>
 				<div class="card-body">
 					<div class="row justify-content-center">
-						<div class="col-md-3 text-center title-placement">
-							<p class="top-small-title">LISTE DES EMPLOYÉS</p>
-							<h2 class="heading-section list-title">EMPLOYÉS</h2>
+						<div class="col-md-3 title-placement">
+							<h2 class="heading-section text-left list-title">RECHERCHER</h2>
+							<input class="employe-search" type="text" placeholder="Rechercher..">
 						</div>
 					</div>
 					<div class="grid-placement">
