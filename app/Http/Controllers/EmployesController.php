@@ -171,9 +171,9 @@ class EmployesController extends Controller
         */
         $authorization = Filtre::estAdmin();
         if ($authorization === false)
-            0;
+            return 0;
         else if ($authorization === null)
-            -1;
+            return -1;
 
 
         try

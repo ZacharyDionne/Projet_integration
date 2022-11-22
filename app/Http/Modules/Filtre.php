@@ -58,7 +58,7 @@
             return true;
         }
 
-        public static function estLeConducteur()
+        public static function estLeConducteur($id)
         {
             try
             {
@@ -73,7 +73,7 @@
             if (!$utilisateur)
                 return false;
 
-            if ($conducteur->id != $id)
+            if ($utilisateur->id != $id)
                 return false;
 
             return true;

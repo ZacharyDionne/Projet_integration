@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Http\Requests\FicheRequest;
+use App\Http\Modules\Filtre;
 
 use Illuminate\View\View;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
@@ -24,26 +25,61 @@ class FichesController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index($id)
     {
-        $fiches = Fiche::take(150);
+        /*
+            Contrôle d'accès
 
-        for ($i = 0; $i < 7; $i++) {
-            $date = date('Y-m-d', strtotime("-$i days"));
-            $fiche = Fiche::where('date', $date)->first();
-            if (!$fiche) {
-                $fiche = new Fiche();
-                $fiche->date = $date;
-                $fiche->conducteur_id = Auth::user()->id;
-                $fiche->cycle = 1;
-                $fiche->save();
+            Autorise uniquement le conducteur concerné,
+            un administrateur ou un contre-maître.
+        */
+        $authorization = Filtre::estLeConducteur($id);
+        if ($authorization === false)
+        {
+            $authorization = Filtre::estAdminOuContreMaitre();
+            if ($authorization === false)
+                abort(403);
+            else if ($authorization === null)
+                return View('erreur');
+        }
+        else if ($authorization === null)
+            return View('erreur');
+
+        try
+        {
+            $fiches = Fiche::where('conducteur_id', $id)->orderByDesc('date')->take(150);
+
+            for ($i = 0; $i < 7; $i++) {
+                $date = date('Y-m-d', strtotime("-$i days"));
+                
+                $fiche = null;
+                foreach ($fiches as $tmpFiche)
+                {
+                    if ( $tmpFiche->date == $date)
+                    {
+                        $fiche =  $tmpFiche;
+                        break;
+                    }
+                }
+
+                if (!$fiche) {
+                    $fiche = new Fiche();
+                    $fiche->date = $date;
+                    $fiche->conducteur_id = $id;
+                    $fiche->cycle = 1;
+                    $fiche->save();
+                }
+    
+                $lastFiches[$i] = $fiche;
             }
-
-            $lastFiches[$i] = $fiche;
+        }
+        catch (Throwable $e)
+        {
+            Log::debug($e);
+            return View('erreur');
         }
 
         return View("fiches.index", compact("fiches", "lastFiches"));
-        // return View("fiches.index", compact("fiches"));
     }
 
     /**
