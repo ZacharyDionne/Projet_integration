@@ -288,6 +288,8 @@ iframe {
   height: 55px;
   background: #ebebeb;
   border-radius: 27px;
+  margin-left: 30px;
+  margin-right: 30px;
 }
 
 .input100::placeholder {

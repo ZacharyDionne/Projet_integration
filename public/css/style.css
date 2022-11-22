@@ -55,13 +55,13 @@
   font-family: Roboto-Bold;
   font-size: 16px;
   color: #fff;
-  padding: 10px;
-  border-radius: 10px;
-  background: -webkit-linear-gradient(90deg, #17a2b8, #7ccad7);
+  padding: 5px;
+  border-radius: 5px;
+  background: -webkit-linear-gradient(90deg, #0f7181, #128799);
 }
 
 .button-list:hover {
-  background: -webkit-linear-gradient(90deg, #128193, #549ca7);
+  background: -webkit-linear-gradient(90deg, #0a4f5a, #0c6370);
   color: #fff;
 }
 
