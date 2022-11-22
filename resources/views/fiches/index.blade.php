@@ -116,7 +116,7 @@
 				<div class="row">
 					<div class="col-md-6 offset-md-3">
 						<h3 class="text-center onlyFontTr ttlFiche">Fiches des 7 derniers jours :</h3>
-							<p>Heures cumulées : 72<span id="totalHours"></span> | · | Heures de repos : 10220023304 | · | lorem</p>
+							<p class="text-center">Heures cumulées : 72<span id="totalHours"></span> | · | Heures de repos : 102</p>
 
 							<!-- if $lastFiches[0] exist -->
 							<div class="baniere-body-1">
