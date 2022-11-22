@@ -17,7 +17,8 @@ class LoginController extends Controller
 
         if (auth()->user())
         {
-            return redirect('/fiches');
+            $id = auth()->user()->id;
+            return redirect("/fiches/$id");
         }
 
         if (auth()->guard('employe')->user())

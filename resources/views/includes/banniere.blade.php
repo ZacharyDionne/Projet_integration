@@ -12,7 +12,7 @@
     }
     @endphp
     @if ($conducteur)
-    <a class="navbar-brand font-tr" href="{{ route('fiches.index') }}">
+    <a class="navbar-brand font-tr" href="{{ route('fiches.index', $conducteur->id) }}">
         <img src="images\logo_BLANC.png" width="50" height="50" class="d-inline-block align-center">
         Voir vos fiches
     </a>
@@ -32,7 +32,7 @@
     <h1 class="navbar-brand font-tr">Une erreur est survenue. Si le problème persiste, veuillez contacter votre responsable.</h1>
     @endif
 
-    <a class="navbar-brand font-tr" href="{{ route('fiches.index') }}">
+    <a class="navbar-brand font-tr" href="{{ route('fiches.index', $conducteur->id) }}">
         <i class="fa fa-bell" width="50" height="50" class="d-inline-block align-center" aria-hidden="true"></i>
         Alertes
     </a>

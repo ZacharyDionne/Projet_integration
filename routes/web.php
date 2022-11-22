@@ -20,39 +20,31 @@ use App\Http\Controllers\LoginController;
 
 // Page d'ACCUEIL
 Route::get('/', function() {
-    return view('index');
+    return redirect('/connexion');
 });
 
 // Page de CONNEXION
 Route::get('/connexion', [LoginController::class, "index"])->name("connexion.index");
 Route::post('/connexion/tentative', [LoginController::class, "authenticate"])->name("connexion.login");
-
 Route::get('/connexion/deconnexion', [LoginController::class, "logout"])->name("connexion.logout");
-
-/*
-    Route temporaire, le temps que la bannière UI soit terminée.
-*/
-Route::get("connexionDone", function() { return View("connexion.logged"); })->name("connexion.loggedin");
-
-
 
 
 /* ---------------------------- Pages FICHES -------------------------------------------- */
 
  
-Route::get("/fiches", [FichesController::class, "index"])->name("fiches.index");
+Route::get("/fiches/{id}", [FichesController::class, "index"])->name("fiches.index");
 
 
 
 /* AJOUTER */
-Route::get("/fiches/creation", [FichesController::class, "create"])->name("fiches.create");
+//Route::get("/fiches/creation", [FichesController::class, "create"])->name("fiches.create");
 //Route::post("/fiches", [FichesController::class, "store"])->name("fiches.store");
 
 
 
 
 /*  AFFICHAGE   */
-Route::get("/fiches/{date}", [FichesController::class, "show"])->name("fiches.show");
+Route::get("/fiches/{id}/{date}", [FichesController::class, "edit"])->name("fiches.edit");
 
 
 
@@ -97,19 +89,19 @@ Route::get("/employes", [EmployesController::class, "index"])->name("employes.in
 
 
 /* AJOUTER */
-Route::get("/employes/creation", [EmployesController::class, "create"])->name("employes.create");
-Route::post("/employes", [EmployesController::class, "store"])->name("employes.store");
+//Route::get("/employes/creation", [EmployesController::class, "create"])->name("employes.create");
+//Route::post("/employes", [EmployesController::class, "store"])->name("employes.store");
 
 
 
 /*  AFFICHAGE   */
-Route::get("/employes/{id}", [EmployesController::class, "show"])->name("employes.show");
+//Route::get("/employes/{id}", [EmployesController::class, "show"])->name("employes.show");
 
 
 
 /*  MODIFICATION   */
 Route::patch("employes/{id}/update", [EmployesController::class, "update"])->name('employes.update');
-Route::get("/employes/{id}/modifier/", [EmployesController::class, "edit"])->name("employes.edit");
+//Route::get("/employes/{id}/modifier/", [EmployesController::class, "edit"])->name("employes.edit");
 //Route::get("/employeurs/{employeurs}/", [EmployesController::class, "show"])->name("employes.show");
 //Route::patch('/employeurs/{id}/updatePassword', [EmployesController::class, "updatePassword"])->name('employes.updatePassword');
 
