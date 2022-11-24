@@ -26,8 +26,8 @@ class PlageDeTempsTableSeeder extends Seeder
 
             [
                 'id'=> 2,
-                'heureDebut'=> '15:15:00',
-                'heureFin'=> '07:00:00',
+                'heureDebut'=> '7:15:00',
+                'heureFin'=> '015:00:00',
                 'typetemps_id'=> 1,
                 'fiche_id'=>2,
             ],
