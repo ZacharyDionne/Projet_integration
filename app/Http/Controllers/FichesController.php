@@ -130,7 +130,7 @@ class FichesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($date)
+    public function edit($id, $date)
     {
         $fiche = Fiche::where('date', $date)->where('conducteur_id', session('user_id'))->first();
 
