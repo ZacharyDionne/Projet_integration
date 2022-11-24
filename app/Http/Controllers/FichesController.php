@@ -132,33 +132,26 @@ class FichesController extends Controller
      */
     public function edit($id, $date)
     {
-        $fiche = Fiche::where('date', $date)->where('conducteur_id', session('user_id'))->first();
+        try
+        {
+            $fiche = Fiche::where('date', $date)->where('conducteur_id', session('user_id'))->first();
 
-        if (!$fiche)
-        {
-            $fiche = new Fiche();
-            $fiche->conducteur_id = session('user_id');
-            $fiche->observation = null;
-            $fiche->cycle = 1;
-            $fiche->date = $date;
-            $fiche->save();
-            
-            return View('fiches.show', compact('fiche'));
-        }
-        else 
-        {
-            try
+            if (!$fiche)
             {
-            $fiche = Fiche::where('date', $date)->where('conducteur_id', session('user_id'))->firstOrFail();
+                $fiche = new Fiche();
+                $fiche->conducteur_id = session('user_id');
+                $fiche->observation = null;
+                $fiche->cycle = 1;
+                $fiche->date = $date;
+                $fiche->save();  
             }
-            catch(ModelNotFoundException $e)
-            {
-                //Gestion de l'erreur
-                Log::debug($e);
-            }
-            return View('fiches.show', compact('fiche'));
-            
         }
+        catch (Throwable $e)
+        {
+            return View('erreur');
+        }
+
+        return View('fiches.show', compact('fiche'));
     }
 
 
