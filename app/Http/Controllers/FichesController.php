@@ -144,6 +144,17 @@ class FichesController extends Controller
             un contre-maître ayant le droit exceptionnel de modification suite
             à une requête du conducteur.
         */
+        $authorization = Filtre::estLeConducteur($id);
+        if ($authorization === false)
+        {
+            $authorization = Filtre::estAdminOuContreMaitre();
+            if ($authorization === false)
+                abort(403);
+            else if ($authorization === null)
+                return View('erreur');
+        }
+        else if ($authorization === null)
+            return View('erreur');
 
         try
         {
