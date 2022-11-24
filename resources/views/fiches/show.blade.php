@@ -1,13 +1,16 @@
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Create Fiche</title>
-</head>
-<body>
-    
+@php
+setlocale(LC_TIME, 'fr', 'fr_FR', 'fr_FR@euro', 'fr_FR.utf8', 'fr-FR', 'fra');
+@endphp
+@extends('layouts.app')
+
+@section('titre', 'Fiches')
+
+@section('cssSupplementaire')
+<link rel="icon" type="image/png" href="{{ asset('images/icons/favicon.ico') }}" />
+
+@endsection
+
+@section('contenu')
 <!-- h1 show the date of {fiche} -->
 <h1>{{ $fiche->date }}</h1>
 
@@ -31,16 +34,14 @@
         <th>Travail (sauf conduite)</th>
     </tr>
     <!-- Make a loop to create 5 rows -->
-    @for($i = 0; $i < 5; $i++)
-    <tr>
+    @for($i = 0; $i < 5; $i++) <tr>
         <!-- Make a loop to create 5 columns -->
-        @for($j = 0; $j < 5; $j++)
-        <td>
+        @for($j = 0; $j < 5; $j++) <td>
             <input type="text" name="heure" value="{{ $fiche->heure }}">
-        </td>
-        @endfor
-    </tr>
-    @endfor
+            </td>
+            @endfor
+            </tr>
+            @endfor
 </table>
 
 <h1>Journée précédente</h1>
@@ -50,6 +51,4 @@
 <h1>Sauvegarder - retour</h1>
 <h1>Sauvegarder et marquer comme completer</h1>
 
-
-</body>
-</html>
+@endsection
