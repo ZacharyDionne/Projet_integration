@@ -22,10 +22,10 @@
 					<h4 class="heading-section text-left list-title">EMPLOYÉS</h4>
 				</div>
 				<div class="card-body">
-					<div class="row justify-content-center">
-						<div class="col-md-3 title-placement">
+					<div class="row justify-content">
+						<div class="col-md-3 mb-4 title-placement">
 							<h2 class="heading-section text-left list-title">RECHERCHER</h2>
-							<input class="employe-search" type="text" id="searchBar" placeholder="Rechercher..">
+							<input class="employe-search" type="text" id="searchBar" placeholder="Rechercher...">
 						</div>
 					</div>
 					<div class="grid-placement">
