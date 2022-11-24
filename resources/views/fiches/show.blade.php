@@ -44,11 +44,12 @@
 </table>
 
 <h1>Journée précédente</h1>
+<a class="btn btn-primary" href="{{ route('fiches.edit', ['id' => $fiche->conducteur_id, 'date' => \Carbon\Carbon::parse($fiche->date)->subDay()->format('Y-m-d')]) }}">Journée précédente</a>
 <h1>Journée suivante</h1>
 
-<h1>Sauvegarder</h1>
+<h1>Sauvegarder - retour</h1>
 <h1>Sauvegarder et marquer comme completer</h1>
 
 
-    </body>
+</body>
 </html>
