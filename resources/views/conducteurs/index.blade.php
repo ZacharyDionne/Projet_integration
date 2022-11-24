@@ -20,9 +20,9 @@
 					</div>
 					<div class="card-body">
 						<div class="row justify-content-center">
-							<div class="col-md-3 text-center mb-1 title-placement">
-								<p class="top-small-title">LISTE DES USAGERS</p>
-								<h2 class="heading-section list-title">CONDUCTEURS</h2>
+							<div class="col-md-3 mb-1 title-placement">
+								<h2 class="heading-section text-left list-title">RECHERCHER</h2>
+								<input class="employe-search" type="text" id="searchBar" placeholder="Rechercher..">
 							</div>
 						</div>
 						<div class="grid-placement">
@@ -39,7 +39,7 @@
 													<th></th>
 												</tr>
 											</thead>
-											<tbody>
+											<tbody id="tableSearch">
 												@if (isset($conducteurs) && count($conducteurs))
 													@foreach($conducteurs as $conducteur)
 														<tr class="alert shadow-sm" role="alert">

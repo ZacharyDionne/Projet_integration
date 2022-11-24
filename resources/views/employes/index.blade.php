@@ -25,7 +25,7 @@
 					<div class="row justify-content-center">
 						<div class="col-md-3 title-placement">
 							<h2 class="heading-section text-left list-title">RECHERCHER</h2>
-							<input class="employe-search" type="text" placeholder="Rechercher..">
+							<input class="employe-search" type="text" id="searchBar" placeholder="Rechercher..">
 						</div>
 					</div>
 					<div class="grid-placement">
@@ -41,7 +41,7 @@
 												<th class="font-tr">ACTIF</th>
 											</tr>
 										</thead>
-										<tbody>
+										<tbody id="tableSearch">
 											<!-- Affichage des employes s'il y en a -->
 											@if (isset($employes) && count($employes))
 												@foreach($employes as $employe)
