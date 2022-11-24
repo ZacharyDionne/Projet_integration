@@ -125,10 +125,10 @@ setlocale(LC_TIME, 'fr', 'fr_FR', 'fr_FR@euro', 'fr_FR.utf8', 'fr-FR', 'fra');
 						<p>Aucune donnée existante</p>
 
 						@if($lastFiche->observation != null)
-						<p>Commentaire : {{ $lastFiches->observation }}</p>
+						<p>Commentaire : {{ $lastFiche->observation }}</p>
 						@endif
 
-						<a class="btn btn-primary" style="width: 25%; height:auto; padding: 5px 10px; font-size:small;" href="{{ route('fiches.edit', [$lastFiche->conducteur_id, $lastFiche->date]) }}">Voir la fiche</a>
+						<a class="btn btn-primary" style="width: 25%; height:auto; padding: 5px 10px; font-size:small; margin: auto;" href="{{ route('fiches.edit', [$lastFiche->conducteur_id, $lastFiche->date]) }}">Voir la fiche</a>
 					</div>
 				</div>
 				@endforeach

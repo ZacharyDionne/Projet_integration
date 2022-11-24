@@ -2,13 +2,13 @@
     @php
     try
     {
-    $conducteur = auth()->user();
-    $employe = auth()->guard('employe')->user();
+        $conducteur = auth()->user();
+        $employe = auth()->guard('employe')->user();
     }
     catch (Throwable $e)
     {
-    $conducteur = null;
-    $employe = null;
+        $conducteur = null;
+        $employe = null;
     }
     @endphp
     @if ($conducteur)
