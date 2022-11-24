@@ -64,8 +64,9 @@
             days[n].setAttribute('datejour', year + '-' + (month + 1) + '-' + i); 
             // days[n].setAttribute('data-toggle', 'modal');
             // days[n].setAttribute('data-target', '#myModal');
-            // put a link that when clicked, it will go to /fiches/{datejour}
-            days[n].setAttribute('onclick', 'window.location.href = "/fiches/" + this.getAttribute("datejour")');
+            
+            // put a link that when clicked, it will add /{datejour} to the current url
+            days[n].setAttribute('onclick', 'window.location = window.location.href + "/" + this.getAttribute("datejour")');
             n++;
         }
         
