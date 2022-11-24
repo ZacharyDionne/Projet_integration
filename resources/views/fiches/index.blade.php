@@ -5,26 +5,26 @@ setlocale(LC_TIME, 'fr', 'fr_FR', 'fr_FR@euro', 'fr_FR.utf8', 'fr-FR', 'fra');
 
 @section('titre', 'Fiches')
 
-	@section('cssSupplementaire')
-		<link rel="stylesheet" href="{{ asset('css/styleCalendar.css') }}">
-		<link rel="stylesheet" href="{{ asset('css/styleModal.css') }}">
-		<link rel="icon" type="image/png" href="{{ asset('images/icons/favicon.ico') }}"/>
+@section('cssSupplementaire')
+<link rel="stylesheet" href="{{ asset('css/styleCalendar.css') }}">
+<link rel="stylesheet" href="{{ asset('css/styleModal.css') }}">
+<link rel="icon" type="image/png" href="{{ asset('images/icons/favicon.ico') }}" />
 
-		<script defer src="{{ asset('js/mainCalendar.js') }}"></script>
-	@endsection
+<script defer src="{{ asset('js/mainCalendar.js') }}"></script>
+@endsection
 
-	@section('contenu')
-		<section class="ftco-section">
-			<div class="container">
-				<div class="row justify-content-center">
-					<div class="col-md-6 text-center mb-5">
-						<h2 class="heading-section">{{ session('user_name') }}</h2>
-					</div>
-				</div>
-				<div class="row">
-					<div class="col-md-12">
-						<div class="elegant-calencar d-md-flex">
-							<div class="wrap-header d-flex align-items-center img" style="background-image: url({{ asset('images/bgCalendar.png') }});">
+@section('contenu')
+<section class="ftco-section">
+	<div class="container">
+		<div class="row justify-content-center">
+			<div class="col-md-6 text-center mb-5">
+				<h2 class="heading-section">{{ session('user_name') }}</h2>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-12">
+				<div class="elegant-calencar d-md-flex">
+					<div class="wrap-header d-flex align-items-center img" style="background-image: url({{ asset('images/bgCalendar.png') }});">
 						<p id="reset">Aujourd'hui</p>
 						<div id="header" class="p-0">
 							<!-- <div class="pre-button d-flex align-items-center justify-content-center"><i class="fa fa-chevron-left"></i></div> -->
@@ -128,7 +128,7 @@ setlocale(LC_TIME, 'fr', 'fr_FR', 'fr_FR@euro', 'fr_FR.utf8', 'fr-FR', 'fra');
 						<p>Commentaire : {{ $lastFiches->observation }}</p>
 						@endif
 
-						<a class="btn btn-primary" href="{{ route('fiches.show', $lastFiche->date) }}">Voir la fiche</a>
+						<a class="btn btn-primary" style="width: 25%; height:auto; padding: 5px 10px; font-size:small;" href="{{ route('fiches.edit', [$lastFiche->conducteur_id, $lastFiche->date]) }}">Voir la fiche</a>
 					</div>
 				</div>
 				@endforeach
