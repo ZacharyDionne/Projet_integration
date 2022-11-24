@@ -18,13 +18,9 @@ setlocale(LC_TIME, 'fr', 'fr_FR', 'fr_FR@euro', 'fr_FR.utf8', 'fr-FR', 'fra');
 <table>
     <tr>
         <!-- nom complet du conducteur dans la session stocker dans user_name -->
-        <h3>Nom du conducteur: {{ session('user_name') }}</h3>
-        <!-- Show user id in the session -->
-        <h4>Id du conducteur: {{ Auth::user()->id }}</h4>
-        <!-- get conducteur id inside the fiche -->
-        <h4>Id du conducteur dans la fiche: {{ $fiche->conducteur_id }}</h4>
+        <h3>Nom du conducteur: {{ $conducteur->nom }}, {{ $conducteur->prenom }}</h3>
         <h4>Date: {{ \Carbon\Carbon::parse($fiche->date)->locale('fr')->isoFormat('LL') }}</h4>
-        <h4>Cycle suivi: 1</h4>
+        <h4>Cycle suivi: {{ $fiche->cycle }}</h4>
     </tr>
     <tr>
         <th>Début de l'activité</th>
