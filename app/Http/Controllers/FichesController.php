@@ -147,13 +147,13 @@ class FichesController extends Controller
 
         try
         {
-            $fiche = Fiche::where('date', $date)->where('conducteur_id', session('user_id'))->first();
+            $fiche = Fiche::where('date', $date)->where('conducteur_id', $id)->first();
             $peutModifier = true;
 
             if (!$fiche)
             {
                 $fiche = new Fiche();
-                $fiche->conducteur_id = session('user_id');
+                $fiche->conducteur_id = $id;
                 $fiche->observation = null;
                 $fiche->cycle = 1;
                 $fiche->date = $date;
