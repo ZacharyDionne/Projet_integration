@@ -75,11 +75,14 @@ class FichesController extends Controller
         }
         catch (Throwable $e)
         {
-            Log::debug($e);
             return View('erreur');
         }
 
-        return View("fiches.index", compact("fiches", "lastFiches"));
+        //À CHANGER POUR DE VRAIS VALEURS ÉVENTUELLEMENT
+        $totalHeures = 420;
+        $totalHeuresRepos = 69;
+
+        return View("fiches.index", compact("fiches", "lastFiches", "totalHeures", "totalHeuresRepos"));
     }
 
     /**
@@ -87,6 +90,7 @@ class FichesController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    /*
     public function create()
     {
         $conducteurs  = Conducteur::orderBy('id')->get();
@@ -95,6 +99,7 @@ class FichesController extends Controller
 
         return View('fiches.create', compact('conducteurs'), compact('plageDeTemps'));   
     }
+    */
 
     /**
      * Store a newly created resource in storage.
@@ -113,36 +118,12 @@ class FichesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
+    /*
     public function show($date)
     {
-        $fiche = Fiche::where('date', $date)->where('conducteur_id', session('user_id'))->first();
-
-        if (!$fiche)
-        {
-            $fiche = new Fiche();
-            $fiche->conducteur_id = session('user_id');
-            $fiche->observation = null;
-            $fiche->cycle = 1;
-            $fiche->date = $date;
-            $fiche->save();
-            
-            return View('fiches.show', compact('fiche'));
-        }
-        else 
-        {
-            try
-            {
-            $fiche = Fiche::where('date', $date)->where('conducteur_id', session('user_id'))->firstOrFail();
-            }
-            catch(ModelNotFoundException $e)
-            {
-                //Gestion de l'erreur
-                Log::debug($e);
-            }
-            return View('fiches.show', compact('fiche'));
-            
-        }
+        
     }
+    */
 
     /**
      * Show the form for editing the specified resource.
@@ -150,9 +131,42 @@ class FichesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($date)
+    public function edit($id, $date)
     {
-        
+        /*
+            Gestion d'accès
+            Autorise seulement le conducteur concerné,
+            an administrateur ou un contre-maître.
+
+            À l'avenir, il faudrait que le booléen $peutModifier soit envoyé à la view pour savoir
+            si le droit de modification est accordé. Ceci n'est que pour un
+            bon affichage, car la vrai validation se fera dans la fonction update. Il faudra
+            autoriser uniquement le conducteur à modifier une fiche non complété et à
+            un contre-maître ayant le droit exceptionnel de modification suite
+            à une requête du conducteur.
+        */
+
+        try
+        {
+            $fiche = Fiche::where('date', $date)->where('conducteur_id', $id)->first();
+            $peutModifier = true;
+
+            if (!$fiche)
+            {
+                $fiche = new Fiche();
+                $fiche->conducteur_id = $id;
+                $fiche->observation = null;
+                $fiche->cycle = 1;
+                $fiche->date = $date;
+                $fiche->save();
+            }
+        }
+        catch (Throwable $e)
+        {
+            return View('erreur');
+        }
+
+        return View('fiches.show', compact('fiche', 'peutModifier'));
     }
 
 
@@ -174,8 +188,10 @@ class FichesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
+    /*
     public function destroy($id)
     {
         //
     }
+    */
 }
