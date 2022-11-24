@@ -19,17 +19,17 @@
 						<h2 class="heading-section text-left list-title">CONDUCTEURS</h2>
 					</div>
 					<div class="card-body">
-						<div class="row justify-content-center">
-							<div class="col-md-3 mb-1 title-placement">
+						<div class="row justify-content">
+							<div class="col-md-3 mb-4 title-placement">
 								<h2 class="heading-section text-left list-title">RECHERCHER</h2>
-								<input class="employe-search" type="text" id="searchBar" placeholder="Rechercher..">
+								<input class="employe-search" type="text" id="searchBar" placeholder="Rechercher...">
 							</div>
 						</div>
 						<div class="grid-placement">
 							<div class="row">
 								<div class="col-md-12">
 									<div class="table-wrap">
-										<table class="table">
+										<table class="table flex-container">
 											<thead class="bg-tr-up">
 												<tr class="shadow-sm">
 													<th class="font-tr">NOM</th>
