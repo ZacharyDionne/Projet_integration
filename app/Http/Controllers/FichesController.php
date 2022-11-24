@@ -148,6 +148,7 @@ class FichesController extends Controller
         try
         {
             $fiche = Fiche::where('date', $date)->where('conducteur_id', $id)->first();
+            $conducteur = Conducteur::where('id', $id)->first();
             $peutModifier = true;
 
             if (!$fiche)
@@ -165,7 +166,7 @@ class FichesController extends Controller
             return View('erreur');
         }
 
-        return View('fiches.edit', compact('fiche', 'peutModifier'));
+        return View('fiches.edit', compact('fiche', 'peutModifier', 'conducteur'));
     }
 
 
