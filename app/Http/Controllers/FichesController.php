@@ -132,33 +132,40 @@ class FichesController extends Controller
      */
     public function edit($id, $date)
     {
-        $fiche = Fiche::where('date', $date)->where('conducteur_id', session('user_id'))->first();
+        /*
+            Gestion d'accès
+            Autorise seulement le conducteur concerné,
+            an administrateur ou un contre-maître.
+            
+            À l'avenir, il faudrait que le booléen $peutModifier soit envoyé à la view pour savoir
+            si le droit de modification est accordé. Ceci n'est que pour un
+            bon affichage, car la vrai validation se fera dans la fonction update. Il faudra
+            autoriser uniquement le conducteur à modifier une fiche non complété et à
+            un contre-maître ayant le droit exceptionnel de modification suite
+            à une requête du conducteur.
+        */
 
-        if (!$fiche)
+        try
         {
-            $fiche = new Fiche();
-            $fiche->conducteur_id = session('user_id');
-            $fiche->observation = null;
-            $fiche->cycle = 1;
-            $fiche->date = $date;
-            $fiche->save();
-            
-            return View('fiches.show', compact('fiche'));
+            $fiche = Fiche::where('date', $date)->where('conducteur_id', session('user_id'))->first();
+            $peutModifier = true;
+
+            if (!$fiche)
+            {
+                $fiche = new Fiche();
+                $fiche->conducteur_id = session('user_id');
+                $fiche->observation = null;
+                $fiche->cycle = 1;
+                $fiche->date = $date;
+                $fiche->save();  
+            }
         }
-        else 
+        catch (Throwable $e)
         {
-            try
-            {
-            $fiche = Fiche::where('date', $date)->where('conducteur_id', session('user_id'))->firstOrFail();
-            }
-            catch(ModelNotFoundException $e)
-            {
-                //Gestion de l'erreur
-                Log::debug($e);
-            }
-            return View('fiches.show', compact('fiche'));
-            
+            return View('erreur');
         }
+
+        return View('fiches.show', compact('fiche', 'peutModifier'));
     }
 
 
