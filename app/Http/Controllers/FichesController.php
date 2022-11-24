@@ -190,7 +190,10 @@ class FichesController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        //$request->observation - string
+        //$request->idFiche - int caché
+        //$request->idConducteur - int caché
+        //$request->plagesDeTemps - string caché
     }
 
     /**
