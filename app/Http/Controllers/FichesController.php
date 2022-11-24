@@ -87,6 +87,7 @@ class FichesController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    /*
     public function create()
     {
         $conducteurs  = Conducteur::orderBy('id')->get();
@@ -95,6 +96,7 @@ class FichesController extends Controller
 
         return View('fiches.create', compact('conducteurs'), compact('plageDeTemps'));   
     }
+    */
 
     /**
      * Store a newly created resource in storage.
@@ -102,10 +104,12 @@ class FichesController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
+    /*
     public function store(FicheRequest $request)
     {
         //Utilise le Edit et le show;
     }
+    */
 
     /**
      * Display the specified resource.
@@ -113,7 +117,20 @@ class FichesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
+    /*
     public function show($date)
+    {
+        
+    }
+    */
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function edit($date)
     {
         $fiche = Fiche::where('date', $date)->where('conducteur_id', session('user_id'))->first();
 
@@ -144,17 +161,6 @@ class FichesController extends Controller
         }
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($date)
-    {
-        
-    }
-
 
     /**
      * Update the specified resource in storage.
@@ -174,8 +180,10 @@ class FichesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
+    /*
     public function destroy($id)
     {
         //
     }
+    */
 }
