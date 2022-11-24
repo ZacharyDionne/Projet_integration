@@ -165,7 +165,7 @@ class FichesController extends Controller
             return View('erreur');
         }
 
-        return View('fiches.show', compact('fiche', 'peutModifier'));
+        return View('fiches.edit', compact('fiche', 'peutModifier'));
     }
 
 
