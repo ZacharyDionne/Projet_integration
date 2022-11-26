@@ -9,10 +9,11 @@ class PlageDeTemps extends Model
 {
     use HasFactory;
 
-
+    protected $fillable = ["heureDebut", "heureFin"];
+    protected $table = "plagedetemps";
 
     public function typeTemps(): belongTo
     {
-        return $this->belongTo('App\TypeTemps');
+        return $this->belongsTo('App\TypeTemps');
     }
 }

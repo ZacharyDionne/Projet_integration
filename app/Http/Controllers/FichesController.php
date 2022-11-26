@@ -11,6 +11,7 @@ use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 use App\Models\Fiche;
 use App\Models\Conducteur;
+use App\Models\PlageDeTemps;
 
 use Throwable;
 use Illuminate\Support\Facades\Log;
@@ -135,7 +136,7 @@ class FichesController extends Controller
         /*
             Gestion d'accès
             Autorise seulement le conducteur concerné,
-            an administrateur ou un contre-maître.
+            un administrateur ou un contre-maître autorisé.
             
             À l'avenir, il faudrait que le booléen $peutModifier soit envoyé à la view pour savoir
             si le droit de modification est accordé. Ceci n'est que pour un
@@ -160,7 +161,7 @@ class FichesController extends Controller
         {
             $fiche = Fiche::where('date', $date)->where('conducteur_id', $id)->first();
             $conducteur = Conducteur::where('id', $id)->first();
-            $plagesDeTemps = $fiche->plagesDeTemps();
+            $plagesDeTemps = PlageDeTemps::where('fiche_id', $fiche->id)->get();
             $peutModifier = true;
 
             if (!$fiche)
@@ -178,7 +179,6 @@ class FichesController extends Controller
             Log::debug($e);
             return View('erreur');
         }
-
         return View('fiches.edit', compact('fiche', 'plagesDeTemps', 'peutModifier', 'conducteur'));
     }
 
