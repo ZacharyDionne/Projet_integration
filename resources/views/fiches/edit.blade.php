@@ -19,19 +19,41 @@ setlocale(LC_TIME, 'fr', 'fr_FR', 'fr_FR@euro', 'fr_FR.utf8', 'fr-FR', 'fra');
     <table>
         <thead>
             <tr>
+                <th>
+                    <input type="checkbox" id="selectAll">
+                    <label for="selectAll">Tout sélectionner</label>
+                </th>
                 <th>Début de l'activité</th>
                 <th>Fin de l'activité</th>
                 <th>Type</th>
+                <th><button type="button">Ajouter</button></th>
             </tr>
         </thead>
         <tbody>
-            @foreach ($plageDeTemps in $plagesDeTemps)
+            @for ($i = 0; $i < count($plagesDeTemps); $i++)
                 <tr>
-                    <td>{{ $plageDeTemps->heureDebut }}</td>
-                    <td>{{ $plageDeTemps->heureFin }}</td>
-                    <td>{{ $plageDeTemps->typetemps_id }}</td>
+                    <td>
+                        <input type="checkbox">
+                    </td>
+                    <td><input type="time" value="{{ $plagesDeTemps[$i]['heureDebut']}}"></td>
+                    <td><input type="time" value="{{ $plagesDeTemps[$i]['heureFin'] }}"></td>
+                    <td>
+                        <select>
+                            @for ($j = 0; $j < count($typesTemps); $j++)
+                                <option
+                                    @if ($typesTemps[$j]["id"] == $plagesDeTemps[$i]["typetemps_id"])
+                                        selected
+                                    @endif
+                                >
+                                    {{ $typesTemps[$j]["type"] }}
+                                </option>
+                            @endfor
+                        </select>
+                    </td>
+                    <td></td>
                 </tr>
-            @endforeach
+            @endfor
+            
         </tbody>
     </table>
 

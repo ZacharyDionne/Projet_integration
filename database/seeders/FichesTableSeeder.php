@@ -21,7 +21,7 @@ class FichesTableSeeder extends Seeder
                 'conducteur_id'=> 1,
                 'observation'=> 'Retard (attente) chez le client Bellemare, Trois-Rivières',
                 'cycle'=> 1,
-                'date'=>'2022-11-21',
+                'date'=>'2022-11-28',
             ],
 
             [

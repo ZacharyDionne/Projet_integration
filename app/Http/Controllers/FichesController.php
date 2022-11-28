@@ -12,6 +12,7 @@ use Illuminate\Database\Eloquent\ModelNotFoundException;
 use App\Models\Fiche;
 use App\Models\Conducteur;
 use App\Models\PlageDeTemps;
+use App\Models\TypeTemps;
 
 use Throwable;
 use Illuminate\Support\Facades\Log;
@@ -161,7 +162,8 @@ class FichesController extends Controller
         {
             $fiche = Fiche::where('date', $date)->where('conducteur_id', $id)->first();
             $conducteur = Conducteur::where('id', $id)->first();
-            $plagesDeTemps = PlageDeTemps::where('fiche_id', $fiche->id)->get();
+            $plagesDeTemps = PlageDeTemps::where('fiche_id', $fiche->id)->get()->toArray();
+            $typesTemps = TypeTemps::get()->toArray();
             $peutModifier = true;
 
             if (!$fiche)
@@ -179,7 +181,7 @@ class FichesController extends Controller
             Log::debug($e);
             return View('erreur');
         }
-        return View('fiches.edit', compact('fiche', 'plagesDeTemps', 'peutModifier', 'conducteur'));
+        return View('fiches.edit', compact('fiche', 'plagesDeTemps', 'typesTemps', 'peutModifier', 'conducteur'));
     }
 
 
