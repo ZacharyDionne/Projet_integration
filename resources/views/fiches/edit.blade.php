@@ -26,14 +26,14 @@ setlocale(LC_TIME, 'fr', 'fr_FR', 'fr_FR@euro', 'fr_FR.utf8', 'fr-FR', 'fra');
                 <th>Début de l'activité</th>
                 <th>Fin de l'activité</th>
                 <th>Type</th>
-                <th><button type="button">Ajouter</button></th>
+                <th><button type="button" id="boutonAjouter">Ajouter</button><button type="button" id="boutonSupprimer">Supprimer</button></th>
             </tr>
         </thead>
         <tbody>
             @for ($i = 0; $i < count($plagesDeTemps); $i++)
                 <tr>
                     <td>
-                        <input type="checkbox">
+                        <input type="checkbox" class="select">
                     </td>
                     <td><input type="time" value="{{ $plagesDeTemps[$i]['heureDebut']}}"></td>
                     <td><input type="time" value="{{ $plagesDeTemps[$i]['heureFin'] }}"></td>
@@ -71,4 +71,30 @@ setlocale(LC_TIME, 'fr', 'fr_FR', 'fr_FR@euro', 'fr_FR.utf8', 'fr-FR', 'fra');
     <h1>Retour à la liste des fiches</h1>
     <a class="btn btn-primary" href="{{ route('fiches.index', ['id' => $fiche->conducteur_id]) }}">Retour à la liste des fiches</a>
     <h1>Sauvegarder et marquer comme completer</h1>
+
+
+
+    <!-- Cette partie donne à Javascript le format pour une colonne d'une plage de temps -->
+    <table class="d-none">
+        <tbody>
+            <tr id="rowTemplate">
+                <td>
+                    <input type="checkbox">
+                </td>
+                <td><input type="time"></td>
+                <td><input type="time"></td>
+                <td>
+                    <select>
+                        @for ($j = 0; $j < count($typesTemps); $j++)
+                            <option
+                            value="{{ $j + 1 }}">
+                                {{ $typesTemps[$j]["type"] }}
+                            </option>
+                        @endfor
+                    </select>
+                </td>
+                <td></td>
+            </tr>
+        </tbody>
+    </table>
 @endsection

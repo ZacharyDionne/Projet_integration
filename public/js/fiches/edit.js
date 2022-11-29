@@ -1,9 +1,19 @@
-document.getElementById("formModification").querySelector("button").addEventListener("click", onClick);
-
 let table = document.getElementById("tableModification");
 let form = document.getElementById("formModification");
+let rowTemplate = document.getElementById("rowTemplate");
+let selectAll = document.getElementById("selectAll");
 
-function onClick(e)
+form.querySelector("button").addEventListener("click", onEnregistrer);
+document.getElementById("boutonAjouter").addEventListener("click", onAjouter);
+document.getElementById("boutonSupprimer").addEventListener("click", onSupprimer);
+selectAll.addEventListener("click", onSelectAll);
+
+
+
+
+
+
+function onEnregistrer(e)
 {
     let rows = table.querySelector("tbody").children;
     let plagesDeTemps = [];
@@ -31,4 +41,48 @@ function onClick(e)
     document.getElementById("plagesDeTemps").value = jsonPlagesDeTemps;
     
     form.submit();
+}
+
+
+
+
+
+
+function onAjouter(e)
+{
+    let row = rowTemplate.cloneNode(true);
+    let tbody = table.children[1];
+
+    tbody.appendChild(row);
+}
+
+
+function onSupprimer(e)
+{
+    let tbody = table.children[1];
+    let rows = tbody.children;
+
+    const length = rows.length;
+    for (let i = 0; i < length; i++)
+    {
+        let row = rows[i];
+        let checkbox = row.children[0].children[0];
+
+        if (checkbox.checked)
+        {
+            tbody.removeChild(row);
+            i--;
+        }
+            
+    }
+}
+
+
+
+function onSelectAll(e)
+{
+    let checkBoxes = document.getElementsByClassName("select");
+
+    for (let i = 0; i < checkBoxes.length; i++)
+        checkBoxes[i].checked = selectAll.checked;
 }
