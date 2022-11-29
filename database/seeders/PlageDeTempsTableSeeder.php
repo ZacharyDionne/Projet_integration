@@ -22,6 +22,7 @@ class PlageDeTempsTableSeeder extends Seeder
                 'heureFin'=> '15:15:00',
                 'typetemps_id'=> 3,
                 'fiche_id'=>1,
+                'ancienne' => false
             ],
 
             [
@@ -30,6 +31,7 @@ class PlageDeTempsTableSeeder extends Seeder
                 'heureFin'=> '015:00:00',
                 'typetemps_id'=> 1,
                 'fiche_id'=>2,
+                'archive' => false
             ],
 
             [
@@ -38,6 +40,7 @@ class PlageDeTempsTableSeeder extends Seeder
                 'heureFin'=> '17:00:00',
                 'typetemps_id'=> 3,
                 'fiche_id'=>2,
+                'archive' => false
             ],
         ]);
 

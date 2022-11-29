@@ -228,6 +228,13 @@ class FichesController extends Controller
             $fiche->observation = $request->observation;
             $fiche->save();
 
+
+
+            //Archiver les anciennes plages de temps
+            //$plagesDeTemps = PlageDeTemps::where('fiche_id', $request->fiche_id)->where('');
+
+
+
             $plagesDeTemps = json_decode($request->plagesDeTemps);
 
             for ($i = 0; $i < count($plagesDeTemps); $i++)
