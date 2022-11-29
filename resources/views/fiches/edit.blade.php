@@ -7,7 +7,7 @@ setlocale(LC_TIME, 'fr', 'fr_FR', 'fr_FR@euro', 'fr_FR.utf8', 'fr-FR', 'fra');
 
 @section('cssSupplementaire')
 <link rel="icon" type="image/png" href="{{ asset('images/icons/favicon.ico') }}" />
-<script src="{{ asset('js/fiches/edit.js') }}" defer></script>
+<script type="module" src="{{ asset('js/fiches/edit.js') }}" defer></script>
 @endsection
 
 @section('contenu')
