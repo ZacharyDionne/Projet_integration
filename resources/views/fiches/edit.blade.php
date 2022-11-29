@@ -7,7 +7,7 @@ setlocale(LC_TIME, 'fr', 'fr_FR', 'fr_FR@euro', 'fr_FR.utf8', 'fr-FR', 'fra');
 
 @section('cssSupplementaire')
 <link rel="icon" type="image/png" href="{{ asset('images/icons/favicon.ico') }}" />
-
+<script type="module" src="{{ asset('js/fiches/edit.js') }}" defer></script>
 @endsection
 
 @section('contenu')
@@ -53,9 +53,14 @@ setlocale(LC_TIME, 'fr', 'fr_FR', 'fr_FR@euro', 'fr_FR.utf8', 'fr-FR', 'fra');
                     <td></td>
                 </tr>
             @endfor
-            
         </tbody>
     </table>
+    <form method="post" action="{{ route('fiches.update', $fiche->conducteur_id) }}">
+        @csrf
+        @method('patch')
+        <input type="hidden">
+        <button type="submit">Enregistrer</button>
+    </form>
 
     <h1>Journée précédente</h1>
     <a class="btn btn-primary" href="{{ route('fiches.edit', ['id' => $fiche->conducteur_id, 'date' => \Carbon\Carbon::parse($fiche->date)->subDay()->format('Y-m-d')]) }}">Journée précédente</a>
