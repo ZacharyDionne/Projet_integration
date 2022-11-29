@@ -165,14 +165,7 @@ class FichesController extends Controller
             $typesTemps = TypeTemps::get()->toArray();
 
             if (!$fiche)
-            {
-                $fiche = new Fiche();
-                $fiche->conducteur_id = $id;
-                $fiche->observation = null;
-                $fiche->cycle = 1;
-                $fiche->date = $date;
-                $fiche->save();
-            }
+                $fiche = FichesController::createFiche($id, $date);
 
 
             $peutModifier = !$fiche->fini;
@@ -226,9 +219,14 @@ class FichesController extends Controller
         try
         {
             $fiche = Fiche::where('id', $request->fiche_id)->first();
+
             $fiche->observation = $request->observation;
             $fiche->fini = $request->fini;
             $fiche->save();
+
+
+
+            
 
 
 
@@ -279,4 +277,19 @@ class FichesController extends Controller
         //
     }
     */
+
+
+
+
+    private static function createFiche($id, $date) : Fiche
+    {
+        $fiche = new Fiche();
+        $fiche->conducteur_id = $id;
+        $fiche->observation = null;
+        $fiche->cycle = 1;
+        $fiche->date = $date;
+        $fiche->save();
+    }
+
+
 }

@@ -38,8 +38,8 @@ setlocale(LC_TIME, 'fr', 'fr_FR', 'fr_FR@euro', 'fr_FR.utf8', 'fr-FR', 'fra');
                                 <td>
                                     <input type="checkbox" class="select">
                                 </td>
-                                <td><input type="time" step="900" value="{{ $plagesDeTemps[$i]['heureDebut']}}"></td>
-                                <td><input type="time" step="900" value="{{ $plagesDeTemps[$i]['heureFin'] }}"></td>
+                                <td><input type="time" step="900" class="heureDebut" value="{{ $plagesDeTemps[$i]['heureDebut']}}"></td>
+                                <td><input type="time" step="900" class="heureFin" value="{{ $plagesDeTemps[$i]['heureFin'] }}"></td>
                                 <td>
                                     <select>
                                         @for ($j = 0; $j < count($typesTemps); $j++)
@@ -84,10 +84,10 @@ setlocale(LC_TIME, 'fr', 'fr_FR', 'fr_FR@euro', 'fr_FR.utf8', 'fr-FR', 'fra');
                     <tbody>
                         <tr id="rowTemplate">
                             <td>
-                                <input type="checkbox" step="900" class="select">
+                                <input type="checkbox" class="select">
                             </td>
-                            <td><input type="time"></td>
-                            <td><input type="time"></td>
+                            <td><input type="time" step="900" class="heureDebut"></td>
+                            <td><input type="time" step="900" class="heureFin"></td>
                             <td>
                                 <select>
                                     @for ($j = 0; $j < count($typesTemps); $j++)
