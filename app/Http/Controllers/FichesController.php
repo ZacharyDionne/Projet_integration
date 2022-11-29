@@ -137,7 +137,7 @@ class FichesController extends Controller
         /*
             Gestion d'accès
             Autorise seulement le conducteur concerné,
-            un administrateur ou un contre-maître autorisé.
+            un administrateur ou un contre-maître.
             
             À l'avenir, il faudrait que le booléen $peutModifier soit envoyé à la view pour savoir
             si le droit de modification est accordé. Ceci n'est que pour un
@@ -192,12 +192,37 @@ class FichesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, $conducteur_id)
     {
         //$request->observation - string
         //$request->idFiche - int caché
         //$request->idConducteur - int caché
         //$request->plagesDeTemps - string caché
+
+        /*
+            Gestion d'accès
+
+            Autorise seulement le conducteur concerné,
+            un administrateur ou un contre-maître.
+        
+            À l'avenir, il faudrait il faudra autoriser uniquement le conducteur
+            à modifier une fiche non complété et à un contre-maître ayant le
+            droit exceptionnel de modification suite  à une requête du conducteur.
+        */
+        $authorization = Filtre::estLeConducteur($conducteur_id);
+        if ($authorization === false)
+        {
+            $authorization = Filtre::estAdminOuContreMaitre();
+            if ($authorization === false)
+                abort(403);
+            else if ($authorization === null)
+                return View('erreur');
+        }
+        else if ($authorization === null)
+            return View('erreur');
+
+
+
     }
 
     /**
