@@ -54,12 +54,10 @@ class FichesController extends Controller
 
             for ($i = 0; $i < 7; $i++) {
                 $date = date('Y-m-d', strtotime("-$i days"));
-                Log::debug("Date : $date");
                 
                 $fiche = null;
                 $fiche = Fiche::where('conducteur_id', $id)->where('date', $date)->first();
 
-                Log::debug("conducteur" . $id);
 
                 if (!$fiche) {
                     $fiche = new Fiche();
@@ -74,7 +72,6 @@ class FichesController extends Controller
         }
         catch (Throwable $e)
         {
-            Log::debug($e);
             return View('erreur');
         }
         $totalHeures = 420;
@@ -263,7 +260,6 @@ class FichesController extends Controller
         }
         catch (Throwable $e)
         {
-            Log::debug($e);
             return View('erreur');
         }
         
