@@ -16,7 +16,7 @@ setlocale(LC_TIME, 'fr', 'fr_FR', 'fr_FR@euro', 'fr_FR.utf8', 'fr-FR', 'fra');
     <h4>Date: {{ \Carbon\Carbon::parse($fiche->date)->locale('fr')->isoFormat('LL') }}</h4>
     <h4>Cycle suivi: {{ $fiche->cycle }}</h4>
 
-    <table>
+    <table id="tableModification">
         <thead>
             <tr>
                 <th>
@@ -44,7 +44,7 @@ setlocale(LC_TIME, 'fr', 'fr_FR', 'fr_FR@euro', 'fr_FR.utf8', 'fr-FR', 'fra');
                                     @if ($typesTemps[$j]["id"] == $plagesDeTemps[$i]["typetemps_id"])
                                         selected
                                     @endif
-                                >
+                                value="{{ $j + 1 }}">
                                     {{ $typesTemps[$j]["type"] }}
                                 </option>
                             @endfor
@@ -55,13 +55,14 @@ setlocale(LC_TIME, 'fr', 'fr_FR', 'fr_FR@euro', 'fr_FR.utf8', 'fr-FR', 'fra');
             @endfor
         </tbody>
     </table>
-    <form method="post" id="formModification" action="{{ route('fiches.update', $fiche->conducteur_id) }}">
+    <form method="post" id="formModification" action="{{ route('fiches.update', [$fiche->conducteur_id]) }}">
         @csrf
         @method('patch')
-        <input type="hidden">
+        <input type="hidden" id="plagesDeTemps" name="plagesDeTemps">
+        <input type="hidden" name="fiche_id" value="{{ $fiche->id }}">
+        <input type="text" name="observation" value="{{ $fiche->observation }}">
         <button type="button">Enregistrer</button>
     </form>
-
     <h1>Journée précédente</h1>
     <a class="btn btn-primary" href="{{ route('fiches.edit', ['id' => $fiche->conducteur_id, 'date' => \Carbon\Carbon::parse($fiche->date)->subDay()->format('Y-m-d')]) }}">Journée précédente</a>
     <h1>Journée suivante</h1>
