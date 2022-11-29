@@ -3,7 +3,8 @@ let form = document.getElementById("formModification");
 let rowTemplate = document.getElementById("rowTemplate");
 let selectAll = document.getElementById("selectAll");
 
-form.querySelector("button").addEventListener("click", onEnregistrer);
+document.getElementById("boutonEnregistrer").addEventListener("click", onEnregistrer);
+document.getElementById("boutonTerminer").addEventListener("click", onTerminer);
 document.getElementById("boutonAjouter").addEventListener("click", onAjouter);
 document.getElementById("boutonSupprimer").addEventListener("click", onSupprimer);
 selectAll.addEventListener("click", onSelectAll);
@@ -45,6 +46,13 @@ function onEnregistrer(e)
     form.submit();
 }
 
+
+function onTerminer(e)
+{
+    document.getElementById("fini").value = 1;
+
+    onEnregistrer(e);
+}
 
 
 

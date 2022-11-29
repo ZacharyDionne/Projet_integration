@@ -159,9 +159,6 @@ class FichesController extends Controller
             return View('erreur');
 
 
-        $peutModifier = true;
-
-
 
         try
         {
@@ -169,7 +166,6 @@ class FichesController extends Controller
             $conducteur = Conducteur::where('id', $id)->first();
             $plagesDeTemps = PlageDeTemps::where('fiche_id', $fiche->id)->where('archive', false)->get()->toArray();
             $typesTemps = TypeTemps::get()->toArray();
-            
 
             if (!$fiche)
             {
@@ -180,6 +176,10 @@ class FichesController extends Controller
                 $fiche->date = $date;
                 $fiche->save();
             }
+
+
+            $peutModifier = !$fiche->fini;
+
         }
         catch (Throwable $e)
         {
@@ -230,6 +230,7 @@ class FichesController extends Controller
         {
             $fiche = Fiche::where('id', $request->fiche_id)->first();
             $fiche->observation = $request->observation;
+            $fiche->fini = $request->fini;
             $fiche->save();
 
 
