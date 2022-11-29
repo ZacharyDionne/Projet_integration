@@ -11,6 +11,8 @@ use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 use App\Models\Fiche;
 use App\Models\Conducteur;
+use App\Models\PlageDeTemps;
+use App\Models\TypeTemps;
 
 use Throwable;
 use Illuminate\Support\Facades\Log;
@@ -135,7 +137,7 @@ class FichesController extends Controller
         /*
             Gestion d'accès
             Autorise seulement le conducteur concerné,
-            an administrateur ou un contre-maître.
+            un administrateur ou un contre-maître.
             
             À l'avenir, il faudrait que le booléen $peutModifier soit envoyé à la view pour savoir
             si le droit de modification est accordé. Ceci n'est que pour un
@@ -160,6 +162,8 @@ class FichesController extends Controller
         {
             $fiche = Fiche::where('date', $date)->where('conducteur_id', $id)->first();
             $conducteur = Conducteur::where('id', $id)->first();
+            $plagesDeTemps = PlageDeTemps::where('fiche_id', $fiche->id)->get()->toArray();
+            $typesTemps = TypeTemps::get()->toArray();
             $peutModifier = true;
 
             if (!$fiche)
@@ -174,10 +178,10 @@ class FichesController extends Controller
         }
         catch (Throwable $e)
         {
+            Log::debug($e);
             return View('erreur');
         }
-
-        return View('fiches.edit', compact('fiche', 'peutModifier', 'conducteur'));
+        return View('fiches.edit', compact('fiche', 'plagesDeTemps', 'typesTemps', 'peutModifier', 'conducteur'));
     }
 
 
@@ -194,6 +198,66 @@ class FichesController extends Controller
         //$request->idFiche - int caché
         //$request->idConducteur - int caché
         //$request->plagesDeTemps - string caché
+
+        /*
+            Gestion d'accès
+
+            Autorise seulement le conducteur concerné,
+            un administrateur ou un contre-maître.
+        
+            À l'avenir, il faudrait il faudra autoriser uniquement le conducteur
+            à modifier une fiche non complété et à un contre-maître ayant le
+            droit exceptionnel de modification suite  à une requête du conducteur.
+        */
+        $authorization = Filtre::estLeConducteur($id);
+        if ($authorization === false)
+        {
+            $authorization = Filtre::estAdminOuContreMaitre();
+            if ($authorization === false)
+                abort(403);
+            else if ($authorization === null)
+                return View('erreur');
+        }
+        else if ($authorization === null)
+            return View('erreur');
+
+
+        try
+        {
+            $fiche = Fiche::where('id', $request->fiche_id)->first();
+            $fiche->observation = $request->observation;
+            $fiche->save();
+
+
+
+            //Archiver les anciennes plages de temps
+            //$plagesDeTemps = PlageDeTemps::where('fiche_id', $request->fiche_id)->where('');
+
+
+
+            $plagesDeTemps = json_decode($request->plagesDeTemps);
+
+            for ($i = 0; $i < count($plagesDeTemps); $i++)
+            {
+                $plageDeTemps = new PlageDeTemps();
+                $plageDeTemps->heureDebut = $plagesDeTemps[$i]->heureDebut;
+                $plageDeTemps->heureFin = $plagesDeTemps[$i]->heureFin;
+                $plageDeTemps->typeTemps_id = $plagesDeTemps[$i]->typeTemps_id;
+                $plageDeTemps->fiche_id = $request->fiche_id;
+
+                $plageDeTemps->save();
+            }
+
+            return redirect()->route('fiches.index', $id);
+        }
+        catch (Throwable $e)
+        {
+            Log::debug($e);
+            return View('erreur');
+        }
+        
+
+
     }
 
     /**

@@ -9,7 +9,7 @@ class TypeTemps extends Model
 {
     use HasFactory;
 
-
+    protected $table = "typetemps";
 
     public function plageDeTemps() : HasMany
     {
