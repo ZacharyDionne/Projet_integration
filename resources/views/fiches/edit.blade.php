@@ -7,7 +7,7 @@ setlocale(LC_TIME, 'fr', 'fr_FR', 'fr_FR@euro', 'fr_FR.utf8', 'fr-FR', 'fra');
 
 @section('cssSupplementaire')
 <link rel="icon" type="image/png" href="{{ asset('images/icons/favicon.ico') }}" />
-<script type="module" src="{{ asset('js/fiches/edit.js') }}" defer></script>
+<script src="{{ asset('js/fiches/edit.js') }}" defer></script>
 @endsection
 
 @section('contenu')
@@ -55,11 +55,11 @@ setlocale(LC_TIME, 'fr', 'fr_FR', 'fr_FR@euro', 'fr_FR.utf8', 'fr-FR', 'fra');
             @endfor
         </tbody>
     </table>
-    <form method="post" action="{{ route('fiches.update', $fiche->conducteur_id) }}">
+    <form method="post" id="formModification" action="{{ route('fiches.update', $fiche->conducteur_id) }}">
         @csrf
         @method('patch')
         <input type="hidden">
-        <button type="submit">Enregistrer</button>
+        <button type="button">Enregistrer</button>
     </form>
 
     <h1>Journée précédente</h1>
