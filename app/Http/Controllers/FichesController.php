@@ -178,12 +178,11 @@ class FichesController extends Controller
                 $fiche->observation = null;
                 $fiche->cycle = 1;
                 $fiche->date = $date;
-                $fiche->save();  
+                $fiche->save();
             }
         }
         catch (Throwable $e)
         {
-            Log::debug($e);
             return View('erreur');
         }
         return View('fiches.edit', compact('fiche', 'plagesDeTemps', 'typesTemps', 'peutModifier', 'conducteur'));
@@ -237,7 +236,12 @@ class FichesController extends Controller
 
             //Archiver les anciennes plages de temps
             $plagesDeTemps = PlageDeTemps::where('fiche_id', $request->fiche_id)->where('archive', false)->get();
-            
+            foreach ($plagesDeTemps as $plageDeTemps)
+            {
+                $plageDeTemps->archive = true;
+                $plageDeTemps->save();
+            }
+
 
 
 
