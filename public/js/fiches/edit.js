@@ -13,6 +13,8 @@ selectAll.addEventListener("click", onSelectAll);
 for (let checkbox of document.getElementsByClassName("select"))
     checkbox.addEventListener("click", onSelect);
 
+for (let time of document.querySelectorAll("input[type='time']"))
+    time.addEventListener("input", onTimeChanged);
 
 
 
@@ -110,4 +112,14 @@ function onSelectAll(e)
 function onSelect(e)
 {
     selectAll.checked = false;
+}
+
+
+function onTimeChanged(e)
+{
+    let time = e.target;
+
+
+    //JE SUIS RENDU LA
+    console.log(time);
 }

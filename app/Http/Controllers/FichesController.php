@@ -54,12 +54,10 @@ class FichesController extends Controller
 
             for ($i = 0; $i < 7; $i++) {
                 $date = date('Y-m-d', strtotime("-$i days"));
-                Log::debug("Date : $date");
                 
                 $fiche = null;
                 $fiche = Fiche::where('conducteur_id', $id)->where('date', $date)->first();
 
-                Log::debug("conducteur" . $id);
 
                 if (!$fiche) {
                     $fiche = new Fiche();
@@ -74,7 +72,6 @@ class FichesController extends Controller
         }
         catch (Throwable $e)
         {
-            Log::debug($e);
             return View('erreur');
         }
         $totalHeures = 420;
@@ -168,14 +165,7 @@ class FichesController extends Controller
             $typesTemps = TypeTemps::get()->toArray();
 
             if (!$fiche)
-            {
-                $fiche = new Fiche();
-                $fiche->conducteur_id = $id;
-                $fiche->observation = null;
-                $fiche->cycle = 1;
-                $fiche->date = $date;
-                $fiche->save();
-            }
+                $fiche = FichesController::createFiche($id, $date);
 
 
             $peutModifier = !$fiche->fini;
@@ -229,9 +219,14 @@ class FichesController extends Controller
         try
         {
             $fiche = Fiche::where('id', $request->fiche_id)->first();
+
             $fiche->observation = $request->observation;
             $fiche->fini = $request->fini;
             $fiche->save();
+
+
+
+            
 
 
 
@@ -263,7 +258,6 @@ class FichesController extends Controller
         }
         catch (Throwable $e)
         {
-            Log::debug($e);
             return View('erreur');
         }
         
@@ -283,4 +277,19 @@ class FichesController extends Controller
         //
     }
     */
+
+
+
+
+    private static function createFiche($id, $date) : Fiche
+    {
+        $fiche = new Fiche();
+        $fiche->conducteur_id = $id;
+        $fiche->observation = null;
+        $fiche->cycle = 1;
+        $fiche->date = $date;
+        $fiche->save();
+    }
+
+
 }

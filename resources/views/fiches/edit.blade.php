@@ -43,8 +43,8 @@ setlocale(LC_TIME, 'fr', 'fr_FR', 'fr_FR@euro', 'fr_FR.utf8', 'fr-FR', 'fra');
                                 <td>
                                     <input type="checkbox" class="select">
                                 </td>
-                                <td><input type="time" step="900" value="{{ $plagesDeTemps[$i]['heureDebut']}}"></td>
-                                <td><input type="time" step="900" value="{{ $plagesDeTemps[$i]['heureFin'] }}"></td>
+                                <td><input type="time" step="900" class="heureDebut" value="{{ $plagesDeTemps[$i]['heureDebut']}}"></td>
+                                <td><input type="time" step="900" class="heureFin" value="{{ $plagesDeTemps[$i]['heureFin'] }}"></td>
                                 <td>
                                     <select>
                                         @for ($j = 0; $j < count($typesTemps); $j++)
@@ -69,6 +69,7 @@ setlocale(LC_TIME, 'fr', 'fr_FR', 'fr_FR@euro', 'fr_FR.utf8', 'fr-FR', 'fra');
                     <input type="hidden" id="plagesDeTemps" name="plagesDeTemps">
                     <input type="hidden" name="fiche_id" value="{{ $fiche->id }}">
                     <input type="text" name="observation" value="{{ $fiche->observation }}">
+                    <input type="hidden" id="fini" name="fini" value="0">
                     <button type="button" id="boutonEnregistrer">Enregistrer</button>
                     <button type="button" id="boutonTerminer">Terminer</button>
                 </form>
@@ -88,10 +89,10 @@ setlocale(LC_TIME, 'fr', 'fr_FR', 'fr_FR@euro', 'fr_FR.utf8', 'fr-FR', 'fra');
                     <tbody>
                         <tr id="rowTemplate">
                             <td>
-                                <input type="checkbox" step="900" class="select">
+                                <input type="checkbox" class="select">
                             </td>
-                            <td><input type="time"></td>
-                            <td><input type="time"></td>
+                            <td><input type="time" step="900" class="heureDebut"></td>
+                            <td><input type="time" step="900" class="heureFin"></td>
                             <td>
                                 <select>
                                     @for ($j = 0; $j < count($typesTemps); $j++)
