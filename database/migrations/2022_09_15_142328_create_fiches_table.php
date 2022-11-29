@@ -19,7 +19,7 @@ return new class extends Migration
             $table->text('observation')->nullable();
             $table->tinyInteger('cycle');
             $table->date('date');
-            $table->boolean('fini')->default(false);
+            $table->boolean('fini')->default(0);
             $table->timestamps();
         });
     }
