@@ -165,7 +165,7 @@ class FichesController extends Controller
 
         try
         {
-            $fiche = Fiche::where('date', $date)->where('conducteur_id', $id)->first();
+            $fiche = Fiche::where('date', $date)->where('conducteur_id', $id)->findOrFail();
             $conducteur = Conducteur::where('id', $id)->first();
             $plagesDeTemps = PlageDeTemps::where('fiche_id', $fiche->id)->get()->toArray();
             $typesTemps = TypeTemps::get()->toArray();
