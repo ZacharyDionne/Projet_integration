@@ -54,12 +54,10 @@ class FichesController extends Controller
 
             for ($i = 0; $i < 7; $i++) {
                 $date = date('Y-m-d', strtotime("-$i days"));
-                Log::debug("Date : $date");
                 
                 $fiche = null;
                 $fiche = Fiche::where('conducteur_id', $id)->where('date', $date)->first();
 
-                Log::debug("conducteur" . $id);
 
                 if (!$fiche) {
                     $fiche = new Fiche();
@@ -74,7 +72,6 @@ class FichesController extends Controller
         }
         catch (Throwable $e)
         {
-            Log::debug($e);
             return View('erreur');
         }
         $totalHeures = 420;
@@ -158,27 +155,24 @@ class FichesController extends Controller
         else if ($authorization === null)
             return View('erreur');
 
+
+
         try
         {
             $fiche = Fiche::where('date', $date)->where('conducteur_id', $id)->first();
             $conducteur = Conducteur::where('id', $id)->first();
-            $plagesDeTemps = PlageDeTemps::where('fiche_id', $fiche->id)->get()->toArray();
+            $plagesDeTemps = PlageDeTemps::where('fiche_id', $fiche->id)->where('archive', false)->get()->toArray();
             $typesTemps = TypeTemps::get()->toArray();
-            $peutModifier = true;
 
             if (!$fiche)
-            {
-                $fiche = new Fiche();
-                $fiche->conducteur_id = $id;
-                $fiche->observation = null;
-                $fiche->cycle = 1;
-                $fiche->date = $date;
-                $fiche->save();  
-            }
+                $fiche = FichesController::createFiche($id, $date);
+
+
+            $peutModifier = !$fiche->fini;
+
         }
         catch (Throwable $e)
         {
-            Log::debug($e);
             return View('erreur');
         }
         return View('fiches.edit', compact('fiche', 'plagesDeTemps', 'typesTemps', 'peutModifier', 'conducteur'));
@@ -225,13 +219,25 @@ class FichesController extends Controller
         try
         {
             $fiche = Fiche::where('id', $request->fiche_id)->first();
+
             $fiche->observation = $request->observation;
+            $fiche->fini = $request->fini;
             $fiche->save();
 
 
 
+            
+
+
+
             //Archiver les anciennes plages de temps
-            //$plagesDeTemps = PlageDeTemps::where('fiche_id', $request->fiche_id)->where('');
+            $plagesDeTemps = PlageDeTemps::where('fiche_id', $request->fiche_id)->where('archive', false)->get();
+            foreach ($plagesDeTemps as $plageDeTemps)
+            {
+                $plageDeTemps->archive = true;
+                $plageDeTemps->save();
+            }
+
 
 
 
@@ -252,7 +258,6 @@ class FichesController extends Controller
         }
         catch (Throwable $e)
         {
-            Log::debug($e);
             return View('erreur');
         }
         
@@ -272,4 +277,19 @@ class FichesController extends Controller
         //
     }
     */
+
+
+
+
+    private static function createFiche($id, $date) : Fiche
+    {
+        $fiche = new Fiche();
+        $fiche->conducteur_id = $id;
+        $fiche->observation = null;
+        $fiche->cycle = 1;
+        $fiche->date = $date;
+        $fiche->save();
+    }
+
+
 }

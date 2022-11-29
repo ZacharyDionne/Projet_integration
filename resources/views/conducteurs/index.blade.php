@@ -52,7 +52,6 @@
 																	@method("patch")
 																	<div class="form-check form-switch">
 																		<input type="checkbox" class="form-check-input xmlCheckbox" role="switch" id="actif" name="actif" @checked($conducteur->actif)>
-																		<label class="form-check-label" for="actif">Actif</label>
 																	</div>
 																</form>
 															</td>

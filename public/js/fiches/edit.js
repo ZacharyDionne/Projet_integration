@@ -3,7 +3,8 @@ let form = document.getElementById("formModification");
 let rowTemplate = document.getElementById("rowTemplate");
 let selectAll = document.getElementById("selectAll");
 
-form.querySelector("button").addEventListener("click", onEnregistrer);
+document.getElementById("boutonEnregistrer").addEventListener("click", onEnregistrer);
+document.getElementById("boutonTerminer").addEventListener("click", onTerminer);
 document.getElementById("boutonAjouter").addEventListener("click", onAjouter);
 document.getElementById("boutonSupprimer").addEventListener("click", onSupprimer);
 selectAll.addEventListener("click", onSelectAll);
@@ -12,6 +13,8 @@ selectAll.addEventListener("click", onSelectAll);
 for (let checkbox of document.getElementsByClassName("select"))
     checkbox.addEventListener("click", onSelect);
 
+for (let time of document.querySelectorAll("input[type='time']"))
+    time.addEventListener("input", onTimeChanged);
 
 
 
@@ -45,6 +48,13 @@ function onEnregistrer(e)
     form.submit();
 }
 
+
+function onTerminer(e)
+{
+    document.getElementById("fini").value = 1;
+
+    onEnregistrer(e);
+}
 
 
 
@@ -102,4 +112,14 @@ function onSelectAll(e)
 function onSelect(e)
 {
     selectAll.checked = false;
+}
+
+
+function onTimeChanged(e)
+{
+    let time = e.target;
+
+
+    //JE SUIS RENDU LA
+    console.log(time);
 }
