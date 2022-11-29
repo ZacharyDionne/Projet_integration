@@ -79,7 +79,7 @@ setlocale(LC_TIME, 'fr', 'fr_FR', 'fr_FR@euro', 'fr_FR.utf8', 'fr-FR', 'fra');
         <tbody>
             <tr id="rowTemplate">
                 <td>
-                    <input type="checkbox">
+                    <input type="checkbox" class="select">
                 </td>
                 <td><input type="time"></td>
                 <td><input type="time"></td>
