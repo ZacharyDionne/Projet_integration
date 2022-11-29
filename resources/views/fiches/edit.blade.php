@@ -6,6 +6,7 @@ setlocale(LC_TIME, 'fr', 'fr_FR', 'fr_FR@euro', 'fr_FR.utf8', 'fr-FR', 'fra');
 @section('titre', 'Fiches')
 
 @section('cssSupplementaire')
+<link rel="stylesheet" href="{{ asset('css/styleTable.css') }}">
 <link rel="icon" type="image/png" href="{{ asset('images/icons/favicon.ico') }}" />
 <script type="module" src="{{ asset('js/fiches/edit.js') }}" defer></script>
 @endsection
@@ -14,10 +15,14 @@ setlocale(LC_TIME, 'fr', 'fr_FR', 'fr_FR@euro', 'fr_FR.utf8', 'fr-FR', 'fra');
     <section class="ftco-section p-3">
 		<div class="flex-container">
             <div class="card card-employes">
-                <h1>{{ $fiche->date }}</h1>
-                <h3>Nom du conducteur: {{ $conducteur->nom }}, {{ $conducteur->prenom }}</h3>
-                <h4>Date: {{ \Carbon\Carbon::parse($fiche->date)->locale('fr')->isoFormat('LL') }}</h4>
-                <h4>Cycle suivi: {{ $fiche->cycle }}</h4>
+                <div class="card-header cardheader-employes">
+					<h4 class="heading-section text-left list-title float-left">Nom du conducteur : {{ $conducteur->nom }}, {{ $conducteur->prenom }}
+                        <br>Cycle suivi: {{ $fiche->cycle }}
+                    </h4>
+                    <h4 class="heading-section text-right list-title float-right">{{ $fiche->date }}
+                        <br>Date: {{ \Carbon\Carbon::parse($fiche->date)->locale('fr')->isoFormat('LL') }}
+                    </h4>
+				</div>
 
                 <table id="tableModification">
                     <thead>
