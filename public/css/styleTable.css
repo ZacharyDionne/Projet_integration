@@ -1727,13 +1727,11 @@ textarea.form-control {
 
 .form-check {
   position: relative;
-  display: block;
-  padding-left: 1.25rem; }
+  display: block; }
 
 .form-check-input {
   position: absolute;
-  margin-top: 0.3rem;
-  margin-left: -1.25rem; }
+  margin-top: 0.3rem; }
   .form-check-input:disabled ~ .form-check-label {
     color: #6c757d; }
 
@@ -1747,12 +1745,10 @@ textarea.form-control {
   -webkit-box-align: center;
   -ms-flex-align: center;
   align-items: center;
-  padding-left: 0;
-  margin-right: 0.75rem; }
+  padding-left: 0; }
   .form-check-inline .form-check-input {
     position: static;
     margin-top: 0;
-    margin-right: 0.3125rem;
     margin-left: 0; }
 
 .valid-feedback {
@@ -2023,7 +2019,6 @@ textarea.form-control {
       -ms-flex-negative: 0;
       flex-shrink: 0;
       margin-top: 0;
-      margin-right: 0.25rem;
       margin-left: 0; }
     .form-inline .custom-control {
       -webkit-box-align: center;
