@@ -192,7 +192,7 @@ class FichesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $conducteur_id)
+    public function update(Request $request, $id)
     {
         //$request->observation - string
         //$request->idFiche - int caché
@@ -209,7 +209,7 @@ class FichesController extends Controller
             à modifier une fiche non complété et à un contre-maître ayant le
             droit exceptionnel de modification suite  à une requête du conducteur.
         */
-        $authorization = Filtre::estLeConducteur($conducteur_id);
+        $authorization = Filtre::estLeConducteur($id);
         if ($authorization === false)
         {
             $authorization = Filtre::estAdminOuContreMaitre();
@@ -221,6 +221,34 @@ class FichesController extends Controller
         else if ($authorization === null)
             return View('erreur');
 
+
+        try
+        {
+            $fiche = Fiche::where('id', $request->fiche_id)->first();
+            $fiche->observation = $request->observation;
+            $fiche->save();
+
+            $plagesDeTemps = json_decode($request->plagesDeTemps);
+
+            for ($i = 0; $i < count($plagesDeTemps); $i++)
+            {
+                $plageDeTemps = new PlageDeTemps();
+                $plageDeTemps->heureDebut = $plagesDeTemps[$i]->heureDebut;
+                $plageDeTemps->heureFin = $plagesDeTemps[$i]->heureFin;
+                $plageDeTemps->typeTemps_id = $plagesDeTemps[$i]->typeTemps_id;
+                $plageDeTemps->fiche_id = $request->fiche_id;
+
+                $plageDeTemps->save();
+            }
+
+            return redirect()->route('fiches.index', $id);
+        }
+        catch (Throwable $e)
+        {
+            Log::debug($e);
+            return View('erreur');
+        }
+        
 
 
     }
