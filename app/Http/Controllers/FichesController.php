@@ -158,13 +158,18 @@ class FichesController extends Controller
         else if ($authorization === null)
             return View('erreur');
 
+
+        $peutModifier = true;
+
+
+
         try
         {
             $fiche = Fiche::where('date', $date)->where('conducteur_id', $id)->first();
             $conducteur = Conducteur::where('id', $id)->first();
             $plagesDeTemps = PlageDeTemps::where('fiche_id', $fiche->id)->get()->toArray();
             $typesTemps = TypeTemps::get()->toArray();
-            $peutModifier = true;
+            
 
             if (!$fiche)
             {
@@ -231,7 +236,8 @@ class FichesController extends Controller
 
 
             //Archiver les anciennes plages de temps
-            //$plagesDeTemps = PlageDeTemps::where('fiche_id', $request->fiche_id)->where('');
+            $plagesDeTemps = PlageDeTemps::where('fiche_id', $request->fiche_id)->where('archive', false)->get();
+            
 
 
 

@@ -19,7 +19,7 @@ return new class extends Migration
             $table->foreignId('typetemps_id')->constrained();
             $table->time('heureDebut');
             $table->time('heureFin');
-            $table->boolean('ancienne');
+            $table->boolean('archive')->default(false);
             $table->timestamps();
         });
     }
