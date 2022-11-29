@@ -167,7 +167,7 @@ class FichesController extends Controller
         {
             $fiche = Fiche::where('date', $date)->where('conducteur_id', $id)->first();
             $conducteur = Conducteur::where('id', $id)->first();
-            $plagesDeTemps = PlageDeTemps::where('fiche_id', $fiche->id)->get()->toArray();
+            $plagesDeTemps = PlageDeTemps::where('fiche_id', $fiche->id)->where('archive', false)->get()->toArray();
             $typesTemps = TypeTemps::get()->toArray();
             
 
