@@ -36,6 +36,7 @@ function addEvents()
         times[0].addEventListener("input", validateTime);
         times[0].oldValue = times[0].value;
 
+
         times[1].addEventListener("input", validateTime);
         times[1].oldValue = times[1].value;
         
@@ -155,7 +156,44 @@ function onSelect(e)
 
 function onHeureDebutChanged(e)
 {
-    let rows = Array.from(tbody.children);    
+    let rows = Array.from(tbody.children);
+    let timeA = e.target;
+    let row = timeA.parentNode.parentNode;
+    let index = rows.indexOf(row);
+
+
+    //Regarder si il est nécessaire de retrier, si non retourner
+    if (index === 0)
+    {
+        if (index + 1 === rows.length)
+        {
+            return;
+        }
+
+        let timeB = rows[index + 1].querySelector("input[type='time']");
+
+        if (timeA.value <= timeB.value)
+            return;
+    }
+    else if (index + 1 === rows.length)
+    {
+        let timeB = rows[index - 1].querySelector("input[type='time']");
+
+        if (timeA.value >= timeB.value)
+            return;
+    }
+    else
+    {
+        let timeB = rows[index + 1].querySelector("input[type='time']");
+
+        if (timeA.value <= timeB.value)
+            return;
+
+        timeB = rows[index - 1].querySelector("input[type='time']");
+
+        if (timeA.value >= timeB.value)
+            return;
+    }
 
     rows.sort((rowA, rowB) => {
 
@@ -183,7 +221,7 @@ function onHeureDebutChanged(e)
         tbody.removeChild(tbody.children[0]);
         
     for (let i = 0; i < rows.length; i++)
-        tbody.appendChild(rows[i]);    
+        tbody.appendChild(rows[i]);
 }
 
 
