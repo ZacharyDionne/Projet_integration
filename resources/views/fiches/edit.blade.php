@@ -47,7 +47,7 @@ setlocale(LC_TIME, 'fr', 'fr_FR', 'fr_FR@euro', 'fr_FR.utf8', 'fr-FR', 'fra');
 					<div class="row">
 						<div class="col-md-12">
 							<div class="table-wrap">
-								<table class="table flex-container">
+								<table class="table flex-container" id="tableModification">
 									<thead class="bg-tr-up">
 										<tr class="shadow-sm">
                                             <th class="font-tr">
@@ -97,7 +97,7 @@ setlocale(LC_TIME, 'fr', 'fr_FR', 'fr_FR@euro', 'fr_FR.utf8', 'fr-FR', 'fra');
                     <button type="button" id="boutonEnregistrer">Enregistrer</button>
                     <button type="button" id="boutonTerminer">Terminer</button>
                 </form>
-                
+
                 <!-- Cette partie donne à Javascript le format pour une colonne d'une plage de temps -->
                 <table class="d-none">
                     <tbody>
