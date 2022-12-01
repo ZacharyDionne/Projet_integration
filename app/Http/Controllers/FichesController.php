@@ -36,25 +36,23 @@ class FichesController extends Controller
             un administrateur ou un contre-maître.
         */
         $authorization = Filtre::estLeConducteur($id);
-        if ($authorization === false)
-        {
+        if ($authorization === false) {
             $authorization = Filtre::estAdminOuContreMaitre();
             if ($authorization === false)
                 abort(403);
             else if ($authorization === null)
                 return View('erreur');
-        }
-        else if ($authorization === null)
+        } else if ($authorization === null)
             return View('erreur');
 
-        try
-        {
+        try {
             $fiches = Fiche::where('conducteur_id', $id)->orderByDesc('date')->take(150);
-            
+            $totalHeures = 0;
+            $totalHeuresRepos = 0;
 
             for ($i = 0; $i < 7; $i++) {
                 $date = date('Y-m-d', strtotime("-$i days"));
-                
+
                 $fiche = null;
                 $fiche = Fiche::where('conducteur_id', $id)->where('date', $date)->first();
 
@@ -67,17 +65,25 @@ class FichesController extends Controller
                     $fiche->save();
                 }
 
-                // for each "PlageDeTemps" associated with this "fiche",
-    
+                // for each "PlageDeTemps" associated with this "fiche", add 1 to totalHeures
+
+                foreach ($fiche->plagesDeTemps as $plageDeTemps) {
+                    if ($plageDeTemps->typetemps_id == 1) {
+                        $totalHeuresRepos += (strtotime($plageDeTemps->heureFin) - strtotime($plageDeTemps->heureDebut)) / 3600;
+                    }
+                    elseif ($plageDeTemps->typetemps_id == 2 || $plageDeTemps->typetemps_id == 3) {
+                        $totalHeures += (strtotime($plageDeTemps->heureFin) - strtotime($plageDeTemps->heureDebut)) / 3600;
+                    }
+                }
+
                 $lastFiches[$i] = $fiche;
             }
-        }
-        catch (Throwable $e)
-        {
+        } catch (Throwable $e) {
             return View('erreur');
         }
-        $totalHeures = 420;
-        $totalHeuresRepos = 69;
+        
+        $totalHeures = gmdate("H:i", $totalHeures * 3600);
+        $totalHeuresRepos = gmdate("H:i", $totalHeuresRepos * 3600);
 
         return View("fiches.index", compact("fiches", "lastFiches", "totalHeures", "totalHeuresRepos"));
         // return View("fiches.index", compact("fiches"));
@@ -146,21 +152,18 @@ class FichesController extends Controller
             à une requête du conducteur.
         */
         $authorization = Filtre::estLeConducteur($id);
-        if ($authorization === false)
-        {
+        if ($authorization === false) {
             $authorization = Filtre::estAdminOuContreMaitre();
             if ($authorization === false)
                 abort(403);
             else if ($authorization === null)
                 return View('erreur');
-        }
-        else if ($authorization === null)
+        } else if ($authorization === null)
             return View('erreur');
 
 
 
-        try
-        {
+        try {
             $fiche = Fiche::where('date', $date)->where('conducteur_id', $id)->first();
             $conducteur = Conducteur::where('id', $id)->first();
             $plagesDeTemps = PlageDeTemps::where('fiche_id', $fiche->id)->where('archive', false)->get()->toArray();
@@ -171,10 +174,7 @@ class FichesController extends Controller
 
 
             $peutModifier = !$fiche->fini;
-
-        }
-        catch (Throwable $e)
-        {
+        } catch (Throwable $e) {
             return View('erreur');
         }
         return View('fiches.edit', compact('fiche', 'plagesDeTemps', 'typesTemps', 'peutModifier', 'conducteur'));
@@ -206,20 +206,17 @@ class FichesController extends Controller
             droit exceptionnel de modification suite  à une requête du conducteur.
         */
         $authorization = Filtre::estLeConducteur($id);
-        if ($authorization === false)
-        {
+        if ($authorization === false) {
             $authorization = Filtre::estAdminOuContreMaitre();
             if ($authorization === false)
                 abort(403);
             else if ($authorization === null)
                 return View('erreur');
-        }
-        else if ($authorization === null)
+        } else if ($authorization === null)
             return View('erreur');
 
 
-        try
-        {
+        try {
             $fiche = Fiche::where('id', $request->fiche_id)->first();
 
             $fiche->observation = $request->observation;
@@ -228,14 +225,13 @@ class FichesController extends Controller
 
 
 
-            
+
 
 
 
             //Archiver les anciennes plages de temps
             $plagesDeTemps = PlageDeTemps::where('fiche_id', $request->fiche_id)->where('archive', false)->get();
-            foreach ($plagesDeTemps as $plageDeTemps)
-            {
+            foreach ($plagesDeTemps as $plageDeTemps) {
                 $plageDeTemps->archive = true;
                 $plageDeTemps->save();
             }
@@ -245,8 +241,7 @@ class FichesController extends Controller
 
             $plagesDeTemps = json_decode($request->plagesDeTemps);
 
-            for ($i = 0; $i < count($plagesDeTemps); $i++)
-            {
+            for ($i = 0; $i < count($plagesDeTemps); $i++) {
                 $plageDeTemps = new PlageDeTemps();
                 $plageDeTemps->heureDebut = $plagesDeTemps[$i]->heureDebut;
                 $plageDeTemps->heureFin = $plagesDeTemps[$i]->heureFin;
@@ -257,14 +252,9 @@ class FichesController extends Controller
             }
 
             return redirect()->route('fiches.index', $id);
-        }
-        catch (Throwable $e)
-        {
+        } catch (Throwable $e) {
             return View('erreur');
         }
-        
-
-
     }
 
     /**
@@ -283,7 +273,7 @@ class FichesController extends Controller
 
 
 
-    private static function createFiche($id, $date) : Fiche
+    private static function createFiche($id, $date): Fiche
     {
         $fiche = new Fiche();
         $fiche->conducteur_id = $id;
@@ -292,6 +282,4 @@ class FichesController extends Controller
         $fiche->date = $date;
         $fiche->save();
     }
-
-
 }

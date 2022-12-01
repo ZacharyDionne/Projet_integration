@@ -116,7 +116,7 @@ setlocale(LC_TIME, 'fr', 'fr_FR', 'fr_FR@euro', 'fr_FR.utf8', 'fr-FR', 'fra');
 		<div class="row">
 			<div class="col-md-6 offset-md-3">
 				<h3 class="text-center onlyFontTr ttlFiche">Fiches des 7 derniers jours :</h3>
-				<p class="text-center">Heures cumulées : {{ $totalHeures }} | · | Heures de repos : {{ $totalHeuresRepos }}</p>
+				<p class="text-center">Heures de travail cumulées : {{ $totalHeures }} | · | Heures de repos cumulées : {{ $totalHeuresRepos }}</p>
 
 				@foreach($lastFiches as $lastFiche)
 				<div class="baniere-body-fiche">
