@@ -21,6 +21,36 @@
     /* box-shadow: 0px 19px 27px -20px rgb(0 0 0 / 16%); */
 }
 
+.button-add {
+  background: -webkit-linear-gradient(90deg, #006c48, #009261) !important;
+  /* box-shadow: 0px 19px 27px -20px rgb(0 0 0 / 16%); */
+}
+
+.button-add:hover {
+  background: -webkit-linear-gradient(90deg, #00573a, #00754e) !important;
+  /* box-shadow: 0px 19px 27px -20px rgb(0 0 0 / 16%); */
+}
+
+.button-delete {
+  background: -webkit-linear-gradient(90deg, #bf0000, #ff0000) !important;
+  /* box-shadow: 0px 19px 27px -20px rgb(0 0 0 / 16%); */
+}
+
+.button-delete:hover {
+  background: -webkit-linear-gradient(90deg, #840000, #bc0000) !important;
+  /* box-shadow: 0px 19px 27px -20px rgb(0 0 0 / 16%); */
+}
+
+.button-page {
+  background: -webkit-linear-gradient(90deg, #004898, #0079c1) !important;
+  /* box-shadow: 0px 19px 27px -20px rgb(0 0 0 / 16%); */
+}
+
+.button-page:hover {
+  background: -webkit-linear-gradient(90deg, #003572, #006199) !important;
+  /* box-shadow: 0px 19px 27px -20px rgb(0 0 0 / 16%); */
+}
+
 .font-tr {
     font-family: Roboto-Bold !important;
     text-transform: uppercase !important;
@@ -41,6 +71,7 @@
 .button-ajouter {
   font-family: Roboto-Bold;
   font-size: 16px;
+  padding-top: 10px;
   color: #fff;
   border-radius: 10px;
   background: -webkit-linear-gradient(90deg, #367f49, #5e986d);
@@ -84,6 +115,9 @@
 .employe-search::placeholder {
   color: #A7A7A7
 }
+
+.button-middle
+
 
 .top-small-title {
   font-family: Roboto-Regular;
