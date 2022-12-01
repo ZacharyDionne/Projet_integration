@@ -152,17 +152,22 @@
 }
 
 .btnDeco {
-  /* make a button for deconnexion */
+  margin-left: auto;
   font-family: Roboto-Bold;
   font-size: 16px;
   background: -webkit-linear-gradient(90deg, #c50a0a, #fb1c1c);
-  padding: 8px;
+  padding: 5px 16px;
+  margin-right: 10px;
   border-color: #000;
   border-width: 1px;
   border-radius: 5px;
   box-shadow: 0px 19px 27px -20px rgb(0 0 0 / 16%);
 }
 
+.banLogo{
+  /* ajuster la taille de l'image en fonction des elements de la div parent */
+ 
+}
 
 
 /* [ Navbar ] */
@@ -170,6 +175,7 @@
 .topnav {
   overflow: hidden;
   text-align: center;
+  padding: 0 !important;
 }
 
 .topnav a {
@@ -183,7 +189,16 @@
 
 .topnav a:hover { 
   background-color: #004898;
-  border-radius: 20px;
+}
+
+.topnavButton {
+  padding: 14px 16px;
+}
+
+.btnAlerte {
+  /* take the whole heigh inside the navbar */
+  height: 120% !important;
+
 }
 
 @media screen and (max-width: 600px) {
@@ -196,15 +211,18 @@
   
   /* Hide the only the span inside a */
   .topnav a span {
-    font-size: 0.5em;
+    font-size: 0.70em;
     display: block;
   }
 
   .navbar {
     align-items: flex-end !important;
+    justify-content: space-evenly !important;
+    height: 48px !important;
   }
 
   .btnDeco {
+    margin: 0;
     background: none;
     border: none;
   }
@@ -228,8 +246,15 @@
 
 .noMargin {
   margin: 0px !important;
+  height: 48px !important;
 }
 
 .btnDeco:hover {
   background: -webkit-linear-gradient(90deg, #9d0808, #c81616);
+}
+
+.text-nav{
+  display: flex;
+  align-items: center;
+  height: 100%;
 }
