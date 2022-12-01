@@ -15,7 +15,9 @@ class AlertesController extends Controller
      */
     public function index()
     {
-        $alertes = Alerte::all();
+        // $alertes = Alerte::all();
+        // Trier les aertes par date
+        $alertes = Alerte::orderBy('date', 'desc')->get();
 
         return View("alertes.index", compact("alertes"));
     }

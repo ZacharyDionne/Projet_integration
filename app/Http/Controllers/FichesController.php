@@ -66,6 +66,8 @@ class FichesController extends Controller
                     $fiche->cycle = 1;
                     $fiche->save();
                 }
+
+                // for each "PlageDeTemps" associated with this "fiche",
     
                 $lastFiches[$i] = $fiche;
             }

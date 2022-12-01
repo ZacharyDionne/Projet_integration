@@ -15,6 +15,7 @@ return new class extends Migration
     {
         Schema::create('alertes', function (Blueprint $table) {
             $table->id();
+            $table->integer('type');
             $table->foreignId('conducteur_id')->constrained();
             $table->string('message', 255);
             $table->boolean('actif');

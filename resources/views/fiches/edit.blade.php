@@ -6,6 +6,7 @@ setlocale(LC_TIME, 'fr', 'fr_FR', 'fr_FR@euro', 'fr_FR.utf8', 'fr-FR', 'fra');
 @section('titre', 'Fiches')
 
 @section('cssSupplementaire')
+<link rel="stylesheet" href="{{ asset('css/styleTable.css') }}">
 <link rel="icon" type="image/png" href="{{ asset('images/icons/favicon.ico') }}" />
 <script type="module" src="{{ asset('js/fiches/edit.js') }}" defer></script>
 @endsection
@@ -14,50 +15,78 @@ setlocale(LC_TIME, 'fr', 'fr_FR', 'fr_FR@euro', 'fr_FR.utf8', 'fr-FR', 'fra');
     <section class="ftco-section p-3">
 		<div class="flex-container">
             <div class="card card-employes">
-                <h1>{{ $fiche->date }}</h1>
-                <h3>Nom du conducteur: {{ $conducteur->nom }}, {{ $conducteur->prenom }}</h3>
-                <h4>Date: {{ \Carbon\Carbon::parse($fiche->date)->locale('fr')->isoFormat('LL') }}</h4>
-                <h4>Cycle suivi: {{ $fiche->cycle }}</h4>
+                <div class="card-header cardheader-employes">
+					<h4 class="heading-section text-left list-title float-left">Nom du conducteur : {{ $conducteur->nom }}, {{ $conducteur->prenom }}
+                        <br>Cycle suivi: {{ $fiche->cycle }}
+                    </h4>
+                    <h4 class="heading-section text-right list-title float-right">{{ $fiche->date }}
+                        <br>Date: {{ \Carbon\Carbon::parse($fiche->date)->locale('fr')->isoFormat('LL') }}
+                    </h4>
+				</div>
+                <div class="d-flex justify-content-around p-4">
+                    <a class="btn btn-primary button-page font-tr w-100 mr-2" href="{{ route('fiches.edit', ['id' => $fiche->conducteur_id, 'date' => \Carbon\Carbon::parse($fiche->date)->subDay()->format('Y-m-d')]) }}">
+                        <i class="fa fa-arrow-left" aria-hidden="true"></i> Journée précédente
+                    </a>
+                    <a class="btn btn-primary button-list font-tr w-100 ml-2 mr-2" href="{{ route('fiches.index', ['id' => $fiche->conducteur_id]) }}">
+                        <i class="fa fa-list" aria-hidden="true"></i> Retour à la liste des fiches
+                    </a>
+                    <a class="btn btn-primary button-page font-tr w-100 ml-2" href="{{ route('fiches.edit', ['id' => $fiche->conducteur_id, 'date' => \Carbon\Carbon::parse($fiche->date)->addDay()->format('Y-m-d')]) }}">
+                        Journée suivante <i class="fa fa-arrow-right" aria-hidden="true"></i>
+                    </a>
+                </div>
 
-                <table id="tableModification">
-                    <thead>
-                        <tr>
-                            <th>
-                                <input type="checkbox" id="selectAll">
-                                <label for="selectAll">Tout sélectionner</label>
-                            </th>
-                            <th>Début de l'activité</th>
-                            <th>Fin de l'activité</th>
-                            <th>Type</th>
-                            <th><button type="button" id="boutonAjouter">Ajouter</button><button type="button" id="boutonSupprimer">Supprimer</button></th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @for ($i = 0; $i < count($plagesDeTemps); $i++)
-                            <tr>
-                                <td>
-                                    <input type="checkbox" class="select">
-                                </td>
-                                <td><input type="time" step="900" class="heureDebut" value="{{ $plagesDeTemps[$i]['heureDebut']}}"></td>
-                                <td><input type="time" step="900" class="heureFin" value="{{ $plagesDeTemps[$i]['heureFin'] }}"></td>
-                                <td>
-                                    <select>
-                                        @for ($j = 0; $j < count($typesTemps); $j++)
-                                            <option
-                                                @if ($typesTemps[$j]["id"] == $plagesDeTemps[$i]["typetemps_id"])
-                                                    selected
-                                                @endif
-                                            value="{{ $j + 1 }}">
-                                                {{ $typesTemps[$j]["type"] }}
-                                            </option>
-                                        @endfor
-                                    </select>
-                                </td>
-                                <td></td>
-                            </tr>
-                        @endfor
-                    </tbody>
-                </table>
+                <div class="grid-placement ml-4 mr-4">
+                    <div class="d-flex justify-content-around">
+                        <a class="btn btn-primary button-add font-tr w-100 mr-2" id="boutonAjouter">
+                            <i class="fa fa-plus" aria-hidden="true"></i> Ajouter
+                        </a>
+                        <a class="btn btn-primary button-delete font-tr w-100 ml-2" id="boutonSupprimer">
+                            <i class="fa fa-trash" aria-hidden="true"></i> Supprimer
+                        </a>
+                    </div>
+					<div class="row">
+						<div class="col-md-12">
+							<div class="table-wrap">
+								<table class="table flex-container">
+									<thead class="bg-tr-up">
+										<tr class="shadow-sm">
+                                            <th class="font-tr">
+                                                <input type="checkbox" id="selectAll">
+                                            </th>
+                                            <th class="font-tr">Début de l'activité</th>
+                                            <th class="font-tr">Fin de l'activité</th>
+                                            <th class="font-tr">Type</th>
+										</tr>
+									</thead>
+									<tbody>
+                                        @for ($i = 0; $i < count($plagesDeTemps); $i++)
+											<tr class="shadow-sm">
+                                                <td class="font-rg">
+                                                    <input type="checkbox" class="select">
+                                                </td>
+                                                <td class="font-rg"><input type="time" step="900" class="heureDebut" value="{{ $plagesDeTemps[$i]['heureDebut']}}"></td>
+                                                <td class="font-rg"><input type="time" step="900" class="heureFin" value="{{ $plagesDeTemps[$i]['heureFin'] }}"></td>
+                                                <td class="font-rg">
+                                                    <select>
+                                                        @for ($j = 0; $j < count($typesTemps); $j++)
+                                                            <option
+                                                                @if ($typesTemps[$j]["id"] == $plagesDeTemps[$i]["typetemps_id"])
+                                                                    selected
+                                                                @endif
+                                                                value="{{ $j + 1 }}">
+                                                                    {{ $typesTemps[$j]["type"] }}
+                                                            </option>
+                                                        @endfor
+                                                    </select>
+                                                </td>
+											</tr>
+										@endfor
+									</tbody>
+								</table>
+							</div>
+						</div>
+					</div>
+				</div>
                 <form method="post" id="formModification" action="{{ route('fiches.update', [$fiche->conducteur_id]) }}">
                     @csrf
                     @method('patch')
@@ -68,37 +97,26 @@ setlocale(LC_TIME, 'fr', 'fr_FR', 'fr_FR@euro', 'fr_FR.utf8', 'fr-FR', 'fra');
                     <button type="button" id="boutonEnregistrer">Enregistrer</button>
                     <button type="button" id="boutonTerminer">Terminer</button>
                 </form>
-                <h1>Journée précédente</h1>
-                <a class="btn btn-primary" href="{{ route('fiches.edit', ['id' => $fiche->conducteur_id, 'date' => \Carbon\Carbon::parse($fiche->date)->subDay()->format('Y-m-d')]) }}">Journée précédente</a>
-                <h1>Journée suivante</h1>
-                <a class="btn btn-primary" href="{{ route('fiches.edit', ['id' => $fiche->conducteur_id, 'date' => \Carbon\Carbon::parse($fiche->date)->addDay()->format('Y-m-d')]) }}">Journée suivante</a>
-
-                <h1>Retour à la liste des fiches</h1>
-                <a class="btn btn-primary" href="{{ route('fiches.index', ['id' => $fiche->conducteur_id]) }}">Retour à la liste des fiches</a>
-                <h1>Sauvegarder et marquer comme completer</h1>
-
-
-
+                
                 <!-- Cette partie donne à Javascript le format pour une colonne d'une plage de temps -->
                 <table class="d-none">
                     <tbody>
-                        <tr id="rowTemplate">
-                            <td>
+                        <tr class="shadow-sm" id="rowTemplate">
+                            <td class="font-rg">
                                 <input type="checkbox" class="select">
                             </td>
-                            <td><input type="time" step="900" class="heureDebut"></td>
-                            <td><input type="time" step="900" class="heureFin"></td>
-                            <td>
+                            <td class="font-rg"><input type="time" step="900" class="heureDebut"></td>
+                            <td class="font-rg"><input type="time" step="900" class="heureFin"></td>
+                            <td class="font-rg">
                                 <select>
                                     @for ($j = 0; $j < count($typesTemps); $j++)
                                         <option
-                                        value="{{ $j + 1 }}">
-                                            {{ $typesTemps[$j]["type"] }}
+                                            value="{{ $j + 1 }}">
+                                                {{ $typesTemps[$j]["type"] }}
                                         </option>
                                     @endfor
                                 </select>
                             </td>
-                            <td></td>
                         </tr>
                     </tbody>
                 </table>
