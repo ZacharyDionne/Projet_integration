@@ -1,26 +1,57 @@
 let table = document.getElementById("tableModification");
+let tbody = table.querySelector("tbody");
 let form = document.getElementById("formModification");
 let rowTemplate = document.getElementById("rowTemplate");
 let selectAll = document.getElementById("selectAll");
 
-document.getElementById("boutonEnregistrer").addEventListener("click", onEnregistrer);
-document.getElementById("boutonTerminer").addEventListener("click", onTerminer);
-document.getElementById("boutonAjouter").addEventListener("click", onAjouter);
-document.getElementById("boutonSupprimer").addEventListener("click", onSupprimer);
-selectAll.addEventListener("click", onSelectAll);
+addEvents();
 
 
-for (let checkbox of document.getElementsByClassName("select"))
-    checkbox.addEventListener("click", onSelect);
 
-for (let time of document.querySelectorAll("input[type='time']"))
-    time.addEventListener("input", onTimeChanged);
+
+
+
+function addEvents()
+{
+    document.getElementById("boutonEnregistrer").addEventListener("click", onEnregistrer);
+    document.getElementById("boutonTerminer").addEventListener("click", onTerminer);
+    document.getElementById("boutonAjouter").addEventListener("click", onAjouter);
+    document.getElementById("boutonSupprimer").addEventListener("click", onSupprimer);
+    selectAll.addEventListener("click", onSelectAll);
+    
+    
+    for (let checkbox of document.getElementsByClassName("select"))
+        checkbox.addEventListener("click", onSelect);
+    
+
+
+
+    let rows = tbody.children;
+    
+    for (let i = 0; i < rows.length; i++)
+    {
+        let times = rows[i].querySelectorAll("input[type='time']");
+
+        times[0].addEventListener("input", onHeureDebutChanged);
+        times[0].addEventListener("input", validateTime);
+        times[0].oldValue = times[0].value;
+
+        times[1].addEventListener("input", validateTime);
+        times[1].oldValue = times[1].value;
+        
+
+    }
+}
+
+
+
+
 
 
 
 function onEnregistrer(e)
 {
-    let rows = table.querySelector("tbody").children;
+    let rows = tbody.children;
     let plagesDeTemps = [];
     let jsonPlagesDeTemps;
     
@@ -63,10 +94,18 @@ function onTerminer(e)
 function onAjouter(e)
 {
     let row = rowTemplate.cloneNode(true);
-    let tbody = table.children[1];
     let checkbox = row.children[0].children[0];
+    let times = row.querySelectorAll("input[type='time']");
 
     checkbox.addEventListener("click", onSelect);
+
+    times[0].addEventListener("input", onHeureDebutChanged);
+    times[0].addEventListener("input", validateTime);
+    times[0].oldValue = times[0].value;
+
+
+    times[1].addEventListener("input", validateTime);
+    times[1].oldValue = times[1].value;
 
     checkbox.checked = selectAll.checked;
 
@@ -76,7 +115,6 @@ function onAjouter(e)
 
 function onSupprimer(e)
 {
-    let tbody = table.children[1];
     let rows = tbody.children;
 
     
@@ -115,11 +153,55 @@ function onSelect(e)
 }
 
 
-function onTimeChanged(e)
+function onHeureDebutChanged(e)
+{
+    let rows = Array.from(tbody.children);    
+
+    rows.sort((rowA, rowB) => {
+
+        let timeA = rowA.querySelector("input[type='time']").value;
+        let timeB = rowB.querySelector("input[type='time']").value;
+
+
+        if (timeA === timeB)
+            return 0;
+        
+        if (timeA === "")
+            return 1;
+
+        if (timeB === "")
+            return -1;
+
+        if (timeA > timeB)
+            return 1;
+
+        return -1;
+    });
+
+    
+    while (tbody.children.length !== 0)
+        tbody.removeChild(tbody.children[0]);
+        
+    for (let i = 0; i < rows.length; i++)
+        tbody.appendChild(rows[i]);    
+}
+
+
+function validateTime(e)
 {
     let time = e.target;
+    let array = time.value.split(":");
 
+    let seconds = array[0] * 60 + array[1];
 
-    //JE SUIS RENDU LA
-    console.log(time);
+    if (seconds % 15 !== 0)
+    {
+        time.value = time.oldValue;
+    } 
+    else
+    {
+        time.oldValue = time.value;
+    }    
 }
+
+
