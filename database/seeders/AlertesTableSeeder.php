@@ -41,7 +41,7 @@ class AlertesTableSeeder extends Seeder
         ]);
         DB::table('alertes')->insert([
             'type' => 1,
-            'conducteur_id' => 4,
+            'conducteur_id' => 3,
             'message' => 'Alerte 4',
             'actif' => 0,
             'date' => '2022-09-18',
