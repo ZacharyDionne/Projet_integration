@@ -16,32 +16,32 @@ setlocale(LC_TIME, 'fr', 'fr_FR', 'fr_FR@euro', 'fr_FR.utf8', 'fr-FR', 'fra');
 		<div class="flex-container">
             <div class="card card-employes">
                 <div class="card-header cardheader-employes">
-					<h4 class="heading-section text-left list-title float-left">Nom du conducteur : {{ $conducteur->nom }}, {{ $conducteur->prenom }}
+					<h4 class="heading-sectionbigleft">Nom du conducteur : {{ $conducteur->nom }}, {{ $conducteur->prenom }}
                         <br>Cycle suivi: {{ $fiche->cycle }}
                     </h4>
-                    <h4 class="heading-section text-right list-title float-right">{{ $fiche->date }}
+                    <h4 class="heading-sectionbigright">{{ $fiche->date }}
                         <br>Date: {{ \Carbon\Carbon::parse($fiche->date)->locale('fr')->isoFormat('LL') }}
                     </h4>
 				</div>
                 <div class="d-flex justify-content-around p-4">
                     <a class="btn btn-primary button-page font-tr w-100 mr-2" href="{{ route('fiches.edit', ['id' => $fiche->conducteur_id, 'date' => \Carbon\Carbon::parse($fiche->date)->subDay()->format('Y-m-d')]) }}">
-                        <i class="fa fa-arrow-left" aria-hidden="true"></i> Journée précédente
+                        <i class="fa fa-arrow-left" aria-hidden="true"></i><span class="item-label"> Journée précédente</span>
                     </a>
                     <a class="btn btn-primary button-list font-tr w-100 ml-2 mr-2" href="{{ route('fiches.index', ['id' => $fiche->conducteur_id]) }}">
-                        <i class="fa fa-list" aria-hidden="true"></i> Retour à la liste des fiches
+                        <i class="fa fa-list" aria-hidden="true"></i><span class="item-label"> Retour à la liste des fiches</span>
                     </a>
                     <a class="btn btn-primary button-page font-tr w-100 ml-2" href="{{ route('fiches.edit', ['id' => $fiche->conducteur_id, 'date' => \Carbon\Carbon::parse($fiche->date)->addDay()->format('Y-m-d')]) }}">
-                        Journée suivante <i class="fa fa-arrow-right" aria-hidden="true"></i>
+                        <span class="item-label">Journée suivante </span><i class="fa fa-arrow-right" aria-hidden="true"></i>
                     </a>
                 </div>
 
                 <div class="grid-placement ml-4 mr-4">
                     <div class="d-flex justify-content-around">
                         <a class="btn btn-primary button-add font-tr w-100 mr-2" id="boutonAjouter">
-                            <i class="fa fa-plus" aria-hidden="true"></i> Ajouter
+                            <i class="fa fa-plus" aria-hidden="true"></i><span class="item-label"> Ajouter</span>
                         </a>
                         <a class="btn btn-primary button-delete font-tr w-100 ml-2" id="boutonSupprimer">
-                            <i class="fa fa-trash" aria-hidden="true"></i> Supprimer
+                            <i class="fa fa-trash" aria-hidden="true"></i><span class="item-label"> Supprimer</span>
                         </a>
                     </div>
 					<div class="row">
@@ -53,8 +53,8 @@ setlocale(LC_TIME, 'fr', 'fr_FR', 'fr_FR@euro', 'fr_FR.utf8', 'fr-FR', 'fra');
                                             <th class="font-tr">
                                                 <input type="checkbox" id="selectAll">
                                             </th>
-                                            <th class="font-tr">Début de l'activité</th>
-                                            <th class="font-tr">Fin de l'activité</th>
+                                            <th class="font-tr">Début<span class="item-label"> de l'activité</span></th>
+                                            <th class="font-tr">Fin<span class="item-label"> de l'activité</span></th>
                                             <th class="font-tr">Type</th>
 										</tr>
 									</thead>
@@ -94,15 +94,15 @@ setlocale(LC_TIME, 'fr', 'fr_FR', 'fr_FR@euro', 'fr_FR.utf8', 'fr-FR', 'fra');
                         <h6 class="heading-sectionsmall text-left list-title float-left">Observation</h6>
                         <input type="hidden" id="plagesDeTemps" name="plagesDeTemps">
                         <input type="hidden" name="fiche_id" value="{{ $fiche->id }}">
-                        <input type="text" id="observation" class="w-100" name="observation" value="{{ $fiche->observation }}">
+                        <textarea id="observation" rows="4" class="w-100" name="observation">{{ $fiche->observation }}</textarea>                    
                         <input type="hidden" id="fini" name="fini" value="0">
                     </div>
                     <div class="d-flex justify-content-around p-4">
                         <button type="button" class="btn btn-primary button-page font-tr w-100 mr-2" id="boutonEnregistrer">
-                            <i class="fa fa-floppy-o" aria-hidden="true"></i> Enregistrer
+                            <i class="fa fa-floppy-o" aria-hidden="true"></i><span class="item-label"> Enregistrer</span>
                         </button>
-                        <button type="button" class="btn btn-primary button-list font-tr w-50 ml-2 mr-2" id="boutonTerminer">
-                            <i class="fa fa-paper-plane" aria-hidden="true"></i> Terminer
+                        <button type="button" class="btn btn-primary button-list font-tr w-50 ml-2" id="boutonTerminer">
+                            <i class="fa fa-paper-plane" aria-hidden="true"></i><span class="item-label"> Terminer</span>
                         </button>
                     </div>
                 </form>

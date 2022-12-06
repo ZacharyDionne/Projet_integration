@@ -99,7 +99,7 @@
 .list-title {
   font-family: Roboto-Bold;
   font-size: 22px;
-  color: #707070;
+  color: #333;
   margin: auto;
 }
 
@@ -153,7 +153,27 @@
 
 .heading-sectionsmall {
   font-size: 22px;
-  color: #000; 
+  color: #333; 
+}
+
+.heading-sectionbigleft {
+  font-size: 24px;
+  float: left;
+  font-family: Roboto-Bold;
+  font-size: 22px;
+  color: #333;
+  margin: auto;
+  text-align: left;
+}
+
+.heading-sectionbigright {
+  font-size: 24px;
+  float: right;
+  font-family: Roboto-Bold;
+  font-size: 22px;
+  color: #333;
+  margin: auto;
+  text-align: right;
 }
 
 .btnDeco {
@@ -218,6 +238,20 @@
   .topnav a span {
     font-size: 0.70em;
     display: block;
+  }
+
+  .heading-sectionbigleft, .heading-sectionbigright {
+    font-size: 15px;
+    text-align: center;
+    float: none;
+  }
+
+  .textarea {
+    font-size: 10px;
+  }
+
+  .item-label {
+    display: none;
   }
 
   .navbar {
