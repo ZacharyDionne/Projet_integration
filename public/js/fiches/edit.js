@@ -3,6 +3,7 @@ let tbody = table.querySelector("tbody");
 let form = document.getElementById("formModification");
 let rowTemplate = document.getElementById("rowTemplate");
 let selectAll = document.getElementById("selectAll");
+let fini = document.getElementById("fini");
 
 addEvents();
 
@@ -22,9 +23,6 @@ function addEvents()
     
     for (let checkbox of document.getElementsByClassName("select"))
         checkbox.addEventListener("click", onSelect);
-    
-
-
 
     let rows = tbody.children;
     
@@ -32,14 +30,12 @@ function addEvents()
     {
         let times = rows[i].querySelectorAll("input[type='time']");
 
-        times[0].addEventListener("input", onHeureDebutChanged);
         times[0].addEventListener("input", validateTime);
+        times[0].addEventListener("input", onHeureDebutChanged);
         times[0].oldValue = times[0].value;
 
         times[1].addEventListener("input", validateTime);
         times[1].oldValue = times[1].value;
-        
-
     }
 }
 
@@ -48,13 +44,98 @@ function addEvents()
 
 
 
-
+/*
+    Validation, insertion des plages de temps
+    dans le input sous forme de json et puis envoie.
+    Si ça ne passe pas les validations, il faut
+    remettre le champs "fini" à zéro.
+*/
 function onEnregistrer(e)
 {
+    let observation = document.getElementById("observation");
     let rows = tbody.children;
     let plagesDeTemps = [];
     let jsonPlagesDeTemps;
     
+    observation.value = observation.value.trim();
+
+    //validation
+    let valide = true;
+    let champsrempli = true;
+    let tempsNonChevauche = true;
+    let pasRetourTemps = true;
+    let erreurChevauche = document.getElementById("erreurChevauche");
+    let erreurVide = document.getElementById("erreurVide");
+    let erreurTempsRetour = document.getElementById("erreurTempsRetour");
+    for (let i = 0; i < rows.length; i++)
+    {
+        let row = rows[i];
+        let heureDebut = row.children[1].children[0];
+        let heureFin = row.children[2].children[0];
+
+        let nextRow = rows[i + 1];
+        let nextHeureDebut = null;
+        if (nextRow)
+            nextHeureDebut = nextRow.children[1].children[0];
+
+
+
+        if (heureDebut.value === '' )
+        {
+            heureDebut.classList.add("bg-warning");
+            champsrempli = false;
+        }
+        else
+            heureDebut.classList.remove("bg-warning");
+
+        if (heureFin.value === '')
+        {
+            heureFin.classList.add("bg-warning");
+            champsrempli = false;
+        }
+        else if (heureFin.value < heureDebut.value)
+        {
+            heureFin.classList.add("bg-warning");
+            pasRetourTemps = false;
+        }
+        else if (nextRow)
+        {
+            if (nextHeureDebut.value !== '' && heureFin.value > nextHeureDebut.value)
+            {
+                heureFin.classList.add("bg-warning");
+                tempsNonChevauche = false;
+            }
+            else
+                heureFin.classList.remove("bg-warning");
+        }
+        
+    }
+
+    valide = champsrempli && tempsNonChevauche && pasRetourTemps;
+
+    if (!champsrempli)
+        erreurVide.classList.remove("d-none");
+    else
+        erreurVide.classList.add("d-none");
+
+    if (!tempsNonChevauche)
+        erreurChevauche.classList.remove("d-none");
+    else
+        erreurChevauche.classList.add("d-none");
+
+    if (!pasRetourTemps)
+        erreurTempsRetour.classList.remove("d-none");
+    else
+        erreurTempsRetour.classList.add("d-none");
+    
+
+
+
+    if (!valide)
+    {
+        fini.value = 0;
+        return;
+    }
 
     for (let i = 0; i < rows.length; i++)
     {
@@ -79,10 +160,15 @@ function onEnregistrer(e)
     form.submit();
 }
 
-
+/*
+    Par défaut, le input qui permet de savoir si
+    la fiche est terminée est défini à 0. Lorsque
+    l'on clique sur terminer, il faut mettre sa
+    valeur à 1 avant l'envoie.
+*/
 function onTerminer(e)
 {
-    document.getElementById("fini").value = 1;
+    fini.value = 1;
 
     onEnregistrer(e);
 }
@@ -153,9 +239,50 @@ function onSelect(e)
 }
 
 
+
+
+
+/*
+    Permet de retrier les plages de temps si c'est nécessaire.
+*/
 function onHeureDebutChanged(e)
 {
-    let rows = Array.from(tbody.children);    
+    let rows = Array.from(tbody.children);
+    let timeA = e.target;
+    let row = timeA.parentNode.parentNode;
+    let index = rows.indexOf(row);
+
+    
+
+    if (index === 0)
+    {
+        if (index + 1 === rows.length)
+            return;
+
+        let timeB = rows[index + 1].querySelector("input[type='time']");
+
+        if (timeA.value <= timeB.value)
+            return;
+    }
+    else if (index + 1 === rows.length)
+    {
+        let timeB = rows[index - 1].querySelector("input[type='time']");
+
+        if (timeA.value >= timeB.value)
+            return;
+    }
+    else
+    {
+        let timeB = rows[index + 1].querySelector("input[type='time']");
+
+        if (timeA.value <= timeB.value)
+            return;
+
+        timeB = rows[index - 1].querySelector("input[type='time']");
+
+        if (timeA.value >= timeB.value)
+            return;
+    }
 
     rows.sort((rowA, rowB) => {
 
@@ -183,16 +310,21 @@ function onHeureDebutChanged(e)
         tbody.removeChild(tbody.children[0]);
         
     for (let i = 0; i < rows.length; i++)
-        tbody.appendChild(rows[i]);    
+        tbody.appendChild(rows[i]);
 }
 
-
+/*
+    Empêche l'utilisateur d'entrez un
+    temps entre les tranches de 15 minutes.
+ */
 function validateTime(e)
 {
     let time = e.target;
     let array = time.value.split(":");
 
     let seconds = array[0] * 60 + array[1];
+
+    time.classList.remove("bg-warning");
 
     if (seconds % 15 !== 0)
     {
@@ -203,5 +335,6 @@ function validateTime(e)
         time.oldValue = time.value;
     }    
 }
+
 
 

@@ -64,8 +64,8 @@ setlocale(LC_TIME, 'fr', 'fr_FR', 'fr_FR@euro', 'fr_FR.utf8', 'fr-FR', 'fra');
                                                 <td class="font-rg">
                                                     <input type="checkbox" class="select">
                                                 </td>
-                                                <td class="font-rg"><input type="time" step="900" class="heureDebut" value="{{ $plagesDeTemps[$i]['heureDebut']}}"></td>
-                                                <td class="font-rg"><input type="time" step="900" class="heureFin" value="{{ $plagesDeTemps[$i]['heureFin'] }}"></td>
+                                                <td class="font-rg"><input type="time" step="900" class="heureDebut" value="{{ $plagesDeTemps[$i]['heureDebut'] }}"></td>
+                                                <td class="font-rg"><input type="time" step="900" class="heureFin"   value="{{ $plagesDeTemps[$i]['heureFin']   }}"></td>
                                                 <td class="font-rg">
                                                     <select>
                                                         @for ($j = 0; $j < count($typesTemps); $j++)
@@ -94,7 +94,7 @@ setlocale(LC_TIME, 'fr', 'fr_FR', 'fr_FR@euro', 'fr_FR.utf8', 'fr-FR', 'fra');
                         <h6 class="heading-sectionsmall text-left list-title float-left">Observation</h6>
                         <input type="hidden" id="plagesDeTemps" name="plagesDeTemps">
                         <input type="hidden" name="fiche_id" value="{{ $fiche->id }}">
-                        <input type="text" class="w-100" name="observation" value="{{ $fiche->observation }}">
+                        <input type="text" id="observation" class="w-100" name="observation" value="{{ $fiche->observation }}">
                         <input type="hidden" id="fini" name="fini" value="0">
                     </div>
                     <div class="d-flex justify-content-around p-4">
@@ -106,6 +106,11 @@ setlocale(LC_TIME, 'fr', 'fr_FR', 'fr_FR@euro', 'fr_FR.utf8', 'fr-FR', 'fra');
                         </button>
                     </div>
                 </form>
+
+                <p id="erreurChevauche" class="text-danger d-none">Des temps se chevauchent.</p>
+                <p id="erreurVide" class="text-danger d-none">Des temps ne sont pas rempli.</p>
+                <p id="erreurTempsRetour" class="text-danger d-none">Des temps finaux sont plus petit que les temps initiales.</p>
+
 
                 <!-- Cette partie donne à Javascript le format pour une colonne d'une plage de temps -->
                 <table class="d-none">
