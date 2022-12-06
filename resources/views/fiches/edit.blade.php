@@ -98,6 +98,11 @@ setlocale(LC_TIME, 'fr', 'fr_FR', 'fr_FR@euro', 'fr_FR.utf8', 'fr-FR', 'fra');
                     <button type="button" id="boutonTerminer">Terminer</button>
                 </form>
 
+                <p id="erreurChevauche" class="text-danger d-none">Des temps se chevauchent.</p>
+                <p id="erreurVide" class="text-danger d-none">Des temps ne sont pas rempli.</p>
+                <p id="erreurTempsRetour" class="text-danger d-none">Des temps finaux sont plus petit que les temps initiales.</p>
+
+
                 <!-- Cette partie donne à Javascript le format pour une colonne d'une plage de temps -->
                 <table class="d-none">
                     <tbody>

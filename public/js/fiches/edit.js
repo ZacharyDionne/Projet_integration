@@ -30,8 +30,8 @@ function addEvents()
     {
         let times = rows[i].querySelectorAll("input[type='time']");
 
-        times[0].addEventListener("input", onHeureDebutChanged);
         times[0].addEventListener("input", validateTime);
+        times[0].addEventListener("input", onHeureDebutChanged);
         times[0].oldValue = times[0].value;
 
         times[1].addEventListener("input", validateTime);
@@ -60,18 +60,82 @@ function onEnregistrer(e)
     observation.value = observation.value.trim();
 
     //validation
-    /*for (let i = 0; i < rows.length; i++)
+    let valide = true;
+    let champsrempli = true;
+    let tempsNonChevauche = true;
+    let pasRetourTemps = true;
+    let erreurChevauche = document.getElementById("erreurChevauche");
+    let erreurVide = document.getElementById("erreurVide");
+    let erreurTempsRetour = document.getElementById("erreurTempsRetour");
+    for (let i = 0; i < rows.length; i++)
     {
         let row = rows[i];
-        let heureDebut = row.children[1].children[0].value;
-        let heureFin = row.children[2].children[0].value;
+        let heureDebut = row.children[1].children[0];
+        let heureFin = row.children[2].children[0];
 
-        if (heureDebut === '' || heureFin === '')
-    }*/
+        let nextRow = rows[i + 1];
+        let nextHeureDebut = null;
+        if (nextRow)
+            nextHeureDebut = nextRow.children[1].children[0];
 
-    //fini.value = 0;
-    //return;
 
+
+        if (heureDebut.value === '' )
+        {
+            heureDebut.classList.add("bg-warning");
+            champsrempli = false;
+        }
+        else
+            heureDebut.classList.remove("bg-warning");
+
+        if (heureFin.value === '')
+        {
+            heureFin.classList.add("bg-warning");
+            champsrempli = false;
+        }
+        else if (heureFin.value < heureDebut.value)
+        {
+            heureFin.classList.add("bg-warning");
+            pasRetourTemps = false;
+        }
+        else if (nextRow)
+        {
+            if (nextHeureDebut.value !== '' && heureFin.value > nextHeureDebut.value)
+            {
+                heureFin.classList.add("bg-warning");
+                tempsNonChevauche = false;
+            }
+            else
+                heureFin.classList.remove("bg-warning");
+        }
+        
+    }
+
+    valide = champsrempli && tempsNonChevauche && pasRetourTemps;
+
+    if (!champsrempli)
+        erreurVide.classList.remove("d-none");
+    else
+        erreurVide.classList.add("d-none");
+
+    if (!tempsNonChevauche)
+        erreurChevauche.classList.remove("d-none");
+    else
+        erreurChevauche.classList.add("d-none");
+
+    if (!pasRetourTemps)
+        erreurTempsRetour.classList.remove("d-none");
+    else
+        erreurTempsRetour.classList.add("d-none");
+    
+
+
+
+    if (!valide)
+    {
+        fini.value = 0;
+        return;
+    }
 
     for (let i = 0; i < rows.length; i++)
     {
@@ -188,6 +252,8 @@ function onHeureDebutChanged(e)
     let row = timeA.parentNode.parentNode;
     let index = rows.indexOf(row);
 
+    
+
     if (index === 0)
     {
         if (index + 1 === rows.length)
@@ -257,6 +323,8 @@ function validateTime(e)
     let array = time.value.split(":");
 
     let seconds = array[0] * 60 + array[1];
+
+    time.classList.remove("bg-warning");
 
     if (seconds % 15 !== 0)
     {
