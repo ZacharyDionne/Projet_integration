@@ -90,12 +90,21 @@ setlocale(LC_TIME, 'fr', 'fr_FR', 'fr_FR@euro', 'fr_FR.utf8', 'fr-FR', 'fra');
                 <form method="post" id="formModification" action="{{ route('fiches.update', [$fiche->conducteur_id]) }}">
                     @csrf
                     @method('patch')
-                    <input type="hidden" id="plagesDeTemps" name="plagesDeTemps">
-                    <input type="hidden" name="fiche_id" value="{{ $fiche->id }}">
-                    <input type="text" name="observation" value="{{ $fiche->observation }}">
-                    <input type="hidden" id="fini" name="fini" value="0">
-                    <button type="button" id="boutonEnregistrer">Enregistrer</button>
-                    <button type="button" id="boutonTerminer">Terminer</button>
+                    <div class="grid-placement mr-4 ml-4 mt-4">
+                        <h6 class="heading-sectionsmall text-left list-title float-left">Observation</h6>
+                        <input type="hidden" id="plagesDeTemps" name="plagesDeTemps">
+                        <input type="hidden" name="fiche_id" value="{{ $fiche->id }}">
+                        <input type="text" class="w-100" name="observation" value="{{ $fiche->observation }}">
+                        <input type="hidden" id="fini" name="fini" value="0">
+                    </div>
+                    <div class="d-flex justify-content-around p-4">
+                        <button type="button" class="btn btn-primary button-page font-tr w-100 mr-2" id="boutonEnregistrer">
+                            <i class="fa fa-floppy-o" aria-hidden="true"></i> Enregistrer
+                        </button>
+                        <button type="button" class="btn btn-primary button-list font-tr w-50 ml-2 mr-2" id="boutonTerminer">
+                            <i class="fa fa-paper-plane" aria-hidden="true"></i> Terminer
+                        </button>
+                    </div>
                 </form>
 
                 <!-- Cette partie donne à Javascript le format pour une colonne d'une plage de temps -->

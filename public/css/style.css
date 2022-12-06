@@ -151,6 +151,11 @@
   background: #707070;
 }
 
+.heading-sectionsmall {
+  font-size: 22px;
+  color: #000; 
+}
+
 .btnDeco {
   margin-left: auto;
   font-family: Roboto-Bold;
