@@ -175,6 +175,7 @@ class FichesController extends Controller
 
             $peutModifier = !$fiche->fini;
         } catch (Throwable $e) {
+            Log::debug($e);
             return View('erreur');
         }
         return View('fiches.edit', compact('fiche', 'plagesDeTemps', 'typesTemps', 'peutModifier', 'conducteur'));
@@ -253,6 +254,7 @@ class FichesController extends Controller
 
             return redirect()->route('fiches.index', $id);
         } catch (Throwable $e) {
+            Log::debug($e);
             return View('erreur');
         }
     }
