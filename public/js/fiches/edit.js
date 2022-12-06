@@ -3,6 +3,7 @@ let tbody = table.querySelector("tbody");
 let form = document.getElementById("formModification");
 let rowTemplate = document.getElementById("rowTemplate");
 let selectAll = document.getElementById("selectAll");
+let fini = document.getElementById("fini");
 
 addEvents();
 
@@ -22,9 +23,6 @@ function addEvents()
     
     for (let checkbox of document.getElementsByClassName("select"))
         checkbox.addEventListener("click", onSelect);
-    
-
-
 
     let rows = tbody.children;
     
@@ -36,11 +34,8 @@ function addEvents()
         times[0].addEventListener("input", validateTime);
         times[0].oldValue = times[0].value;
 
-
         times[1].addEventListener("input", validateTime);
         times[1].oldValue = times[1].value;
-        
-
     }
 }
 
@@ -49,13 +44,34 @@ function addEvents()
 
 
 
-
+/*
+    Validation, insertion des plages de temps
+    dans le input sous forme de json et puis envoie.
+    Si ça ne passe pas les validations, il faut
+    remettre le champs "fini" à zéro.
+*/
 function onEnregistrer(e)
 {
+    let observation = document.getElementById("observation");
     let rows = tbody.children;
     let plagesDeTemps = [];
     let jsonPlagesDeTemps;
     
+    observation.value = observation.value.trim();
+
+    //validation
+    /*for (let i = 0; i < rows.length; i++)
+    {
+        let row = rows[i];
+        let heureDebut = row.children[1].children[0].value;
+        let heureFin = row.children[2].children[0].value;
+
+        if (heureDebut === '' || heureFin === '')
+    }*/
+
+    //fini.value = 0;
+    //return;
+
 
     for (let i = 0; i < rows.length; i++)
     {
@@ -80,10 +96,15 @@ function onEnregistrer(e)
     form.submit();
 }
 
-
+/*
+    Par défaut, le input qui permet de savoir si
+    la fiche est terminée est défini à 0. Lorsque
+    l'on clique sur terminer, il faut mettre sa
+    valeur à 1 avant l'envoie.
+*/
 function onTerminer(e)
 {
-    document.getElementById("fini").value = 1;
+    fini.value = 1;
 
     onEnregistrer(e);
 }
@@ -154,6 +175,12 @@ function onSelect(e)
 }
 
 
+
+
+
+/*
+    Permet de retrier les plages de temps si c'est nécessaire.
+*/
 function onHeureDebutChanged(e)
 {
     let rows = Array.from(tbody.children);
@@ -161,14 +188,10 @@ function onHeureDebutChanged(e)
     let row = timeA.parentNode.parentNode;
     let index = rows.indexOf(row);
 
-
-    //Regarder si il est nécessaire de retrier, si non retourner
     if (index === 0)
     {
         if (index + 1 === rows.length)
-        {
             return;
-        }
 
         let timeB = rows[index + 1].querySelector("input[type='time']");
 
@@ -224,7 +247,10 @@ function onHeureDebutChanged(e)
         tbody.appendChild(rows[i]);
 }
 
-
+/*
+    Empêche l'utilisateur d'entrez un
+    temps entre les tranches de 15 minutes.
+ */
 function validateTime(e)
 {
     let time = e.target;
@@ -241,5 +267,6 @@ function validateTime(e)
         time.oldValue = time.value;
     }    
 }
+
 
 

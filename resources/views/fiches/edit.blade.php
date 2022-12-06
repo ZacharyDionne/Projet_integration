@@ -92,7 +92,7 @@ setlocale(LC_TIME, 'fr', 'fr_FR', 'fr_FR@euro', 'fr_FR.utf8', 'fr-FR', 'fra');
                     @method('patch')
                     <input type="hidden" id="plagesDeTemps" name="plagesDeTemps">
                     <input type="hidden" name="fiche_id" value="{{ $fiche->id }}">
-                    <input type="text" name="observation" value="{{ $fiche->observation }}">
+                    <input type="text" id="observation" name="observation" maxlength="300" value="{{ $fiche->observation }}">
                     <input type="hidden" id="fini" name="fini" value="0">
                     <button type="button" id="boutonEnregistrer">Enregistrer</button>
                     <button type="button" id="boutonTerminer">Terminer</button>
