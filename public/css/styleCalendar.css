@@ -8398,10 +8398,22 @@ tbody td:active {
   .ttlFiche {
     font-size: 1.5em;
   }
+
+  .heading-section{
+    font-size: medium;
+  }
+
+  .btnFiche {
+    width: 35% !important;
+    height: auto !important;
+    padding: 5px 10px !important;
+    font-size: smaller !important;
+    margin: auto !important;
+  }	
 }
 
 .btnFiche {
-  width: 25% !important;
+  width: 25% ;
   height: auto !important;
   padding: 5px 10px !important;
   font-size: small !important;
@@ -8409,9 +8421,18 @@ tbody td:active {
 }
 
 .baniere-body-fiche {
+  position: relative;
   padding: 0px 10px 10px 10px;
   margin-top: 10px;
   background-color: #ffffff;
   border : 1px solid #fafafa;
   box-shadow: 0px 19px 27px -20px rgb(0 0 0 / 16%);
+}
+
+.baniere-body-fiche-icon {
+  position: absolute;
+  top: 0;
+  right: 0;
+  padding: 5px;
+  color: #000;
 }
