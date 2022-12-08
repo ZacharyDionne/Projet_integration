@@ -69,10 +69,10 @@ class FichesController extends Controller
 
                 foreach ($fiche->plagesDeTemps as $plageDeTemps) {
                     if ($plageDeTemps->typetemps_id == 1) {
-                        $totalHeuresRepos += (strtotime($plageDeTemps->heureFin) - strtotime($plageDeTemps->heureDebut)) / 3600;
+                        $totalHeuresRepos += (strtotime($plageDeTemps->heureFin) - strtotime($plageDeTemps->heureDebut));
                     }
                     elseif ($plageDeTemps->typetemps_id == 2 || $plageDeTemps->typetemps_id == 3) {
-                        $totalHeures += (strtotime($plageDeTemps->heureFin) - strtotime($plageDeTemps->heureDebut)) / 3600;
+                        $totalHeures += (strtotime($plageDeTemps->heureFin) - strtotime($plageDeTemps->heureDebut));
                     }
                 }
 
@@ -81,9 +81,9 @@ class FichesController extends Controller
         } catch (Throwable $e) {
             return View('erreur');
         }
-        
-        $totalHeures = gmdate("H:i", $totalHeures * 3600);
-        $totalHeuresRepos = gmdate("H:i", $totalHeuresRepos * 3600);
+
+        $totalHeures = gmdate("H:i", $totalHeures);
+        $totalHeuresRepos = gmdate("H:i", $totalHeuresRepos);
 
         return View("fiches.index", compact("fiches", "lastFiches", "totalHeures", "totalHeuresRepos"));
         // return View("fiches.index", compact("fiches"));
@@ -218,29 +218,67 @@ class FichesController extends Controller
 
 
         try {
+            $plagesDeTemps = json_decode($request->plagesDeTemps);
             $fiche = Fiche::where('id', $request->fiche_id)->first();
+            
+
+            //trier avant la validation
+            usort($plagesDeTemps, function($a, $b)
+            {
+                $tempsA = $a->heureDebut;
+                $tempsB = $b->heureDebut;
+
+                if ($tempsA === $tempsB)
+                    return 0;
+        
+                if ($tempsA === "")
+                    return 1;
+
+                if ($tempsB === "")
+                    return -1;
+
+                if ($tempsA > $tempsB)
+                    return 1;
+
+                return -1;
+            });
+
+            //validation
+            for ($i = 0; $i < count($plagesDeTemps); $i++)
+            {
+                $regexTemps = "/^([0-1][0-9]|2[0-3]):(00|15|30|45)$/";
+
+                if (
+                    (!isset($plagesDeTemps[$i]->heureDebut) || !preg_match( $regexTemps, $plagesDeTemps[$i]->heureDebut)) ||
+                    (!isset($plagesDeTemps[$i]->heureFin) || !preg_match( $regexTemps, $plagesDeTemps[$i]->heureFin))
+                )
+                    return redirect()->back()->withErrors(["Des temps sont invalides."]);
+            }
+
+            for ($i = 0; $i < count($plagesDeTemps); $i++)
+            {
+                $plageDeTemps = $plagesDeTemps[$i];
+                $debutA = $plageDeTemps->heureDebut;
+                $finA = $plageDeTemps->heureFin;
+                $debutB = null;
+
+                if ($plagesDeTemps[$i + 1])
+                    $debutB = $plagesDeTemps[$i + 1]->heureDebut;
+
+                if ($finA < $debutA)
+                    return redirect()->back()->withErrors(["Un temps de fin était plus petit que son temps début"]);
+                
+                if ($finA > $debutB)
+                    return redirect()->back()->withErrors(["Des temps se chevauchent"]);
+            }
+
+
+            
 
             $fiche->observation = $request->observation;
             $fiche->fini = $request->fini;
             $fiche->save();
 
-
-
-
-
-
-
-            //Archiver les anciennes plages de temps
-            $plagesDeTemps = PlageDeTemps::where('fiche_id', $request->fiche_id)->where('archive', false)->get();
-            foreach ($plagesDeTemps as $plageDeTemps) {
-                $plageDeTemps->archive = true;
-                $plageDeTemps->save();
-            }
-
-
-
-
-            $plagesDeTemps = json_decode($request->plagesDeTemps);
 
             for ($i = 0; $i < count($plagesDeTemps); $i++) {
                 $plageDeTemps = new PlageDeTemps();
@@ -248,12 +286,25 @@ class FichesController extends Controller
                 $plageDeTemps->heureFin = $plagesDeTemps[$i]->heureFin;
                 $plageDeTemps->typeTemps_id = $plagesDeTemps[$i]->typeTemps_id;
                 $plageDeTemps->fiche_id = $request->fiche_id;
+                $plageDeTemps->save();
+            }
 
+
+
+
+
+            //Archiver les anciennes plages de temps
+            $plagesDeTemps = PlageDeTemps::where('fiche_id', $request->fiche_id)->where('archive', false)->get();
+            foreach ($plagesDeTemps as $plageDeTemps)
+            {
+                $plageDeTemps->archive = true;
                 $plageDeTemps->save();
             }
 
             return redirect()->route('fiches.index', $id);
-        } catch (Throwable $e) {
+        }
+        catch (Throwable $e)
+        {
             Log::debug($e);
             return View('erreur');
         }

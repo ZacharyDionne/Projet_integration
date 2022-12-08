@@ -36,7 +36,9 @@
     </a>
     @endif
     @else
-    <h1 class="navbar-brand font-tr">Une erreur est survenue. Si le problème persiste, veuillez contacter votre responsable.</h1>
+    <script>
+        alert("Une erreur est survenue: (Impossible d'obtenir l'ID utilisateur) \nSi le problème persiste, veuillez contacter votre responsable.");
+    </script>
     @endif
 
     <a class="btnAlerte topnavButton noMargin navbar-brand font-tr" href="{{ route('alertes.index') }}">
@@ -48,7 +50,6 @@
 
     <a class="font-tr btnDeco" href="{{ route('connexion.logout') }}">
         <div class="text-nav">
-            <!-- <img src="images\logo_BLANC.png" width="50" height="50" class="d-inline-block align-center" alt=""> -->
             <i class="fa fa-sign-out fa-fw" width="50" height="50" class="d-inline-block align-center" aria-hidden="true"></i>
             <span>Déconnexion</span>
         </div>

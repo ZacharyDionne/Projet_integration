@@ -58,7 +58,7 @@ function onEnregistrer(e)
     let jsonPlagesDeTemps;
     
     observation.value = observation.value.trim();
-
+    /*
     //validation
     let valide = true;
     let champsrempli = true;
@@ -136,7 +136,7 @@ function onEnregistrer(e)
         fini.value = 0;
         return;
     }
-
+*/
     for (let i = 0; i < rows.length; i++)
     {
         let row = rows[i];
@@ -210,7 +210,6 @@ function onSupprimer(e)
         let row = rows[i];
         let checkbox = row.children[0].children[0];
 
-        console.log("row " + row + "\ncheckbox " + checkbox)
         if (checkbox.checked)
         {
             tbody.removeChild(row);
@@ -246,7 +245,7 @@ function onSelect(e)
     Permet de retrier les plages de temps si c'est nécessaire.
 */
 function onHeureDebutChanged(e)
-{
+{/*
     let rows = Array.from(tbody.children);
     let timeA = e.target;
     let row = timeA.parentNode.parentNode;
@@ -310,7 +309,7 @@ function onHeureDebutChanged(e)
         tbody.removeChild(tbody.children[0]);
         
     for (let i = 0; i < rows.length; i++)
-        tbody.appendChild(rows[i]);
+        tbody.appendChild(rows[i]);*/
 }
 
 /*

@@ -116,7 +116,8 @@ setlocale(LC_TIME, 'fr', 'fr_FR', 'fr_FR@euro', 'fr_FR.utf8', 'fr-FR', 'fra');
 		<div class="row">
 			<div class="col-md-6 offset-md-3">
 				<h3 class="text-center onlyFontTr ttlFiche">Fiches des 7 derniers jours :</h3>
-				<p class="text-center">Heures de travail cumulées : {{ $totalHeures }} | · | Heures de repos cumulées : {{ $totalHeuresRepos }}</p>
+				<p class="text-center">Heures de travail cumulées : {{ $totalHeures }}
+					</br>Heures de repos cumulées : {{ $totalHeuresRepos }}</p>
 
 				@foreach($lastFiches as $lastFiche)
 				<div class="baniere-body-fiche">
@@ -128,7 +129,7 @@ setlocale(LC_TIME, 'fr', 'fr_FR', 'fr_FR@euro', 'fr_FR.utf8', 'fr-FR', 'fra');
 						<p>Commentaire : {{ $lastFiche->observation }}</p>
 						@endif
 
-						<a class="btn btn-primary" style="width: 25%; height:auto; padding: 5px 10px; font-size:small; margin: auto;" href="{{ route('fiches.edit', [$lastFiche->conducteur_id, $lastFiche->date]) }}">Voir la fiche</a>
+						<a class="btn btn-primary btnFiche" href="{{ route('fiches.edit', [$lastFiche->conducteur_id, $lastFiche->date]) }}">Voir la fiche</a>
 					</div>
 				</div>
 				@endforeach
