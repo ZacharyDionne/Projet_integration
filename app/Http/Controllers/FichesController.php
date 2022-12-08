@@ -65,8 +65,6 @@ class FichesController extends Controller
                     $fiche->save();
                 }
 
-                // for each "PlageDeTemps" associated with this "fiche", add 1 to totalHeures
-
                 foreach ($fiche->plagesDeTemps as $plageDeTemps) {
                     if ($plageDeTemps->typetemps_id == 1) {
                         $totalHeuresRepos += (strtotime($plageDeTemps->heureFin) - strtotime($plageDeTemps->heureDebut));
@@ -76,9 +74,24 @@ class FichesController extends Controller
                     }
                 }
 
+                $fiche->date = date('d F Y', strtotime($fiche->date));
+                $fiche->date = str_replace('January', 'janvier', $fiche->date);
+                $fiche->date = str_replace('February', 'février', $fiche->date);
+                $fiche->date = str_replace('March', 'mars', $fiche->date);
+                $fiche->date = str_replace('April', 'avril', $fiche->date);
+                $fiche->date = str_replace('May', 'mai', $fiche->date);
+                $fiche->date = str_replace('June', 'juin', $fiche->date);
+                $fiche->date = str_replace('July', 'juillet', $fiche->date);
+                $fiche->date = str_replace('August', 'août', $fiche->date);
+                $fiche->date = str_replace('September', 'septembre', $fiche->date);
+                $fiche->date = str_replace('October', 'octobre', $fiche->date);
+                $fiche->date = str_replace('November', 'novembre', $fiche->date);
+                $fiche->date = str_replace('December', 'décembre', $fiche->date);
+
                 $lastFiches[$i] = $fiche;
             }
         } catch (Throwable $e) {
+            Log::error($e);
             return View('erreur');
         }
 
@@ -166,11 +179,14 @@ class FichesController extends Controller
         try {
             $fiche = Fiche::where('date', $date)->where('conducteur_id', $id)->first();
             $conducteur = Conducteur::where('id', $id)->first();
-            $plagesDeTemps = PlageDeTemps::where('fiche_id', $fiche->id)->where('archive', false)->get()->toArray();
-            $typesTemps = TypeTemps::get()->toArray();
 
             if (!$fiche)
                 $fiche = FichesController::createFiche($id, $date);
+
+            $plagesDeTemps = PlageDeTemps::where('fiche_id', $fiche->id)->where('archive', false)->get()->toArray();
+            $typesTemps = TypeTemps::get()->toArray();
+
+
 
 
             $peutModifier = !$fiche->fini;
@@ -376,5 +392,7 @@ class FichesController extends Controller
         $fiche->cycle = 1;
         $fiche->date = $date;
         $fiche->save();
+
+        return $fiche;
     }
 }

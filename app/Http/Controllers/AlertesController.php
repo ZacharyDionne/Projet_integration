@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use Illuminate\Http\View\View;
 use App\Models\Alerte;
 
+use Illuminate\Support\Facades\Log;
+
 use App\Http\Controllers\Filtre;
 use App\Models\Employe;
 use Throwable;
@@ -26,24 +28,30 @@ class AlertesController extends Controller
 
             if ($conducteur)
             {
-                $alertes = Alerte::where('idEmploye', 0)->where('idConducteur', $conducteur->id)->orderBy('date', 'desc')->get();
+                $alertes = Alerte::where('idEmploye', 0)->where('conducteur_id', $conducteur->id)->orderBy('date', 'desc')->get();
             }
             else if ($employe)
             {
                 if ($employe->type_id == 1)
-                    $alertes = Alerte::where('idEmploye', $employe->id)->where('idConducteur', '!=', 0)->orderBy('date', 'desc')->get();
+                    $alertes = Alerte::where('idEmploye', $employe->id)->where('conducteur_id', '!=', 0)->orderBy('date', 'desc')->get();
                 else if ($employe->type_id == 2)
-                    $alertes = Alerte::where('idConducteur', '!=', 0)->orderBy('date', 'desc')->get();
+                    $alertes = Alerte::where('conducteur_id', '!=', 0)->orderBy('date', 'desc')->get();
                 else
+                {
+                    Log::error("AlertesController.index: l'utilisateur n'est pas un contre-maître ou un administrateur");
                     return View('erreur');
+                }
+                    
             }
             else
             {
+                Log::error("AlertesController.index: l'utilisateur n'est pas connecté");
                 return View('erreur');
             }
         }
         catch (Throwable $e)
         {
+            Log::error("AlertesController.index: impossible de récupérer les alertes" . $e->getMessage());
             return View('erreur');
         }
 
