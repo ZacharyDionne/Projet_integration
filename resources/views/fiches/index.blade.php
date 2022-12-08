@@ -121,13 +121,24 @@ setlocale(LC_TIME, 'fr', 'fr_FR', 'fr_FR@euro', 'fr_FR.utf8', 'fr-FR', 'fra');
 
 				@foreach($lastFiches as $lastFiche)
 				<div class="baniere-body-fiche">
-					<!-- Date needs to be in french and in human readable format -->
-					<h3 class="heading-section">Fiche du {{$lastFiche->date}}</h3>
+					<h3 class="heading-section mt-2">Fiche du {{ \Carbon\Carbon::parse($lastFiche->date)->locale('fr')->isoFormat('dddd, D MMMM YYYY') }}</h3>
+					<!-- decale le text sur la gauche -->
 					<div class="baniere-body-left text-center">
-						<p>Aucune donnée existante</p>
+
+						<div class="pl-text text-left mb-2">
+							<p class="mb-1">Début du poste de travail : {{ $lastFiche->heureDebut }}</p>
+							<p class="mb-1">Fin du poste de travail : {{ $lastFiche->heureFin }}</p>
+							<p class="mb-1">Heures de travail : {{ $lastFiche->heures }}</p>
+
+							@if($lastFiche->fini == 0)
+							<p class="mb-1">État : Non complété</p>
+							@else
+							<p class="mb-1">État : Complété</p>
+							@endif
+						</div>
 
 						@if($lastFiche->observation != null)
-						<p>Commentaire : {{ $lastFiche->observation }}</p>
+							<p class="mb-1">Commentaire : {{ $lastFiche->observation }}</p>
 						@endif
 
 						<a class="btn btn-primary btnFiche" href="{{ route('fiches.edit', [$lastFiche->conducteur_id, $lastFiche->date]) }}">Voir la fiche</a>
@@ -141,7 +152,7 @@ setlocale(LC_TIME, 'fr', 'fr_FR', 'fr_FR@euro', 'fr_FR.utf8', 'fr-FR', 'fra');
 </section>
 
 <!-- Modal -->
-<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+<!-- <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
 	<div class="modal-dialog modal-lg modal-dialog-centered" role="document">
 		<div class="modal-content rounded-0">
 			<div class="modal-body py-0">
@@ -184,6 +195,6 @@ setlocale(LC_TIME, 'fr', 'fr_FR', 'fr_FR@euro', 'fr_FR.utf8', 'fr-FR', 'fra');
 			</div>
 		</div>
 	</div>
-</div>
+</div> -->
 
 @endsection

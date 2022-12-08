@@ -30,8 +30,12 @@ body {
   font-family: Roboto-Regular, sans-serif; }
 
 p {
-  color: #b3b3b3;
+  color: #000000;
   font-weight: 300; }
+
+.pl-text {
+  padding-left: 2rem !important;
+}
 
 h1, h2, h3, h4, h5, h6,
 .h1, .h2, .h3, .h4, .h5, .h6 {
