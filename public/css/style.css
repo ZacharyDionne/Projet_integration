@@ -144,9 +144,8 @@
 }
 
 .colorTableContent {
-  margin-top: 10px;
-  margin-bottom: 10px;
   background: #FFFFFF;
+  border-top-width: 2px;
 }
 
 .grid-placement{
