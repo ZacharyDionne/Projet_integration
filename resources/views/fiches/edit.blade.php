@@ -47,7 +47,7 @@ setlocale(LC_TIME, 'fr', 'fr_FR', 'fr_FR@euro', 'fr_FR.utf8', 'fr-FR', 'fra');
 					<div class="row">
 						<div class="col-md-12">
 							<div class="table-wrap">
-								<table class="table flex-container" id="tableModification">
+								<table class="tableFiche flex-container" id="tableModification">
 									<thead class="bg-tr-up">
 										<tr class="shadow-sm">
                                             <th class="font-tr">
