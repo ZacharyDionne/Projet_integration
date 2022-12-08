@@ -9,6 +9,7 @@ setlocale(LC_TIME, 'fr', 'fr_FR', 'fr_FR@euro', 'fr_FR.utf8', 'fr-FR', 'fra');
 <link rel="stylesheet" href="{{ asset('css/styleCalendar.css') }}">
 <link rel="stylesheet" href="{{ asset('css/styleModal.css') }}">
 <link rel="icon" type="image/png" href="{{ asset('images/icons/favicon.ico') }}" />
+<link rel="stylesheet" type="text/css" href="{{ asset('css/styleAlerte.css') }}">
 
 <script defer src="{{ asset('js/mainCalendar.js') }}"></script>
 @endsection
@@ -56,21 +57,21 @@ setlocale(LC_TIME, 'fr', 'fr_FR', 'fr_FR@euro', 'fr_FR.utf8', 'fr-FR', 'fra');
                     <strong>Alerte!</strong></br>
                     {{ $alerte->conducteur_id }} :
                     {{ $alerte->message }}
-                    <button type="button" class="btn-close" aria-label="Close" onclick="changeAlerte({{ $alerte->id }})"></button>
+                    <button type="button" class="btn-close" aria-label="Close"></button>
                 </div>
                 @elseif ($alerte->type == 1)
                 <div class="alert alert-warning alert-dismissible fade show" role="alert" id="{{ $alerte->id }}">
                     <strong>Alerte!</strong></br>
                     {{ $alerte->conducteur_id }} :
                     {{ $alerte->message }}
-                    <button type="button" class="btn-close" aria-label="Close" onclick="changeAlerte({{ $alerte->id }})"></button>
+                    <button type="button" class="btn-close" aria-label="Close"></button>
                 </div>
                 @elseif ($alerte->type == 2)
                 <div class="alert alert-info alert-dismissible fade show" role="alert" id="{{ $alerte->id }}">
                     <strong>Alerte!</strong></br>
                     {{ $alerte->conducteur_id }} :
                     {{ $alerte->message }}
-                    <button type="button" class="btn-close" aria-label="Close" onclick="changeAlerte({{ $alerte->id }})"></button>
+                    <button type="button" class="btn-close" aria-label="Close"></button>
                 </div>
                 @endif
                 @endif
@@ -98,20 +99,115 @@ setlocale(LC_TIME, 'fr', 'fr_FR', 'fr_FR@euro', 'fr_FR.utf8', 'fr-FR', 'fra');
             </div>
         </div>
 
+        <form id="form" class="d-none">
+            @csrf
+            @method("patch")
+        </form>
+
         @else
         <p>Il n'y a aucune alerte.</p>
         @endif
     </div>
 </section>
 
-<script>
-    function changeAlerte(id) {
-        var alerte = document.getElementById(id);
-        alerte.classList.remove("alert-danger");
-        alerte.classList.add("alert-dark");
+<script type="module">
+    import {
+        UI
+    } from "{{ asset('js/modules/UI.js') }}";
 
-        var button = alerte.getElementsByTagName("button")[0];
-        button.remove();
+
+    let buttons = document.getElementsByTagName("section")[0].querySelectorAll("button");
+
+    for (let i = 0; i < buttons.length; i++) {
+        buttons[i].addEventListener("click", changeAlerte);
+    }
+
+    function changeAlerte(e) {
+        // Get id user in a variable using php
+        @php
+        try {
+            $conducteur = auth() -> user();
+            $employe = auth() -> guard('employe') -> user();
+        } catch (Throwable $e) {
+            $conducteur = null;
+            $employe = null;
+        }
+        @endphp
+
+        @if($conducteur)
+        var idUser = {{ $conducteur -> id }};
+        @elseif($employeur)
+        var idUser = {{ $employeur -> id }};
+        @endif
+
+        // Get id alerte in a variable
+        var id = e.target.parentNode.id;
+
+        var button = e.target;
+        button.classList.add("d-none");
+
+        var spinner = UI.createSpinner();
+
+        try {
+            var form = document.getElementById("form");
+            var formData = new FormData(form);
+            var xhr = new XMLHttpRequest();
+            // Give id (alerte), idUser
+            xhr.open("POST", "/alertes/" + id + "/" + idUser + "/update");
+
+            // Gestion du retour de la requête (load, error, loadend)
+            xhr.addEventListener("load", function() {
+                if (xhr.status === 200) {
+                    // Success
+                    console.log("ok");
+
+                    var alerte = document.getElementById(id);
+                    alerte.classList.remove("alert-danger");
+                    alerte.classList.add("alert-dark");
+                } else {
+                    // Error
+                    console.log("Refused");
+
+                    // Remove d-none class
+                    button.classList.remove("d-none");
+
+                    var alerte = UI.createAlerte();
+
+                    // put on the parent of the button
+                    button.parentNode.appendChild(alerte);
+                }
+            });
+
+            xhr.addEventListener("error", function() {
+                // Error
+                console.log("Error");
+
+                button.classList.remove("d-none");
+
+
+                var alerte = UI.createAlerte();
+                // put on the parent of the button
+                button.parentNode.appendChild(alerte);
+            });
+
+            xhr.addEventListener("loadend", function() {
+                // Always
+                console.log("End");
+
+                // Remove spinner
+                spinner.remove();
+            });
+
+            xhr.send(formData);
+
+            // put on the parent of the button
+            button.parentNode.appendChild(spinner);
+
+
+        } catch (error) {}
+
+
+
     }
 </script>
 

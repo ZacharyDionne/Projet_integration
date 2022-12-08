@@ -6,6 +6,10 @@ use Illuminate\Http\Request;
 use Illuminate\Http\View\View;
 use App\Models\Alerte;
 
+use App\Http\Controllers\Filtre;
+use App\Models\Employe;
+use Throwable;
+
 class AlertesController extends Controller
 {
     /**
@@ -15,9 +19,33 @@ class AlertesController extends Controller
      */
     public function index()
     {
-        // $alertes = Alerte::all();
-        // Trier les aertes par date
-        $alertes = Alerte::orderBy('date', 'desc')->get();
+        try
+        {
+            $conducteur = auth()->user();
+            $employe = auth()->guard('employe')->user();
+
+            if ($conducteur)
+            {
+                $alertes = Alerte::where('idEmploye', 0)->where('idConducteur', $conducteur->id)->orderBy('date', 'desc')->get();
+            }
+            else if ($employe)
+            {
+                if ($employe->type_id == 1)
+                    $alertes = Alerte::where('idEmploye', $employe->id)->where('idConducteur', '!=', 0)->orderBy('date', 'desc')->get();
+                else if ($employe->type_id == 2)
+                    $alertes = Alerte::where('idConducteur', '!=', 0)->orderBy('date', 'desc')->get();
+                else
+                    return View('erreur');
+            }
+            else
+            {
+                return View('erreur');
+            }
+        }
+        catch (Throwable $e)
+        {
+            return View('erreur');
+        }
 
         return View("alertes.index", compact("alertes"));
     }
@@ -72,9 +100,24 @@ class AlertesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, $id, $idUser)
     {
-        //
+        /*
+            Contrôle d'accès
+
+            Autorise uniquement le conducteur concerné,
+            un administrateur ou un contre-maître.
+        
+        $authorization = Filtre::estLUtilisateur($idUser);
+        if ($authorization === false)
+                abort(403);
+        else if ($authorization === null)
+                return View('erreur');
+        */
+
+        $alerte = Alerte::find($id);
+        $alerte->actif = 0;
+        $alerte->save();
     }
 
     /**

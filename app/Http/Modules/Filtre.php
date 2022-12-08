@@ -101,5 +101,46 @@
             
             return true;
         }
+
+public function estLUtilisateur($id)
+{
+    try
+    {
+        $utilisateur = auth()->user();
     }
+    //impossible de vérifier les prévilèges de l'utilisateur
+    catch (Throwable $e)
+    {
+        return null;
+    }
+
+    if ($utilisateur)
+    {
+        if ($utilisateur->id == $id)
+        return true;
+        return false;
+    }
+
+
+    try
+            {
+                $utilisateur = auth()->guard('employe')->user();
+            }
+            //impossible de vérifier les prévilèges de l'utilisateur
+            catch (Throwable $e)
+            {
+                return null;
+            }
+
+    if ($utilisateur)
+    {
+        if ($utilisateur->id == $id)
+        return true;
+        return false;
+    }
+
+    return false;
+
+    }
+}
 ?>
