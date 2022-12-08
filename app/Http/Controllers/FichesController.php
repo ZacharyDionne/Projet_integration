@@ -175,7 +175,6 @@ class FichesController extends Controller
 
             $peutModifier = !$fiche->fini;
         } catch (Throwable $e) {
-            Log::debug($e);
             return View('erreur');
         }
         return View('fiches.edit', compact('fiche', 'plagesDeTemps', 'typesTemps', 'peutModifier', 'conducteur'));
@@ -191,16 +190,13 @@ class FichesController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //$request->observation - string
-        //$request->idFiche - int caché
-        //$request->idConducteur - int caché
-        //$request->plagesDeTemps - string caché
-
         /*
             Gestion d'accès
 
             Autorise seulement le conducteur concerné,
             un administrateur ou un contre-maître.
+
+            La modification d'une fiche complétée est interdit.
         
             À l'avenir, il faudrait il faudra autoriser uniquement le conducteur
             à modifier une fiche non complété et à un contre-maître ayant le
@@ -217,10 +213,20 @@ class FichesController extends Controller
             return View('erreur');
 
 
-        try {
+        try
+        {
             $plagesDeTemps = json_decode($request->plagesDeTemps);
             $fiche = Fiche::where('id', $request->fiche_id)->first();
             
+
+
+            //Validation : interdire la modification d'une fiche complétée
+            if ($fiche->fini)
+            return redirect()->back()->withErrors(["Il est interdit de modifier une fiche complétée"]);
+
+
+
+
 
             //trier avant la validation
             usort($plagesDeTemps, function($a, $b)
@@ -283,20 +289,34 @@ class FichesController extends Controller
                     return redirect()->back()->withErrors(["Des temps se chevauchent"]);
             }
 
+
+
+
             //Validation du type de temps
             $typesTemps = Typetemps::all();
+            $ids = [];
+            for ($i = 0; $i < count($typesTemps); $i++)
+            {
+                $ids[$i] = $typesTemps[$i]->id;
+            }
+
 
             for ($i = 0; $i < count($plagesDeTemps); $i++)
             {
                 $plageDeTemps = $plagesDeTemps[$i];
-                Log::debug($plageDeTemps->typeTemps);
-                if (!isset($plageDeTemps->typeTemps))
+                if (!isset($plageDeTemps->typeTemps_id))
+                    return redirect()->back()->withErrors(["Des types de temps sont invalides"]);
+
+                if (array_search($plageDeTemps->typeTemps_id, $ids) === false)
                     return redirect()->back()->withErrors(["Des types de temps sont invalides"]);
             }
-            
 
-            $fiche->observation = $request->observation;
+
+
+
             $fiche->fini = $request->fini;
+            $fiche->observation = $request->observation;
+
             $fiche->save();
 
 
@@ -328,7 +348,6 @@ class FichesController extends Controller
         }
         catch (Throwable $e)
         {
-            Log::debug($e);
             return View('erreur');
         }
     }
