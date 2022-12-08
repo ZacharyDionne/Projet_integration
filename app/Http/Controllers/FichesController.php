@@ -282,7 +282,7 @@ class FichesController extends Controller
             {
                 $heureDebut = $plagesDeTemps[$i]->heureDebut;
                 $heureFin = $plagesDeTemps[$i]->heureFin;
-                $regexTemps = "/^([0-1][0-9]|2[0-3]):(00|15|30|45)(:00)?$/";
+                $regexTemps = "/^([0-1][0-9]|2[0-3]):(00|15|30|45|59)(:00)?$/";
 
                 if (!isset($heureDebut) || !isset($heureFin))
                     return redirect()->back()->withErrors(["Des temps sont invalides."]);
@@ -319,8 +319,21 @@ class FichesController extends Controller
 
 
 
-            //Validation: il faut que la somme des temps soient égale à 24:00
-            
+            //Validation: il faut que la somme des temps soient égale à 24h
+            $totalTemps = 0;
+
+            for ($i = 0; $i < count($plagesDeTemps); $i++)
+            {
+                $plageDeTemps = $plagesDeTemps[$i];
+                $tempsA = strToTime($plageDeTemps->heureDebut);
+                $tempsB = strToTime($plageDeTemps->heureFin);
+                
+
+                $totalTemps += $tempsB - $tempsA;
+            }
+            if ($totalTemps !== 86340)
+                return redirect()->back()->withErrors(["Chaque plages de temps (de 00:00 à 23:59) doit être inclu"]);
+
 
 
             //Validation du type de temps
@@ -379,6 +392,7 @@ class FichesController extends Controller
         }
         catch (Throwable $e)
         {
+            Log::error($e);
             return View('erreur');
         }
     }

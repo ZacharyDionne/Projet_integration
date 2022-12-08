@@ -119,6 +119,7 @@ setlocale(LC_TIME, 'fr', 'fr_FR', 'fr_FR@euro', 'fr_FR.utf8', 'fr-FR', 'fra');
                 <p id="erreurChevauche" class="text-danger d-none">Des temps se chevauchent.</p>
                 <p id="erreurVide" class="text-danger d-none">Des temps ne sont pas rempli.</p>
                 <p id="erreurTempsRetour" class="text-danger d-none">Des temps finaux sont plus petit que les temps initiales.</p>
+                <p id="erreurTempsComplet" class="text-danger d-none">Chaque plages de temps (de 00:00 à 23:59) doit être inclu</p>
                     @foreach ($errors->all() as $error)
                         <p class="text-danger">{{ $error }}</p>
                     @endforeach

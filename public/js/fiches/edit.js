@@ -58,7 +58,7 @@ function onEnregistrer(e)
     let jsonPlagesDeTemps;
     
     observation.value = observation.value.trim();
-    /*
+    
     //validation
     let valide = true;
     let champsrempli = true;
@@ -67,6 +67,7 @@ function onEnregistrer(e)
     let erreurChevauche = document.getElementById("erreurChevauche");
     let erreurVide = document.getElementById("erreurVide");
     let erreurTempsRetour = document.getElementById("erreurTempsRetour");
+    let erreurTempsComplet = document.getElementById("erreurTempsComplet");
     for (let i = 0; i < rows.length; i++)
     {
         let row = rows[i];
@@ -131,12 +132,39 @@ function onEnregistrer(e)
 
 
 
-    if (!valide)
-    {
-        fini.value = 0;
-        return;
-    }
-*/
+
+
+        let tempsTotal = 0;
+        let tempsComplet;
+        //Calculer la somme des temps
+        for (let i = 0; i < rows.length; i++)
+        {
+            let row = rows[i];
+
+            let heureDebut = row.children[1].children[0].value.split(":");
+            let heureFin = row.children[2].children[0].value.split(":");
+    
+            let tempsA = heureDebut[0] * 3600 + heureDebut[1] * 60;
+            let tempsB = heureFin[0] * 3600 + heureFin[1] * 60;
+            
+            tempsTotal += tempsB - tempsA;
+        }
+        tempsComplet = tempsTotal === 86340;
+        valide = valide && tempsComplet;
+
+
+        if (!tempsComplet)
+            erreurTempsComplet.classList.remove("d-none");
+        else
+            erreurTempsComplet.classList.add("d-none");
+
+        if (!valide)
+        {
+            fini.value = 0;
+            return;
+        }
+
+    //Empaquetage des plages de temps en JSON
     for (let i = 0; i < rows.length; i++)
     {
         let row = rows[i];
@@ -321,18 +349,20 @@ function validateTime(e)
     let time = e.target;
     let array = time.value.split(":");
 
-    let seconds = array[0] * 60 + array[1];
+    let minutes = array[1];
 
     time.classList.remove("bg-warning");
 
-    if (seconds % 15 !== 0)
+    if (minutes % 15 != 0)
     {
-        time.value = time.oldValue;
+        if (minutes != 59)
+            time.value = time.oldValue;
     } 
     else
     {
         time.oldValue = time.value;
     }    
+    console.log(minutes);
 }
 
 
