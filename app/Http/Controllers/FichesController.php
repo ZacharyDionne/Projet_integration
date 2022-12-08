@@ -319,6 +319,9 @@ class FichesController extends Controller
 
 
 
+            //Validation: il faut que la somme des temps soient égale à 24:00
+            
+
 
             //Validation du type de temps
             $typesTemps = Typetemps::all();
