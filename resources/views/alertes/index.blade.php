@@ -23,35 +23,17 @@ setlocale(LC_TIME, 'fr', 'fr_FR', 'fr_FR@euro', 'fr_FR.utf8', 'fr-FR', 'fra');
                 <h1 class="heading-section">Alertes</h1>
             </div>
         </div>
-
-        @if (count($alertes))
+        @php
+            $counter = 0;
+        @endphp
+        @if (count($alertes))        
         <div class="row justify-content-center">
             <div class="col-md-6 text-center mb-5">
                 @foreach ($alertes as $alerte)
-                @if ($alerte->type == 0)
-                <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                    <strong>Alerte!</strong></br>
-                    {{ $alerte->message }}
-                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                </div>
-                @elseif ($alerte->type == 1)
-                <div class="alert alert-warning alert-dismissible fade show" role="alert">
-                    <strong>Alerte!</strong></br>
-                    {{ $alerte->message }}
-                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                </div>
-                @elseif ($alerte->type == 2)
-                <div class="alert alert-info alert-dismissible fade show" role="alert">
-                    <strong>Alerte!</strong></br>
-                    {{ $alerte->message }}
-                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                </div>
-                @endif
-                @endforeach
-
-                //Vu pour un contre-maitre
-                @foreach ($alertes as $alerte)
                 @if ($alerte->actif == 1)
+                @php
+                    $counter++;
+                @endphp
                 @if ($alerte->type == 0)
                 <div class="alert alert-danger alert-dismissible fade show" role="alert" id="{{ $alerte->id }}">
                     <strong>Alerte!</strong></br>
@@ -76,6 +58,9 @@ setlocale(LC_TIME, 'fr', 'fr_FR', 'fr_FR@euro', 'fr_FR.utf8', 'fr-FR', 'fra');
                 @endif
                 @endif
                 @endforeach
+                @if ($counter == 0)
+                <p>Il n'y a aucune nouvelle alerte.</p>
+                @endif
             </div>
         </div>
 
@@ -105,7 +90,9 @@ setlocale(LC_TIME, 'fr', 'fr_FR', 'fr_FR@euro', 'fr_FR.utf8', 'fr-FR', 'fra');
         </form>
 
         @else
-        <p>Il n'y a aucune alerte.</p>
+        <div class="text-center mb-5">
+            <p>Il n'y a aucune alerte.</p>
+        </div>
         @endif
     </div>
 </section>
@@ -136,8 +123,8 @@ setlocale(LC_TIME, 'fr', 'fr_FR', 'fr_FR@euro', 'fr_FR.utf8', 'fr-FR', 'fra');
 
         @if($conducteur)
         var idUser = {{ $conducteur -> id }};
-        @elseif($employeur)
-        var idUser = {{ $employeur -> id }};
+        @elseif($employe)
+        var idUser = {{ $employe -> id }};
         @endif
 
         // Get id alerte in a variable

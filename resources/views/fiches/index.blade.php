@@ -121,7 +121,8 @@ setlocale(LC_TIME, 'fr', 'fr_FR', 'fr_FR@euro', 'fr_FR.utf8', 'fr-FR', 'fra');
 
 				@foreach($lastFiches as $lastFiche)
 				<div class="baniere-body-fiche">
-					<h3 class="heading-section">Fiche du {{ strftime('%A %d %B', strtotime($lastFiche->date)) }}</h3>
+					<!-- Date needs to be in french and in human readable format -->
+					<h3 class="heading-section">Fiche du {{$lastFiche->date}}</h3>
 					<div class="baniere-body-left text-center">
 						<p>Aucune donnée existante</p>
 
