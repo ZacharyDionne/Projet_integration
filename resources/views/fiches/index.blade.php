@@ -121,14 +121,24 @@ setlocale(LC_TIME, 'fr', 'fr_FR', 'fr_FR@euro', 'fr_FR.utf8', 'fr-FR', 'fra');
 
 				@foreach($lastFiches as $lastFiche)
 				<div class="baniere-body-fiche">
+					@if($lastFiche->fini == 0)
+					<i class="fa fa-square fa-lg baniere-body-fiche-icon"></i>
+					@else
+					<i class="fa fa-check-square fa-lg baniere-body-fiche-icon"></i>
+					@endif
 					<h3 class="heading-section mt-2">Fiche du {{ \Carbon\Carbon::parse($lastFiche->date)->locale('fr')->isoFormat('dddd, D MMMM YYYY') }}</h3>
-					<!-- decale le text sur la gauche -->
 					<div class="baniere-body-left text-center">
 
 						<div class="pl-text text-left mb-2">
+							<!-- si heures de travail == 00:00, C'est qui na pas d<heures de travail -->
+							@if($lastFiche->heures != '00:00')
 							<p class="mb-1">Début du poste de travail : {{ $lastFiche->heureDebut }}</p>
 							<p class="mb-1">Fin du poste de travail : {{ $lastFiche->heureFin }}</p>
 							<p class="mb-1">Heures de travail : {{ $lastFiche->heures }}</p>
+							@else
+							<p class="mb-1">Heures de travail : 00:00 - Repos</p>
+							@endif
+
 
 							@if($lastFiche->fini == 0)
 							<p class="mb-1">État : Non complété</p>
@@ -138,7 +148,7 @@ setlocale(LC_TIME, 'fr', 'fr_FR', 'fr_FR@euro', 'fr_FR.utf8', 'fr-FR', 'fra');
 						</div>
 
 						@if($lastFiche->observation != null)
-							<p class="mb-1">Commentaire : {{ $lastFiche->observation }}</p>
+						<p class="mb-1">Commentaire : {{ $lastFiche->observation }}</p>
 						@endif
 
 						<a class="btn btn-primary btnFiche" href="{{ route('fiches.edit', [$lastFiche->conducteur_id, $lastFiche->date]) }}">Voir la fiche</a>
