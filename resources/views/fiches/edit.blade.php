@@ -27,7 +27,7 @@ setlocale(LC_TIME, 'fr', 'fr_FR', 'fr_FR@euro', 'fr_FR.utf8', 'fr-FR', 'fra');
                     <a class="btn btn-primary button-page font-tr w-100 mr-2" href="{{ route('fiches.edit', ['id' => $fiche->conducteur_id, 'date' => \Carbon\Carbon::parse($fiche->date)->subDay()->format('Y-m-d')]) }}">
                         <i class="fa fa-arrow-left fa-fw" aria-hidden="true"></i><span class="item-label">Journée précédente</span>
                     </a>
-                    <a class="btn btn-primary button-list font-tr w-100 ml-2 mr-2" href="{{ route('fiches.index', ['id' => $fiche->conducteur_id]) }}">
+                    <a class="btn btn-primary button-page font-tr w-100 ml-2 mr-2" href="{{ route('fiches.index', ['id' => $fiche->conducteur_id]) }}">
                         <i class="fa fa-list fa-fw" aria-hidden="true"></i><span class="item-label">Retour à la liste des fiches</span>
                     </a>
                     <a class="btn btn-primary button-page font-tr w-100 ml-2" href="{{ route('fiches.edit', ['id' => $fiche->conducteur_id, 'date' => \Carbon\Carbon::parse($fiche->date)->addDay()->format('Y-m-d')]) }}">
@@ -51,23 +51,23 @@ setlocale(LC_TIME, 'fr', 'fr_FR', 'fr_FR@euro', 'fr_FR.utf8', 'fr-FR', 'fra');
 									<thead class="bg-tr-up">
 										<tr class="shadow-sm">
                                             <th class="font-tr">
-                                                <input type="checkbox" id="selectAll">
+                                                <input type="checkbox" class="checkSize" id="selectAll">
                                             </th>
                                             <th class="font-tr">Début<span class="item-label"> de l'activité</span></th>
                                             <th class="font-tr">Fin<span class="item-label"> de l'activité</span></th>
                                             <th class="font-tr">Type</th>
 										</tr>
 									</thead>
-									<tbody>
+									<tbody class="spacingTable">
                                         @for ($i = 0; $i < count($plagesDeTemps); $i++)
 											<tr class="shadow-sm colorTableContent">
                                                 <td class="font-rg">
-                                                    <input type="checkbox" class="select">
+                                                    <input type="checkbox" class=" checkSize select">
                                                 </td>
                                                 <td class="font-rg"><input type="time" step="900" class="heureDebut" value="{{ $plagesDeTemps[$i]['heureDebut'] }}"></td>
                                                 <td class="font-rg"><input type="time" step="900" class="heureFin"   value="{{ $plagesDeTemps[$i]['heureFin']   }}"></td>
                                                 <td class="font-rg">
-                                                    <select>
+                                                    <select class="selectSize">
                                                         @for ($j = 0; $j < count($typesTemps); $j++)
                                                             <option
                                                                 @if ($typesTemps[$j]["id"] == $plagesDeTemps[$i]["typetemps_id"])
@@ -91,7 +91,7 @@ setlocale(LC_TIME, 'fr', 'fr_FR', 'fr_FR@euro', 'fr_FR.utf8', 'fr-FR', 'fra');
                     @csrf
                     @method('patch')
                     <div class="grid-placement marginGrid mt-4">
-                        <h6 class="heading-sectionsmall text-left list-title float-left">Observation</h6>
+                        <h6 class="heading-sectionsmall text-left list-title float-left">Commentaire(s)</h6>
                         <input type="hidden" id="plagesDeTemps" name="plagesDeTemps">
                         <input type="hidden" name="fiche_id" value="{{ $fiche->id }}">
                         <textarea id="observation" rows="4" class="w-100" name="observation">{{ $fiche->observation }}</textarea>                    
@@ -102,7 +102,7 @@ setlocale(LC_TIME, 'fr', 'fr_FR', 'fr_FR@euro', 'fr_FR.utf8', 'fr-FR', 'fra');
                             <i class="fa fa-floppy-o fa-fw" aria-hidden="true"></i><span class="item-label">Enregistrer</span>
                         </button>
                         <button type="button" class="btn btn-primary button-list font-tr w-50 ml-2" id="boutonTerminer">
-                            <i class="fa fa-paper-plane fa-fw" aria-hidden="true"></i><span class="item-label">Completer</span>
+                            <i class="fa fa-paper-plane fa-fw" aria-hidden="true"></i><span class="item-label">Compléter</span>
                         </button>
                     </div>
                 </form>
@@ -117,14 +117,14 @@ setlocale(LC_TIME, 'fr', 'fr_FR', 'fr_FR@euro', 'fr_FR.utf8', 'fr-FR', 'fra');
                 <!-- Cette partie donne à Javascript le format pour une colonne d'une plage de temps -->
                 <table class="d-none">
                     <tbody>
-                        <tr class="shadow-sm" id="rowTemplate">
+                        <tr class="shadow-sm colorTableContent" id="rowTemplate">
                             <td class="font-rg">
-                                <input type="checkbox" class="select">
+                                <input type="checkbox" class="checkSize select">
                             </td>
                             <td class="font-rg"><input type="time" step="900" class="heureDebut"></td>
                             <td class="font-rg"><input type="time" step="900" class="heureFin"></td>
                             <td class="font-rg">
-                                <select>
+                                <select class="selectSize">
                                     @for ($j = 0; $j < count($typesTemps); $j++)
                                         <option
                                             value="{{ $j + 1 }}">

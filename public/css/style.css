@@ -116,8 +116,15 @@
   color: #A7A7A7
 }
 
-.button-middle
+.checkSize {
+  height: 25px;
+  width: 25px;
+  margin-top: 8px;
+}
 
+.selectSize {
+  width: auto;
+}
 
 .top-small-title {
   font-family: Roboto-Regular;
@@ -138,6 +145,7 @@
 
 .colorTableContent {
   background: #FFFFFF;
+  border-top-width: 2px;
 }
 
 .grid-placement{
@@ -208,12 +216,6 @@
   border-radius: 5px;
   box-shadow: 0px 19px 27px -20px rgb(0 0 0 / 16%);
 }
-
-.banLogo{
-  /* ajuster la taille de l'image en fonction des elements de la div parent */
- 
-}
-
 
 /* [ Navbar ] */
 
@@ -311,6 +313,10 @@
 
   .grid-placement{
     padding: 5px;
+  }
+  
+  .selectSize {
+    width: 165px;
   }
 }
 
