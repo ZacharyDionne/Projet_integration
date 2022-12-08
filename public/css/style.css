@@ -136,6 +136,10 @@
   margin: 10px;
 }
 
+.colorTableContent {
+  background: #FFFFFF;
+}
+
 .grid-placement{
   color: #707070;
   background: #ECECEC;
@@ -181,6 +185,15 @@
   border-radius: 5px;
   margin-top: 10px;
   margin-bottom: 10px;
+}
+
+.paddingCard {
+  padding: 15px;
+}
+
+.marginGrid {
+  margin-left: 25px;
+  margin-right: 25px;
 }
 
 .btnDeco {
@@ -285,6 +298,19 @@
     width: auto;
     margin-left: auto;
     margin-right: auto;
+  }
+
+  .paddingCard {
+    padding: 0px;
+  }
+  
+  .marginGrid {
+    margin-left: 0px;
+    margin-right: 0px;
+  }
+
+  .grid-placement{
+    padding: 5px;
   }
 }
 
