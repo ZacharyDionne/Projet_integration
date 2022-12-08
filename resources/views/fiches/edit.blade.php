@@ -36,14 +36,16 @@ setlocale(LC_TIME, 'fr', 'fr_FR', 'fr_FR@euro', 'fr_FR.utf8', 'fr-FR', 'fra');
                 </div>
 
                 <div class="grid-placement marginGrid">
-                    <div class="d-flex justify-content-around">
-                        <a class="btn btn-primary button-add font-tr w-100 mr-2" id="boutonAjouter">
-                            <i class="fa fa-plus fa-fw" aria-hidden="true"></i><span class="item-label">Ajouter</span>
-                        </a>
-                        <a class="btn btn-primary button-delete font-tr w-100 ml-2" id="boutonSupprimer">
-                            <i class="fa fa-trash fa-fw" aria-hidden="true"></i><span class="item-label">Supprimer</span>
-                        </a>
-                    </div>
+                    @if ($peutModifier)
+                        <div class="d-flex justify-content-around">
+                            <a class="btn btn-primary button-add font-tr w-100 mr-2" id="boutonAjouter">
+                                <i class="fa fa-plus fa-fw" aria-hidden="true"></i><span class="item-label">Ajouter</span>
+                            </a>
+                            <a class="btn btn-primary button-delete font-tr w-100 ml-2" id="boutonSupprimer">
+                                <i class="fa fa-trash fa-fw" aria-hidden="true"></i><span class="item-label">Supprimer</span>
+                            </a>
+                        </div>
+                    @endif
 					<div class="row">
 						<div class="col-md-12">
 							<div class="table-wrap">
@@ -51,7 +53,9 @@ setlocale(LC_TIME, 'fr', 'fr_FR', 'fr_FR@euro', 'fr_FR.utf8', 'fr-FR', 'fra');
 									<thead class="bg-tr-up">
 										<tr class="shadow-sm">
                                             <th class="font-tr">
-                                                <input type="checkbox" class="checkSize" id="selectAll">
+                                                @if ($peutModifier)
+                                                    <input type="checkbox" class="checkSize" id="selectAll">
+                                                @endif
                                             </th>
                                             <th class="font-tr">Début<span class="item-label"> de l'activité</span></th>
                                             <th class="font-tr">Fin<span class="item-label"> de l'activité</span></th>
@@ -62,10 +66,12 @@ setlocale(LC_TIME, 'fr', 'fr_FR', 'fr_FR@euro', 'fr_FR.utf8', 'fr-FR', 'fra');
                                         @for ($i = 0; $i < count($plagesDeTemps); $i++)
 											<tr class="shadow-sm colorTableContent">
                                                 <td class="font-rg">
-                                                    <input type="checkbox" class=" checkSize select">
+                                                    @if ($peutModifier)
+                                                        <input type="checkbox" class=" checkSize select">
+                                                    @endif
                                                 </td>
-                                                <td class="font-rg"><input type="time" step="900" class="heureDebut" value="{{ $plagesDeTemps[$i]['heureDebut'] }}"></td>
-                                                <td class="font-rg"><input type="time" step="900" class="heureFin"   value="{{ $plagesDeTemps[$i]['heureFin']   }}"></td>
+                                                <td class="font-rg"><input type="time" step="900" class="heureDebut" value="{{ $plagesDeTemps[$i]['heureDebut'] }}" @disabled(!$peutModifier)></td>
+                                                <td class="font-rg"><input type="time" step="900" class="heureFin"   value="{{ $plagesDeTemps[$i]['heureFin']   }}" @disabled(!$peutModifier)></td>
                                                 <td class="font-rg">
                                                     <select class="selectSize">
                                                         @for ($j = 0; $j < count($typesTemps); $j++)
@@ -73,7 +79,8 @@ setlocale(LC_TIME, 'fr', 'fr_FR', 'fr_FR@euro', 'fr_FR.utf8', 'fr-FR', 'fra');
                                                                 @if ($typesTemps[$j]["id"] == $plagesDeTemps[$i]["typetemps_id"])
                                                                     selected
                                                                 @endif
-                                                                value="{{ $j + 1 }}">
+                                                                value="{{ $j + 1 }}"
+                                                                @disabled(!$peutModifier)>
                                                                     {{ $typesTemps[$j]["type"] }}
                                                             </option>
                                                         @endfor
@@ -97,14 +104,16 @@ setlocale(LC_TIME, 'fr', 'fr_FR', 'fr_FR@euro', 'fr_FR.utf8', 'fr-FR', 'fra');
                         <textarea id="observation" rows="4" class="w-100" name="observation">{{ $fiche->observation }}</textarea>                    
                         <input type="hidden" id="fini" name="fini" value="0">
                     </div>
-                    <div class="d-flex justify-content-around p-4">
-                        <button type="button" class="btn btn-primary button-page font-tr w-100 mr-2" id="boutonEnregistrer">
-                            <i class="fa fa-floppy-o fa-fw" aria-hidden="true"></i><span class="item-label">Enregistrer</span>
-                        </button>
-                        <button type="button" class="btn btn-primary button-list font-tr w-50 ml-2" id="boutonTerminer">
-                            <i class="fa fa-paper-plane fa-fw" aria-hidden="true"></i><span class="item-label">Compléter</span>
-                        </button>
-                    </div>
+                    @if ($peutModifier)
+                        <div class="d-flex justify-content-around p-4">
+                            <button type="button" class="btn btn-primary button-page font-tr w-100 mr-2" id="boutonEnregistrer">
+                                <i class="fa fa-floppy-o fa-fw" aria-hidden="true"></i><span class="item-label">Enregistrer</span>
+                            </button>
+                            <button type="button" class="btn btn-primary button-list font-tr w-50 ml-2" id="boutonTerminer">
+                                <i class="fa fa-paper-plane fa-fw" aria-hidden="true"></i><span class="item-label">Compléter</span>
+                            </button>
+                        </div>
+                    @endif
                 </form>
 
                 <p id="erreurChevauche" class="text-danger d-none">Des temps se chevauchent.</p>
@@ -114,28 +123,30 @@ setlocale(LC_TIME, 'fr', 'fr_FR', 'fr_FR@euro', 'fr_FR.utf8', 'fr-FR', 'fra');
                         <p class="text-danger">{{ $error }}</p>
                     @endforeach
 
-                <!-- Cette partie donne à Javascript le format pour une colonne d'une plage de temps -->
-                <table class="d-none">
-                    <tbody>
-                        <tr class="shadow-sm colorTableContent" id="rowTemplate">
-                            <td class="font-rg">
-                                <input type="checkbox" class="checkSize select">
-                            </td>
-                            <td class="font-rg"><input type="time" step="900" class="heureDebut"></td>
-                            <td class="font-rg"><input type="time" step="900" class="heureFin"></td>
-                            <td class="font-rg">
-                                <select class="selectSize">
-                                    @for ($j = 0; $j < count($typesTemps); $j++)
-                                        <option
-                                            value="{{ $j + 1 }}">
-                                                {{ $typesTemps[$j]["type"] }}
-                                        </option>
-                                    @endfor
-                                </select>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
+                @if ($peutModifier)
+                    <!-- Cette partie donne à Javascript le format pour une colonne d'une plage de temps -->
+                    <table class="d-none">
+                        <tbody>
+                            <tr class="shadow-sm colorTableContent" id="rowTemplate">
+                                <td class="font-rg">
+                                    <input type="checkbox" class="checkSize select">
+                                </td>
+                                <td class="font-rg"><input type="time" step="900" class="heureDebut"></td>
+                                <td class="font-rg"><input type="time" step="900" class="heureFin"></td>
+                                <td class="font-rg">
+                                    <select class="selectSize">
+                                        @for ($j = 0; $j < count($typesTemps); $j++)
+                                            <option
+                                                value="{{ $j + 1 }}">
+                                                    {{ $typesTemps[$j]["type"] }}
+                                            </option>
+                                        @endfor
+                                    </select>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                @endif
             </div>
         </div>
     </section>
