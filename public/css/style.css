@@ -116,8 +116,15 @@
   color: #A7A7A7
 }
 
-.button-middle
+.checkSize {
+  height: 25px;
+  width: 25px;
+  margin-top: 8px;
+}
 
+.selectSize {
+  width: auto;
+}
 
 .top-small-title {
   font-family: Roboto-Regular;
@@ -311,6 +318,10 @@
 
   .grid-placement{
     padding: 5px;
+  }
+  
+  .selectSize {
+    width: 165px;
   }
 }
 

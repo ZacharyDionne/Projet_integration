@@ -51,7 +51,7 @@ setlocale(LC_TIME, 'fr', 'fr_FR', 'fr_FR@euro', 'fr_FR.utf8', 'fr-FR', 'fra');
 									<thead class="bg-tr-up">
 										<tr class="shadow-sm">
                                             <th class="font-tr">
-                                                <input type="checkbox" id="selectAll">
+                                                <input type="checkbox" class="checkSize" id="selectAll">
                                             </th>
                                             <th class="font-tr">Début<span class="item-label"> de l'activité</span></th>
                                             <th class="font-tr">Fin<span class="item-label"> de l'activité</span></th>
@@ -62,12 +62,12 @@ setlocale(LC_TIME, 'fr', 'fr_FR', 'fr_FR@euro', 'fr_FR.utf8', 'fr-FR', 'fra');
                                         @for ($i = 0; $i < count($plagesDeTemps); $i++)
 											<tr class="shadow-sm colorTableContent">
                                                 <td class="font-rg">
-                                                    <input type="checkbox" class="select">
+                                                    <input type="checkbox" class=" checkSize select">
                                                 </td>
                                                 <td class="font-rg"><input type="time" step="900" class="heureDebut" value="{{ $plagesDeTemps[$i]['heureDebut'] }}"></td>
                                                 <td class="font-rg"><input type="time" step="900" class="heureFin"   value="{{ $plagesDeTemps[$i]['heureFin']   }}"></td>
                                                 <td class="font-rg">
-                                                    <select>
+                                                    <select class="selectSize">
                                                         @for ($j = 0; $j < count($typesTemps); $j++)
                                                             <option
                                                                 @if ($typesTemps[$j]["id"] == $plagesDeTemps[$i]["typetemps_id"])
@@ -91,7 +91,7 @@ setlocale(LC_TIME, 'fr', 'fr_FR', 'fr_FR@euro', 'fr_FR.utf8', 'fr-FR', 'fra');
                     @csrf
                     @method('patch')
                     <div class="grid-placement marginGrid mt-4">
-                        <h6 class="heading-sectionsmall text-left list-title float-left">Observation</h6>
+                        <h6 class="heading-sectionsmall text-left list-title float-left">Commentaire(s)</h6>
                         <input type="hidden" id="plagesDeTemps" name="plagesDeTemps">
                         <input type="hidden" name="fiche_id" value="{{ $fiche->id }}">
                         <textarea id="observation" rows="4" class="w-100" name="observation">{{ $fiche->observation }}</textarea>                    
