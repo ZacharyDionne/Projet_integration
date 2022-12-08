@@ -69,10 +69,10 @@ class FichesController extends Controller
 
                 foreach ($fiche->plagesDeTemps as $plageDeTemps) {
                     if ($plageDeTemps->typetemps_id == 1) {
-                        $totalHeuresRepos += (strtotime($plageDeTemps->heureFin) - strtotime($plageDeTemps->heureDebut)) / 3600;
+                        $totalHeuresRepos += (strtotime($plageDeTemps->heureFin) - strtotime($plageDeTemps->heureDebut));
                     }
                     elseif ($plageDeTemps->typetemps_id == 2 || $plageDeTemps->typetemps_id == 3) {
-                        $totalHeures += (strtotime($plageDeTemps->heureFin) - strtotime($plageDeTemps->heureDebut)) / 3600;
+                        $totalHeures += (strtotime($plageDeTemps->heureFin) - strtotime($plageDeTemps->heureDebut));
                     }
                 }
 
@@ -81,9 +81,9 @@ class FichesController extends Controller
         } catch (Throwable $e) {
             return View('erreur');
         }
-        
-        $totalHeures = gmdate("H:i", $totalHeures * 3600);
-        $totalHeuresRepos = gmdate("H:i", $totalHeuresRepos * 3600);
+
+        $totalHeures = gmdate("H:i", $totalHeures);
+        $totalHeuresRepos = gmdate("H:i", $totalHeuresRepos);
 
         return View("fiches.index", compact("fiches", "lastFiches", "totalHeures", "totalHeuresRepos"));
         // return View("fiches.index", compact("fiches"));

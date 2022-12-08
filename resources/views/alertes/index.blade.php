@@ -89,10 +89,9 @@ setlocale(LC_TIME, 'fr', 'fr_FR', 'fr_FR@euro', 'fr_FR.utf8', 'fr-FR', 'fra');
                 @foreach ($alertes as $alerte)
                 @if ($alerte->actif == 0)
                 <div class="alert alert-dark fade show" role="alert" id="{{ $alerte->id }}">
-                    <strong>Alerte!</strong></br>
                     {{ $alerte->conducteur_id }} :
                     {{ $alerte->message }}
-                    <p class="text-muted">{{ strftime('%A %d %B %Y', strtotime($alerte->date)) }}</p>
+                    <p class="text-muted mb-0">{{ strftime('%A %d %B %Y', strtotime($alerte->date)) }}</p>
                 </div>
                 @endif
                 @endforeach

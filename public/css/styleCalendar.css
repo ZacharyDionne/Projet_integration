@@ -8394,3 +8394,11 @@ tbody td:active {
 .ttlFiche {
   padding-top: 35px;
 }
+
+.btnFiche {
+  width: 25% !important;
+  height: auto !important;
+  padding: 5px 10px !important;
+  font-size: small !important;
+  margin: auto !important;
+}
