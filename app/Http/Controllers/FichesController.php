@@ -68,27 +68,40 @@ class FichesController extends Controller
                 foreach ($fiche->plagesDeTemps as $plageDeTemps) {
                     if ($plageDeTemps->typetemps_id == 1) {
                         $totalHeuresRepos += (strtotime($plageDeTemps->heureFin) - strtotime($plageDeTemps->heureDebut));
-                    }
-                    elseif ($plageDeTemps->typetemps_id == 2 || $plageDeTemps->typetemps_id == 3) {
+                    } elseif ($plageDeTemps->typetemps_id == 2 || $plageDeTemps->typetemps_id == 3) {
                         $totalHeures += (strtotime($plageDeTemps->heureFin) - strtotime($plageDeTemps->heureDebut));
                     }
                 }
 
-                $fiche->date = date('d F Y', strtotime($fiche->date));
-                $fiche->date = str_replace('January', 'janvier', $fiche->date);
-                $fiche->date = str_replace('February', 'février', $fiche->date);
-                $fiche->date = str_replace('March', 'mars', $fiche->date);
-                $fiche->date = str_replace('April', 'avril', $fiche->date);
-                $fiche->date = str_replace('May', 'mai', $fiche->date);
-                $fiche->date = str_replace('June', 'juin', $fiche->date);
-                $fiche->date = str_replace('July', 'juillet', $fiche->date);
-                $fiche->date = str_replace('August', 'août', $fiche->date);
-                $fiche->date = str_replace('September', 'septembre', $fiche->date);
-                $fiche->date = str_replace('October', 'octobre', $fiche->date);
-                $fiche->date = str_replace('November', 'novembre', $fiche->date);
-                $fiche->date = str_replace('December', 'décembre', $fiche->date);
-
                 $lastFiches[$i] = $fiche;
+
+                $heures = 0;
+                $hDebut = null;
+                $hFin = null;
+                foreach ($fiche->plagesDeTemps as $plageDeTemps) {
+                    if ($plageDeTemps->typetemps_id == 2 || $plageDeTemps->typetemps_id == 3) {
+                        $heures += (strtotime($plageDeTemps->heureFin) - strtotime($plageDeTemps->heureDebut));
+
+                        if ($hDebut == null || strtotime($plageDeTemps->heureDebut) < strtotime($hDebut))
+                            $hDebut = $plageDeTemps->heureDebut;
+
+                        if ($hFin == null || strtotime($plageDeTemps->heureFin) > strtotime($hFin))
+                            $hFin = $plageDeTemps->heureFin;
+                    }
+                }
+                $heures = gmdate("H:i", $heures);
+                if ($hDebut == null)
+                    $hDebut = "Repos";
+                else
+                    $hDebut = date("H:i", strtotime($hDebut));
+                if ($hFin == null)
+                    $hFin = "Repos";
+                else
+                    $hFin = date("H:i", strtotime($hFin));
+
+                $lastFiches[$i]->heureDebut = $hDebut;
+                $lastFiches[$i]->heureFin = $hFin;
+                $lastFiches[$i]->heures = $heures;
             }
         } catch (Throwable $e) {
             Log::error($e);
@@ -233,7 +246,7 @@ class FichesController extends Controller
         {
             $plagesDeTemps = json_decode($request->plagesDeTemps);
             $fiche = Fiche::where('id', $request->fiche_id)->first();
-            
+
 
 
             //Validation : interdire la modification d'une fiche complétée
@@ -245,14 +258,13 @@ class FichesController extends Controller
 
 
             //trier avant la validation
-            usort($plagesDeTemps, function($a, $b)
-            {
+            usort($plagesDeTemps, function ($a, $b) {
                 $tempsA = $a->heureDebut;
                 $tempsB = $b->heureDebut;
 
                 if ($tempsA === $tempsB)
                     return 0;
-        
+
                 if ($tempsA === "")
                     return 1;
 

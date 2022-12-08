@@ -8394,6 +8394,11 @@ tbody td:active {
 .ttlFiche {
   padding-top: 35px;
 }
+@media screen and (max-width: 600px) {
+  .ttlFiche {
+    font-size: 1.5em;
+  }
+}
 
 .btnFiche {
   width: 25% !important;
@@ -8401,4 +8406,12 @@ tbody td:active {
   padding: 5px 10px !important;
   font-size: small !important;
   margin: auto !important;
+}
+
+.baniere-body-fiche {
+  padding: 0px 10px 10px 10px;
+  margin-top: 10px;
+  background-color: #ffffff;
+  border : 1px solid #fafafa;
+  box-shadow: 0px 19px 27px -20px rgb(0 0 0 / 16%);
 }
