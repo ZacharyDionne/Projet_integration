@@ -50,7 +50,7 @@ class FichesController extends Controller
             $totalHeures = 0;
             $totalHeuresRepos = 0;
 
-            for ($i = 0; $i < 7; $i++) {
+            for ($i = 0; $i < 14; $i++) {
                 $date = date('Y-m-d', strtotime("-$i days"));
 
                 $fiche = null;

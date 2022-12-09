@@ -115,14 +115,14 @@ setlocale(LC_TIME, 'fr', 'fr_FR', 'fr_FR@euro', 'fr_FR.utf8', 'fr-FR', 'fra');
 		</div>
 		<div class="row">
 			<div class="col-md-6 offset-md-3">
-				<h3 class="text-center onlyFontTr ttlFiche">Fiches des 7 derniers jours :</h3>
+				<h3 class="text-center onlyFontTr ttlFiche">Fiches des 14 derniers jours :</h3>
 				<p class="text-center">Heures de travail cumulées : {{ $totalHeures }}
 					</br>Heures de repos cumulées : {{ $totalHeuresRepos }}</p>
 
 				@foreach($lastFiches as $lastFiche)
 				<div class="baniere-body-fiche">
 					@if($lastFiche->fini == 0)
-					<i class="fa fa-square fa-lg baniere-body-fiche-icon"></i>
+					<i class="fa fa-square-o fa-lg baniere-body-fiche-icon"></i>
 					@else
 					<i class="fa fa-check-square fa-lg baniere-body-fiche-icon"></i>
 					@endif
