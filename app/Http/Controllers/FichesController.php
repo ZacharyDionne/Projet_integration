@@ -388,6 +388,13 @@ class FichesController extends Controller
             }
 
 
+
+
+            //création des alertes
+            //si la fiche est terminée
+
+
+
             return redirect()->route('fiches.index', $id);
         }
         catch (Throwable $e)
