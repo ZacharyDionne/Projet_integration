@@ -277,7 +277,12 @@ class FichesController extends Controller
                 return -1;
             });
 
-            //validation du format
+
+
+
+
+
+            //validation du format du temps
             for ($i = 0; $i < count($plagesDeTemps); $i++)
             {
                 $heureDebut = $plagesDeTemps[$i]->heureDebut;
@@ -297,45 +302,57 @@ class FichesController extends Controller
 
 
 
-
-            //validation des contraintes du temps
-            for ($i = 0; $i < count($plagesDeTemps); $i++)
+            /*
+                Certaines validations sont appliqués
+                uniquement quand l'utilisateur veut marquer
+                la fiche comme fini.
+            */
+            if ($request->fini == 1)
             {
-                $plageDeTemps = $plagesDeTemps[$i];
-                $debutA = $plageDeTemps->heureDebut;
-                $finA = $plageDeTemps->heureFin;
-                $debutB = null;
 
-                if ($i + 1 !== count($plagesDeTemps))
-                    $debutB = $plagesDeTemps[$i + 1]->heureDebut;
+                //validation des contraintes du temps
+                for ($i = 0; $i < count($plagesDeTemps); $i++)
+                {
+                    $plageDeTemps = $plagesDeTemps[$i];
+                    $debutA = $plageDeTemps->heureDebut;
+                    $finA = $plageDeTemps->heureFin;
+                    $debutB = null;
 
-                if ($finA < $debutA)
-                    return redirect()->back()->withErrors(["Un temps de fin était plus petit que son temps début"]);
-                
-                
-                if ($debutB && $finA > $debutB)
-                    return redirect()->back()->withErrors(["Des temps se chevauchent"]);
+                    if ($i + 1 !== count($plagesDeTemps))
+                        $debutB = $plagesDeTemps[$i + 1]->heureDebut;
+
+                    if ($finA < $debutA)
+                        return redirect()->back()->withErrors(["Un temps de fin était plus petit que son temps début"]);
+                    
+                    
+                    if ($debutB && $finA > $debutB)
+                        return redirect()->back()->withErrors(["Des temps se chevauchent"]);
+                }
+
+
+                /*
+                    Validation: il faut que la somme des temps soient égale à 24h
+                */
+                $regexTempsFinal = "/^00:00(:00)?$/";
+                if (regexTempsFinal.test($plagesDeTemps[count($plagesDeTemps - 1)]->heureFin))
+                    $plagesDeTemps[count($plagesDeTemps - 1)]->heureFin = '23:59';
+
+                $totalTemps = 0;
+                for ($i = 0; $i < count($plagesDeTemps); $i++)
+                {
+                    $plageDeTemps = $plagesDeTemps[$i];
+                    $tempsA = strToTime($plageDeTemps->heureDebut);
+                    $tempsB = strToTime($plageDeTemps->heureFin);
+                    
+
+                    $totalTemps += $tempsB - $tempsA;
+                }
+
+                if ($totalTemps !== 86340)
+                    return redirect()->back()->withErrors(["Chaque plages de temps (de 00:00 à 23:59) doit être inclu"]);
             }
 
-
-
-            //Validation: il faut que la somme des temps soient égale à 24h
-            $totalTemps = 0;
-
-            for ($i = 0; $i < count($plagesDeTemps); $i++)
-            {
-                $plageDeTemps = $plagesDeTemps[$i];
-                $tempsA = strToTime($plageDeTemps->heureDebut);
-                $tempsB = strToTime($plageDeTemps->heureFin);
-                
-
-                $totalTemps += $tempsB - $tempsA;
-            }
-            if ($totalTemps !== 86340)
-                return redirect()->back()->withErrors(["Chaque plages de temps (de 00:00 à 23:59) doit être inclu"]);
-
-
-
+            
             //Validation du type de temps
             $typesTemps = Typetemps::all();
             $ids = [];
@@ -343,24 +360,21 @@ class FichesController extends Controller
             {
                 $ids[$i] = $typesTemps[$i]->id;
             }
-
-
+            
             for ($i = 0; $i < count($plagesDeTemps); $i++)
             {
                 $plageDeTemps = $plagesDeTemps[$i];
                 if (!isset($plageDeTemps->typeTemps_id))
                     return redirect()->back()->withErrors(["Des types de temps sont invalides"]);
-
+            
                 if (array_search($plageDeTemps->typeTemps_id, $ids) === false)
                     return redirect()->back()->withErrors(["Des types de temps sont invalides"]);
             }
 
 
 
-
             $fiche->fini = $request->fini;
             $fiche->observation = $request->observation;
-
             $fiche->save();
 
 
@@ -368,8 +382,8 @@ class FichesController extends Controller
 
 
             //Archiver les anciennes
-            $plagesDeTemps = PlageDeTemps::where('fiche_id', $request->fiche_id)->where('archive', false)->get();
-            foreach ($plagesDeTemps as $plageDeTemps)
+            $plagesDeTempsArchive = PlageDeTemps::where('fiche_id', $request->fiche_id)->where('archive', false)->get();
+            foreach ($plagesDeTempsArchive as $plageDeTemps)
             {
                 $plageDeTemps->archive = true;
                 $plageDeTemps->save();

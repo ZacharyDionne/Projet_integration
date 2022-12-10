@@ -9,7 +9,7 @@ class PlageDeTemps extends Model
 {
     use HasFactory;
 
-    protected $fillable = ["heureDebut", "heureFin"];
+    protected $fillable = ["heureDebut", "heureFin", "typeTemps_id"];
     protected $table = "plagedetemps";
 
     public function typeTemps(): belongTo

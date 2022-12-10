@@ -6,7 +6,7 @@ let selectAll = document.getElementById("selectAll");
 let fini = document.getElementById("fini");
 
 addEvents();
-
+valider();
 
 
 
@@ -24,19 +24,10 @@ function addEvents()
     for (let checkbox of document.getElementsByClassName("select"))
         checkbox.addEventListener("click", onSelect);
 
-    let rows = tbody.children;
-    
-    for (let i = 0; i < rows.length; i++)
-    {
-        let times = rows[i].querySelectorAll("input[type='time']");
+    let temps = table.querySelectorAll("input[type='time']");
+    for (let i = 0; i < temps.length; i++)
+        temps[i].addEventListener("input", valider);
 
-        times[0].addEventListener("input", validateTime);
-        times[0].addEventListener("input", onHeureDebutChanged);
-        times[0].oldValue = times[0].value;
-
-        times[1].addEventListener("input", validateTime);
-        times[1].oldValue = times[1].value;
-    }
 }
 
 
@@ -53,116 +44,17 @@ function addEvents()
 function onEnregistrer(e)
 {
     let observation = document.getElementById("observation");
-    let rows = tbody.children;
+    let rows = Array.from(tbody.children);
     let plagesDeTemps = [];
     let jsonPlagesDeTemps;
     
+
     observation.value = observation.value.trim();
     
-    //validation
-    let valide = true;
-    let champsrempli = true;
-    let tempsNonChevauche = true;
-    let pasRetourTemps = true;
-    let erreurChevauche = document.getElementById("erreurChevauche");
-    let erreurVide = document.getElementById("erreurVide");
-    let erreurTempsRetour = document.getElementById("erreurTempsRetour");
-    let erreurTempsComplet = document.getElementById("erreurTempsComplet");
-    for (let i = 0; i < rows.length; i++)
-    {
-        let row = rows[i];
-        let heureDebut = row.children[1].children[0];
-        let heureFin = row.children[2].children[0];
-
-        let nextRow = rows[i + 1];
-        let nextHeureDebut = null;
-        if (nextRow)
-            nextHeureDebut = nextRow.children[1].children[0];
 
 
 
-        if (heureDebut.value === '' )
-        {
-            heureDebut.classList.add("bg-warning");
-            champsrempli = false;
-        }
-        else
-            heureDebut.classList.remove("bg-warning");
-
-        if (heureFin.value === '')
-        {
-            heureFin.classList.add("bg-warning");
-            champsrempli = false;
-        }
-        else if (heureFin.value < heureDebut.value)
-        {
-            heureFin.classList.add("bg-warning");
-            pasRetourTemps = false;
-        }
-        else if (nextRow)
-        {
-            if (nextHeureDebut.value !== '' && heureFin.value > nextHeureDebut.value)
-            {
-                heureFin.classList.add("bg-warning");
-                tempsNonChevauche = false;
-            }
-            else
-                heureFin.classList.remove("bg-warning");
-        }
-        
-    }
-
-    valide = champsrempli && tempsNonChevauche && pasRetourTemps;
-
-    if (!champsrempli)
-        erreurVide.classList.remove("d-none");
-    else
-        erreurVide.classList.add("d-none");
-
-    if (!tempsNonChevauche)
-        erreurChevauche.classList.remove("d-none");
-    else
-        erreurChevauche.classList.add("d-none");
-
-    if (!pasRetourTemps)
-        erreurTempsRetour.classList.remove("d-none");
-    else
-        erreurTempsRetour.classList.add("d-none");
     
-
-
-
-
-
-        let tempsTotal = 0;
-        let tempsComplet;
-        //Calculer la somme des temps
-        for (let i = 0; i < rows.length; i++)
-        {
-            let row = rows[i];
-
-            let heureDebut = row.children[1].children[0].value.split(":");
-            let heureFin = row.children[2].children[0].value.split(":");
-    
-            let tempsA = heureDebut[0] * 3600 + heureDebut[1] * 60;
-            let tempsB = heureFin[0] * 3600 + heureFin[1] * 60;
-            
-            tempsTotal += tempsB - tempsA;
-        }
-        tempsComplet = tempsTotal === 86340;
-        valide = valide && tempsComplet;
-
-
-        if (!tempsComplet)
-            erreurTempsComplet.classList.remove("d-none");
-        else
-            erreurTempsComplet.classList.add("d-none");
-
-        if (!valide)
-        {
-            fini.value = 0;
-            return;
-        }
 
     //Empaquetage des plages de temps en JSON
     for (let i = 0; i < rows.length; i++)
@@ -188,6 +80,8 @@ function onEnregistrer(e)
     form.submit();
 }
 
+
+
 /*
     Par défaut, le input qui permet de savoir si
     la fiche est terminée est défini à 0. Lorsque
@@ -196,8 +90,15 @@ function onEnregistrer(e)
 */
 function onTerminer(e)
 {
-    fini.value = 1;
+    
 
+    if (!valider())
+    {
+        fini.value = 0;
+        return;
+    }
+
+    fini.value = 1;
     onEnregistrer(e);
 }
 
@@ -209,21 +110,14 @@ function onAjouter(e)
 {
     let row = rowTemplate.cloneNode(true);
     let checkbox = row.children[0].children[0];
-    let times = row.querySelectorAll("input[type='time']");
 
     checkbox.addEventListener("click", onSelect);
-
-    times[0].addEventListener("input", onHeureDebutChanged);
-    times[0].addEventListener("input", validateTime);
-    times[0].oldValue = times[0].value;
-
-
-    times[1].addEventListener("input", validateTime);
-    times[1].oldValue = times[1].value;
 
     checkbox.checked = selectAll.checked;
 
     tbody.appendChild(row);
+
+    valider();
 }
 
 
@@ -248,6 +142,8 @@ function onSupprimer(e)
     }
 
     selectAll.checked = false;
+
+    valider;
 }
 
 
@@ -269,48 +165,235 @@ function onSelect(e)
 
 
 
+
+
+
+function valider(e = null)
+{
+    let rows = Array.from(tbody.children);
+
+    /*
+        Empêche de retrier si l'utilisateur
+        est en train de modifier des valeurs
+        
+        C'est à cause que la fonction est à la fois
+        un événement input et une fonction appelée
+        dans le code. 
+    */
+    if (!e)
+        retrier(rows);
+    else
+        e.target.classList.remove("bg-warning");
+
+
+    let valide = true;
+    let champsrempli = true;
+    let tempsNonChevauche = true;
+    let pasRetourTemps = true;
+    let tempsValide = true;
+
+    let erreurChevauche = document.getElementById("erreurChevauche");
+    let erreurVide = document.getElementById("erreurVide");
+    let erreurTempsRetour = document.getElementById("erreurTempsRetour");
+    let erreurTempsComplet = document.getElementById("erreurTempsComplet");
+    let erreurTempsValide = document.getElementById("erreurTempsValide");
+
+
+    for (let i = 0; i < rows.length; i++)
+    {
+        let row = rows[i];
+        let heureDebut = row.children[1].children[0];
+        let heureFin = row.children[2].children[0];
+
+        let nextRow = rows[i + 1];
+        let nextHeureDebut = null;
+        if (nextRow)
+            nextHeureDebut = nextRow.children[1].children[0];
+
+
+
+        if (heureDebut.value === '' )
+        {
+            heureDebut.classList.add("bg-warning");
+            champsrempli = false;
+        }
+        else
+            heureDebut.classList.remove("bg-warning");
+
+
+
+        if (heureFin.value === '')
+        {
+            heureFin.classList.add("bg-warning");
+            champsrempli = false;
+        }
+        else if (heureFin.value < heureDebut.value)
+        {
+            heureFin.classList.add("bg-warning");
+            pasRetourTemps = false;
+        }
+        else if (nextRow)
+        {
+            if (nextHeureDebut.value !== '' && heureFin.value > nextHeureDebut.value)
+            {
+                heureFin.classList.add("bg-warning");
+                tempsNonChevauche = false;
+            }
+            else
+                heureFin.classList.remove("bg-warning");
+        }
+            
+        
+
+        if (!validerTemps(heureDebut))
+        {
+            heureDebut.classList.add("bg-warning");
+            tempsValide = false;
+        }
+
+        if (!validerTemps(heureFin))
+        {
+            heureFin.classList.add("bg-warning");
+            tempsValide = false;
+        }
+        
+    }
+
+    valide = champsrempli && tempsNonChevauche && pasRetourTemps && tempsValide;
+
+    if (!champsrempli)
+        erreurVide.classList.remove("d-none");
+    else
+        erreurVide.classList.add("d-none");
+
+    if (!tempsNonChevauche)
+        erreurChevauche.classList.remove("d-none");
+    else
+        erreurChevauche.classList.add("d-none");
+
+    if (!pasRetourTemps)
+        erreurTempsRetour.classList.remove("d-none");
+    else
+        erreurTempsRetour.classList.add("d-none");
+    
+    if (!tempsValide)
+        erreurTempsValide.classList.remove("d-none");
+    else
+        erreurTempsValide.classList.add("d-none");
+
+
+
+
+
+
+
+        if (!valide)
+        {
+            /*
+                afficher l'erreur de temps complet de
+                maniere plus approprié, puisqu'il y a beaucoup
+                de temps invalides.
+                
+                Ne prend en compte que le premier
+                et le dernier temps.
+            */
+            let tempsInitialValide;
+            let tempsFinalValide;
+
+            let tempsInitial = rows[0].children[1].children[0];
+            let tempsFinal = rows[rows.length - 1].children[2].children[0];
+
+            let regexTempsInitial = /^00:00(:00)?$/;
+            let regexTempsFinal = /^[(23:59)(00:00)](:00)?$/;
+
+
+            tempsInitialValide = regexTempsInitial.test(tempsInitial.value);
+            tempsFinalValide = regexTempsFinal.test(tempsFinal.value);
+
+            if (!tempsInitialValide)
+                tempsInitial.classList.add("bg-warning");
+
+            if (!tempsFinalValide)
+                tempsFinalValide.classList.add("bg-warning");
+
+
+            if (!tempsInitialValide || !tempsFinalValide)
+                erreurTempsComplet.classList.remove("d-none");
+            else
+                erreurTempsComplet.classList.add("d-none");
+
+            
+            return false;
+        }
+
+
+
+        //Valider la somme des temps
+        let regexTempsFinal = /^23:59(:00)?$/;
+        if (regexTempsFinal.test(rows[rows.length - 1].children[2].children[0].value))
+            rows[rows.length - 1].children[2].children[0].value = '00:00';
+        
+        let tempsTotal = 0;
+        let tempsComplet;
+        for (let i = 0; i < rows.length; i++)
+        {
+            let row = rows[i];
+
+            let heureDebut = row.children[1].children[0].value.split(":");
+            let heureFin = row.children[2].children[0].value.split(":");
+    
+            let tempsA = heureDebut[0] * 3600 + heureDebut[1] * 60;
+            let tempsB = heureFin[0] * 3600 + heureFin[1] * 60;
+            
+            tempsTotal += tempsB - tempsA;
+        }
+
+        /*
+            Vérifier si tous les minutes sont dans une plage de temps,
+            avec un marche d'erreur de 1 minute, si le chauffeur
+            a entrer comme dernier temps 00:00 au lieu de 23:59
+        */        
+        if (tempsTotal !== 86340)
+            erreurTempsComplet.classList.remove("d-none");
+        else
+            erreurTempsComplet.classList.add("d-none");
+
+
+        valide = valide && tempsComplet;
+        
+
+
+
+
+        if (!valide)
+            return false;
+
+
+
+        return true;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 /*
     Permet de retrier les plages de temps si c'est nécessaire.
 */
-function onHeureDebutChanged(e)
+function retrier(rows)
 {
-    let rows = Array.from(tbody.children);
-    let timeA = e.target;
-    let row = timeA.parentNode.parentNode;
-    let index = rows.indexOf(row);
-
-    
-
-    if (index === 0)
-    {
-        if (index + 1 === rows.length)
-            return;
-
-        let timeB = rows[index + 1].querySelector("input[type='time']");
-
-        if (timeA.value <= timeB.value)
-            return;
-    }
-    else if (index + 1 === rows.length)
-    {
-        let timeB = rows[index - 1].querySelector("input[type='time']");
-
-        if (timeA.value >= timeB.value)
-            return;
-    }
-    else
-    {
-        let timeB = rows[index + 1].querySelector("input[type='time']");
-
-        if (timeA.value <= timeB.value)
-            return;
-
-        timeB = rows[index - 1].querySelector("input[type='time']");
-
-        if (timeA.value >= timeB.value)
-            return;
-    }
-
     rows.sort((rowA, rowB) => {
 
         let timeA = rowA.querySelector("input[type='time']").value;
@@ -341,28 +424,14 @@ function onHeureDebutChanged(e)
 }
 
 /*
-    Empêche l'utilisateur d'entrez un
-    temps entre les tranches de 15 minutes.
+    Vérifie si l'utilisateur entre un
+    temps entre les tranches de 15 minutes en acceptant 59 minutes comme fin.
  */
-function validateTime(e)
+function validerTemps(temps)
 {
-    let time = e.target;
-    let array = time.value.split(":");
-
-    let minutes = array[1];
-
-    time.classList.remove("bg-warning");
-
-    if (minutes % 15 != 0)
-    {
-        if (minutes != 59)
-            time.value = time.oldValue;
-    } 
-    else
-    {
-        time.oldValue = time.value;
-    }    
-    console.log(minutes);
+    let regex = /^([0-1][0-9]|2[0-3]):(00|15|30|45|59)(:00)?$/;
+    
+    return regex.test(temps.value);
 }
 
 
