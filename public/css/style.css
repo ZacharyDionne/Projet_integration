@@ -257,7 +257,6 @@
 
   } */
   
-  /* Hide the only the span inside a */
   .topnav a span {
     font-size: 0.70em;
     display: block;
@@ -342,4 +341,17 @@
   display: flex;
   align-items: center;
   height: 100%;
+}
+
+.icon-badge {
+  background-color: red;
+  font-size: 10px;
+  color: white;
+  text-align: center;
+  width:15px;
+  height:15px;
+  border-radius: 35%;
+  position: absolute;
+  top: -2px;
+  left: 10px;
 }
