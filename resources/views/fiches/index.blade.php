@@ -18,7 +18,10 @@ setlocale(LC_TIME, 'fr', 'fr_FR', 'fr_FR@euro', 'fr_FR.utf8', 'fr-FR', 'fra');
 	<div class="container">
 		<div class="row justify-content-center">
 			<div class="col-md-6 text-center mb-5">
-				<h2 class="heading-section">{{ session('user_name') }}</h2>
+				<h2 class="heading-section">
+					<!-- Name of the conducteur of the id in the url -->
+					{{ $conducteur }}
+				</h2>
 			</div>
 		</div>
 		<div class="row">

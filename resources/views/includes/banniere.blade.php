@@ -11,9 +11,27 @@
     $employe = null;
     }
 
+    try
+    {
+    if ($conducteur)
+    {
     $alertes = App\Models\Alerte::where('conducteur_id', $conducteur->id)->where('idEmploye', 0)->where('actif', 1)->get();
     $nbAlertes = count($alertes);
-
+    }
+    elseif ($employe)
+    {
+    $alertes = App\Models\Alerte::where('idEmploye', $employe->id)->where('actif', 1)->get();
+    $nbAlertes = count($alertes);
+    }
+    else
+    {
+    $nbAlertes = 0;
+    }
+    }
+    catch (Throwable $e)
+    {
+    $nbAlertes = 0;
+    }
 
     @endphp
     <img src="{{ asset('images/logo_BLANC.png') }}" width="48" height="48" class="banLogo displayBig align-center">

@@ -13,6 +13,7 @@ use App\Models\Fiche;
 use App\Models\Conducteur;
 use App\Models\PlageDeTemps;
 use App\Models\TypeTemps;
+use App\Models\Alerte;
 
 use Throwable;
 use Illuminate\Support\Facades\Log;
@@ -46,9 +47,9 @@ class FichesController extends Controller
             return View('erreur');
 
         try {
-            $fiches = Fiche::where('conducteur_id', $id)->orderByDesc('date')->take(150);
             $totalHeures = 0;
             $totalHeuresRepos = 0;
+            $totalHeures7DerniersJours = 0;
 
             for ($i = 0; $i < 14; $i++) {
                 $date = date('Y-m-d', strtotime("-$i days"));
@@ -70,11 +71,16 @@ class FichesController extends Controller
                         $totalHeuresRepos += (strtotime($plageDeTemps->heureFin) - strtotime($plageDeTemps->heureDebut));
                     } elseif ($plageDeTemps->typetemps_id == 2 || $plageDeTemps->typetemps_id == 3) {
                         $totalHeures += (strtotime($plageDeTemps->heureFin) - strtotime($plageDeTemps->heureDebut));
+
+                        if ($i < 7)
+                            $totalHeures7DerniersJours += (strtotime($plageDeTemps->heureFin) - strtotime($plageDeTemps->heureDebut));
                     }
                 }
 
                 $lastFiches[$i] = $fiche;
 
+
+                // Calcul Heures
                 $heures = 0;
                 $hDebut = null;
                 $hFin = null;
@@ -103,6 +109,51 @@ class FichesController extends Controller
                 $lastFiches[$i]->heureFin = $hFin;
                 $lastFiches[$i]->heures = $heures;
             }
+
+
+            $c = Conducteur::find($id);
+            $conducteur = $c->nom . ", " . $c->prenom;
+
+            $fiches = array();
+            foreach ($lastFiches as $fiche) {
+                if (strtotime($fiche->date) < strtotime("-7 days")) {
+                    array_push($fiches, $fiche);
+                }
+            }
+
+            // Pour chaque fiche, on vérifie si la valeur de "actif" est à 0
+            foreach ($fiches as $fiche) {
+                if ($fiche->fini == 0) {
+                    $alerte = Alerte::where('conducteur_id', $id)->where('type', 2)->where('message', 'like', 'La fiche du ' . \Carbon\Carbon::parse($fiche->date)->locale('fr')->isoFormat('dddd, D MMMM YYYY') . ' n\'est pas complète. Veuillez la compléter.')->first();
+
+                    if (!$alerte) {
+                        $alerte = new Alerte();
+                        $alerte->type = 2;
+                        $alerte->conducteur_id = $id;
+                        $alerte->message = "La fiche du " . \Carbon\Carbon::parse($fiche->date)->locale('fr')->isoFormat('dddd, D MMMM YYYY') . " n'est pas complète. Veuillez la compléter.";
+                        $alerte->actif = 1;
+                        $alerte->date = date("Y-m-d");
+                        $alerte->idEmploye = 0;
+                        $alerte->save();
+                    }
+
+                    $alerte = Alerte::where('conducteur_id', $id)->where('type', 2)->where('message', 'like', 'Une ou plusieurs fiches datant de plus de 7 jours de ' . $c->prenom . ' ' . $c->nom . ' n\'ont pas été complétées.')->first();
+
+                    if (!$alerte) {
+                        $alerte = new Alerte();
+                        $alerte->type = 2;
+                        $alerte->conducteur_id = $id;
+                        $alerte->message = "Une ou plusieurs fiches datant de plus de 7 jours de " . $c->prenom . " " . $c->nom . " n'ont pas été complétées.";
+                        $alerte->actif = 1;
+                        $alerte->date = date("Y-m-d");
+                        $alerte->idEmploye = 1;
+                        $alerte->save();
+                    }
+
+
+                    // Alerte pour l'administrateur (associer nouvelle table) 
+                }
+            }
         } catch (Throwable $e) {
             Log::error($e);
             return View('erreur');
@@ -111,8 +162,24 @@ class FichesController extends Controller
         $totalHeures = gmdate("H:i", $totalHeures);
         $totalHeuresRepos = gmdate("H:i", $totalHeuresRepos);
 
-        return View("fiches.index", compact("fiches", "lastFiches", "totalHeures", "totalHeuresRepos"));
-        // return View("fiches.index", compact("fiches"));
+        // Vérification si le conducteur a exécdé le nombre d'heures de conduite (70h/semaine)
+        if ($totalHeures7DerniersJours > 70 * 3600) {
+            $alerte = Alerte::where('conducteur_id', $id)->where('type', 1)->where('message', 'like', 'Le conducteur ' . $c->prenom . ' ' . $c->nom . ' a dépassé le nombre d\'heures de conduite autorisées.')->first();
+
+            if (!$alerte) {
+                $alerte = new Alerte();
+                $alerte->type = 0;
+                $alerte->conducteur_id = $id;
+                $alerte->message = "Le conducteur " . $c->prenom . " " . $c->nom . " a dépassé le nombre d'heures de conduite autorisées.";
+                $alerte->actif = 1;
+                $alerte->date = date("Y-m-d");
+                $alerte->idEmploye = 1;
+                $alerte->save();
+            }
+        }
+
+
+        return View("fiches.index", compact("lastFiches", "totalHeures", "totalHeuresRepos", "conducteur"));
     }
 
     /**
@@ -242,8 +309,7 @@ class FichesController extends Controller
             return View('erreur');
 
 
-        try
-        {
+        try {
             $plagesDeTemps = json_decode($request->plagesDeTemps);
             $fiche = Fiche::where('id', $request->fiche_id)->first();
 
@@ -251,7 +317,7 @@ class FichesController extends Controller
 
             //Validation : interdire la modification d'une fiche complétée
             if ($fiche->fini)
-            return redirect()->back()->withErrors(["Il est interdit de modifier une fiche complétée"]);
+                return redirect()->back()->withErrors(["Il est interdit de modifier une fiche complétée"]);
 
 
 
@@ -283,8 +349,7 @@ class FichesController extends Controller
 
 
             //validation du format du temps
-            for ($i = 0; $i < count($plagesDeTemps); $i++)
-            {
+            for ($i = 0; $i < count($plagesDeTemps); $i++) {
                 $heureDebut = $plagesDeTemps[$i]->heureDebut;
                 $heureFin = $plagesDeTemps[$i]->heureFin;
                 $regexTemps = "/^([0-1][0-9]|2[0-3]):(00|15|30|45|59)(:00)?$/";
@@ -293,8 +358,8 @@ class FichesController extends Controller
                     return redirect()->back()->withErrors(["Des temps sont invalides."]);
 
                 if (
-                    !preg_match( $regexTemps, $heureDebut) ||
-                    !preg_match( $regexTemps, $heureFin)
+                    !preg_match($regexTemps, $heureDebut) ||
+                    !preg_match($regexTemps, $heureFin)
                 )
                     return redirect()->back()->withErrors(["Des temps sont invalides."]);
             }
@@ -307,12 +372,10 @@ class FichesController extends Controller
                 uniquement quand l'utilisateur veut marquer
                 la fiche comme fini.
             */
-            if ($request->fini == 1)
-            {
+            if ($request->fini == 1) {
 
                 //validation des contraintes du temps
-                for ($i = 0; $i < count($plagesDeTemps); $i++)
-                {
+                for ($i = 0; $i < count($plagesDeTemps); $i++) {
                     $plageDeTemps = $plagesDeTemps[$i];
                     $debutA = $plageDeTemps->heureDebut;
                     $finA = $plageDeTemps->heureFin;
@@ -323,8 +386,8 @@ class FichesController extends Controller
 
                     if ($finA < $debutA)
                         return redirect()->back()->withErrors(["Un temps de fin était plus petit que son temps début"]);
-                    
-                    
+
+
                     if ($debutB && $finA > $debutB)
                         return redirect()->back()->withErrors(["Des temps se chevauchent"]);
                 }
@@ -334,16 +397,15 @@ class FichesController extends Controller
                     Validation: il faut que la somme des temps soient égale à 24h
                 */
                 $regexTempsFinal = "/^00:00(:00)?$/";
-                if (regexTempsFinal.test($plagesDeTemps[count($plagesDeTemps - 1)]->heureFin))
+                if (regexTempsFinal . test($plagesDeTemps[count($plagesDeTemps - 1)]->heureFin))
                     $plagesDeTemps[count($plagesDeTemps - 1)]->heureFin = '23:59';
 
                 $totalTemps = 0;
-                for ($i = 0; $i < count($plagesDeTemps); $i++)
-                {
+                for ($i = 0; $i < count($plagesDeTemps); $i++) {
                     $plageDeTemps = $plagesDeTemps[$i];
                     $tempsA = strToTime($plageDeTemps->heureDebut);
                     $tempsB = strToTime($plageDeTemps->heureFin);
-                    
+
 
                     $totalTemps += $tempsB - $tempsA;
                 }
@@ -352,21 +414,19 @@ class FichesController extends Controller
                     return redirect()->back()->withErrors(["Chaque plages de temps (de 00:00 à 23:59) doit être inclu"]);
             }
 
-            
+
             //Validation du type de temps
             $typesTemps = Typetemps::all();
             $ids = [];
-            for ($i = 0; $i < count($typesTemps); $i++)
-            {
+            for ($i = 0; $i < count($typesTemps); $i++) {
                 $ids[$i] = $typesTemps[$i]->id;
             }
-            
-            for ($i = 0; $i < count($plagesDeTemps); $i++)
-            {
+
+            for ($i = 0; $i < count($plagesDeTemps); $i++) {
                 $plageDeTemps = $plagesDeTemps[$i];
                 if (!isset($plageDeTemps->typeTemps_id))
                     return redirect()->back()->withErrors(["Des types de temps sont invalides"]);
-            
+
                 if (array_search($plageDeTemps->typeTemps_id, $ids) === false)
                     return redirect()->back()->withErrors(["Des types de temps sont invalides"]);
             }
@@ -383,8 +443,7 @@ class FichesController extends Controller
 
             //Archiver les anciennes
             $plagesDeTempsArchive = PlageDeTemps::where('fiche_id', $request->fiche_id)->where('archive', false)->get();
-            foreach ($plagesDeTempsArchive as $plageDeTemps)
-            {
+            foreach ($plagesDeTempsArchive as $plageDeTemps) {
                 $plageDeTemps->archive = true;
                 $plageDeTemps->save();
             }
@@ -410,9 +469,7 @@ class FichesController extends Controller
 
 
             return redirect()->route('fiches.index', $id);
-        }
-        catch (Throwable $e)
-        {
+        } catch (Throwable $e) {
             Log::error($e);
             return View('erreur');
         }
