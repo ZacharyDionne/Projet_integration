@@ -37,21 +37,18 @@ setlocale(LC_TIME, 'fr', 'fr_FR', 'fr_FR@euro', 'fr_FR.utf8', 'fr-FR', 'fra');
                 @if ($alerte->type == 0)
                 <div class="alert alert-danger alert-dismissible fade show" role="alert" id="{{ $alerte->id }}">
                     <strong>Alerte!</strong></br>
-                    {{ $alerte->conducteur_id }} :
                     {{ $alerte->message }}
                     <button type="button" class="btn-close" aria-label="Close"></button>
                 </div>
                 @elseif ($alerte->type == 1)
                 <div class="alert alert-warning alert-dismissible fade show" role="alert" id="{{ $alerte->id }}">
                     <strong>Alerte!</strong></br>
-                    {{ $alerte->conducteur_id }} :
                     {{ $alerte->message }}
                     <button type="button" class="btn-close" aria-label="Close"></button>
                 </div>
                 @elseif ($alerte->type == 2)
                 <div class="alert alert-info alert-dismissible fade show" role="alert" id="{{ $alerte->id }}">
                     <strong>Alerte!</strong></br>
-                    {{ $alerte->conducteur_id }} :
                     {{ $alerte->message }}
                     <button type="button" class="btn-close" aria-label="Close"></button>
                 </div>
@@ -72,15 +69,24 @@ setlocale(LC_TIME, 'fr', 'fr_FR', 'fr_FR@euro', 'fr_FR.utf8', 'fr-FR', 'fra');
 
         <div class="row justify-content-center">
             <div class="col-md-6 text-center mb-5">
+            @php
+                $counterH = 0;
+            @endphp
                 @foreach ($alertes as $alerte)
                 @if ($alerte->actif == 0)
+                @php
+                    $counterH++;
+                @endphp
                 <div class="alert alert-dark fade show" role="alert" id="{{ $alerte->id }}">
-                    {{ $alerte->conducteur_id }} :
                     {{ $alerte->message }}
                     <p class="text-muted mb-0">{{ strftime('%A %d %B %Y', strtotime($alerte->date)) }}</p>
                 </div>
                 @endif
                 @endforeach
+                
+                @if ($counterH == 0)
+                <p>Aucune alerte précédente.</p>
+                @endif
             </div>
         </div>
 
