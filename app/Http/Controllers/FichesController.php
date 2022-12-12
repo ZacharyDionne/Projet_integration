@@ -279,22 +279,25 @@ class FichesController extends Controller
 
 
 
-
+/*
 
 
             //validation du format du temps
             for ($i = 0; $i < count($plagesDeTemps); $i++)
             {
-                $heureDebut = $plagesDeTemps[$i]->heureDebut;
-                $heureFin = $plagesDeTemps[$i]->heureFin;
+                $plageDeTemps = $plagesDeTemps[$i];
                 $regexTemps = "/^([0-1][0-9]|2[0-3]):(00|15|30|45|59)(:00)?$/";
 
-                if (!isset($heureDebut) || !isset($heureFin))
-                    return redirect()->back()->withErrors(["Des temps sont invalides."]);
+
+                if (!isset($plageDeTemps->heureDebut) || $plageDeTemps->heureDebut == '')
+                    $plageDeTemps->heureDebut = '00:00:00';
+
+                if (!isset($plageDeTemps->heureFin) || $plageDeTemps->heureFin == '')
+                    $plageDeTemps->heureFin = '00:00:00';                
 
                 if (
-                    !preg_match( $regexTemps, $heureDebut) ||
-                    !preg_match( $regexTemps, $heureFin)
+                    !preg_match( $regexTemps, $plageDeTemps->heureDebut) ||
+                    !preg_match( $regexTemps, $plageDeTemps->heureFin)
                 )
                     return redirect()->back()->withErrors(["Des temps sont invalides."]);
             }
@@ -302,11 +305,6 @@ class FichesController extends Controller
 
 
 
-            /*
-                Certaines validations sont appliqués
-                uniquement quand l'utilisateur veut marquer
-                la fiche comme fini.
-            */
             if ($request->fini == 1)
             {
 
@@ -330,9 +328,6 @@ class FichesController extends Controller
                 }
 
 
-                /*
-                    Validation: il faut que la somme des temps soient égale à 24h
-                */
                 $regexTempsFinal = "/^00:00(:00)?$/";
                 if (regexTempsFinal.test($plagesDeTemps[count($plagesDeTemps - 1)]->heureFin))
                     $plagesDeTemps[count($plagesDeTemps - 1)]->heureFin = '23:59';
@@ -372,7 +367,7 @@ class FichesController extends Controller
             }
 
 
-
+*/
             $fiche->fini = $request->fini;
             $fiche->observation = $request->observation;
             $fiche->save();

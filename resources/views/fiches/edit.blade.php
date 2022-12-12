@@ -118,11 +118,10 @@ setlocale(LC_TIME, 'fr', 'fr_FR', 'fr_FR@euro', 'fr_FR.utf8', 'fr-FR', 'fra');
 
                 <p id="erreurChevauche" class="text-danger d-none">Des temps se chevauchent.</p>
                 <p id="erreurVide" class="text-danger d-none">Des temps ne sont pas rempli.</p>
-                <p id="erreurTempsRetour" class="text-danger d-none">Des temps finaux sont plus petit que les temps initiales.</p>
                 <p id="erreurTempsComplet" class="text-danger d-none">Chaque plages de temps (de 00:00 à 23:59) doit être inclu</p>
                 <p id="erreurTempsValide" class="text-danger d-none">Un temps doit être par tranche de 15 minutes, à l'exception du dernier qui doit être 23:59</p>
                     @foreach ($errors->all() as $error)
-                        <p class="text-danger">{{ $error }}</p>
+                        <p class="text-danger server-error">{{ $error }}</p>
                     @endforeach
 
                 @if ($peutModifier)
