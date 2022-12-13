@@ -2,13 +2,13 @@
     @php
     try
     {
-    $conducteur = auth()->user();
-    $employe = auth()->guard('employe')->user();
+        $conducteur = auth()->user();
+        $employe = auth()->guard('employe')->user();
     }
     catch (Throwable $e)
     {
-    $conducteur = null;
-    $employe = null;
+        $conducteur = null;
+        $employe = null;
     }
 
     try
@@ -43,21 +43,18 @@
         </div>
     </a>
     @elseif ($employe)
-    @if ($employe->type_id === 1)
     <a class="topnavButton noMargin navbar-brand font-tr" href="{{ route('conducteurs.index') }}">
         <div class="text-nav">
             <i class="fa fa-user fa-fw align-items-center"></i>
             <span>Conducteurs</span>
         </div>
     </a>
-    @elseif ($employe->type_id === 2)
     <a class="topnavButton noMargin navbar-brand font-tr" href="{{ route('employes.index') }}">
         <div class="text-nav">
             <i class="fa fa-user fa-fw align-items-center"></i>
             <span>Employés</span>
         </div>
     </a>
-    @endif
     @else
     <script>
         alert("Une erreur est survenue: (Impossible d'obtenir l'ID utilisateur) \nSi le problème persiste, veuillez contacter votre responsable.");
