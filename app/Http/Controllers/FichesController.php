@@ -47,6 +47,9 @@ class FichesController extends Controller
             $totalHeuresRepos = 0;
             $totalHeures7DerniersJours = 0;
 
+            $c = Conducteur::find($id);
+            $conducteur = $c->nom . ", " . $c->prenom;
+
             for ($i = 0; $i < 14; $i++) {
                 $date = date('Y-m-d', strtotime("-$i days"));
 
@@ -92,6 +95,40 @@ class FichesController extends Controller
                             $hFin = $plageDeTemps->heureFin;
                     }
                 }
+                
+                if ($heures > 36000) {
+
+                    // Conducteur
+                    $alerte = Alerte::where('conducteur_id', $id)->where('type', 1)->where('message', 'Attention, vous avez travaillé plus de 10 heures dans la journée du ' . \Carbon\Carbon::parse($fiche->date)->locale('fr')->isoFormat('dddd, D MMMM YYYY') . '. Veuillez aviser votre contremaître si le problème persiste.')->first();
+
+                    if (!$alerte) {
+                        $alerte = new Alerte();
+                        $alerte->type = 1;
+                        $alerte->conducteur_id = $id;
+                        $alerte->message = 'Attention, vous avez travaillé plus de 10 heures dans la journée du ' . \Carbon\Carbon::parse($fiche->date)->locale('fr')->isoFormat('dddd, D MMMM YYYY') . '. Veuillez aviser votre contremaître si le problème persiste.';
+                        $alerte->actif = 1;
+                        $alerte->date = date("Y-m-d");
+                        $alerte->idEmploye = 0;
+                        $alerte->save();
+                    }
+
+                    // Contremaître
+                    $alerte = Alerte::where('idEmploye', $id)->where('type', 1)->where('message', 'Attention, le conducteur ' . $conducteur . ' a travaillé plus de 10 heures dans la journée du ' . \Carbon\Carbon::parse($fiche->date)->locale('fr')->isoFormat('dddd, D MMMM YYYY') . '. Veuillez vous assurer que le problème ne se reproduise pas.')->first();
+
+                    if (!$alerte) {
+                        $alerte = new Alerte();
+                        $alerte->type = 1;
+                        $alerte->conducteur_id = $id;
+                        $alerte->message = 'Attention, le conducteur ' . $conducteur . ' a travaillé plus de 10 heures dans la journée du ' . \Carbon\Carbon::parse($fiche->date)->locale('fr')->isoFormat('dddd, D MMMM YYYY') . '. Veuillez vous assurer que le problème ne se reproduise pas.';
+                        $alerte->actif = 1;
+                        $alerte->date = date("Y-m-d");
+                        $alerte->idEmploye = 1;
+                        $alerte->save();
+                    }
+
+                }
+
+
                 $heures = gmdate("H:i", $heures);
                 if ($hDebut == null)
                     $hDebut = "Repos";
@@ -107,10 +144,6 @@ class FichesController extends Controller
                 $lastFiches[$i]->heures = $heures;
             }
 
-
-            $c = Conducteur::find($id);
-            $conducteur = $c->nom . ", " . $c->prenom;
-
             $fiches = array();
             foreach ($lastFiches as $fiche) {
                 if (strtotime($fiche->date) < strtotime("-7 days")) {
@@ -121,7 +154,7 @@ class FichesController extends Controller
             // Pour chaque fiche, on vérifie si la valeur de "actif" est à 0
             foreach ($fiches as $fiche) {
                 if ($fiche->fini == 0) {
-                    $alerte = Alerte::where('conducteur_id', $id)->where('type', 2)->where('message', 'like', 'La fiche du ' . \Carbon\Carbon::parse($fiche->date)->locale('fr')->isoFormat('dddd, D MMMM YYYY') . ' n\'est pas complète. Veuillez la compléter.')->first();
+                    $alerte = Alerte::where('conducteur_id', $id)->where('actif', 1)->where('type', 2)->where('message', 'like', 'La fiche du ' . \Carbon\Carbon::parse($fiche->date)->locale('fr')->isoFormat('dddd, D MMMM YYYY') . ' n\'est pas complète. Veuillez la compléter.')->first();
 
                     if (!$alerte) {
                         $alerte = new Alerte();
@@ -134,7 +167,7 @@ class FichesController extends Controller
                         $alerte->save();
                     }
 
-                    $alerte = Alerte::where('conducteur_id', $id)->where('type', 2)->where('message', 'like', 'Une ou plusieurs fiches datant de plus de 7 jours de ' . $c->prenom . ' ' . $c->nom . ' n\'ont pas été complétées.')->first();
+                    $alerte = Alerte::where('conducteur_id', $id)->where('actif', 1)->where('type', 2)->where('message', 'like', 'Une ou plusieurs fiches datant de plus de 7 jours de ' . $c->prenom . ' ' . $c->nom . ' n\'ont pas été complétées.')->first();
 
                     if (!$alerte) {
                         $alerte = new Alerte();
@@ -181,7 +214,7 @@ class FichesController extends Controller
         if ($totalHeures7DerniersJours >= 70) {
 
             // Alerte pour le conducteur
-            $alerte = Alerte::where('conducteur_id', $id)->where('type', 0)->where('message', 'like', 'Vous avez dépassé le nombre d\'heures de conduite autorisées, veuillez contacter votre contre-maître.')->first();
+            $alerte = Alerte::where('conducteur_id', $id)->where('actif', 1)->where('type', 0)->where('message', 'like', 'Vous avez dépassé le nombre d\'heures de conduite autorisées, veuillez contacter votre contre-maître.')->first();
 
             Log::info($alerte);
             if (!$alerte) {
@@ -196,7 +229,7 @@ class FichesController extends Controller
             }
 
             // Alerte pour le contre-maître
-            $alerte = Alerte::where('conducteur_id', $id)->where('type', 0)->where('message', 'like', 'Le conducteur ' . $c->prenom . ' ' . $c->nom . ' a dépassé le nombre d\'heures de conduite autorisées.')->first();
+            $alerte = Alerte::where('conducteur_id', $id)->where('actif', 1)->where('type', 0)->where('message', 'like', 'Le conducteur ' . $c->prenom . ' ' . $c->nom . ' a dépassé le nombre d\'heures de conduite autorisées.')->first();
 
             if (!$alerte) {
                 $alerte = new Alerte();
