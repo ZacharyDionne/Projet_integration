@@ -1,6 +1,11 @@
 import { Binary } from "./Binary.js";
 
+const ERROR_COLOR = "#ff9c9c";
+
 export class ValidationFiche {
+
+
+
 
     static verifierTempsVide(rows)
     {
@@ -16,13 +21,13 @@ export class ValidationFiche {
             if (HEURE_DEBUT.value === "")
             {
                 valide = false;
-                HEURE_DEBUT.classList.add("bg-warning");
+                HEURE_DEBUT.style.backgroundColor = ERROR_COLOR;
             }
 
             if (HEURE_FIN.value === "")
             {
                 valide = false;
-                HEURE_FIN.classList.add("bg-warning");
+                HEURE_FIN.style.backgroundColor = ERROR_COLOR;
             }
         }
 
@@ -48,7 +53,7 @@ export class ValidationFiche {
                 if (ValidationFiche.#TimeSmaller(tempsFin.value, tempsDebut.value))
                 {
                     valide = false;
-                    tempsFin.classList.add("bg-warning");
+                    tempsFin.style.backgroundColor = ERROR_COLOR;
                 }
 
                 if (i + 1 !== rows.length)
@@ -58,7 +63,7 @@ export class ValidationFiche {
                     if (prochainTempsDebut.value !== "" && ValidationFiche.#TimeSmaller(prochainTempsDebut.value, tempsFin.value))
                     {
                         valide = false;
-                        prochainTempsDebut.classList.add("bg-warning");
+                        prochainTempsDebut.style.backgroundColor = ERROR_COLOR;
                     }
                 }
             }
@@ -86,7 +91,7 @@ export class ValidationFiche {
                 if (!REGEX_15.test(heureDebut.value))
                 {
                     valide = false;
-                    heureDebut.classList.add("bg-warning");
+                    heureDebut.style.backgroundColor = ERROR_COLOR;
                 }
             }
 
@@ -98,12 +103,12 @@ export class ValidationFiche {
                     if (i + 1 !== rows.length)
                     {
                         valide = false;
-                        heureFin.classList.add("bg-warning");
+                        heureFin.style.backgroundColor = ERROR_COLOR;
                     }
                     else if (!REGEX_LAST.test(heureFin.value))
                     {
                         valide = false;
-                        heureFin.classList.add("bg-warning"); 
+                        heureFin.style.backgroundColor = ERROR_COLOR;
                     }  
                 }
             }
