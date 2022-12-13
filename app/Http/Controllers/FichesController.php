@@ -61,14 +61,15 @@ class FichesController extends Controller
                     $fiche->save();
                 }
 
-                foreach ($fiche->plagesDeTemps as $plageDeTemps) {
-                    if ($plageDeTemps->typetemps_id == 1) {
-                        $totalHeuresRepos += (strtotime($plageDeTemps->heureFin) - strtotime($plageDeTemps->heureDebut));
-                    } elseif ($plageDeTemps->typetemps_id == 2 || $plageDeTemps->typetemps_id == 3) {
-                        $totalHeures += (strtotime($plageDeTemps->heureFin) - strtotime($plageDeTemps->heureDebut));
+                $plagesDeTemps = PlageDeTemps::where('fiche_id', $fiche->id)->where('archive', 0)->get();
+                foreach ($plagesDeTemps as $plageDeTemp) {
+                    if ($plageDeTemp->typetemps_id == 1) {
+                        $totalHeuresRepos += (strtotime($plageDeTemp->heureFin) - strtotime($plageDeTemp->heureDebut));
+                    } elseif ($plageDeTemp->typetemps_id == 2 || $plageDeTemp->typetemps_id == 3) {
+                        $totalHeures += (strtotime($plageDeTemp->heureFin) - strtotime($plageDeTemp->heureDebut));
 
                         if ($i < 7)
-                            $totalHeures7DerniersJours += (strtotime($plageDeTemps->heureFin) - strtotime($plageDeTemps->heureDebut));
+                            $totalHeures7DerniersJours += (strtotime($plageDeTemp->heureFin) - strtotime($plageDeTemp->heureDebut));
                     }
                 }
 
