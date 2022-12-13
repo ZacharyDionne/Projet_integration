@@ -167,6 +167,21 @@
   font-size: 22px;
   color: #333; 
 }
+.erreurShow {
+  font-family: Roboto-Bold;
+  font-size: 16px;
+  border-color: red;
+  background: white;
+  border-radius: 5px;
+  border-width: 2px;
+  border-style: solid;
+  width: 500px;
+  margin-left: 25px;
+}
+
+.fa-exclamation-triangle {
+  color: red;
+}
 
 .heading-sectionbigleft {
   font-size: 24px;
