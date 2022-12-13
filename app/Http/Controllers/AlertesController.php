@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 
-use App\Http\Controllers\Filtre;
+use App\Http\Modules\Filtre;
 use App\Models\Alerte;
 use App\Models\Employe;
 
@@ -24,6 +24,7 @@ class AlertesController extends Controller
     {
         try
         {
+
             $conducteur = auth()->user();
             $employe = auth()->guard('employe')->user();
 
@@ -116,13 +117,13 @@ class AlertesController extends Controller
 
             Autorise uniquement le conducteur concerné,
             un administrateur ou un contre-maître.
-        
+        */
         $authorization = Filtre::estLUtilisateur($idUser);
         if ($authorization === false)
                 abort(403);
         else if ($authorization === null)
                 return View('erreur');
-        */
+        
 
         $alerte = Alerte::find($id);
         $alerte->actif = 0;
