@@ -337,7 +337,7 @@ class FichesController extends Controller
                 if ($tempsB === "")
                     return -1;
 
-                if ($tempsA > $tempsB)
+                if (strtotime($tempsA) > strtotime($tempsB))
                     return 1;
 
                 return -1;
@@ -345,7 +345,7 @@ class FichesController extends Controller
 
 
 
-/*
+
 
 
             //validation du format du temps
@@ -388,13 +388,13 @@ class FichesController extends Controller
                         return redirect()->back()->withErrors(["Un temps de fin était plus petit que son temps début"]);
 
 
-                    if ($debutB && $finA > $debutB)
+                    if ($debutB && (strtotime($finA) > strtotime($debutB)))
                         return redirect()->back()->withErrors(["Des temps se chevauchent"]);
                 }
 
 
                 $regexTempsFinal = "/^00:00(:00)?$/";
-                if (regexTempsFinal . test($plagesDeTemps[count($plagesDeTemps - 1)]->heureFin))
+                if (strtotime('00:00') === strtotime($plagesDeTemps[count($plagesDeTemps) - 1]->heureFin))
                     $plagesDeTemps[count($plagesDeTemps - 1)]->heureFin = '23:59';
 
                 $totalTemps = 0;
@@ -429,7 +429,7 @@ class FichesController extends Controller
             }
 
 
-*/
+
             $fiche->fini = $request->fini;
             $fiche->observation = $request->observation;
             $fiche->save();

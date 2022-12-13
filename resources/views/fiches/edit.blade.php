@@ -73,14 +73,13 @@ setlocale(LC_TIME, 'fr', 'fr_FR', 'fr_FR@euro', 'fr_FR.utf8', 'fr-FR', 'fra');
                                                 <td class="font-rg"><input type="time" step="900" class="heureDebut" value="{{ $plagesDeTemps[$i]['heureDebut'] }}" @disabled(!$peutModifier)></td>
                                                 <td class="font-rg"><input type="time" step="900" class="heureFin"   value="{{ $plagesDeTemps[$i]['heureFin']   }}" @disabled(!$peutModifier)></td>
                                                 <td class="font-rg">
-                                                    <select class="selectSize">
+                                                    <select class="selectSize" @disabled(!$peutModifier)>
                                                         @for ($j = 0; $j < count($typesTemps); $j++)
                                                             <option
                                                                 @if ($typesTemps[$j]["id"] == $plagesDeTemps[$i]["typetemps_id"])
                                                                     selected
                                                                 @endif
-                                                                value="{{ $j + 1 }}"
-                                                                @disabled(!$peutModifier)>
+                                                                value="{{ $j + 1 }}">
                                                                     {{ $typesTemps[$j]["type"] }}
                                                             </option>
                                                         @endfor

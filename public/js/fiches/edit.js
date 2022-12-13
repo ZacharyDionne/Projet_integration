@@ -4,14 +4,16 @@ let table = document.getElementById("tableModification");
 let tbody = table.querySelector("tbody");
 let form = document.getElementById("formModification");
 let rowTemplate = document.getElementById("rowTemplate");
-let selectAll = document.getElementById("selectAll");
 let fini = document.getElementById("fini");
 
-const BOUTON_FINI = document.getElementById("boutonTerminer")
-const BOUTON_ENREGISTRER = document.getElementById("boutonEnregistrer")
+const SELECT_ALL = document.getElementById("selectAll");
+
+const BOUTON_FINI = document.getElementById("boutonTerminer");
+const BOUTON_ENREGISTRER = document.getElementById("boutonEnregistrer");
+const BOUTON_AJOUTER = document.getElementById("boutonAjouter");
+const BOUTON_SUPPRIMER = document.getElementById("boutonSupprimer");
 
 addEvents();
-valider();
 
 
 
@@ -20,19 +22,25 @@ valider();
 
 function addEvents()
 {
-    BOUTON_ENREGISTRER.addEventListener("click", onEnregistrer);
-    BOUTON_FINI.addEventListener("click", onTerminer);
-    document.getElementById("boutonAjouter").addEventListener("click", onAjouter);
-    document.getElementById("boutonSupprimer").addEventListener("click", onSupprimer);
-    selectAll.addEventListener("click", onSelectAll);
+    if (BOUTON_ENREGISTRER)
+        BOUTON_ENREGISTRER.addEventListener("click", onEnregistrer);
+    if (BOUTON_FINI)
+        BOUTON_FINI.addEventListener("click", onTerminer);
+    if (BOUTON_AJOUTER)
+        BOUTON_AJOUTER.addEventListener("click", onAjouter);
+    if (BOUTON_SUPPRIMER)
+        BOUTON_SUPPRIMER.addEventListener("click", onSupprimer);
+    if (SELECT_ALL)
+        SELECT_ALL.addEventListener("click", onSelectAll);
     
     
     for (let checkbox of document.getElementsByClassName("select"))
         checkbox.addEventListener("click", onSelect);
 
     let temps = table.querySelectorAll("input[type='time']");
-    for (let i = 0; i < temps.length; i++)
-        temps[i].addEventListener("input", valider);
+    if (temps.length > 0)
+        for (let i = 0; i < temps.length; i++)
+            temps[i].addEventListener("input", valider);
 
 }
 
@@ -119,7 +127,7 @@ function onAjouter(e)
 
     checkbox.addEventListener("click", onSelect);
 
-    checkbox.checked = selectAll.checked;
+    checkbox.checked = SELECT_ALL.checked;
 
     tbody.appendChild(row);
 
@@ -151,7 +159,7 @@ function onSupprimer(e)
             
     }
 
-    selectAll.checked = false;
+    SELECT_ALL.checked = false;
 
     valider();
 }
@@ -163,12 +171,12 @@ function onSelectAll(e)
     let checkboxes = document.getElementsByClassName("select");
 
     for (let i = 0; i < checkboxes.length; i++)
-        checkboxes[i].checked = selectAll.checked;
+        checkboxes[i].checked = SELECT_ALL.checked;
 }
 
 function onSelect(e)
 {
-    selectAll.checked = false;
+    SELECT_ALL.checked = false;
 }
 
 
@@ -193,11 +201,30 @@ function valider(e = null)
     if (!e)
         retrier(rows);
     else
+    {
         e.target.classList.remove("bg-warning");
 
 
 
-/*
+        //Cacher les erreurs serveur une fois que l'utilisateur commence à modifier
+        let serverErrors = document.getElementsByClassName("server-error");
+        console.dir(serverErrors);
+        if (serverErrors && serverErrors.length > 0)
+        {
+            serverErrors = Array.from(serverErrors);
+            console.dir(serverErrors);
+            for (let i = 0; i < serverErrors.length; i++)
+            {
+                let serverError = serverErrors[i];
+                console.log(serverError);
+                serverError.classList.add("d-none");
+            }
+        } 
+    }
+
+
+
+
     for (let i = 0; i < rows.length; i++)
     {
         let times = rows[i].querySelectorAll("input[type='time']");
@@ -205,11 +232,9 @@ function valider(e = null)
         times[1].classList.remove("bg-warning");
     }
 
-    const SERVER_ERRORS = Array.from(document.getElementsByClassName("server-error").children);
-    for (let i = 0; i < SERVERS.length; i++)
-    {
-        SERVER_ERRORS[i].classList.add("d-none");
-    }
+    
+    
+    
 
 
 
@@ -256,16 +281,7 @@ function valider(e = null)
     else
         BOUTON_FINI.setAttribute("disabled", "");
 
-
-    console.log("---------------------------");
-        console.log("chevauche " + CHEVAUCHE);
-        console.log("VIDE " + VIDE);
-        console.log("COMPLET " + COMPLET);
-        console.log("TEMPS_15 " + TEMPS_15);
-
     return VALIDE;
-*/
-    return true;
 }
 
 
