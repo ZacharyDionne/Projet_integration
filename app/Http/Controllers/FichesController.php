@@ -1,25 +1,20 @@
 <?php
-
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use App\Http\Requests\FicheRequest;
+
 use App\Http\Modules\Filtre;
-
-use Illuminate\View\View;
-use Illuminate\Database\Eloquent\ModelNotFoundException;
-
 use App\Models\Fiche;
 use App\Models\Conducteur;
 use App\Models\PlageDeTemps;
 use App\Models\TypeTemps;
 use App\Models\Alerte;
 
-use Throwable;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
+use Illuminate\View\View;
 
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\DB;
+use Throwable;
+
 
 class FichesController extends Controller
 {
@@ -201,7 +196,7 @@ class FichesController extends Controller
      * @return \Illuminate\Http\Response
      */
     /*
-    public function store(FicheRequest $request)
+    public function store(Request $request)
     {
 
     }
@@ -232,27 +227,23 @@ class FichesController extends Controller
             Gestion d'accès
             Autorise seulement le conducteur concerné,
             un administrateur ou un contre-maître.
-            
-            À l'avenir, il faudrait que le booléen $peutModifier soit envoyé à la view pour savoir
-            si le droit de modification est accordé. Ceci n'est que pour un
-            bon affichage, car la vrai validation se fera dans la fonction update. Il faudra
-            autoriser uniquement le conducteur à modifier une fiche non complété et à
-            un contre-maître ayant le droit exceptionnel de modification suite
-            à une requête du conducteur.
         */
-        $authorization = Filtre::estLeConducteur($id);
-        if ($authorization === false) {
-            $authorization = Filtre::estAdminOuContreMaitre();
-            if ($authorization === false)
+        $estLeConducteur = Filtre::estLeConducteur($id);
+        $estAdminOuContreMaitre = Filtre::estAdminOuContreMaitre();
+
+        if ($estLeConducteur === false) {
+            if ($estAdminOuContreMaitre === false)
                 abort(403);
-            else if ($authorization === null)
+            else if ($estAdminOuContreMaitre === null)
                 return View('erreur');
-        } else if ($authorization === null)
+        }
+        else if ($estLeConducteur === null)
             return View('erreur');
 
 
 
-        try {
+        try
+        {
             $fiche = Fiche::where('date', $date)->where('conducteur_id', $id)->first();
             $conducteur = Conducteur::where('id', $id)->first();
 
@@ -266,8 +257,6 @@ class FichesController extends Controller
 
             //Quels droits aura l'utilisateur sur la fiche
             $peutModifier;
-            $estLeConducteur = Filtre::estLeConducteur($id);
-            $estAdminOuContreMaitre = Filtre::estAdminOuContreMaitre();
             if ($fiche->fini)
             {
                 if ($estLeConducteur)

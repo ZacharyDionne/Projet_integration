@@ -2,32 +2,18 @@
 
 namespace App\Http\Controllers;
 
-use Throwable;
 
+
+use App\Http\Modules\Filtre;
 use App\Models\Employe;
 use App\Models\Type;
 use App\Models\User;
 
-use App\Http\Requests\EmployeurRequest;
-use App\Http\Modules\Filtre;
-
-use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
 use Illuminate\Http\View\View;
 use Illuminate\Support\Facades\Log;
-//use Illuminate\Support\Facades\Gate;
 
-
-
-
-
-
-
-
-
-
-
-
+use Throwable;
 
 class EmployesController extends Controller
 {
@@ -56,9 +42,6 @@ class EmployesController extends Controller
 
         try
         {
-
-
-
             $employes = Employe::all();
 
             return View("employes.index", compact("employes"));
@@ -70,87 +53,29 @@ class EmployesController extends Controller
        
     }
 
+    /*
+    public function create()
+    {
 
-    // public function create()
-    // {
-    //     /*
-    //         Gestion de l'accès utilisateur
-            
-    //         Autorise seulement les administrateurs
-    //     */
-    //     if (Gate::forUser(auth()->guard('employe')->user())->denies('admin'))
-    //         abort(403);
+    }*/
 
-    //     $types = Type::orderBy('typeEmp')->get();
-    //     return View('employes.create', compact('types'));
-    // }
+    /*
+    public function store(EmployeurRequest $request)
+    {
+  
+    }*/
 
-
-    // public function store(EmployeurRequest $request)
-    // {
-    //     /*
-    //         Gestion de l'accès utilisateur
-            
-    //         Autorise seulement les administrateurs
-    //     */
-
-        
-
-    //     if (Gate::forUser(auth()->guard('employe')->user())->denies('admin'))
-    //         abort(403);
+    /*
+    public function show($id)
+    {
+    
+    }*/
 
 
-    //     try
-    //     {
-    //         $employe = new Employe($request->all());
-    //         $employe->save();
-    //     }
-
-    //     catch(Throwable $e)
-    //     {
-
-    //     }
-    //     return redirect()->route('employes.index');
-        
-    // }
-
-
-    // public function show($id)
-    // {
-    //     /*
-    //         Gestion de l'accès utilisateur
-            
-    //         Autorise seulement les administrateurs
-    //     */
-    //     if (Gate::forUser(auth()->guard('employe')->user())->denies('admin'))
-    //         abort(403);
-
-    //     try
-    //     {
-    //         $employe = Employe::findOrFail($id);
-    //     }
-    //     catch(Throwable $e)
-    //     {
-
-    //     }
-
-    //     return View("employes.show", compact("employe"));
-    // }
-
-
-    // public function edit($id)
-    // {
-    //     /*
-    //         Gestion de l'accès utilisateur
-            
-    //         Autorise seulement les administrateurs
-    //     */
-    //     if (Gate::forUser(auth()->guard('employe')->user())->denies('admin'))
-    //         abort(403);
-
-    //     $employe = Employe::findOrFail($id);
-    //     return View('employes.edit', compact('employe'));       
-    // }
+    /*public function edit($id)
+    {
+      
+    }*/
 
 
     /*
@@ -198,11 +123,9 @@ class EmployesController extends Controller
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
-     */
-    /*
+     *//*
     public function destroy($id)
     {
-        //
-    }
-    */
+
+    }*/
 }

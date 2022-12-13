@@ -1,18 +1,16 @@
 <?php
-
 namespace App\Providers;
 
-use Illuminate\Support\Facades\Auth;
-use App\Services\Auth\JwtGuard;
-use Illuminate\Support\Facades\Gate;
-use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
-
-use Illuminate\Foundation\Auth\User;
-use Illuminate\Support\Facades\Log;
-
+use App\Http\Controllers\EmployesController;
 use App\Models\Employe;
 use App\Models\Conducteur;
-use App\Http\Controllers\EmployesController;
+use App\Services\Auth\JwtGuard;
+
+use Illuminate\Foundation\Auth\User;
+use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
+
 
 class AuthServiceProvider extends ServiceProvider
 {
@@ -49,47 +47,6 @@ class AuthServiceProvider extends ServiceProvider
         {
             return new JwtGuard(Auth::createUserProvider($config["employes"]));
         });
-
-
-        /*
-            Enregistrement des Gate. Voir https://laravel.com/docs/9.x/authorization
-        */
-
-        Gate::define("admin", [EmployesController::class, 'estAdmin']);/*function()
-    {
-        
-        $utilisateur = $auth->guard('employe')->user();
-
-        if (!$utilisateur)
-            return false;
-
-
-        if ($utilisateur->type_id != 2)
-            return false;
-        
-        return true;
-    });*/
-
-
-    Gate::define('contreMaitre', function()
-    {
-        $utilisateur = auth()->guard('employe')->user();
-
-        if (!$utilisateur)
-            return false;
-
-
-        if ($utilisateur->type_id != 1)
-            return false;
-        
-        return true;
-    });
-
-    Gate::define('leConducteur', function(Conducteur $conducteur, int $id)
-    {
-        return $conducteur->id == $id;
-    });
-
 
 
     }

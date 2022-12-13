@@ -2,20 +2,15 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-
-use App\Http\Requests\Conducteur\ConducteurRequest;
-
-use Illuminate\Http\View\View;
-use App\Models\Conducteur;
-use Illuminate\Database\Eloquent\ModelNotFoundException;
-use Throwable;
-use Illuminate\Support\Facades\Log;
-use Illuminate\Support\Facades\Hash;
-//use Illuminate\Support\Facades\Gate;
-use Illuminate\Support\Facades\Auth;
 
 use App\Http\Modules\Filtre;
+use App\Models\Conducteur;
+
+use Illuminate\Http\Request;
+use Illuminate\Http\View\View;
+use Illuminate\Support\Facades\Log;
+
+use Throwable;
 
 
 class ConducteursController extends Controller
@@ -40,8 +35,6 @@ class ConducteursController extends Controller
         else if ($authorization === null)
             return View('erreur');
         
-        
-        $conducteurs = null;
 
         try
         {
@@ -51,7 +44,7 @@ class ConducteursController extends Controller
         }
         catch (Throwable $e)
         {
-            return View("conducteurs.index");
+            return View("erreur");
         }
         
         
@@ -67,10 +60,7 @@ class ConducteursController extends Controller
     /*
      public function create()
     {
-        if (Gate::forUser(auth()->guard('employe')->user())->denies('admin'))
-            abort(403);
 
-        return View('conducteurs.create');
     }
     */
 
@@ -83,27 +73,7 @@ class ConducteursController extends Controller
     /*
     public function store(ConducteurAdminRequest $request)
     {
-        if (Gate::forUser(auth()->guard('employe')->user())->denies('admin'))
-            abort(403);
-
-
-
-        try
-        {
-            $conducteur = new Conducteur($request->all());
-            $conducteur->motDePasse = Hash::make($request->motDePasse);
-            $conducteur->actif = $request->actif == "1";
-            $conducteur->save();
-
-            return redirect()->route('conducteurs.index');
-        }
-
-        catch(Throwable $e)
-        {
-            return redirect()->route('conducteurs.index')->withErrors([$e]);
-        }
-        
-        
+  
     }
     */
 
@@ -116,21 +86,6 @@ class ConducteursController extends Controller
     /*
     public function show(int $id)
     {
-        
-            IL SE PEUT QUE CETTE PARTIE SOIT ENLEVER À L'AVENIR PUISQUE INUTIL.
-
-        try
-        {
-            $conducteur = Conducteur::findOrFail($id);
-        }
-        catch (ModelNotFoundException $e){
-        }
-        catch(Throwable $e){
-            Log::error('Erreur innatendue : ' , [$e]);
-        }
-
-        return View("conducteurs.show", compact("conducteur"));
-        
 
     }
     */
@@ -140,36 +95,18 @@ class ConducteursController extends Controller
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
-     */
-    /*
+     *//*
     public function edit($id)
     {
-
-        if (Gate::allows('leConducteur', $id))
-        {
-            $conducteur = Conducteur::findOrFail($id);
-
-            return View('conducteurs.edit', compact('conducteur'));
-        }
-            
-        else if (Gate::forUser(auth()->guard('employe')->user())->allows('admin'))
-        {
-            $conducteur = Conducteur::findOrFail($id);
-
-            return View('conducteurs.editAdmin', compact('conducteur'));
-        } 
-        else
-            abort(403);
-
         
-    }
-    */
+    }*/
 
 
 
     /*
         Il n'y a pas de view retourné puisqu'elle est accéder par XMLHttpRequest.
 
+        Valeur retournée:
             -1  -> Erreur interne
              0  -> Accès refusé
              1  -> Accès authorisé
@@ -220,18 +157,11 @@ class ConducteursController extends Controller
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
-     */
+     *//*
     public function destroy($id)
     {
-    /*
-        try
-        {
-            $conducteur = Condcuteur::findOrFail($id);
 
-            //Si un conducteur a des fiches, on ne peut pas le supprimer
-        }
-    */
-    }
+    }*/
 
 
 }
