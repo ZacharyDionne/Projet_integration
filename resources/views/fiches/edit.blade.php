@@ -125,6 +125,10 @@ setlocale(LC_TIME, 'fr', 'fr_FR', 'fr_FR@euro', 'fr_FR.utf8', 'fr-FR', 'fra');
                                 <i class="fa fa-paper-plane fa-fw" aria-hidden="true"></i><span class="item-label">Compléter</span>
                             </button>
                         </div>
+                     @elseif ($demandeModification)
+                     <div class="d-flex justify-content-center">
+                        <button type="button" class="btn btn-warning font-tr w-50 ml-2">Demander une modification</button>
+                    </div>
                     @endif
                 </form>
 

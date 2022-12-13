@@ -292,9 +292,13 @@ class FichesController extends Controller
 
             //Quels droits aura l'utilisateur sur la fiche
             $peutModifier;
+            $demandeModification = false;
             if ($fiche->fini) {
                 if ($estLeConducteur)
+                {
                     $peutModifier = false;
+                    $demandeModification = true;
+                }
                 else if ($estLeConducteur === false) {
                     if ($estAdminOuContreMaitre)
                         $peutModifier = true;
@@ -317,10 +321,14 @@ class FichesController extends Controller
                 } else
                     return View('erreur');
             }
+
+
+            
+
         } catch (Throwable $e) {
             return View('erreur');
         }
-        return View('fiches.edit', compact('fiche', 'plagesDeTemps', 'typesTemps', 'peutModifier', 'conducteur'));
+        return View('fiches.edit', compact('fiche', 'plagesDeTemps', 'typesTemps', 'peutModifier', 'demandeModification', 'conducteur'));
     }
 
 
