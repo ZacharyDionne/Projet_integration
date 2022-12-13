@@ -20,7 +20,7 @@ class AlertesTableSeeder extends Seeder
             [
                 'type' => '0',
                 'conducteur_id' => 1,
-                'message' => 'Vous n\'avez pas eu au moins 24 heures de repos d\'affilée au cours des 14 derniers jours, veuillez contacter votre contremaître.',
+                'message' => '(Test) Vous n\'avez pas eu au moins 24 heures de repos d\'affilée au cours des 14 derniers jours, veuillez contacter votre contremaître.',
                 'actif' => '1',
                 'date' => '2021-01-01',
                 'idEmploye' => 0,
@@ -29,7 +29,7 @@ class AlertesTableSeeder extends Seeder
             [
                 'type' => '0',
                 'conducteur_id' => 1,
-                'message' => 'Le conducteur Jean Buteau n\'a pas eu au moins 24 heures de repos d\'affilée au cours des 14 derniers jours.',
+                'message' => '(Test) Le conducteur Jean Buteau n\'a pas eu au moins 24 heures de repos d\'affilée au cours des 14 derniers jours.',
                 'actif' => '1',
                 'date' => '2021-01-01',
                 'idEmploye' => 1,
