@@ -26,7 +26,8 @@
             reset = document.getElementById('reset'),
             pre = document.getElementsByClassName('pre-button'),
             next = document.getElementsByClassName('next-button');
-            
+            if (!pre[0])
+                return;
             pre[0].addEventListener('click', function(){that.preMonth(); });
             next[0].addEventListener('click', function(){that.nextMonth(); });
             reset.addEventListener('click', function(){that.reset(); });
@@ -51,6 +52,8 @@
             n = startDay;
 //     Clear old styles and dates
         for(var k = 0; k <42; k++) {
+            if (!days[k])
+                continue;
             days[k].innerHTML = '';
             days[k].id = '';
             days[k].removeAttribute('datejour');
@@ -60,6 +63,8 @@
         }
 
         for(var i  = 1; i <= nDays ; i++) {
+            if (!days[n])
+                continue;
             days[n].innerHTML = i;
             days[n].setAttribute('datejour', year + '-' + (month + 1) + '-' + i); 
             days[n].setAttribute('onclick', 'window.location = window.location.href + "/" + this.getAttribute("datejour")');
@@ -67,6 +72,8 @@
         }
         
         for(var j = 0; j < 42; j++) {
+            if (!days[j])
+                continue;
             if(days[j].innerHTML === ""){
                 
                 days[j].id = "disabled";

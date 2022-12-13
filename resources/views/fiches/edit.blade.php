@@ -94,6 +94,18 @@ setlocale(LC_TIME, 'fr', 'fr_FR', 'fr_FR@euro', 'fr_FR.utf8', 'fr-FR', 'fra');
 						</div>
 					</div>
 				</div>
+
+
+                <p id="erreurChevauche" class="text-danger font-weight-bold d-none">Des temps se chevauchent.</p>
+                <p id="erreurVide" class="text-danger font-weight-bold d-none">Des temps ne sont pas rempli.</p>
+                <p id="erreurTempsComplet" class="text-danger font-weight-bold d-none">Chaque plages de temps (de 00:00 à 23:59 ou 12h00 AM à 11h59 PM) doit être inclu.</p>
+                <p id="erreurTempsValide" class="text-danger font-weight-bold d-none">Un temps doit être par tranche de 15 minutes, à l'exception du dernier qui doit être 23:59 (ou 11h59 PM)</p>
+                    @foreach ($errors->all() as $error)
+                        <p class="text-danger font-weight-bold server-error">{{ $error }}</p>
+                    @endforeach
+
+
+
                 <form method="post" id="formModification" action="{{ route('fiches.update', [$fiche->conducteur_id]) }}">
                     @csrf
                     @method('patch')
@@ -116,13 +128,7 @@ setlocale(LC_TIME, 'fr', 'fr_FR', 'fr_FR@euro', 'fr_FR.utf8', 'fr-FR', 'fra');
                     @endif
                 </form>
 
-                <p id="erreurChevauche" class="text-danger d-none">Des temps se chevauchent.</p>
-                <p id="erreurVide" class="text-danger d-none">Des temps ne sont pas rempli.</p>
-                <p id="erreurTempsComplet" class="text-danger d-none">Chaque plages de temps (de 00:00 à 23:59) doit être inclu</p>
-                <p id="erreurTempsValide" class="text-danger d-none">Un temps doit être par tranche de 15 minutes, à l'exception du dernier qui doit être 23:59</p>
-                    @foreach ($errors->all() as $error)
-                        <p class="text-danger server-error">{{ $error }}</p>
-                    @endforeach
+
 
                 @if ($peutModifier)
                     <!-- Cette partie donne à Javascript le format pour une colonne d'une plage de temps -->

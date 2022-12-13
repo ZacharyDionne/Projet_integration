@@ -444,7 +444,7 @@ class FichesController extends Controller
                         return redirect()->back()->withErrors(["Un temps de fin était plus petit que son temps début"]);
 
                     if (strtotime($debutB) === strtotime('00:00:00'))
-                        return redirect()->back()->withErrors(["Des temps à '00:00' sont invalides"]);
+                        return redirect()->back()->withErrors(["Des temps à 00:00 (ou 12h00 AM) sont invalides"]);
 
                     if ($debutB === '' && (strtotime($finA) > strtotime($debutB)))
                         return redirect()->back()->withErrors(["Des temps se chevauchent"]);
@@ -466,7 +466,7 @@ class FichesController extends Controller
                 }
 
                 if ($totalTemps !== 86340)
-                    return redirect()->back()->withErrors(["Chaque plages de temps (de 00:00 à 23:59) doit être inclu"]);
+                    return redirect()->back()->withErrors(["Chaque plages de temps (de 00:00 à 23:59 ou 12h00 AM à 11h59 PM) doit être inclu."]);
             }
 
 
