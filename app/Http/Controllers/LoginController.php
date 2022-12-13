@@ -42,6 +42,15 @@ class LoginController extends Controller
         {
             if (Auth::attempt(["adresseCourriel" => $request->adresseCourriel, "password" => $request->motDePasse]))
             {
+                if (!Auth::user()->actif)
+                {
+                    Auth::logout();
+                    $request->session()->invalidate();
+                    $request->session()->regenerateToken();
+
+                    return back()->withErrors(["Le compte a été désactivé. Veuillez contacter vos responsables."]);
+                }
+
                 $request->session()->regenerate();
                 $request->session()->put('user_id', Auth::id());
                 $request->session()->put('user_name', Auth::user()->prenom . " " . Auth::user()->nom);
@@ -50,6 +59,16 @@ class LoginController extends Controller
             }
             else if (Auth::guard("employe")->attempt(["adresseCourriel" => $request->adresseCourriel, "password" => $request->motDePasse]))
             {
+                if (!Auth::guard("employe")->user()->actif)
+                {
+                    Auth::logout();
+                    $request->session()->invalidate();
+                    $request->session()->regenerateToken();
+
+                    return back()->withErrors(["Le compte a été désactivé. Veuillez contacter vos responsables."]);
+                }
+                    
+
                 $request->session()->regenerate();                
 
                 /*Redirection vers la bonne page*/
