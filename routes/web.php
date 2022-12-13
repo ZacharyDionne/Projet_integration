@@ -72,7 +72,7 @@ Route::patch("employes/{id}/update", [EmployesController::class, "update"])->nam
 /*  INDEX   */ 
 Route::get("/alertes", [AlertesController::class, "index"])->name("alertes.index");
 // UPDATE
-Route::patch("/alertes/{id}/{idUser}/update", [AlertesController::class, "update"])->name("alertes.update");
+Route::patch("/alertes/{id}/update", [AlertesController::class, "update"])->name("alertes.update");
 
 
 

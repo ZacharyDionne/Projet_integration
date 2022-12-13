@@ -110,19 +110,9 @@ class AlertesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id, $idUser)
+    public function update(Request $request, $id)
     {
-        /*
-            Contrôle d'accès
 
-            Autorise uniquement le conducteur concerné,
-            un administrateur ou un contre-maître.
-        */
-        $authorization = Filtre::estLUtilisateur($idUser);
-        if ($authorization === false)
-                abort(403);
-        else if ($authorization === null)
-                return View('erreur');
         
 
         $alerte = Alerte::find($id);

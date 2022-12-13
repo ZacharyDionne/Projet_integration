@@ -146,7 +146,7 @@ setlocale(LC_TIME, 'fr', 'fr_FR', 'fr_FR@euro', 'fr_FR.utf8', 'fr-FR', 'fra');
             var formData = new FormData(form);
             var xhr = new XMLHttpRequest();
             // Give id (alerte), idUser
-            xhr.open("POST", "/alertes/" + id + "/" + idUser + "/update");
+            xhr.open("POST", "/alertes/" + id + "/update");
 
             // Gestion du retour de la requête (load, error, loadend)
             xhr.addEventListener("load", function() {
