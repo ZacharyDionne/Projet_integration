@@ -100,7 +100,7 @@ setlocale(LC_TIME, 'fr', 'fr_FR', 'fr_FR@euro', 'fr_FR.utf8', 'fr-FR', 'fra');
                         <h6 class="heading-sectionsmall text-left list-title float-left">Commentaire(s)</h6>
                         <input type="hidden" id="plagesDeTemps" name="plagesDeTemps">
                         <input type="hidden" name="fiche_id" value="{{ $fiche->id }}">
-                        <textarea id="observation" rows="4" class="w-100" name="observation">{{ $fiche->observation }}</textarea>                    
+                        <textarea id="observation" rows="4" class="w-100" name="observation" @disabled(!$peutModifier)>{{ $fiche->observation }}</textarea>                    
                         <input type="hidden" id="fini" name="fini" value="0">
                     </div>
                     @if ($peutModifier)
