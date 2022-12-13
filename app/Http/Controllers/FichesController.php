@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Http\Controllers;
 
 
@@ -158,26 +159,44 @@ class FichesController extends Controller
         // Calcul des heures de conduite
         $totalHeures = $totalHeures / 3600;
         $totalHeuresRepos = $totalHeuresRepos / 3600;
+        $totalHeures7DerniersJours = $totalHeures7DerniersJours / 3600;
 
         $totalHeures = round($totalHeures, 2);
         $totalHeuresRepos = round($totalHeuresRepos, 2);
+        $totalHeures7DerniersJours = round($totalHeures7DerniersJours, 2);
 
-        // if the minutes are less than 10, we add a 0 before the number
         $totalHeures = floor($totalHeures) . ":" . str_pad(round(($totalHeures - floor($totalHeures)) * 60), 2, 0, STR_PAD_LEFT);
         $totalHeuresRepos = floor($totalHeuresRepos) . ":" . str_pad(round(($totalHeuresRepos - floor($totalHeuresRepos)) * 60), 2, 0, STR_PAD_LEFT);
 
-        // If the total hours is less than 7, we add a 0 before the number
+        $totalHeures7DerniersJours = floor($totalHeures7DerniersJours);
+
         if (strlen($totalHeures) < 5)
             $totalHeures = "0" . $totalHeures;
         if (strlen($totalHeuresRepos) < 5)
             $totalHeuresRepos = "0" . $totalHeuresRepos;
 
-        // Si il n'y a que un chiffre apres le ":", c'est que
-
 
         // Vérification si le conducteur a exécdé le nombre d'heures de conduite (70h/semaine)
-        if ($totalHeures7DerniersJours > 70 * 3600) {
-            $alerte = Alerte::where('conducteur_id', $id)->where('type', 1)->where('message', 'like', 'Le conducteur ' . $c->prenom . ' ' . $c->nom . ' a dépassé le nombre d\'heures de conduite autorisées.')->first();
+        Log::info($totalHeures7DerniersJours);
+        if ($totalHeures7DerniersJours >= 70) {
+
+            // Alerte pour le conducteur
+            $alerte = Alerte::where('conducteur_id', $id)->where('type', 0)->where('message', 'like', 'Vous avez dépassé le nombre d\'heures de conduite autorisées, veuillez contacter votre contre-maître.')->first();
+
+            Log::info($alerte);
+            if (!$alerte) {
+                $alerte = new Alerte();
+                $alerte->type = 0;
+                $alerte->conducteur_id = $id;
+                $alerte->message = "Vous avez dépassé le nombre d'heures de conduite autorisées, veuillez contacter votre contre-maître.";
+                $alerte->actif = 1;
+                $alerte->date = date("Y-m-d");
+                $alerte->idEmploye = 0;
+                $alerte->save();
+            }
+
+            // Alerte pour le contre-maître
+            $alerte = Alerte::where('conducteur_id', $id)->where('type', 0)->where('message', 'like', 'Le conducteur ' . $c->prenom . ' ' . $c->nom . ' a dépassé le nombre d\'heures de conduite autorisées.')->first();
 
             if (!$alerte) {
                 $alerte = new Alerte();
@@ -254,14 +273,12 @@ class FichesController extends Controller
                 abort(403);
             else if ($estAdminOuContreMaitre === null)
                 return View('erreur');
-        }
-        else if ($estLeConducteur === null)
+        } else if ($estLeConducteur === null)
             return View('erreur');
 
 
 
-        try
-        {
+        try {
             $fiche = Fiche::where('date', $date)->where('conducteur_id', $id)->first();
             $conducteur = Conducteur::where('id', $id)->first();
 
@@ -275,42 +292,31 @@ class FichesController extends Controller
 
             //Quels droits aura l'utilisateur sur la fiche
             $peutModifier;
-            if ($fiche->fini)
-            {
+            if ($fiche->fini) {
                 if ($estLeConducteur)
                     $peutModifier = false;
-                else if ($estLeConducteur === false)
-                {
+                else if ($estLeConducteur === false) {
                     if ($estAdminOuContreMaitre)
                         $peutModifier = true;
                     else if ($estAdminOuContreMaitre === false)
                         abort(403);
                     else
                         return View('erreur');
-                }
-                else
+                } else
                     return View('erreur');
-            }
-            else
-            {
+            } else {
                 if ($estLeConducteur)
                     $peutModifier = true;
-                else if ($estLeConducteur === false)
-                {
+                else if ($estLeConducteur === false) {
                     if ($estAdminOuContreMaitre)
                         $peutModifier = false;
                     else if ($estAdminOuContreMaitre === false)
                         abort(403);
                     else
                         return View('erreur');
-                }
-                else
+                } else
                     return View('erreur');
             }
-
-
-
-
         } catch (Throwable $e) {
             return View('erreur');
         }
@@ -350,25 +356,20 @@ class FichesController extends Controller
             $estAdminOuContreMaitre = Filtre::estAdminOuContreMaitre();
 
             //Gestion d'accès habituel
-            if ($estLeConducteur === false)
-            {
+            if ($estLeConducteur === false) {
                 if ($estAdminOuContreMaitre === false)
                     abort(403);
                 else if ($estAdminOuContreMaitre === null)
                     return View('erreur');
-            }
-            else if ($estLeConducteur === null)
+            } else if ($estLeConducteur === null)
                 return View('erreur');
 
 
             //Accès de modification de la fiche
-            if ($fiche->fini)
-            {
+            if ($fiche->fini) {
                 if ($estLeConducteur)
                     return back()->withErrors(["Il ne vous est pas autorisé de modifier une fiche complétée."]);
-            }
-            else
-            {
+            } else {
                 if ($estAdminOuContreMaitre)
                     return back()->withErrors(["Il ne vous est pas autorisé de modifier une fiche complétée."]);
             }
@@ -406,8 +407,7 @@ class FichesController extends Controller
 
 
             //validation du format du temps
-            for ($i = 0; $i < count($plagesDeTemps); $i++)
-            {
+            for ($i = 0; $i < count($plagesDeTemps); $i++) {
                 $plageDeTemps = $plagesDeTemps[$i];
                 $regexTemps = "/^([0-1][0-9]|2[0-3]):(00|15|30|45|59)(:00)?$/";
 
@@ -416,11 +416,11 @@ class FichesController extends Controller
                     $plageDeTemps->heureDebut = '00:00:00';
 
                 if (!isset($plageDeTemps->heureFin) || $plageDeTemps->heureFin == '')
-                    $plageDeTemps->heureFin = '00:00:00';                
+                    $plageDeTemps->heureFin = '00:00:00';
 
                 if (
-                    !preg_match( $regexTemps, $plageDeTemps->heureDebut) ||
-                    !preg_match( $regexTemps, $plageDeTemps->heureFin)
+                    !preg_match($regexTemps, $plageDeTemps->heureDebut) ||
+                    !preg_match($regexTemps, $plageDeTemps->heureFin)
                 )
                     return redirect()->back()->withErrors(["Des temps sont invalides."]);
             }
@@ -428,8 +428,7 @@ class FichesController extends Controller
 
 
 
-            if ($request->fini == 1)
-            {
+            if ($request->fini == 1) {
 
                 //validation des contraintes du temps
                 for ($i = 0; $i < count($plagesDeTemps); $i++) {

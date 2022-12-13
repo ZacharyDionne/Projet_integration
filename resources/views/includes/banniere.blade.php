@@ -69,7 +69,7 @@
             @else
             <div class="position-relative">
                 <i class="fa fa-bell position-relative" width="50" height="50" class="d-inline-block align-center" aria-hidden="true"></i>
-                <div class="icon-badge">{{ $nbAlertes }}</div>
+                <div class="icon-badge" id="nbAlertes">{{ $nbAlertes }}</div>
             </div>
             <span class="ml-2">Notifications</span>
             @endif

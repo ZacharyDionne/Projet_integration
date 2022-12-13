@@ -119,8 +119,8 @@ setlocale(LC_TIME, 'fr', 'fr_FR', 'fr_FR@euro', 'fr_FR.utf8', 'fr-FR', 'fra');
         // Get id user in a variable using php
         @php
         try {
-            $conducteur = auth() -> user();
-            $employe = auth() -> guard('employe') -> user();
+            $conducteur = auth()->user();
+            $employe = auth()->guard('employe')->user();
         } catch (Throwable $e) {
             $conducteur = null;
             $employe = null;
@@ -128,9 +128,9 @@ setlocale(LC_TIME, 'fr', 'fr_FR', 'fr_FR@euro', 'fr_FR.utf8', 'fr-FR', 'fra');
         @endphp
 
         @if($conducteur)
-        var idUser = {{ $conducteur -> id }};
+        var idUser = {{ $conducteur->id }};
         @elseif($employe)
-        var idUser = {{ $employe -> id }};
+        var idUser = {{ $employe->id }};
         @endif
 
         // Get id alerte in a variable
@@ -152,15 +152,14 @@ setlocale(LC_TIME, 'fr', 'fr_FR', 'fr_FR@euro', 'fr_FR.utf8', 'fr-FR', 'fra');
             xhr.addEventListener("load", function() {
                 if (xhr.status === 200) {
                     // Success
-                    console.log("ok");
-
                     var alerte = document.getElementById(id);
                     alerte.classList.remove("alert-danger");
                     alerte.classList.add("alert-dark");
+
+                    var nbAlertes = document.getElementById("nbAlertes");
+                    nbAlertes.innerHTML = parseInt(nbAlertes.innerHTML) - 1;
                 } else {
                     // Error
-                    console.log("Refused");
-
                     // Remove d-none class
                     button.classList.remove("d-none");
 
@@ -173,10 +172,7 @@ setlocale(LC_TIME, 'fr', 'fr_FR', 'fr_FR@euro', 'fr_FR.utf8', 'fr-FR', 'fra');
 
             xhr.addEventListener("error", function() {
                 // Error
-                console.log("Error");
-
                 button.classList.remove("d-none");
-
 
                 var alerte = UI.createAlerte();
                 // put on the parent of the button
@@ -185,8 +181,6 @@ setlocale(LC_TIME, 'fr', 'fr_FR', 'fr_FR@euro', 'fr_FR.utf8', 'fr-FR', 'fra');
 
             xhr.addEventListener("loadend", function() {
                 // Always
-                console.log("End");
-
                 // Remove spinner
                 spinner.remove();
             });
