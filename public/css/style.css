@@ -258,7 +258,7 @@
   } */
   
   .topnav a span {
-    font-size: 0.70em;
+    font-size: 0.50em;
     display: block;
   }
 
@@ -277,8 +277,8 @@
   }
 
   .navbar {
-    align-items: flex-end !important;
-    justify-content: space-evenly !important;
+    align-items: center !important;
+    justify-content: space-around !important;
     height: 48px !important;
   }
 
