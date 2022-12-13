@@ -88,11 +88,12 @@
   color: #fff;
   padding: 5px;
   border-radius: 5px;
-  background: -webkit-linear-gradient(90deg, #0f7181, #128799);
+  background: -webkit-linear-gradient(180deg, #004898, #0079c1) !important;
+  box-shadow: 0px 19px 27px -20px rgb(0 0 0 / 50%);
 }
 
 .button-list:hover {
-  background: -webkit-linear-gradient(90deg, #0a4f5a, #0c6370);
+  background: -webkit-linear-gradient(90deg, #003572, #006199) !important;
   color: #fff;
 }
 
