@@ -18,14 +18,15 @@
             $alertes = App\Models\Alerte::where('conducteur_id', $conducteur->id)->where('idEmploye', 0)->where('actif', 1)->get();
             $nbAlertes = count($alertes);
         }
-        else if ($employe)
+        else if ($employe->id === 1)
         {
-            $alertes = App\Models\Alerte::where('idEmploye', $employe->id)->where('actif', 1)->get();
+            $alertes = App\Models\Alerte::where('idEmploye', 1)->where('actif', 1)->get();
             $nbAlertes = count($alertes);
         }
-        else
+        else if ($employe->id === 2)
         {
-            $nbAlertes = 0;
+            $alertes = App\Models\Alerte::where('idEmploye', 1)->where('actif', 1)->get();
+            $nbAlertes = count($alertes);
         }
     }
     catch (Throwable $e)
