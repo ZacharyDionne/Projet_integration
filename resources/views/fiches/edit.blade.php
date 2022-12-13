@@ -8,6 +8,7 @@ setlocale(LC_TIME, 'fr', 'fr_FR', 'fr_FR@euro', 'fr_FR.utf8', 'fr-FR', 'fra');
 @section('cssSupplementaire')
 <link rel="stylesheet" href="{{ asset('css/styleTable.css') }}">
 <link rel="icon" type="image/png" href="{{ asset('images/icons/favicon.ico') }}" />
+<link rel="stylesheet" href="{{ asset('css/fiches/edit.css') }}">
 <script type="module" src="{{ asset('js/fiches/edit.js') }}" defer></script>
 @endsection
 

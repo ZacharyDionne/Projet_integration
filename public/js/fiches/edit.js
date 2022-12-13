@@ -8,6 +8,9 @@ let fini = document.getElementById("fini");
 
 const SELECT_ALL = document.getElementById("selectAll");
 
+const NO_ERROR_COLOR = "#ffffff";
+const ERROR_COLOR = "#ff9c9c";
+
 const BOUTON_FINI = document.getElementById("boutonTerminer");
 const BOUTON_ENREGISTRER = document.getElementById("boutonEnregistrer");
 const BOUTON_AJOUTER = document.getElementById("boutonAjouter");
@@ -202,7 +205,7 @@ function valider(e = null)
         retrier(rows);
     else
     {
-        e.target.classList.remove("bg-warning");
+        e.target.style.backgroundColor = NO_ERROR_COLOR;
 
 
 
@@ -225,8 +228,8 @@ function valider(e = null)
     for (let i = 0; i < rows.length; i++)
     {
         let times = rows[i].querySelectorAll("input[type='time']");
-        times[0].classList.remove("bg-warning");
-        times[1].classList.remove("bg-warning");
+        times[0].style.backgroundColor = NO_ERROR_COLOR;
+        times[1].style.backgroundColor = NO_ERROR_COLOR;
     }
 
     
