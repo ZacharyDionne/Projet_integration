@@ -1,5 +1,21 @@
 @extends('layouts.app')
 
+@php
+
+try
+{
+    $conducteur = auth()->user();
+    $employe = auth()->guard('employe')->user();
+}
+catch (Throwable $e)
+{
+    $conducteur = null;
+    $employe = null;
+}
+
+@endphp
+
+
 @section('titre', 'Conducteurs')
 
 @section('cssSupplementaire')
@@ -35,7 +51,9 @@
 													<th class="font-tr">NOM</th>
 													<th class="font-tr">MATRICULE</th>
 													<th class="font-tr">ADRESSE COURRIEL</th>
+													@if ($employe && $employe->id === 2)
 													<th class="font-tr">ACTIF</th>
+													@endif
 													<th></th>
 												</tr>
 											</thead>
@@ -46,7 +64,8 @@
 															<td class="font-rg">{{ $conducteur->prenom }}, {{ $conducteur->nom }}</td>
 															<td class="font-rg">{{ $conducteur->matricule }}</td>
 															<td class="font-rg">{{ $conducteur->adresseCourriel }}</td>
-															<td class="font-rg">
+																@if ($employe && $employe->id === 2)
+																<td class="font-rg">
 																<form class="d-flex align-items-center" conducteur="{{ $conducteur->id }}">
 																	@csrf
 																	@method("patch")
@@ -54,7 +73,8 @@
 																		<input type="checkbox" class="form-check-input xmlCheckbox" role="switch" id="actif" name="actif" @checked($conducteur->actif)>
 																	</div>
 																</form>
-															</td>
+																</td>
+																@endif
 															<td>
 																<a type="button" title="Fiches" class="button button-list" href="{{ route('fiches.index', $conducteur->id) }}">
 																	<i class="fa fa-list" aria-hidden="true"></i>
