@@ -35,9 +35,9 @@ class AlertesController extends Controller
             else if ($employe)
             {
                 if ($employe->type_id == 1)
-                    $alertes = Alerte::where('idEmploye', $employe->id)->where('conducteur_id', '!=', 0)->orderBy('date', 'desc')->get();
+                    $alertes = Alerte::where('idEmploye', '!=', 0)->orderBy('date', 'desc')->get();
                 else if ($employe->type_id == 2)
-                    $alertes = Alerte::where('conducteur_id', '!=', 0)->orderBy('date', 'desc')->get();
+                    $alertes = Alerte::where('idEmploye', '!=', 0)->orderBy('date', 'desc')->get();
                 else
                 {
                     Log::error("AlertesController.index: l'utilisateur n'est pas un contre-maître ou un administrateur");
