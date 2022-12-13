@@ -1,7 +1,11 @@
 <?php
     namespace App\Http\Modules;
 
+
+    use Illuminate\Support\Facades\Log;
+
     use Throwable;
+
 
     /*
         Fait l'équivalent des Gates Laravel, mais retourne null si
@@ -102,7 +106,7 @@
             return true;
         }
 
-public function estLUtilisateur($id)
+public static function estLUtilisateur($id)
 {
     try
     {
@@ -113,32 +117,32 @@ public function estLUtilisateur($id)
     {
         return null;
     }
-
+    Log::debug("1");
     if ($utilisateur)
     {
         if ($utilisateur->id == $id)
-        return true;
+            return true;
         return false;
     }
 
-
+    Log::debug("2");
     try
-            {
-                $utilisateur = auth()->guard('employe')->user();
-            }
-            //impossible de vérifier les prévilèges de l'utilisateur
-            catch (Throwable $e)
-            {
-                return null;
-            }
-
+    {
+        $utilisateur = auth()->guard('employe')->user();
+    }
+    //impossible de vérifier les prévilèges de l'utilisateur
+    catch (Throwable $e)
+    {
+        return null;
+    }
+    Log::debug("3");
     if ($utilisateur)
     {
         if ($utilisateur->id == $id)
-        return true;
+            return true;
         return false;
     }
-
+    Log::debug("4");
     return false;
 
     }
