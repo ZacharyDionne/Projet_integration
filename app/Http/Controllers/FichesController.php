@@ -155,8 +155,25 @@ class FichesController extends Controller
             return View('erreur');
         }
 
-        $totalHeures = gmdate("H:i", $totalHeures);
-        $totalHeuresRepos = gmdate("H:i", $totalHeuresRepos);
+        // Calcul des heures de conduite
+        $totalHeures = $totalHeures / 3600;
+        $totalHeuresRepos = $totalHeuresRepos / 3600;
+
+        $totalHeures = round($totalHeures, 2);
+        $totalHeuresRepos = round($totalHeuresRepos, 2);
+
+        // if the minutes are less than 10, we add a 0 before the number
+        $totalHeures = floor($totalHeures) . ":" . str_pad(round(($totalHeures - floor($totalHeures)) * 60), 2, 0, STR_PAD_LEFT);
+        $totalHeuresRepos = floor($totalHeuresRepos) . ":" . str_pad(round(($totalHeuresRepos - floor($totalHeuresRepos)) * 60), 2, 0, STR_PAD_LEFT);
+
+        // If the total hours is less than 7, we add a 0 before the number
+        if (strlen($totalHeures) < 5)
+            $totalHeures = "0" . $totalHeures;
+        if (strlen($totalHeuresRepos) < 5)
+            $totalHeuresRepos = "0" . $totalHeuresRepos;
+
+        // Si il n'y a que un chiffre apres le ":", c'est que
+
 
         // Vérification si le conducteur a exécdé le nombre d'heures de conduite (70h/semaine)
         if ($totalHeures7DerniersJours > 70 * 3600) {
