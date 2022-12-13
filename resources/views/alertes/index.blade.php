@@ -38,12 +38,14 @@ setlocale(LC_TIME, 'fr', 'fr_FR', 'fr_FR@euro', 'fr_FR.utf8', 'fr-FR', 'fra');
                 <div class="alert alert-danger alert-dismissible fade show" role="alert" id="{{ $alerte->id }}">
                     <strong>Alerte!</strong></br>
                     {{ $alerte->message }}
+                    <p class="text-muted mb-0">{{ \Carbon\Carbon::parse($alerte->date)->locale('fr')->isoFormat('dddd D MMMM YYYY') }}</p>
                     <button type="button" class="btn-close" aria-label="Close"></button>
                 </div>
                 @elseif ($alerte->type == 1)
                 <div class="alert alert-warning alert-dismissible fade show" role="alert" id="{{ $alerte->id }}">
                     <strong>Alerte!</strong></br>
                     {{ $alerte->message }}
+                    <p class="text-muted mb-0">{{ \Carbon\Carbon::parse($alerte->date)->locale('fr')->isoFormat('dddd D MMMM YYYY') }}</p>
                     <button type="button" class="btn-close" aria-label="Close"></button>
                 </div>
                 @elseif ($alerte->type == 2)
@@ -79,7 +81,7 @@ setlocale(LC_TIME, 'fr', 'fr_FR', 'fr_FR@euro', 'fr_FR.utf8', 'fr-FR', 'fra');
                 @endphp
                 <div class="alert alert-dark fade show" role="alert" id="{{ $alerte->id }}">
                     {{ $alerte->message }}
-                    <p class="text-muted mb-0">{{ strftime('%A %d %B %Y', strtotime($alerte->date)) }}</p>
+                    <p class="text-muted mb-0">{{ \Carbon\Carbon::parse($alerte->date)->locale('fr')->isoFormat('dddd D MMMM YYYY') }}</p>
                 </div>
                 @endif
                 @endforeach
