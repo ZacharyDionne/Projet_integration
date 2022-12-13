@@ -208,15 +208,12 @@ function valider(e = null)
 
         //Cacher les erreurs serveur une fois que l'utilisateur commence à modifier
         let serverErrors = document.getElementsByClassName("server-error");
-        console.dir(serverErrors);
         if (serverErrors && serverErrors.length > 0)
         {
             serverErrors = Array.from(serverErrors);
-            console.dir(serverErrors);
             for (let i = 0; i < serverErrors.length; i++)
             {
                 let serverError = serverErrors[i];
-                console.log(serverError);
                 serverError.classList.add("d-none");
             }
         } 

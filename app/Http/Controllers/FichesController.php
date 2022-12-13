@@ -387,8 +387,10 @@ class FichesController extends Controller
                     if ($finA < $debutA)
                         return redirect()->back()->withErrors(["Un temps de fin était plus petit que son temps début"]);
 
+                    if (strtotime($debutB) === strtotime('00:00:00'))
+                        return redirect()->back()->withErrors(["Des temps à '00:00' sont invalides"]);
 
-                    if ($debutB && (strtotime($finA) > strtotime($debutB)))
+                    if ($debutB === '' && (strtotime($finA) > strtotime($debutB)))
                         return redirect()->back()->withErrors(["Des temps se chevauchent"]);
                 }
 
