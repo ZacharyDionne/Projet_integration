@@ -190,11 +190,7 @@ class FichesController extends Controller
     /*
     public function create()
     {
-        $conducteurs  = Conducteur::orderBy('id')->get();
-        //$plageDeTemps = PlageDeTemps::orderBy('fiche_id')->get();
-        //$typeTemps    = TypeTemps::orderBy ('')
 
-        return View('fiches.create', compact('conducteurs'), compact('plageDeTemps'));   
     }
     */
 
@@ -207,7 +203,7 @@ class FichesController extends Controller
     /*
     public function store(FicheRequest $request)
     {
-        //Utilise le Edit et le show;
+
     }
     */
 
@@ -268,8 +264,46 @@ class FichesController extends Controller
 
 
 
+            //Quels droits aura l'utilisateur sur la fiche
+            $peutModifier;
+            $estLeConducteur = Filtre::estLeConducteur($id);
+            $estAdminOuContreMaitre = Filtre::estAdminOuContreMaitre();
+            if ($fiche->fini)
+            {
+                if ($estLeConducteur)
+                    $peutModifier = false;
+                else if ($estLeConducteur === false)
+                {
+                    if ($estAdminOuContreMaitre)
+                        $peutModifier = true;
+                    else if ($estAdminOuContreMaitre === false)
+                        abort(403);
+                    else
+                        return View('erreur');
+                }
+                else
+                    return View('erreur');
+            }
+            else
+            {
+                if ($estLeConducteur)
+                    $peutModifier = true;
+                else if ($estLeConducteur === false)
+                {
+                    if ($estAdminOuContreMaitre)
+                        $peutModifier = false;
+                    else if ($estAdminOuContreMaitre === false)
+                        abort(403);
+                    else
+                        return View('erreur');
+                }
+                else
+                    return View('erreur');
+            }
 
-            $peutModifier = !$fiche->fini;
+
+
+
         } catch (Throwable $e) {
             return View('erreur');
         }
@@ -286,38 +320,54 @@ class FichesController extends Controller
      */
     public function update(Request $request, $id)
     {
-        /*
-            Gestion d'accès
-
-            Autorise seulement le conducteur concerné,
-            un administrateur ou un contre-maître.
-
-            La modification d'une fiche complétée est interdit.
-        
-            À l'avenir, il faudrait il faudra autoriser uniquement le conducteur
-            à modifier une fiche non complété et à un contre-maître ayant le
-            droit exceptionnel de modification suite  à une requête du conducteur.
-        */
-        $authorization = Filtre::estLeConducteur($id);
-        if ($authorization === false) {
-            $authorization = Filtre::estAdminOuContreMaitre();
-            if ($authorization === false)
-                abort(403);
-            else if ($authorization === null)
-                return View('erreur');
-        } else if ($authorization === null)
-            return View('erreur');
-
-
         try {
             $plagesDeTemps = json_decode($request->plagesDeTemps);
             $fiche = Fiche::where('id', $request->fiche_id)->first();
 
 
 
-            //Validation : interdire la modification d'une fiche complétée
+            /*
+                Gestion d'accès
+
+                Autorise seulement le conducteur concerné,
+                un administrateur ou un contre-maître.
+
+                La modification d'une fiche complétée est interdit pour un conducteur
+
+                La modification d'une fiche incomplète est interdit pour les admin ou les contres-maîtres
+            
+                À l'avenir, il faudrait il autoriser un contre-maître ayant le
+                droit exceptionnel de modification suite à une requête du conducteur.
+            */
+            $estLeConducteur = Filtre::estLeConducteur($id);
+            $estAdminOuContreMaitre = Filtre::estAdminOuContreMaitre();
+
+            //Gestion d'accès habituel
+            if ($estLeConducteur === false)
+            {
+                if ($estAdminOuContreMaitre === false)
+                    abort(403);
+                else if ($estAdminOuContreMaitre === null)
+                    return View('erreur');
+            }
+            else if ($estLeConducteur === null)
+                return View('erreur');
+
+
+            //Accès de modification de la fiche
             if ($fiche->fini)
-                return redirect()->back()->withErrors(["Il est interdit de modifier une fiche complétée"]);
+            {
+                if ($estLeConducteur)
+                    return back()->withErrors(["Il ne vous est pas autorisé de modifier une fiche complétée."]);
+            }
+            else
+            {
+                if ($estAdminOuContreMaitre)
+                    return back()->withErrors(["Il ne vous est pas autorisé de modifier une fiche complétée."]);
+            }
+
+
+
 
 
 
